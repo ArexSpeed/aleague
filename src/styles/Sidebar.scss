@@ -1,0 +1,37 @@
+.sidebar {
+  height: 100vh;
+  width: 150px;
+  background-color: #fff;
+  grid-column-start: 1;
+  grid-row-start: 1;
+  overflow-y: scroll;
+  border-top: 2px solid #a2fa92;
+  border-right: 2px solid #a2fa92;
+
+  header{
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    text-transform: uppercase;
+  }
+  @media screen and (max-width: 768px){
+    display: flex;
+    flex-direction: row;
+    overflow-x: scroll;
+    width: 100%;
+    height: 250px;
+    header{
+      writing-mode: vertical-rl;
+      text-orientation: upright;
+      background: #a2fa92;
+      height: 100%;
+    }
+    ul{
+      height: auto;
+      display: flex;
+      flex-direction: row;;
+    }
+  }
+}

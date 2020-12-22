@@ -1,0 +1,47 @@
+$primary:    #a2fa92;
+$secondary: #2b9cdc;
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 10px;
+}
+.sectionLine {
+  width: 200px;
+  height: 40px;
+  display: flex;
+  border: none;
+  position: relative;
+  &::before{
+  position: absolute;
+  content: "";
+  top: 30%;
+  left: -10%;
+  width: 110%;
+  height: 100%;
+  // background: $primary;
+  border-bottom: 5px solid $primary;
+  border-right: 5px solid $primary;
+  transform: skewX(-25deg);
+  z-index: -1;
+  }
+  &::after{
+  position: absolute;
+  content: "";
+  bottom: 60%;
+  left: 205px;
+  width: 100vw;
+  height: 5px;
+  background: linear-gradient(45deg, $primary 0%, $secondary 50%);
+  transform: skewX(-25deg);
+  z-index: -2;
+  }
+  &__title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size:25px;
+    margin: auto;
+  }
+}

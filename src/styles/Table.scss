@@ -1,0 +1,88 @@
+$primary:  #a2fa92;
+$secondary: #2b9cdc;
+$lastary: rgb(221, 63, 23);
+
+.table{
+  width: 90%;
+  height: auto;
+  margin-top: 15px;
+  border-collapse: separate; 
+  border-spacing: 0 5px;
+}
+tr{
+  border: none;
+  margin: 10px 0;
+  transition: 0.3s ease-in;
+  &:hover{
+    transform: scale(1.1)
+  }
+}
+
+th, td{
+  text-align: center;
+  background: inherit;
+  position: relative;
+  margin: 20px;
+  //border: 1px solid red;
+  &::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: white;
+    box-shadow: 0 0 1px $secondary;
+    transform: skewX(-25deg);
+    z-index: -1;
+   
+  }
+}
+tr:nth-child(2) .td__poz::before{
+  background: $primary;
+}
+td{
+  &:nth-child(5){
+    color: green;
+  }
+  &:nth-child(7){
+    color: red;
+  }
+}
+.td{
+  &__poz{
+    background: inherit;
+    position: relative;
+    &::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: #fff;
+    transform: skewX(-25deg);
+    z-index: -1;
+    }
+  }
+  &__club{
+    background: inherit;
+    position: relative;
+    font-weight: bold;
+    color: #fff;
+    &::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: $secondary;
+    transform: skewX(-25deg);
+    z-index: -1;
+    }
+  }
+  &__points{
+    font-weight: bold;
+  }
+}

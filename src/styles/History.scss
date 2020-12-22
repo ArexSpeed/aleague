@@ -1,0 +1,28 @@
+.tr__motion{
+  top: 0;
+  transform: translateX(-100%);
+  animation: animate 2s;
+  animation-fill-mode: forwards;
+}
+.tr__motionb{
+  top: 0;
+  transform: translateX(-100%);
+  animation: animate2 2s;
+  animation-fill-mode: forwards;
+}
+@keyframes animate{
+  0%{
+    transform: translateX(-100%);
+  }
+  100%{
+    transform: translateX(0px);
+  }
+}
+@keyframes animate2{
+  0%{
+    transform: translateX(-100%);
+  }
+  100%{
+    transform: translateX(0px);
+  }
+}

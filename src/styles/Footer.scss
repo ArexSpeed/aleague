@@ -1,0 +1,115 @@
+$primary:  #a2fa92;
+$secondary: #2b9cdc;
+
+.footer{
+  &__container{
+    background-color: $primary;
+  }
+  &__wrap{
+    padding: 48px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 1100px;
+  margin: 0 auto;
+  }
+  &__linksContainer{
+    display: flex;
+  justify-content: center;
+
+  @media screen and (max-width: 820px){
+    padding-top: 32px;
+  }
+  }
+  &__linksWrapper{
+    display: flex;
+    justify-content: flex-start;
+  }
+  &__linksItem{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 16px;
+  text-align: left;
+  width: 160px;
+  box-sizing: border-box;
+  color: #000;
+ 
+
+  @media screen and (max-width: 420px){
+    margin: 0;
+    padding: 10px;
+    width: 100%;
+  }
+  }
+  &__linksTitle{
+    font-size: 18px;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-bottom: 2px solid $secondary;
+  }
+  &__link{
+    color: #333;
+  text-decoration: none;
+  margin-bottom: 0.5rem;
+  font-size: 14px;
+
+  &:hover{
+    color: $secondary;
+    transition: 0.3s ease-out;
+  }
+  }
+}
+.socialMedia{
+  width: 100%;
+  background: $secondary;
+
+  &__wrap{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1100px;
+
+  @media screen and (max-width: 820px){
+    flex-direction: column;
+  }
+  }
+  &__link{
+    color: #fff;
+    justify-self: start;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+    font-weight: bold;
+
+  }
+  &__logo{
+    color: #fff;
+  justify-self: start;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+  font-weight: bold;
+  }
+  &__rights{
+    color: #fff;
+    margin-bottom: 16px;
+  }
+  &__icons{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  }
+  &__iconLink{
+    color: #fff;
+    font-size: 20px;
+    padding: 10px;
+  }
+}
