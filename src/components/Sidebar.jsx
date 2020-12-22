@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import "../styles/Sidebar.scss";
 
 const Sidebar = () => {
-  const teamsSide = teams.map((team) => (
+  const teamsSite = teams.map((team) => (
     <li key={team.id}>
       <Link to={`/team/${team.site}`}>{team.name}</Link>
     </li>
@@ -14,7 +14,7 @@ const Sidebar = () => {
   return (
     <div className="sidebar">
       <header>Teams</header>
-      <ul>{teamsSide}</ul>
+      <ul>{teamsSite}</ul>
     </div>
   );
 };
