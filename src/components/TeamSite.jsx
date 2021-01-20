@@ -4,10 +4,11 @@ import { BsFillStarFill } from "react-icons/bs";
 import { teams } from "../data/teams";
 import { oldTables } from "../data/table";
 import { scores } from "../data/matches";
+import axios from 'axios'
 
 import "../styles/TeamSite.scss";
 
-function TeamSite(props) {
+const TeamSite = (props) => {
   console.log(props.match.params.team);
   const teamName = props.match.params.team;
   let teamTitle = "";

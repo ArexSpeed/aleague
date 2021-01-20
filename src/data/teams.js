@@ -5,32 +5,16 @@ export const teams = [
     site: "vt",
     short_name: "VTG",
     logo: "VT",
-    players: [
-      {
-        name: 'Arex Speed',
-        nr: 9,
-        stats: {
-          goals: 10,
-          assist: 10,
-          match_playes: 5,
-          min_playes: 450,
-          yellow_card: 0,
-          red_card: 0
-        }
-      }
-    ],
-    table: 
-      {
-        match: 5,
-        win: 5,
-        draw: 0,
-        lost: 0,
-        goal_plus: 10,
-        goal_minus: 3,
-        bilans: 7,
-        points: 15,
-      },
-    
+    table: {
+      match: 5,
+      win: 5,
+      draw: 0,
+      lost: 0,
+      goal_plus: 10,
+      goal_minus: 3,
+      bilans: 7,
+      points: 15,
+    },
   },
   {
     id: 2,
@@ -38,18 +22,16 @@ export const teams = [
     site: "vdk",
     short_name: "VDK",
     logo: "VDK",
-    table: 
-      {
-        match: 5,
-        win: 5,
-        draw: 0,
-        lost: 0,
-        goal_plus: 10,
-        goal_minus: 3,
-        bilans: 7,
-        points: 15,
-      },
-    
+    table: {
+      match: 5,
+      win: 5,
+      draw: 0,
+      lost: 0,
+      goal_plus: 10,
+      goal_minus: 3,
+      bilans: 7,
+      points: 15,
+    },
   },
   {
     id: 3,
@@ -57,18 +39,16 @@ export const teams = [
     site: "fox",
     short_name: "TFX",
     logo: "TFX",
-    table: 
-      {
-        match: 5,
-        win: 5,
-        draw: 0,
-        lost: 0,
-        goal_plus: 10,
-        goal_minus: 3,
-        bilans: 7,
-        points: 15,
-      },
-    
+    table: {
+      match: 5,
+      win: 5,
+      draw: 0,
+      lost: 0,
+      goal_plus: 10,
+      goal_minus: 3,
+      bilans: 7,
+      points: 15,
+    },
   },
   {
     id: 4,
@@ -76,18 +56,16 @@ export const teams = [
     site: "kd",
     short_name: "KDR",
     logo: "KDR",
-    table: 
-      {
-        match: 5,
-        win: 5,
-        draw: 0,
-        lost: 0,
-        goal_plus: 10,
-        goal_minus: 3,
-        bilans: 7,
-        points: 15,
-      },
-    
+    table: {
+      match: 5,
+      win: 5,
+      draw: 0,
+      lost: 0,
+      goal_plus: 10,
+      goal_minus: 3,
+      bilans: 7,
+      points: 15,
+    },
   },
   {
     id: 5,
@@ -95,18 +73,16 @@ export const teams = [
     site: "celtics",
     short_name: "ASC",
     logo: "ASC",
-    table: 
-      {
-        match: 5,
-        win: 5,
-        draw: 0,
-        lost: 0,
-        goal_plus: 10,
-        goal_minus: 3,
-        bilans: 7,
-        points: 15,
-      },
-    
+    table: {
+      match: 5,
+      win: 5,
+      draw: 0,
+      lost: 0,
+      goal_plus: 10,
+      goal_minus: 3,
+      bilans: 7,
+      points: 15,
+    },
   },
   {
     id: 6,
@@ -114,17 +90,15 @@ export const teams = [
     site: "bears",
     short_name: "MVB",
     logo: "MVB",
-    table: 
-      {
-        match: 5,
-        win: 5,
-        draw: 0,
-        lost: 0,
-        goal_plus: 10,
-        goal_minus: 3,
-        bilans: 7,
-        points: 15,
-      },
-    
-  }
+    table: {
+      match: 5,
+      win: 5,
+      draw: 0,
+      lost: 0,
+      goal_plus: 10,
+      goal_minus: 3,
+      bilans: 7,
+      points: 15,
+    },
+  },
 ];
