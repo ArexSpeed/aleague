@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "../styles/Table.scss";
 import { table, oldTables } from "../data/table";
 import { teams } from "../data/teams";
-
+import axios from 'axios';
 import "../styles/History.scss";
 import { Prev } from "react-bootstrap/esm/PageItem";
 
@@ -12,9 +12,29 @@ function HistorySite() {
   const [show, setShow] = useState(true);
   const [medalsTab, setMedalsTab] = useState([]);
 
+  const [tables, setTables] = useState([])
+  const [matches, setMatches] = useState([])
+
+  useEffect(() => {
+
+    const fetchTables = async () => {
+      const {data} = await axios.get('/api/tables')
+      setTables(data)
+    }
+
+    const fetchMatches = async () => {
+      const {data} = await axios.get('/api/matches')
+      setMatches(data)
+    }
+
+    fetchTables()
+    fetchMatches()
+  }, [])
+
+  //Table seasons choose ***
   let seasonArr = [];
-  const seasonSetArr = oldTables.map((season, index) =>
-    seasonArr.push(season.season)
+  tables.map((table) =>
+    seasonArr.push(table.season)
   );
   seasonArr = seasonArr.filter(
     (item, index, aref) => aref.indexOf(item) === index
@@ -33,36 +53,37 @@ function HistorySite() {
     setShow(!show);
   };
 
-  const tablemap = oldTables
-    .filter((season) => season.season === Number(seasonSelect))
-    .map((team, index) => (
+  //Table show result **
+  const tablemap = tables
+    .filter((table) => table.season === Number(seasonSelect))
+    .map((table, index) => (
       <tr
         className={show ? "tr__motion" : "tr__motionb"}
         style={{ animationDelay: `${index / 2}s` }}
       >
-        <td className="td__poz">{team.place}</td>
+        <td className="td__poz">{table.position}</td>
         <td className="td__club">
-          <Link to={`/team/${team.site}`}>{team.name}</Link>
+          <Link to={`/team/${table.team_name.split(' ')[1].toLowerCase()}`}>{table.team_name}</Link>
         </td>
-        <td className="td__points">{team.points}</td>
-        <td className="td__num">{team.match}</td>
-        <td className="td__num">{team.win}</td>
-        <td className="td__num">{team.draw}</td>
-        <td className="td__num">{team.lost}</td>
-        <td className="td__num">{team.goal_plus}</td>
-        <td className="td__num">{team.goal_minus}</td>
-        <td className="td__num">{team.bilans}</td>
+        <td className="td__points">{table.points}</td>
+        <td className="td__num">{table.match}</td>
+        <td className="td__num">{table.win}</td>
+        <td className="td__num">{table.draw}</td>
+        <td className="td__num">{table.lose}</td>
+        <td className="td__num">{table.goal_plus}</td>
+        <td className="td__num">{table.goal_minus}</td>
+        <td className="td__num">{table.bilans}</td>
       </tr>
     ));
   // Medals *****
   const medalsArr = [];
-  const medals = oldTables
-    .filter((team) => team.place === 1 || team.place === 2 || team.place === 3)
+  const medals = tables
+    .filter((team) => team.position === 1 || team.position === 2 || team.position === 3)
     .map((team, index) => {
       medalsArr.push({
         season: team.season,
-        place: team.place,
-        name: team.name,
+        position: team.position,
+        name: team.team_name,
         points: team.points,
       });
       //setMedalsTab(...medalsTab, medalsArr);
@@ -74,7 +95,7 @@ function HistorySite() {
   console.log("sorted", medalsArr);
   const medalsShow = medalsArr.map((team, index) => (
     <>
-      {team.place === 1 ? (
+      {team.position === 1 ? (
         <tr>
           <td>{team.season}</td>
         </tr>
@@ -85,13 +106,13 @@ function HistorySite() {
       <tr
         style={{
           color: `${
-            team.place === 1 ? "gold" : team.place === 2 ? "silver" : "brown"
+            team.position === 1 ? "gold" : team.position === 2 ? "silver" : "brown"
           }`,
         }}
       >
-        <td>{team.place}</td>
+        <td>{team.position}</td>
         <td className="td__club">
-          <Link to={`/team/${team.site}`}>{team.name}</Link>
+          <Link to={`/team/${team.name.split(' ')[1].toLowerCase()}`}>{team.name}</Link>
         </td>
       </tr>
     </>
