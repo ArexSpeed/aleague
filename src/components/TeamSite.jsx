@@ -15,6 +15,7 @@ const TeamSite = (props) => {
 
   const [teams, setTeams] = useState([])
   const [tables, setTables] = useState([])
+  const [matches, setMatches] = useState([])
 
   useEffect(() => {
     const fetchTeams = async () => {
@@ -28,8 +29,14 @@ const TeamSite = (props) => {
       setTables(data)
     }
 
+    const fetchMatches = async () => {
+      const {data} = await axios.get('/api/matches')
+      setMatches(data)
+    }
+
     fetchTeams()
     fetchTables()
+    fetchMatches()
   }, [])
 
 
@@ -158,22 +165,38 @@ const TeamSite = (props) => {
       }
     });
   // FIXTURES ***
-  const fixtures = scores
+  const [moreFixtures, setMoreFixtures] = useState(false)
+  const fixtures = matches
     .filter(
-      (team) => team.host.name === teamTitle || team.guest.name === teamTitle
+      (match) => match.host_name === teamTitle || match.guest_name === teamTitle
     )
-    .map((score, index) => (
-      <tr key={index}>
-        <td className="td__round">{score.round}</td>
-        <td className="td__host-name">{score.host.name}</td>
-        <td className="td__host-score">{score.host.score}</td>
-        <td className="td__guest-score">{score.guest.score}</td>
-        <td className="td__guest-name">{score.guest.name}</td>
-        <td className="td__date">{score.date}</td>
+    .filter((match) => match.season === 2010)
+    .map((match, index) => (
+      <>
+      {index <=14 ? (
+        <tr key={index}>
+        <td className="td__round">{match.round}</td>
+        <td className="td__host-name">{match.host_name}</td>
+        <td className="td__host-score">{match.host_score}</td>
+        <td className="td__guest-score">{match.guest_score}</td>
+        <td className="td__guest-name">{match.guest_name}</td>
       </tr>
+      ) : !moreFixtures && index === 15 ? <span onClick={() => setMoreFixtures(true)}>More</span> : ''}
+      {index > 14 && moreFixtures ? (
+        <tr key={index}>
+        <td className="td__round">{match.round}</td>
+        <td className="td__host-name">{match.host_name}</td>
+        <td className="td__host-score">{match.host_score}</td>
+        <td className="td__guest-score">{match.guest_score}</td>
+        <td className="td__guest-name">{match.guest_name}</td>
+      </tr>
+      ) : ''}
+      {moreFixtures && index === 29 ? <span onClick={() => setMoreFixtures(false)}>Less</span> : ''}
+      
+      </>
     ));
 
-  // SHOW LATEST TABLE 
+  // SHOW LATEST TABLE ***
   const latestSeasons = tables
   .filter(table => teamTitle === table.team_name)
   .map((team, index) => (
@@ -221,7 +244,6 @@ const TeamSite = (props) => {
                 <th>SH</th>
                 <th>SG</th>
                 <th>Guest</th>
-                <th>Date</th>
               </tr>
               {fixtures}
             </table>
