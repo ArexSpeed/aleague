@@ -1,7 +1,7 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import Tilt from "react-tilt";
 import { BsFillStarFill } from "react-icons/bs";
-import { teams } from "../data/teams";
+//import { teams } from "../data/teams";
 import { oldTables } from "../data/table";
 import { scores } from "../data/matches";
 import axios from 'axios'
@@ -10,52 +10,131 @@ import "../styles/TeamSite.scss";
 
 const TeamSite = (props) => {
   console.log(props.match.params.team);
-  const teamName = props.match.params.team;
+  const teamSiteName = props.match.params.team;
   let teamTitle = "";
+
+  const [teams, setTeams] = useState([])
+  const [tables, setTables] = useState([])
+
+  useEffect(() => {
+    const fetchTeams = async () => {
+      const { data } = await axios.get('/api/teams')
+      console.log(data, 'Teams')
+      setTeams(data)
+    }
+
+    const fetchTables = async () => {
+      const {data} = await axios.get('/api/tables')
+      setTables(data)
+    }
+
+    fetchTeams()
+    fetchTables()
+  }, [])
+
 
   //TEAM INFO ***
   teams.filter((team) =>
-    team.site === teamName ? (teamTitle = team.name) : ""
+    team.site === teamSiteName ? (teamTitle = team.name) : ""
   );
 
+  // First show current table for chosen team
+  const showCurrentTeamTable = tables
+  .filter(table => teamTitle === table.team_name)
+  .filter(table => table.season === 2010)
+  .map((team, index) => (
+    <table className="table" key={index}>
+          <tr>
+            <th>Current Table</th>
+          </tr>
+          <tr>
+            <td>Position: {team.position}</td>
+          </tr>
+          <tr>
+            <td>Match: {team.match}</td>
+          </tr>
+          <tr>
+            <td>Points: {team.points}</td>
+          </tr>
+          <tr>
+            <td>Win: {team.win}</td>
+          </tr>
+          <tr>
+            <td>Draw: {team.draw}</td>
+          </tr>
+          <tr>
+            <td>Lost: {team.lose}</td>
+          </tr>
+          <tr>
+            <td>Goal+: {team.goal_plus}</td>
+          </tr>
+          <tr>
+            <td>Goal-: {team.goal_minus}</td>
+          </tr>
+          <tr>
+            <td>Bilans: {team.bilans}</td>
+          </tr>
+        </table>
+  ))
+  console.log(showCurrentTeamTable, 'name in table')
+
   const showTeam = teams
-    .filter((team) => team.site === teamName)
-    .map((team, index) => (
-      <div className="team__info" key={index}>
-        <div className="team__logo">{team.logo}</div>
-        <div className="team__table">
-          <table className="table">
-            <tr>
-              <th>Current Table</th>
-            </tr>
-            <tr>
-              <td>Match: {team.table.match}</td>
-            </tr>
-            <tr>
-              <td>Points: {team.table.points}</td>
-            </tr>
-            <tr>
-              <td>Win: {team.table.win}</td>
-            </tr>
-            <tr>
-              <td>Draw: {team.table.draw}</td>
-            </tr>
-            <tr>
-              <td>Lost: {team.table.lost}</td>
-            </tr>
-            <tr>
-              <td>Goal+:{team.table.goal_plus}</td>
-            </tr>
-            <tr>
-              <td>Goal-:{team.table.goal_minus}</td>
-            </tr>
-            <tr>
-              <td>Bilans:{team.table.bilans}</td>
-            </tr>
-          </table>
-        </div>
+  .filter((team) => team.site === teamSiteName)
+  .map((team, index) => (
+    <div className="team__info" key={index}>
+      <div className="team__logo">
+      <img src={team.logo} className="team__logo-img" />
       </div>
-    ));
+      
+      <div className="team__table">
+        {showCurrentTeamTable}
+      </div>
+    </div>
+  ));
+
+
+
+  const latestTable = tables.filter(table => teamTitle === table.team_name)
+
+  // showTeam without fetch data
+  // const showTeam = teams
+  //   .filter((team) => team.site === teamSiteName)
+  //   .map((team, index) => (
+  //     <div className="team__info" key={index}>
+  //       <div className="team__logo">{team.logo}</div>
+  //       <div className="team__table">
+  //         <table className="table">
+  //           <tr>
+  //             <th>Current Table</th>
+  //           </tr>
+  //           <tr>
+  //             <td>Match: {team.table.match}</td>
+  //           </tr>
+  //           <tr>
+  //             <td>Points: {team.table.points}</td>
+  //           </tr>
+  //           <tr>
+  //             <td>Win: {team.table.win}</td>
+  //           </tr>
+  //           <tr>
+  //             <td>Draw: {team.table.draw}</td>
+  //           </tr>
+  //           <tr>
+  //             <td>Lost: {team.table.lost}</td>
+  //           </tr>
+  //           <tr>
+  //             <td>Goal+:{team.table.goal_plus}</td>
+  //           </tr>
+  //           <tr>
+  //             <td>Goal-:{team.table.goal_minus}</td>
+  //           </tr>
+  //           <tr>
+  //             <td>Bilans:{team.table.bilans}</td>
+  //           </tr>
+  //         </table>
+  //       </div>
+  //     </div>
+  //   ));
 
   //TROPHIES ***
   const showTrophies = oldTables

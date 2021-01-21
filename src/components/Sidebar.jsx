@@ -19,9 +19,12 @@ const Sidebar = () => {
   }, [])
 
   const teamsSite = teams.map((team) => (
-    <li key={team.id}>
-      <Link to={`/team/${team.site}`}>{team.name}</Link>
+    <Link to={`/team/${team.site}`}>
+    <li key={team.id} style={{display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center'}}>
+      <img src={team.logo} alt='' style={{width: '70px'}} /><br />
+      <span>{team.name}</span>
     </li>
+    </Link>
   ));
 
   return (
