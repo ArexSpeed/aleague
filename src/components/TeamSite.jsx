@@ -93,54 +93,11 @@ const TeamSite = (props) => {
   ));
 
 
-
-  const latestTable = tables.filter(table => teamTitle === table.team_name)
-
-  // showTeam without fetch data
-  // const showTeam = teams
-  //   .filter((team) => team.site === teamSiteName)
-  //   .map((team, index) => (
-  //     <div className="team__info" key={index}>
-  //       <div className="team__logo">{team.logo}</div>
-  //       <div className="team__table">
-  //         <table className="table">
-  //           <tr>
-  //             <th>Current Table</th>
-  //           </tr>
-  //           <tr>
-  //             <td>Match: {team.table.match}</td>
-  //           </tr>
-  //           <tr>
-  //             <td>Points: {team.table.points}</td>
-  //           </tr>
-  //           <tr>
-  //             <td>Win: {team.table.win}</td>
-  //           </tr>
-  //           <tr>
-  //             <td>Draw: {team.table.draw}</td>
-  //           </tr>
-  //           <tr>
-  //             <td>Lost: {team.table.lost}</td>
-  //           </tr>
-  //           <tr>
-  //             <td>Goal+:{team.table.goal_plus}</td>
-  //           </tr>
-  //           <tr>
-  //             <td>Goal-:{team.table.goal_minus}</td>
-  //           </tr>
-  //           <tr>
-  //             <td>Bilans:{team.table.bilans}</td>
-  //           </tr>
-  //         </table>
-  //       </div>
-  //     </div>
-  //   ));
-
   //TROPHIES ***
-  const showTrophies = oldTables
-    .filter((team) => team.name === teamTitle)
+  const showTrophies = tables
+    .filter((table) => table.team_name === teamTitle)
     .map((team, index) => {
-      if (team.place === 1 || team.place === 2 || team.place === 3) {
+      if (team.position === 1 || team.position === 2 || team.position === 3) {
         return (
           <>
             <Tilt
@@ -148,14 +105,14 @@ const TeamSite = (props) => {
               options={{ max: 10 }}
               style={{ height: 250, width: 150, margin: 20, perspective: 1000 }}
             >
-              <div className="trophy__card">
+              <div className="trophy__card" key={index}>
                 <div
                   className="trophy__star"
                   style={{
                     color: `${
-                      team.place === 1
+                      team.position === 1
                         ? "gold"
-                        : team.place === 2
+                        : team.position === 2
                         ? "silver"
                         : "brown"
                     }`,
@@ -172,9 +129,9 @@ const TeamSite = (props) => {
                   className="trophy__line"
                   style={{
                     backgroundColor: `${
-                      team.place === 1
+                      team.position === 1
                         ? "gold"
-                        : team.place === 2
+                        : team.position === 2
                         ? "silver"
                         : "brown"
                     }`,
@@ -184,9 +141,9 @@ const TeamSite = (props) => {
                   className="trophy__year"
                   style={{
                     color: `${
-                      team.place === 1
+                      team.position === 1
                         ? "gold"
-                        : team.place === 2
+                        : team.position === 2
                         ? "silver"
                         : "brown"
                     }`,
@@ -216,23 +173,24 @@ const TeamSite = (props) => {
       </tr>
     ));
 
-  //SEASON HISTORY **
-  const showSeasons = oldTables
-    .filter((team) => team.name === teamTitle)
-    .map((team, index) => (
-      <tr>
-        <td className="td__poz">{team.place}</td>
-        <td className="td__club">{team.name}</td>
+  // SHOW LATEST TABLE 
+  const latestSeasons = tables
+  .filter(table => teamTitle === table.team_name)
+  .map((team, index) => (
+    <tr key={index}>
+        <td className="td__poz">{team.season}</td>
+        <td className="td__poz">{team.position}</td>
+        <td className="td__club">{team.team_name}</td>
         <td className="td__points">{team.points}</td>
         <td className="td__num">{team.match}</td>
         <td className="td__num">{team.win}</td>
         <td className="td__num">{team.draw}</td>
-        <td className="td__num">{team.lost}</td>
+        <td className="td__num">{team.lose}</td>
         <td className="td__num">{team.goal_plus}</td>
         <td className="td__num">{team.goal_minus}</td>
         <td className="td__num">{team.bilans}</td>
       </tr>
-    ));
+  ))
 
   return (
     <main className="main">
@@ -276,7 +234,21 @@ const TeamSite = (props) => {
           <span className="sectionLine__title">Latest Seasons</span>
         </div>
         <div className="container">
-          <table className="table">{showSeasons}</table>
+          <table className="table">
+          <tr>
+        <td className="td__poz">S</td>
+        <td className="td__poz">Pos</td>
+        <td className="td__club">Team</td>
+        <td className="td__points">Pts</td>
+        <td className="td__num">M</td>
+        <td className="td__num">W</td>
+        <td className="td__num">D</td>
+        <td className="td__num">L</td>
+        <td className="td__num">G+</td>
+        <td className="td__num">G-</td>
+        <td className="td__num">Bil</td>
+      </tr>
+      {latestSeasons}</table>
         </div>
       </section>
     </main>
