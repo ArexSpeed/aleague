@@ -84,8 +84,8 @@ function HistorySite() {
       currentH2HStats.push(
         {
           teamMatch: [match.host_name,match.guest_name, match.host_score, match.guest_score, match.season],
-          teamOne: match.host_score, 
-          teamTwo: match.guest_score, 
+          teamOneScore: match.host_score, 
+          teamTwoScore: match.guest_score, 
           teamOneWin: match.host_score > match.guest_score ? 1 : 0,
           teamOneDraw: match.host_score === match.guest_score ? 1 : 0,
           teamOneLose: match.host_score < match.guest_score ? 1 : 0,
@@ -101,8 +101,8 @@ function HistorySite() {
       currentH2HStats.push(
         {
           teamMatch: [match.guest_name,match.host_name, match.guest_score, match.host_score, match.season],
-          teamOne: match.guest_score, 
-          teamTwo: match.host_score, 
+          teamOneScore: match.guest_score, 
+          teamTwoScore: match.host_score, 
           teamOneWin: match.guest_score > match.host_score ? 1 : 0,
           teamOneDraw: match.guest_score === match.host_score ? 1 : 0,
           teamOneLose: match.guest_score < match.host_score ? 1 : 0,
@@ -128,20 +128,31 @@ function HistorySite() {
 })
 console.log(currentH2HStats, 'show currentStats')
 let currentStatsReduce = [
-  {teamOneScores: currentH2HStats.map(team => team.teamOne)},
-  {teamTwoScores: currentH2HStats.map(team => team.teamOne)},
+  {teamOneScores: currentH2HStats.map(team => team.teamOneScore)},
+  {teamTwoScores: currentH2HStats.map(team => team.teamTwoScore)},
+  {teamOneWin: currentH2HStats.map(team => team.teamOneWin)},
+  {teamOneDraw: currentH2HStats.map(team => team.teamOneDraw)},
+  {teamOneLose: currentH2HStats.map(team => team.teamOneLose)},
+  {teamOneGoalPlus: currentH2HStats.map(team => team.teamOneGoalPlus)},
+  {teamOneGoalMinus: currentH2HStats.map(team => team.teamOneGoalMinus)},
+  {teamTwoWin: currentH2HStats.map(team => team.teamTwoWin)},
+  {teamTwoDraw: currentH2HStats.map(team => team.teamTwoDraw)},
+  {teamTwoLose: currentH2HStats.map(team => team.teamTwoLose)},
+  {teamTwoGoalPlus: currentH2HStats.map(team => team.teamTwoGoalPlus)},
+  {teamTwoGoalMinus: currentH2HStats.map(team => team.teamTwoGoalMinus)},
 ]
 
-const mapCurrentStats = currentH2HStats.filter(team => team.teamOne)
-// .map(team => {
-//   currentStatsReduce.push({
-//     team
-//   })
-  
-// })
-console.log(mapCurrentStats, 'filter only one')
+ const showH2HStats = (
+    <>
+    <div>Team OneScore : {currentH2HStats.length > 1 && currentStatsReduce.find(x => x.teamOneScores).teamOneScores.reduce((a,b) => a+b)}</div>
+    <div>Team TwoScore : {currentStatsReduce.teamTwoScores}</div>
+    </>
+  )
+
+
+
+
 console.log(currentStatsReduce, 'show only team One')
-//const showCurrentH2HStats = currentH2HStats.filter(team => team.teamOne).map(team => )
 
   //Table show result **
   const tablemap = tables
@@ -241,10 +252,16 @@ console.log(currentStatsReduce, 'show only team One')
         <div className="sectionLine">
           <span className="sectionLine__title">H2H</span>
           <div className="container" style={{margin: '50px'}}>
-            Team 1:
+          <div className="fixtures__select">
+          Team 1:
             <select onChange={selectTeamOne}>{optionTeams}</select>
-            Team 2:
+          </div>
+          <div className="fixtures__select">
+          Team 2:
             <select onChange={selectTeamTwo}>{optionTeams}</select>
+          </div>
+            
+            <div>{showH2HStats}</div>
             <table className="table">
               {showH2H}
             </table>
