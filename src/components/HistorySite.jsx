@@ -119,8 +119,8 @@ function HistorySite() {
    return (
     <tr>
       <td>{match.season}</td>
-      <td>{match.host_name}</td>
-      <td>{match.guest_name}</td>
+      <td className={h2hTeamOne === match.host_name ? "td__teamOneH2H" : "td__teamTwoH2H"} >{match.host_name}</td>
+      <td className={h2hTeamTwo === match.host_name ? "td__teamOneH2H" : "td__teamTwoH2H"}>{match.guest_name}</td>
       <td>{match.host_score}</td>
       <td>{match.guest_score}</td>
     </tr>
@@ -143,10 +143,30 @@ let currentStatsReduce = [
 ]
 
  const showH2HStats = (
-    <>
-    <div>Team OneScore : {currentH2HStats.length > 1 && currentStatsReduce.find(x => x.teamOneScores).teamOneScores.reduce((a,b) => a+b)}</div>
-    <div>Team TwoScore : {currentStatsReduce.teamTwoScores}</div>
-    </>
+    <table className="table">
+      <tr>
+        <td className="td__teamOneH2H">{currentH2HStats.length > 1 && currentStatsReduce.find(x => x.teamOneScores).teamOneScores.reduce((a,b) => a+b)}</td>
+        <td>Goals</td>
+        <td className="td__teamTwoH2H">{currentH2HStats.length > 1 && currentStatsReduce.find(x => x.teamTwoScores).teamTwoScores.reduce((a,b) => a+b)}</td>
+      </tr>
+      <tr>
+        <td className="td__teamOneH2H">{currentH2HStats.length > 1 && currentStatsReduce.find(x => x.teamOneWin).teamOneWin.reduce((a,b) => a+b)}</td>
+        <td>Win</td>
+        <td className="td__teamTwoH2H">{currentH2HStats.length > 1 && currentStatsReduce.find(x => x.teamTwoWin).teamTwoWin.reduce((a,b) => a+b)}</td>
+      </tr>
+      <tr>
+        <td className="td__teamOneH2H">{currentH2HStats.length > 1 && currentStatsReduce.find(x => x.teamOneDraw).teamOneDraw.reduce((a,b) => a+b)}</td>
+        <td>Draw</td>
+        <td className="td__teamTwoH2H">{currentH2HStats.length > 1 && currentStatsReduce.find(x => x.teamTwoDraw).teamTwoDraw.reduce((a,b) => a+b)}</td>
+      </tr>
+      <tr>
+        <td className="td__teamOneH2H">{currentH2HStats.length > 1 && currentStatsReduce.find(x => x.teamOneLose).teamOneLose.reduce((a,b) => a+b)}</td>
+        <td>Lose</td>
+        <td className="td__teamTwoH2H">{currentH2HStats.length > 1 && currentStatsReduce.find(x => x.teamTwoLose).teamTwoLose.reduce((a,b) => a+b)}</td>
+      </tr>
+    
+    
+    </table>
   )
 
 
@@ -155,7 +175,7 @@ let currentStatsReduce = [
 console.log(currentStatsReduce, 'show only team One')
 
   //Table show result **
-  const tablemap = tables
+  const showTable = tables
     .filter((table) => table.season === Number(seasonSelect))
     .map((table, index) => (
       <tr
@@ -201,11 +221,7 @@ console.log(currentStatsReduce, 'show only team One')
         <tr>
           <td>{team.season}</td>
           {medalsArr.filter(item => team.season === item.season).map(team => (
-            <td style={{
-              color: `${
-                team.position === 1 ? "gold" : team.position === 2 ? "silver" : "brown"
-              }`,
-            }}>
+            <td className={team.position === 1 ? "td__gold" : team.position === 2 ? "td__silver" : "td__brown"}>
               <Link to={`/team/${team.name.split(' ')[1].toLowerCase()}`}>{team.name}</Link>
               </td>
           ))}
@@ -240,7 +256,7 @@ console.log(currentStatsReduce, 'show only team One')
               <th>G-</th>
               <th>Bil</th>
             </tr>
-            {tablemap}
+            {showTable}
           </table>
         </div>
         <div className="sectionLine">
@@ -251,22 +267,26 @@ console.log(currentStatsReduce, 'show only team One')
         </div>
         <div className="sectionLine">
           <span className="sectionLine__title">H2H</span>
+          </div>
           <div className="container" style={{margin: '50px'}}>
-          <div className="fixtures__select">
-          Team 1:
-            <select onChange={selectTeamOne}>{optionTeams}</select>
-          </div>
-          <div className="fixtures__select">
-          Team 2:
-            <select onChange={selectTeamTwo}>{optionTeams}</select>
-          </div>
+            <div className="fixtures__select">
+              <select onChange={selectTeamOne}>{optionTeams}</select>
+            </div>
+            <div className="fixtures__select">
+              <select onChange={selectTeamTwo}>{optionTeams}</select>
+            </div>
+            <div className="h2hStats">
+            <div className="h2hStats__logo">{teams.filter(team => team.name === h2hTeamOne).map(team => <img src={team.logo} alt='' style={{maxHeight: '250px'}} />)}</div>
+              <div className="h2hStats__table">{showH2HStats}</div>
+              <div className="h2hStats__logo">{teams.filter(team => team.name === h2hTeamTwo).map(team => <img src={team.logo} alt='' style={{maxHeight: '250px'}} />)}</div>
+            </div>
             
-            <div>{showH2HStats}</div>
-            <table className="table">
-              {showH2H}
-            </table>
+
+              <table className="table">
+                {showH2H}
+              </table>
           </div>
-        </div>
+        
       </section>
     </>
   );

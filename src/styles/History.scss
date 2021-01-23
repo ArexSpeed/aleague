@@ -1,3 +1,5 @@
+$primary:  #a2fa92;
+$secondary: #2b9cdc;
 .tr__motion{
   top: 0;
   transform: translateX(-100%);
@@ -9,6 +11,101 @@
   transform: translateX(-100%);
   animation: animate2 2s;
   animation-fill-mode: forwards;
+}
+.td__gold{
+  background: inherit;
+  position: relative;
+  font-weight: bold;
+  color: #fff;
+  &::before{
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: gold;
+  transform: skewX(-25deg);
+  z-index: -1;
+  }
+}
+.td__silver{
+  background: inherit;
+  position: relative;
+  font-weight: bold;
+  color: #fff;
+  &::before{
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: silver;
+  transform: skewX(-25deg);
+  z-index: -1;
+  }
+}
+.td__brown{
+  background: inherit;
+  position: relative;
+  font-weight: bold;
+  color: #fff;
+  &::before{
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: brown;
+  transform: skewX(-25deg);
+  z-index: -1;
+  }
+}
+.td__teamOneH2H{
+  background: inherit;
+  position: relative;
+  font-weight: bold;
+  color: #fff;
+  &::before{
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: $primary;
+  transform: skewX(-25deg);
+  z-index: -1;
+  }
+}
+.td__teamTwoH2H{
+  background: inherit;
+  position: relative;
+  font-weight: bold;
+  color: #fff;
+  &::before{
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: $secondary;
+  transform: skewX(-25deg);
+  z-index: -1;
+  }
+}
+.h2hStats{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  &__logo{
+    margin: 20px;
+  }
 }
 @keyframes animate{
   0%{
