@@ -7,7 +7,7 @@ import { useState } from "react";
 import video1 from "../videos/video1.mp4";
 import News from "./News";
 
-const LastScores = () => {
+const HomeSite = () => {
   const [play, setPlay] = useState(false);
   const results = scores.map((score, index) => (
     <Link to={`/match/${index}`} className="score__box btn-slide-center-out">
@@ -145,4 +145,4 @@ const LastScores = () => {
   );
 };
 
-export default LastScores;
+export default HomeSite;
