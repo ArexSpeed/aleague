@@ -6,6 +6,9 @@ $secondary: #2b9cdc;
   flex-wrap: wrap;
   justify-content: center;
   margin-top: 10px;
+  @media screen and (max-width: 768px) {
+    overflow-x: scroll;
+  }
 }
 .sectionLine {
   width: 200px;

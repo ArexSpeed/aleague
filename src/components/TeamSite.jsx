@@ -1,9 +1,6 @@
 import React, {useEffect, useState} from "react";
 import Tilt from "react-tilt";
 import { BsFillStarFill } from "react-icons/bs";
-//import { teams } from "../data/teams";
-import { oldTables } from "../data/table";
-import { scores } from "../data/matches";
 import axios from 'axios'
 
 import "../styles/TeamSite.scss";
@@ -197,24 +194,58 @@ const TeamSite = (props) => {
     ));
 
   // SHOW LATEST TABLE ***
+  let sumTableArr = []
   const latestSeasons = tables
   .filter(table => teamTitle === table.team_name)
-  .map((team, index) => (
-    <tr key={index}>
-        <td className="td__poz">{team.season}</td>
-        <td className="td__poz">{team.position}</td>
-        <td className="td__club">{team.team_name}</td>
-        <td className="td__points">{team.points}</td>
-        <td className="td__num">{team.match}</td>
-        <td className="td__num">{team.win}</td>
-        <td className="td__num">{team.draw}</td>
-        <td className="td__num">{team.lose}</td>
-        <td className="td__num">{team.goal_plus}</td>
-        <td className="td__num">{team.goal_minus}</td>
-        <td className="td__num">{team.bilans}</td>
-      </tr>
-  ))
+  .map((team, index) => {
+    sumTableArr.push({
+      teamPoints: team.points,
+      teamMatch: team.match,
+      teamWin: team.win,
+      teamDraw: team.draw,
+      teamLose: team.lose,
+      teamGoalPlus: team.goal_plus,
+      teamGoalMinus: team.goal_minus,
+      teamBilans: team.bilans
+    })
 
+    return (
+      <tr key={index}>
+          <td className="td__poz">{team.season}</td>
+          <td className="td__poz">{team.position}</td>
+          <td className="td__club">{team.team_name}</td>
+          <td className="td__points">{team.points}</td>
+          <td className="td__num">{team.match}</td>
+          <td className="td__num">{team.win}</td>
+          <td className="td__num">{team.draw}</td>
+          <td className="td__num">{team.lose}</td>
+          <td className="td__num">{team.goal_plus}</td>
+          <td className="td__num">{team.goal_minus}</td>
+          <td className="td__num">{team.bilans}</td>
+        </tr>
+    )
+  } )
+
+  //SHOW SUM TABLE **
+  const showSumTable = (
+    <>
+      <tr>
+          <td className="td__poz">All time</td>
+          <td className="td__poz"></td>
+          <td className="td__club">{teamTitle}</td>
+          <td className="td__points">{sumTableArr.length > 1 && sumTableArr.map(team => team.teamPoints).reduce((a,b) => a+b)}</td>
+          <td className="td__num">{sumTableArr.length > 1 && sumTableArr.map(team => team.teamMatch).reduce((a,b) => a+b)}</td>
+          <td className="td__num">{sumTableArr.length > 1 && sumTableArr.map(team => team.teamWin).reduce((a,b) => a+b)}</td>
+          <td className="td__num">{sumTableArr.length > 1 && sumTableArr.map(team => team.teamDraw).reduce((a,b) => a+b)}</td>
+          <td className="td__num">{sumTableArr.length > 1 && sumTableArr.map(team => team.teamLose).reduce((a,b) => a+b)}</td>
+          <td className="td__num">{sumTableArr.length > 1 && sumTableArr.map(team => team.teamGoalPlus).reduce((a,b) => a+b)}</td>
+          <td className="td__num">{sumTableArr.length > 1 && sumTableArr.map(team => team.teamGoalMinus).reduce((a,b) => a+b)}</td>
+          <td className="td__num">{sumTableArr.length > 1 && sumTableArr.map(team => team.teamBilans).reduce((a,b) => a+b)}</td>
+          
+        </tr>
+        <tr></tr>
+    </>
+  )
   return (
     <main className="main">
       <section id="info">
@@ -256,6 +287,7 @@ const TeamSite = (props) => {
           <span className="sectionLine__title">Latest Seasons</span>
         </div>
         <div className="container">
+          
           <table className="table">
           <tr>
         <td className="td__poz">S</td>
@@ -270,6 +302,7 @@ const TeamSite = (props) => {
         <td className="td__num">G-</td>
         <td className="td__num">Bil</td>
       </tr>
+      {showSumTable}
       {latestSeasons}</table>
         </div>
       </section>

@@ -143,7 +143,7 @@ let currentStatsReduce = [
 ]
 
  const showH2HStats = (
-    <table className="table">
+    <>
       <tr>
         <td className="td__teamOneH2H">{currentH2HStats.length > 1 && currentStatsReduce.find(x => x.teamOneScores).teamOneScores.reduce((a,b) => a+b)}</td>
         <td>Goals</td>
@@ -166,7 +166,7 @@ let currentStatsReduce = [
       </tr>
     
     
-    </table>
+    </>
   )
 
 
@@ -268,7 +268,7 @@ console.log(currentStatsReduce, 'show only team One')
         <div className="sectionLine">
           <span className="sectionLine__title">H2H</span>
           </div>
-          <div className="container" style={{margin: '50px'}}>
+          <div className="container">
             <div className="fixtures__select">
               <select onChange={selectTeamOne}>{optionTeams}</select>
             </div>

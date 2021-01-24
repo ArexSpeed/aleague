@@ -13,6 +13,7 @@ tr{
   border: none;
   margin: 10px 0;
   transition: 0.3s ease-in;
+  overflow-x: scroll;
   &:hover{
     transform: scale(1.1)
   }
@@ -42,10 +43,10 @@ tr:nth-child(2) .td__poz::before{
   background: $primary;
 }
 td{
-  &:nth-child(5){
+  &:nth-child(6){
     color: green;
   }
-  &:nth-child(7){
+  &:nth-child(8){
     color: red;
   }
 }
