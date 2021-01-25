@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 import "../styles/Section.scss";
 import Fixtures from "./Fixtures";
+import Card from "./Card";
 
 function StatsMain() {
   return (
@@ -22,6 +23,14 @@ function StatsMain() {
         </div>
         <div className="container">
           <Fixtures />
+        </div>
+      </section>
+      <section className="fixturesSec" id="stats">
+        <div className="sectionLine">
+          <span className="sectionLine__title">Stats</span>
+        </div>
+        <div className="container">
+          <Card />
         </div>
       </section>
     </>

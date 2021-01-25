@@ -8,7 +8,7 @@ import "../styles/History.scss";
 import { Prev } from "react-bootstrap/esm/PageItem";
 
 function HistorySite() {
-  const [seasonSelect, setSeasonSelect] = useState(2001);
+  const [seasonSelect, setSeasonSelect] = useState(2011);
   const [show, setShow] = useState(true);
   const [medalsTab, setMedalsTab] = useState([]);
   const [teams, setTeams] = useState([])
@@ -199,7 +199,7 @@ console.log(currentStatsReduce, 'show only team One')
   // Medals *****
   const medalsArr = [];
   const medals = tables
-    .filter((team) => team.position === 1 || team.position === 2 || team.position === 3)
+    .filter((team) => (team.position === 1 || team.position === 2 || team.position === 3) && team.season !== 2021)
     .map((team, index) => {
       medalsArr.push({
         season: team.season,
@@ -207,9 +207,7 @@ console.log(currentStatsReduce, 'show only team One')
         name: team.team_name,
         points: team.points,
       });
-      //setMedalsTab(...medalsTab, medalsArr);
-      // console.log("actual medals, index: ", index, "teamArr: ", medalsArr);
-      // console.log("actual medals, index: ", index, "teamTab: ", medalsTab);
+
     });
 
   medalsArr.sort((a, b) => a.season - b.season || a.position - b.position);

@@ -1,23 +1,42 @@
 import { Link } from "react-router-dom";
-import { scores } from "../data/matches";
 import { BsTriangleFill } from "react-icons/bs";
 import "../styles/Home.scss";
 import Table from "./Table";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import video1 from "../videos/video1.mp4";
 import News from "./News";
+import axios from 'axios'
 
 const HomeSite = () => {
   const [play, setPlay] = useState(false);
-  const results = scores.map((score, index) => (
-    <Link to={`/match/${index}`} className="score__box btn-slide-center-out">
-      <div className="score__box-team_host">{score.host.name}</div>
+  const [matches, setMatches] = useState([])
+  const [teams, setTeams] = useState([])
+
+  useEffect(() => {
+    const fetchMatches = async () => {
+      const { data } = await axios.get('/api/matches')
+      setMatches(data)
+    }
+    const fetchTeams = async() => {
+      const { data } = await axios.get('/api/teams')
+      setTeams(data)
+    }
+
+    fetchMatches()
+    fetchTeams()
+  },[])
+
+  const results = matches
+  .filter(match => match.season === 2021 && match.round === 15)
+  .map((match, index) => (
+    <div key={index} className="score__box btn-slide-center-out">
+      {teams.filter(team => team.name === match.host_name).map(team => <img src={team.logo} className="score__box-team_host" alt={team.name} />)}
       <div className="score__box-score_result">
-        <span className="score__box-score_host">{score.host.score}</span>
-        <span className="score__box-score_guest">{score.guest.score}</span>
+        <span className="score__box-score_host">{match.host_score}</span>
+        <span className="score__box-score_guest">{match.guest_score}</span>
       </div>
-      <div className="score__box-team_guest">{score.guest.name}</div>
-    </Link>
+      {teams.filter(team => team.name === match.guest_name).map(team => <img src={team.logo} className="score__box-team_guest" alt={team.name} />)}
+    </div>
   ));
 
   const videoPlay = (e) => {

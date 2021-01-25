@@ -1,9 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { scores } from "../data/matches";
+import axios from 'axios';
 
 import "../styles/Fixtures.scss";
 function Fixtures() {
   const [roundSelect, setRoundSelect] = useState(1);
+  const [matches, setMatches] = useState([])
+
+  useEffect(() => {
+    const fetchMatches = async () => {
+      const { data } = await axios.get('/api/matches')
+      setMatches(data)
+    }
+
+    fetchMatches()
+  },[])
 
   let arrayRounds = [];
 
@@ -22,16 +33,15 @@ function Fixtures() {
     console.log(roundSelect);
   };
 
-  const fixtures = scores
-    .filter((score) => score.round === Number(roundSelect))
-    .map((score) => (
-      <tr>
-        <td className="td__round">{score.round}</td>
-        <td className="td__host-name">{score.host.name}</td>
-        <td className="td__host-score">{score.host.score}</td>
-        <td className="td__guest-score">{score.guest.score}</td>
-        <td className="td__guest-name">{score.guest.name}</td>
-        <td className="td__date">{score.date}</td>
+  const fixtures = matches
+    .filter((match) => match.round === Number(roundSelect) && match.season === 2021)
+    .map((match, index) => (
+      <tr key={index}>
+        <td className="td__round">{match.round}</td>
+        <td className="td__host-name">{match.host_name}</td>
+        <td className="td__host-score">{match.host_score}</td>
+        <td className="td__guest-score">{match.guest_score}</td>
+        <td className="td__guest-name">{match.guest_name}</td>
       </tr>
     ));
   return (
@@ -48,7 +58,6 @@ function Fixtures() {
             <th>SH</th>
             <th>SG</th>
             <th>Guest</th>
-            <th>Date</th>
           </tr>
           {fixtures}
         </table>
