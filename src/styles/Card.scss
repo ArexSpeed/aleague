@@ -1,0 +1,38 @@
+.img{
+  &__first{
+    max-height: 70px;
+  }
+  &__second{
+    max-height: 60px;
+  }
+  &__third{
+    max-height: 55px;
+  }
+  &__rest{
+    max-height: 50px;
+  }
+}
+
+.txt{
+  &__first{
+    font-size: 25px;
+  }
+  &__second{
+    font-size: 20px;
+  }
+  &__third{
+    font-size: 18px;
+  }
+  &__rest{
+    font-size: 15px;
+  }
+  &__shadow{
+    color: #555
+  }
+}
+.table__card{
+  border-radius: 50px;
+}
+.tr__card{
+  background: red;
+}
