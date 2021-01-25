@@ -20,19 +20,19 @@ function Table() {
     const showTable = tables
     .filter((table) => table.season === 2021)
     .map((table, index) => (
-      <tr key={index}>
-        <td className="td__poz">{table.position}</td>
-        <td className="td__club">
-          <Link to={`/team/${table.team_name.split(' ')[1].toLowerCase()}`}>{table.team_name}</Link>
+      <tr className="tr-scale" key={index}>
+        <td className="td-skew td__poz">{table.position}</td>
+        <td className="td-skew td__club">
+          <Link to={`/team/${table.team_name.split(' ')[1].toLowerCase()}`} style={{color: '#fff'}}>{table.team_name}</Link>
         </td>
-        <td className="td__points">{table.points}</td>
-        <td className="td__num">{table.match}</td>
-        <td className="td__num">{table.win}</td>
-        <td className="td__num">{table.draw}</td>
-        <td className="td__num">{table.lose}</td>
-        <td className="td__num">{table.goal_plus}</td>
-        <td className="td__num">{table.goal_minus}</td>
-        <td className="td__num">{table.bilans}</td>
+        <td className="td-skew td__points">{table.points}</td>
+        <td className="td-skew td__num">{table.match}</td>
+        <td className="td-skew td__win">{table.win}</td>
+        <td className="td-skew td__num">{table.draw}</td>
+        <td className="td-skew td__lose">{table.lose}</td>
+        <td className="td-skew td__num">{table.goal_plus}</td>
+        <td className="td-skew td__num">{table.goal_minus}</td>
+        <td className="td-skew td__num">{table.bilans}</td>
       </tr>
     ));
 

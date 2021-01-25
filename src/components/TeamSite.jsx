@@ -48,36 +48,36 @@ const TeamSite = (props) => {
   .filter(table => teamTitle === table.team_name)
   .filter(table => table.season === 2021)
   .map((team, index) => (
-    <table className="table" key={index}>
+    <table className="table" style={{textAlign: 'center'}} key={index}>
           <tr>
             <th>Current Table</th>
           </tr>
           <tr>
-            <td>Position: {team.position}</td>
+            <td className='td-skew'>Position: {team.position}</td>
           </tr>
           <tr>
-            <td>Match: {team.match}</td>
+            <td className='td-skew'>Match: {team.match}</td>
           </tr>
           <tr>
-            <td>Points: {team.points}</td>
+            <td className='td-skew'>Points: {team.points}</td>
           </tr>
           <tr>
-            <td>Win: {team.win}</td>
+            <td className='td-skew'>Win: {team.win}</td>
           </tr>
           <tr>
-            <td>Draw: {team.draw}</td>
+            <td className='td-skew'>Draw: {team.draw}</td>
           </tr>
           <tr>
-            <td>Lost: {team.lose}</td>
+            <td className='td-skew'>Lost: {team.lose}</td>
           </tr>
           <tr>
-            <td>Goal+: {team.goal_plus}</td>
+            <td className='td-skew'>Goal+: {team.goal_plus}</td>
           </tr>
           <tr>
-            <td>Goal-: {team.goal_minus}</td>
+            <td className='td-skew'>Goal-: {team.goal_minus}</td>
           </tr>
           <tr>
-            <td>Bilans: {team.bilans}</td>
+            <td className='td-skew'>Bilans: {team.bilans}</td>
           </tr>
         </table>
   ))
@@ -170,11 +170,11 @@ const TeamSite = (props) => {
     .filter((match) => match.season === 2021 && match.round <=15)
     .map((match, index) => (
         <tr key={index}>
-        <td className="td__round">{match.round}</td>
-        <td className="td__host-name">{match.host_name}</td>
-        <td className="td__host-score">{match.host_score}</td>
-        <td className="td__guest-score">{match.guest_score}</td>
-        <td className="td__guest-name">{match.guest_name}</td>
+        <td className="td-skew td__round">{match.round}</td>
+        <td className="td-skew td__host-name">{match.host_name}</td>
+        <td className="td-skew td__host-score">{match.host_score}</td>
+        <td className="td-skew td__guest-score">{match.guest_score}</td>
+        <td className="td-skew td__guest-name">{match.guest_name}</td>
       </tr>
     ));
 
@@ -185,11 +185,11 @@ const TeamSite = (props) => {
     .filter((match) => match.season === 2021 && match.round >15)
     .map((match, index) => (
         <tr key={index}>
-        <td className="td__round">{match.round}</td>
-        <td className="td__host-name">{match.host_name}</td>
-        <td className="td__host-score">{match.host_score}</td>
-        <td className="td__guest-score">{match.guest_score}</td>
-        <td className="td__guest-name">{match.guest_name}</td>
+        <td className="td-skew td__round">{match.round}</td>
+        <td className="td-skew td__host-name">{match.host_name}</td>
+        <td className="td-skew td__host-score">{match.host_score}</td>
+        <td className="td-skew td__guest-score">{match.guest_score}</td>
+        <td className="td-skew td__guest-name">{match.guest_name}</td>
       </tr>
     ));
 
@@ -210,18 +210,18 @@ const TeamSite = (props) => {
     })
 
     return (
-      <tr key={index}>
-          <td className="td__poz">{team.season}</td>
-          <td className="td__poz">{team.position}</td>
-          <td className="td__club">{team.team_name}</td>
-          <td className="td__points">{team.points}</td>
-          <td className="td__num">{team.match}</td>
-          <td className="td__num">{team.win}</td>
-          <td className="td__num">{team.draw}</td>
-          <td className="td__num">{team.lose}</td>
-          <td className="td__num">{team.goal_plus}</td>
-          <td className="td__num">{team.goal_minus}</td>
-          <td className="td__num">{team.bilans}</td>
+      <tr key={index} className="tr-scale">
+          <td className="td-skew td__poz">{team.season}</td>
+          <td className="td-skew td__poz">{team.position}</td>
+          <td className="td-skew td__club">{team.team_name}</td>
+          <td className="td-skew td__points">{team.points}</td>
+          <td className="td-skew">{team.match}</td>
+          <td className="td-skew td__win">{team.win}</td>
+          <td className="td-skew">{team.draw}</td>
+          <td className="td-skew td__lose">{team.lose}</td>
+          <td className="td-skew">{team.goal_plus}</td>
+          <td className="td-skew">{team.goal_minus}</td>
+          <td className="td-skew">{team.bilans}</td>
         </tr>
     )
   } )
@@ -230,17 +230,17 @@ const TeamSite = (props) => {
   const showSumTable = (
     <>
       <tr>
-          <td className="td__poz">All time</td>
-          <td className="td__poz"></td>
-          <td className="td__club">{teamTitle}</td>
-          <td className="td__points">{sumTableArr.length > 1 && sumTableArr.map(team => team.teamPoints).reduce((a,b) => a+b)}</td>
-          <td className="td__num">{sumTableArr.length > 1 && sumTableArr.map(team => team.teamMatch).reduce((a,b) => a+b)}</td>
-          <td className="td__num">{sumTableArr.length > 1 && sumTableArr.map(team => team.teamWin).reduce((a,b) => a+b)}</td>
-          <td className="td__num">{sumTableArr.length > 1 && sumTableArr.map(team => team.teamDraw).reduce((a,b) => a+b)}</td>
-          <td className="td__num">{sumTableArr.length > 1 && sumTableArr.map(team => team.teamLose).reduce((a,b) => a+b)}</td>
-          <td className="td__num">{sumTableArr.length > 1 && sumTableArr.map(team => team.teamGoalPlus).reduce((a,b) => a+b)}</td>
-          <td className="td__num">{sumTableArr.length > 1 && sumTableArr.map(team => team.teamGoalMinus).reduce((a,b) => a+b)}</td>
-          <td className="td__num">{sumTableArr.length > 1 && sumTableArr.map(team => team.teamBilans).reduce((a,b) => a+b)}</td>
+          <td className="td-skew td__poz">All time</td>
+          <td className="td-skew td__poz"></td>
+          <td className="td-skew td__club">{teamTitle}</td>
+          <td className="td-skew td__points">{sumTableArr.length > 1 && sumTableArr.map(team => team.teamPoints).reduce((a,b) => a+b)}</td>
+          <td className="td-skew">{sumTableArr.length > 1 && sumTableArr.map(team => team.teamMatch).reduce((a,b) => a+b)}</td>
+          <td className="td-skew td__win">{sumTableArr.length > 1 && sumTableArr.map(team => team.teamWin).reduce((a,b) => a+b)}</td>
+          <td className="td-skew">{sumTableArr.length > 1 && sumTableArr.map(team => team.teamDraw).reduce((a,b) => a+b)}</td>
+          <td className="td-skew td__lose">{sumTableArr.length > 1 && sumTableArr.map(team => team.teamLose).reduce((a,b) => a+b)}</td>
+          <td className="td-skew">{sumTableArr.length > 1 && sumTableArr.map(team => team.teamGoalPlus).reduce((a,b) => a+b)}</td>
+          <td className="td-skew">{sumTableArr.length > 1 && sumTableArr.map(team => team.teamGoalMinus).reduce((a,b) => a+b)}</td>
+          <td className="td-skew">{sumTableArr.length > 1 && sumTableArr.map(team => team.teamBilans).reduce((a,b) => a+b)}</td>
           
         </tr>
         <tr></tr>
@@ -268,13 +268,10 @@ const TeamSite = (props) => {
         </div>
         <div className="container">
           <div className="fixtures__schedule">
-            <table className="table">
-            <tr>
-            <td className={fixtures && 'td__host-name'} onClick={() => setFixtures(true)}>Played</td>
-          <td className={!fixtures && 'td__host-name'} onClick={() => setFixtures(false)}>Upcoming</td>
-            </tr>
-
-            </table>
+          <div className="switch">
+            <div className={fixtures ? 'switch-on' : 'switch-off'} onClick={() => setFixtures(true)}>Played</div>
+          <div className={!fixtures ?'switch-on' : 'switch-off'} onClick={() => setFixtures(false)}>Upcoming</div>
+            </div>
           
             <table className="table">
               <tr>

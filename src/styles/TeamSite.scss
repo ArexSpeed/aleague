@@ -81,3 +81,26 @@ $secondary: #2b9cdc;
 
   // }
 }
+
+  // played upcoming switch
+  .switch{
+    display: flex;
+    flex-direction: row;
+    background: #fff;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    &-on{
+      flex:1;
+      height: 100%;
+      text-align: center;
+      background-color: $primary;
+    }
+    &-off{
+      flex: 1;
+      height: 100%;
+      text-align: center;
+      background-color: #fff;
+
+    }
+  }

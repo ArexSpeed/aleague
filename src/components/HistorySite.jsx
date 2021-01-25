@@ -118,11 +118,11 @@ function HistorySite() {
 
    return (
     <tr>
-      <td>{match.season}</td>
+      <td className="td-skew">{match.season}</td>
       <td className={h2hTeamOne === match.host_name ? "td__teamOneH2H" : "td__teamTwoH2H"} >{match.host_name}</td>
       <td className={h2hTeamTwo === match.host_name ? "td__teamOneH2H" : "td__teamTwoH2H"}>{match.guest_name}</td>
-      <td>{match.host_score}</td>
-      <td>{match.guest_score}</td>
+      <td className="td-skew">{match.host_score}</td>
+      <td className="td-skew">{match.guest_score}</td>
     </tr>
   )
 })
@@ -146,22 +146,22 @@ let currentStatsReduce = [
     <>
       <tr>
         <td className="td__teamOneH2H">{currentH2HStats.length > 1 && currentStatsReduce.find(x => x.teamOneScores).teamOneScores.reduce((a,b) => a+b)}</td>
-        <td>Goals</td>
+        <td className="td-skew td__H2H-stats">Goals</td>
         <td className="td__teamTwoH2H">{currentH2HStats.length > 1 && currentStatsReduce.find(x => x.teamTwoScores).teamTwoScores.reduce((a,b) => a+b)}</td>
       </tr>
       <tr>
         <td className="td__teamOneH2H">{currentH2HStats.length > 1 && currentStatsReduce.find(x => x.teamOneWin).teamOneWin.reduce((a,b) => a+b)}</td>
-        <td>Win</td>
+        <td className="td-skew td__H2H-stats">Win</td>
         <td className="td__teamTwoH2H">{currentH2HStats.length > 1 && currentStatsReduce.find(x => x.teamTwoWin).teamTwoWin.reduce((a,b) => a+b)}</td>
       </tr>
       <tr>
         <td className="td__teamOneH2H">{currentH2HStats.length > 1 && currentStatsReduce.find(x => x.teamOneDraw).teamOneDraw.reduce((a,b) => a+b)}</td>
-        <td>Draw</td>
+        <td className="td-skew td__H2H-stats">Draw</td>
         <td className="td__teamTwoH2H">{currentH2HStats.length > 1 && currentStatsReduce.find(x => x.teamTwoDraw).teamTwoDraw.reduce((a,b) => a+b)}</td>
       </tr>
       <tr>
         <td className="td__teamOneH2H">{currentH2HStats.length > 1 && currentStatsReduce.find(x => x.teamOneLose).teamOneLose.reduce((a,b) => a+b)}</td>
-        <td>Lose</td>
+        <td className="td-skew td__H2H-stats">Lose</td>
         <td className="td__teamTwoH2H">{currentH2HStats.length > 1 && currentStatsReduce.find(x => x.teamTwoLose).teamTwoLose.reduce((a,b) => a+b)}</td>
       </tr>
     
@@ -182,18 +182,18 @@ console.log(currentStatsReduce, 'show only team One')
         className={show ? "tr__motion" : "tr__motionb"}
         style={{ animationDelay: `${index / 2}s` }}
       >
-        <td className="td__poz">{table.position}</td>
-        <td className="td__club">
-          <Link to={`/team/${table.team_name.split(' ')[1].toLowerCase()}`}>{table.team_name}</Link>
+        <td className="td-skew td__poz">{table.position}</td>
+        <td className="td-skew td__club">
+          <Link to={`/team/${table.team_name.split(' ')[1].toLowerCase()}`} style={{color: '#fff'}}>{table.team_name}</Link>
         </td>
-        <td className="td__points">{table.points}</td>
-        <td className="td__num">{table.match}</td>
-        <td className="td__num">{table.win}</td>
-        <td className="td__num">{table.draw}</td>
-        <td className="td__num">{table.lose}</td>
-        <td className="td__num">{table.goal_plus}</td>
-        <td className="td__num">{table.goal_minus}</td>
-        <td className="td__num">{table.bilans}</td>
+        <td className="td-skew td__points">{table.points}</td>
+        <td className="td-skew">{table.match}</td>
+        <td className="td-skew td__win">{table.win}</td>
+        <td className="td-skew">{table.draw}</td>
+        <td className="td-skew td__lose">{table.lose}</td>
+        <td className="td-skew">{table.goal_plus}</td>
+        <td className="td-skew">{table.goal_minus}</td>
+        <td className="td-skew">{table.bilans}</td>
       </tr>
     ));
   // Medals *****
@@ -217,10 +217,10 @@ console.log(currentStatsReduce, 'show only team One')
     <>
       {team.position === 1 ? (
         <tr>
-          <td>{team.season}</td>
+          <td className="td-skew">{team.season}</td>
           {medalsArr.filter(item => team.season === item.season).map(team => (
             <td className={team.position === 1 ? "td__gold" : team.position === 2 ? "td__silver" : "td__brown"}>
-              <Link to={`/team/${team.name.split(' ')[1].toLowerCase()}`}>{team.name}</Link>
+              <Link to={`/team/${team.name.split(' ')[1].toLowerCase()}`} style={{color: '#fff'}}>{team.name}</Link>
               </td>
           ))}
         </tr>

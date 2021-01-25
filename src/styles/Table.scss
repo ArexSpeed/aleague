@@ -9,22 +9,20 @@ $lastary: rgb(221, 63, 23);
   border-collapse: separate; 
   border-spacing: 0 5px;
 }
-tr{
+.tr-scale{
   border: none;
   margin: 10px 0;
   transition: 0.3s ease-in;
-  overflow-x: scroll;
   &:hover{
     transform: scale(1.1)
   }
 }
 
-th, td{
+.td-skew{
   text-align: center;
   background: inherit;
   position: relative;
   margin: 20px;
-  //border: 1px solid red;
   &::before{
     content: '';
     position: absolute;
@@ -42,14 +40,7 @@ th, td{
 tr:nth-child(2) .td__poz::before{
   background: $primary;
 }
-td{
-  &:nth-child(6){
-    color: green;
-  }
-  &:nth-child(8){
-    color: red;
-  }
-}
+
 .td{
   &__poz{
     background: inherit;
@@ -85,5 +76,11 @@ td{
   }
   &__points{
     font-weight: bold;
+  }
+  &__win{
+    color: green;
+  }
+  &__lose{
+    color: red;
   }
 }

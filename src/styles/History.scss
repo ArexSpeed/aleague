@@ -67,7 +67,9 @@ $secondary: #2b9cdc;
   background: inherit;
   position: relative;
   font-weight: bold;
-  color: #fff;
+  color: #000;
+  text-align: center;
+  min-width: 30px;
   &::before{
   content: '';
   position: absolute;
@@ -85,6 +87,9 @@ $secondary: #2b9cdc;
   position: relative;
   font-weight: bold;
   color: #fff;
+  text-align: center;
+  min-width: 30px;
+
   &::before{
   content: '';
   position: absolute;
@@ -106,6 +111,10 @@ $secondary: #2b9cdc;
   &__logo{
     margin: 20px;
   }
+}
+.td__H2H-stats{
+  height: 30px;
+  width: 90px;
 }
 @keyframes animate{
   0%{

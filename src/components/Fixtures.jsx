@@ -37,11 +37,11 @@ function Fixtures() {
     .filter((match) => match.round === Number(roundSelect) && match.season === 2021)
     .map((match, index) => (
       <tr key={index}>
-        <td className="td__round">{match.round}</td>
-        <td className="td__host-name">{match.host_name}</td>
-        <td className="td__host-score">{match.host_score}</td>
-        <td className="td__guest-score">{match.guest_score}</td>
-        <td className="td__guest-name">{match.guest_name}</td>
+        <td className="td-skew td__round">{match.round}</td>
+        <td className="td-skew td__host-name">{match.host_name}</td>
+        <td className="td-skew td__host-score">{match.host_score}</td>
+        <td className="td-skew td__guest-score">{match.guest_score}</td>
+        <td className="td-skew td__guest-name">{match.guest_name}</td>
       </tr>
     ));
   return (
