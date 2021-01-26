@@ -126,7 +126,7 @@ function HistorySite() {
     </tr>
   )
 })
-console.log(currentH2HStats, 'show currentStats')
+//console.log(currentH2HStats, 'show currentStats')
 let currentStatsReduce = [
   {teamOneScores: currentH2HStats.map(team => team.teamOneScore)},
   {teamTwoScores: currentH2HStats.map(team => team.teamTwoScore)},
@@ -169,10 +169,7 @@ let currentStatsReduce = [
     </>
   )
 
-
-
-
-console.log(currentStatsReduce, 'show only team One')
+//console.log(currentStatsReduce, 'show only team One')
 
   //Table show result **
   const showTable = tables
@@ -211,7 +208,6 @@ console.log(currentStatsReduce, 'show only team One')
     });
 
   medalsArr.sort((a, b) => a.season - b.season || a.position - b.position);
-  console.log("sorted", medalsArr);
 
   const medalsShow = medalsArr.map((team, index) => (
     <>
@@ -231,8 +227,33 @@ console.log(currentStatsReduce, 'show only team One')
   ));
 
   // Medals Table
-  const medalsTableArr =[]
-  
+  let medalTables = []
+  teams.map(team => medalTables.push({
+    name: team.name,
+    first: 0,
+    second: 0,
+    third: 0
+  }))
+
+ medalsArr.forEach(table => {
+    const found = medalTables.find(team => team.name === table.name);
+    switch (table.position) {
+      case 1: found.first++  ; break;
+      case 2: found.second++ ; break;
+      case 3: found.third++  ; break;
+    }
+  });
+  //console.log('medalTable sorted', medalTables)
+  medalTables.sort((a, b) => b.first - a.first || b.second - a.second || b.third - a.third)
+  const showMedalTable = medalTables.map((team, index) => (
+    <tr key={index}>
+      <td className="td-skew">{index+1}</td>
+      <td className="td-skew">{team.name}</td>
+      <td className="td-skew td__gold">{team.first}</td>
+      <td className="td-skew td__silver">{team.second}</td>
+      <td className="td-skew td__brown">{team.third}</td>
+    </tr>
+  ))
 
   return (
     <>
@@ -266,6 +287,7 @@ console.log(currentStatsReduce, 'show only team One')
         </div>
         <div className="container">
           <table className="table">{medalsShow}</table>
+          <table className="table">{showMedalTable}</table>
         </div>
         <div className="sectionLine">
           <span className="sectionLine__title">H2H</span>
@@ -290,7 +312,7 @@ console.log(currentStatsReduce, 'show only team One')
           </div>
         
       </section>
-    </>
+   </>
   );
 }
 
