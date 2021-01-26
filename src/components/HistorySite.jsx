@@ -230,6 +230,10 @@ console.log(currentStatsReduce, 'show only team One')
     </>
   ));
 
+  // Medals Table
+  const medalsTableArr =[]
+  
+
   return (
     <>
       <section>

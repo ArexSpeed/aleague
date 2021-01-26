@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import Tilt from "react-tilt";
 import { BsFillStarFill } from "react-icons/bs";
+import Footer from './Footer'
 import axios from 'axios'
 
 import "../styles/TeamSite.scss";
@@ -295,22 +296,23 @@ const TeamSite = (props) => {
           
           <table className="table">
           <tr>
-        <td className="td__poz">S</td>
-        <td className="td__poz">Pos</td>
-        <td className="td__club">Team</td>
+        <td>S</td>
+        <td>Pos</td>
+        <td>Team</td>
         <td className="td__points">Pts</td>
-        <td className="td__num">M</td>
-        <td className="td__num">W</td>
-        <td className="td__num">D</td>
-        <td className="td__num">L</td>
-        <td className="td__num">G+</td>
-        <td className="td__num">G-</td>
-        <td className="td__num">Bil</td>
+        <td>M</td>
+        <td>W</td>
+        <td>D</td>
+        <td>L</td>
+        <td>G+</td>
+        <td>G-</td>
+        <td>Bil</td>
       </tr>
       {showSumTable}
       {latestSeasons}</table>
         </div>
       </section>
+      <Footer />
     </main>
   );
 }

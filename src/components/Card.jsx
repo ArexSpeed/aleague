@@ -22,7 +22,7 @@ function Card() {
   stats.map(stat => cardsArr.push(stat))
   goalsArr.sort((a, b) => b.goals - a.goals|| b.assists - a.assists);
   assistsArr.sort((a, b) => b.assists - a.assists|| b.goals - a.goals);
-  cardsArr.sort((a, b) => b.red - a.red|| b.yellow - a.yellow);
+  cardsArr.sort((a, b) => (b.red+b.yellow) - (a.red+a.yellow)|| b.red - a.red);
 
   const showGoals = goalsArr.map(
     (item, index) =>
@@ -56,9 +56,9 @@ function Card() {
         <tr className={index===0 ? 'txt__first' : index ===1 ? 'txt__second' : index===2 ? 'txt__third' : 'txt__rest' && 'tr__card'}>
           <td className="td__card-stats"><img src={teams.filter(team => team.name === item.club).map(item => item.logo)} alt='' className={index===0 ? 'img__first' : index ===1 ? 'img__second' : index===2 ? 'img__third' : 'img__rest'} /></td>
           <td className="td__card-stats">{item.name}</td>
-          <td className="td__card-stats txt__bold">{item.red}</td>
+          <td className="td__card-stats txt__bold">{item.red + item.yellow}</td>
           <td className="td__card-stats">{item.yellow}</td>
-          <td className="td__card-stats">{item.red + item.yellow}</td>
+          <td className="td__card-stats">{item.red}</td>
         </tr>
       )
   );
@@ -93,9 +93,9 @@ function Card() {
           <tr className="table__card-title">
             <td></td>
             <td>Most Cards</td>
-            <td><div className="red-card"></div></td>
-            <td><div className="yellow-card"></div></td>
             <td>=</td>
+            <td><div className="yellow-card"></div></td>
+            <td><div className="red-card"></div></td>
           </tr>
           
           {showCards}
