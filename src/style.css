@@ -8,6 +8,7 @@
 body{
   background: rgba(43, 156, 220,0.1);
 }
+
 .App {
   display: grid;
   grid-template-columns: 150px auto;

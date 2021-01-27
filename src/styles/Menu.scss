@@ -1,16 +1,20 @@
-$primary:  #a2fa92;
-$secondary: #2b9cdc;
+$primary:  rgb(162, 250, 146);
+$secondary: rgb(43, 156, 220);
 
 .header {
   height: 50px;
   width: 100%;
   background-color: #a2fa92;
-  grid-column-start: 2;
+  grid-column-start: 1;
+  grid-column-end: 3;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
   color: black;
+box-shadow: 0 8px 15px 0 rgba( 43, 156, 220, 0.5 );
+backdrop-filter: blur( 4.0px );
+-webkit-backdrop-filter: blur( 4.0px );
 
   &__link {
     color: black;

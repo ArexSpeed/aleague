@@ -1,12 +1,20 @@
 .sidebar {
-  height: 100vh;
+  height: 90vh;
   width: 150px;
-  background-color: #fff;
-  grid-column-start: 1;
-  grid-row-start: 1;
   overflow-y: scroll;
-  border-top: 2px solid #a2fa92;
-  border-right: 2px solid #a2fa92;
+  margin: auto;
+  margin-left: 10px;
+  // border-top: 2px solid #a2fa92;
+  // border-right: 2px solid #a2fa92;
+  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+backdrop-filter: blur( 4px );
+-webkit-backdrop-filter: blur( 4px );
+border-radius: 20px;
+-ms-overflow-style: none;
+  scrollbar-width: none;  
+&::-webkit-scrollbar {
+  display: none;
+}
 
   header{
     height: 50px;
