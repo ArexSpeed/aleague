@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import Stats from "./pages/Stats";
 import History from "./pages/History";
 import News from "./pages/News";
+import NewsRead from "./components/NewsRead";
 import Tv from "./pages/Tv";
 import Team from "./pages/Team";
 import Sidebar from "./components/Sidebar";
@@ -23,7 +24,8 @@ export default function App() {
           <Route exact path={["/",'/home']} component={Home} />
           <Route path="/stats" component={Stats} />
           <Route path="/history" component={History} />
-          <Route path="/news" component={News} />
+          <Route exact path="/news" component={News} />
+          <Route path="/news/:id" component={NewsRead} />
           <Route path="/tv" component={Tv} />
           <Route exact path="/team" component={Team} />
           <Route path="/team/:team" component={TeamSite} />
