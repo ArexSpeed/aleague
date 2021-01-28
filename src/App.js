@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import Menu from "./components/Menu";
 import Home from "./pages/Home";
 import Stats from "./pages/Stats";
@@ -15,11 +15,12 @@ import TeamSite from "./components/TeamSite";
 
 
 export default function App() {
+  const [activeSidebar, setActiveSidebar] = useState(true)
   return (
     <div className="App">
       <Router>
-        <Menu />
-        <Sidebar />
+        <Menu activeSidebar={activeSidebar} setActiveSidebar={setActiveSidebar} />
+        <Sidebar activeSidebar={activeSidebar} setActiveSidebar={setActiveSidebar} />
         <Switch>
           <Route exact path={["/",'/home']} component={Home} />
           <Route path="/stats" component={Stats} />

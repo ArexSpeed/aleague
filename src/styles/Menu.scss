@@ -12,9 +12,7 @@ $secondary: rgb(43, 156, 220);
   justify-content: flex-end;
   align-items: center;
   color: black;
-box-shadow: 0 8px 15px 0 rgba( 43, 156, 220, 0.5 );
-backdrop-filter: blur( 4.0px );
--webkit-backdrop-filter: blur( 4.0px );
+
 
   &__link {
     color: black;
@@ -25,6 +23,15 @@ backdrop-filter: blur( 4.0px );
     transition: 0.3s ease-in;
     z-index: 1;
     position: relative;
+    @media screen and (max-width: 768px){
+      font-size: 12px;
+    }
+    &-teams{
+      visibility: hidden;
+      @media screen and (max-width: 768px){
+        visibility: visible;
+      }
+    }
     &:hover{
       text-decoration: none;
     }

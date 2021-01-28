@@ -3,10 +3,13 @@ import { Link } from "react-router-dom";
 
 import "../styles/Menu.scss";
 
-const Menu = () => {
+const Menu = ({activeSidebar, setActiveSidebar}) => {
   return (
     <header className="header">
       <ul>
+        <Link className="header__link header__link-teams" onClick={() => setActiveSidebar(!activeSidebar)}>
+          Teams
+        </Link>
         <Link className="header__link" to="/">
           Home
         </Link>

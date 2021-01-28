@@ -5,7 +5,7 @@ import axios from 'axios'
 
 import "../styles/Sidebar.scss";
 
-const Sidebar = () => {
+const Sidebar = ({activeSidebar, setActiveSidebar}) => {
   const [teams, setTeams] = useState([])
 
   useEffect(() => {
@@ -19,19 +19,23 @@ const Sidebar = () => {
   }, [])
 
   const teamsSite = teams.map((team) => (
-    <Link to={`/team/${team.site}`}>
+    <Link to={`/team/${team.site}`} onClick={() => window.scrollTo(0,0)}>
     <li key={team.id} style={{display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center'}}>
-      <img src={team.logo} alt='' style={{width: '70px'}} /><br />
-      <span>{team.name}</span>
+      <img src={team.logo} alt='' className="sidebar__logo" /><br />
+      <span className="sidebar__teamName">{team.name}</span>
     </li>
     </Link>
   ));
 
   return (
-    <div className="sidebar">
+    <>
+    {activeSidebar && (
+      <div className="sidebar">
       <header>Teams</header>
       <ul>{teamsSite}</ul>
     </div>
+    )}
+   </>
   );
 };
 
