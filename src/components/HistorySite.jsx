@@ -174,6 +174,7 @@ let currentStatsReduce = [
   //Table show result **
   const showTable = tables
     .filter((table) => table.season === Number(seasonSelect))
+    .sort((a, b) => a.position - b.position)
     .map((table, index) => (
       <tr
         className={show ? "tr__motion" : "tr__motionb"}

@@ -19,6 +19,7 @@ function Table() {
     //Table show result **
     const showTable = tables
     .filter((table) => table.season === 2021)
+    .sort((a,b) => a.position - b.position)
     .map((table, index) => (
       <tr className="tr-scale" key={index}>
         <td className="td-skew td__poz">{table.position}</td>

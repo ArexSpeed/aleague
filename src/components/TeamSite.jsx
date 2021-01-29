@@ -102,6 +102,7 @@ const TeamSite = (props) => {
   //TROPHIES ***
   const showTrophies = tables
     .filter((table) => table.team_name === teamTitle && table.season !== 2021)
+    .sort((a,b) => a.season-b.season)
     .map((team, index) => {
       if (team.position === 1 || team.position === 2 || team.position === 3) {
         return (
@@ -169,6 +170,7 @@ const TeamSite = (props) => {
       (match) => match.host_name === teamTitle || match.guest_name === teamTitle
     )
     .filter((match) => match.season === 2021 && match.round <=15)
+    .sort((a,b) => a.round - b.round)
     .map((match, index) => (
         <tr key={index}>
         <td className="td-skew td__round">{match.round}</td>
@@ -184,6 +186,7 @@ const TeamSite = (props) => {
       (match) => match.host_name === teamTitle || match.guest_name === teamTitle
     )
     .filter((match) => match.season === 2021 && match.round >15)
+    .sort((a,b) => a.round - b.round)
     .map((match, index) => (
         <tr key={index}>
         <td className="td-skew td__round">{match.round}</td>
@@ -198,6 +201,7 @@ const TeamSite = (props) => {
   let sumTableArr = []
   const latestSeasons = tables
   .filter(table => teamTitle === table.team_name)
+  .sort((a,b) => a.season - b.season)
   .map((team, index) => {
     sumTableArr.push({
       teamPoints: team.points,
