@@ -79,6 +79,7 @@ function HistorySite() {
   }, [h2hTeamOne])
   
   const showH2H = matches.filter(match => (match.host_name === h2hTeamOne && match.guest_name === h2hTeamTwo) || (match.host_name === h2hTeamTwo && match.guest_name === h2hTeamOne))
+  .sort((a,b) => a.season - b.season)
   .map(match =>{
     if(match.host_name === h2hTeamOne){
       currentH2HStats.push(
@@ -283,6 +284,8 @@ let currentStatsReduce = [
             {showTable}
           </table>
         </div>
+        </section>
+        <section>
         <div className="sectionLine">
           <span className="sectionLine__title">Medals</span>
         </div>
@@ -290,6 +293,8 @@ let currentStatsReduce = [
           <table className="table">{medalsShow}</table>
           <table className="table">{showMedalTable}</table>
         </div>
+        </section>
+        <section>
         <div className="sectionLine">
           <span className="sectionLine__title">H2H</span>
           </div>
@@ -301,9 +306,9 @@ let currentStatsReduce = [
               <select onChange={selectTeamTwo}>{optionTeams}</select>
             </div>
             <div className="h2hStats">
-            <div className="h2hStats__logo">{teams.filter(team => team.name === h2hTeamOne).map(team => <img src={team.logo} alt='' style={{maxHeight: '250px'}} />)}</div>
+           {teams.filter(team => team.name === h2hTeamOne).map(team => <img className="h2hStats__logo" src={team.logo} alt=''/>)}
               <div className="h2hStats__table">{showH2HStats}</div>
-              <div className="h2hStats__logo">{teams.filter(team => team.name === h2hTeamTwo).map(team => <img src={team.logo} alt='' style={{maxHeight: '250px'}} />)}</div>
+              {teams.filter(team => team.name === h2hTeamTwo).map(team => <img className="h2hStats__logo" src={team.logo} alt='' />)}
             </div>
             
 

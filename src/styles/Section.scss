@@ -3,11 +3,15 @@ $secondary: #2b9cdc;
 
 .container {
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
   justify-content: center;
   margin-top: 10px;
   width: 100%;
   @media screen and (max-width: 768px) {
+    min-width: 100%;
+    padding: 20px auto;
+    justify-content: start;
     overflow-x: scroll;
   }
 }
