@@ -50,19 +50,19 @@ function Footer() {
               </div>
               <div className="footer__linksItem">
                 <div className="footer__linksTitle"> Awards </div>
-                <Link className="footer__link" to="/">
+                <Link className="footer__link" to="/awards">
                   Best Forward
                 </Link>
-                <Link className="footer__link" to="/">
+                <Link className="footer__link" to="/awards">
                   Best Middle
                 </Link>
-                <Link className="footer__link" to="/">
+                <Link className="footer__link" to="/awards">
                   Best Defender
                 </Link>
-                <Link className="footer__link" to="/">
+                <Link className="footer__link" to="/awards">
                   Best GoalKeeper
                 </Link>
-                <Link className="footer__link" to="/">
+                <Link className="footer__link" to="/awards">
                   Best Coach
                 </Link>
               </div>

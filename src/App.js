@@ -12,6 +12,7 @@ import Sidebar from "./components/Sidebar";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import "./style.css";
 import TeamSite from "./components/TeamSite";
+import Awards from "./pages/Awards";
 
 
 export default function App() {
@@ -30,6 +31,7 @@ export default function App() {
           <Route path="/tv" component={Tv} />
           <Route exact path="/team" component={Team} />
           <Route path="/team/:team" component={TeamSite} />
+          <Route path="/awards" component={Awards} />
         </Switch>
       </Router>
     </div>
