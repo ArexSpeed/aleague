@@ -263,7 +263,7 @@ let currentStatsReduce = [
         <div className="sectionLine">
           <span className="sectionLine__title">Table</span>
         </div>
-        <div className="container">
+        <div className="containerTable">
           <div className="fixtures__select">
             Season:
             <select onChange={selectSeason}>{optionSeason}</select>
@@ -289,7 +289,7 @@ let currentStatsReduce = [
         <div className="sectionLine">
           <span className="sectionLine__title">Medals</span>
         </div>
-        <div className="container">
+        <div className="containerTable">
           <table className="table">{medalsShow}</table>
           <table className="table">{showMedalTable}</table>
         </div>
@@ -298,7 +298,7 @@ let currentStatsReduce = [
         <div className="sectionLine">
           <span className="sectionLine__title">H2H</span>
           </div>
-          <div className="container">
+          <div className="containerTable">
             <div className="fixtures__select">
               <select onChange={selectTeamOne}>{optionTeams}</select>
             </div>

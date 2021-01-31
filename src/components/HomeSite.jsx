@@ -55,7 +55,7 @@ const HomeSite = () => {
         <div className="sectionLine">
           <span className="sectionLine__title">Table</span>
         </div>
-        <div className="container">
+        <div className="containerTable">
           <Table />
         </div>
       </section>

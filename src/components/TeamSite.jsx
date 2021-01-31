@@ -257,7 +257,7 @@ const TeamSite = (props) => {
         <div className="sectionLine">
           <span className="sectionLine__title">{teamTitle}</span>
         </div>
-        <div className="container">{showTeam}</div>
+        <div className="containerTable">{showTeam}</div>
       </section>
 
       <section id="trophy">
@@ -271,7 +271,7 @@ const TeamSite = (props) => {
         <div className="sectionLine">
           <span className="sectionLine__title">Fixtures</span>
         </div>
-        <div className="container">
+        <div className="containerTable">
           <div className="fixtures__schedule">
           <div className="switch">
             <div className={fixtures ? 'switch-on' : 'switch-off'} onClick={() => setFixtures(true)}>Played</div>
@@ -296,7 +296,7 @@ const TeamSite = (props) => {
         <div className="sectionLine">
           <span className="sectionLine__title">Latest Seasons</span>
         </div>
-        <div className="container">
+        <div className="containerTable">
           
           <table className="table">
           <tr>

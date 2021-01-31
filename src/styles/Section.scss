@@ -3,9 +3,17 @@ $secondary: #2b9cdc;
 
 .container {
   display: flex;
-  flex-direction: column;
   flex-wrap: wrap;
   justify-content: center;
+  margin-top: 10px;
+  width: 100%;
+  @media screen and (max-width: 768px) {
+    overflow-x: scroll;
+  }
+}
+.containerTable {
+  display: flex;
+  flex-wrap: wrap;
   margin-top: 10px;
   width: 100%;
   @media screen and (max-width: 768px) {

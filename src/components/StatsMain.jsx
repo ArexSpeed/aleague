@@ -13,7 +13,7 @@ function StatsMain() {
         <div className="sectionLine">
           <span className="sectionLine__title">Table</span>
         </div>
-        <div className="container">
+        <div className="containerTable">
           <Table />
         </div>
       </section>
@@ -21,7 +21,7 @@ function StatsMain() {
         <div className="sectionLine">
           <span className="sectionLine__title">Fixtures</span>
         </div>
-        <div className="container">
+        <div className="containerTable">
           <Fixtures />
         </div>
       </section>

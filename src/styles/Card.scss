@@ -49,11 +49,14 @@
     overflow: hidden;
     transition: all 0.3s ease-in;
     &:hover{
-      transform: scale(1.2);
+      
+      @media screen and (min-width: 768px){
+        transform: scale(1.2);
       transition: all 0.3s ease-in;
       z-index: 10;
-
+      }
     }
+
 }
 
 .td__card-stats{

@@ -37,7 +37,11 @@ $secondary: #2b9cdc;
 }
 .fixtures__schedule{
   width: auto;
-  min-width: 800px;
+  display: flex;
+  justify-content: center;
+  @media screen and (max-width: 768px){
+    justify-content: start;
+  }
 }
 
 .td{
