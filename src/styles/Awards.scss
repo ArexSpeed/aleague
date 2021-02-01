@@ -10,6 +10,21 @@ $secondary: #2b9cdc;
   display: flex;
   flex-direction: row;
 }
+.awards__title{
+  font-size: 35px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  &-slash{
+    height: 35px;
+    width: 15px;
+    background-color: $primary;
+    transform: skewX(-25deg);
+    margin-right: 15px;
+  }
+}
+
 input[type=radio]{
   /* Hide original inputs */
   visibility: hidden;
@@ -34,15 +49,14 @@ input[type=radio]:checked + label:before{
 input[type=radio] + label:before{
   border-radius:0%
 }
-.span{
+.awards__label{
   width: 200px;
   height: 30px;
   background-color: transparent;
   color: #fff;
   font-size: 20px;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: flex-start;
   font-weight: bold;
   position: relative;
   &::after{
@@ -59,6 +73,31 @@ input[type=radio] + label:before{
    
   }
 }
-span{
-  padding-right: 5px;
+.awards__span{
+  padding-left: 10px;
+}
+.awards__teamName{
+  width: 150px;
+  height: 30px;
+  background-color: transparent;
+  color: #000;
+  font-size: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  position: relative;
+  &::after{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: $primary;
+    box-shadow: 0 0 1px $secondary;
+    transform: skewX(-25deg);
+    z-index: -1;
+   
+  }
 }
