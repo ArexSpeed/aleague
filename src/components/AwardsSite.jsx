@@ -60,12 +60,16 @@ const AwardsSite = () => {
   }
 
   const voteMidfielder = (e) => {
-    setVoten({...voten, defender: e.target.value})
+    setVoten({...voten, miedfielder: e.target.value})
     console.log(voten)
   }
 
   const voteForward = (e) => {
     setVoten({...voten, forward: e.target.value})
+    console.log(voten)
+  }
+  const voteCoach = (e) => {
+    setVoten({...voten, coach: e.target.value})
     console.log(voten)
   }
   return (
@@ -188,7 +192,7 @@ const AwardsSite = () => {
                         name="coach"
                         id={vote.name}
                         value={vote.name}
-                        onClick={voteForward}
+                        onClick={voteCoach}
                       />
                       <label for={vote.name} className="awards__label">
                         <span className="awards__span">{vote.name}</span>
