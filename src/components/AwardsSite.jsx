@@ -215,7 +215,7 @@ const AwardsSite = () => {
                         <span className="awards__teamName">{vote.club}</span>
                       </div>
                       <div className="awards__points"> 
-                      <Percent width={(vote.points/sumPoints.allPoints)*100}>{(vote.points/sumPoints.allPoints)*100}%</Percent>
+                      <Percent width={(vote.points/sumPoints.allPoints)*100}>{((vote.points/sumPoints.allPoints)*100).toFixed(2)}%</Percent>
 
                       </div>
           
@@ -223,6 +223,115 @@ const AwardsSite = () => {
                     ))}
                     
                 </div>
+
+                <div className="awards__box">
+                  <h2 className="awards__title">
+                    <div className="awards__title-slash"></div> Defenders
+                  </h2>
+
+                  {votes
+                    .filter((vote) => vote.category === "Defender")
+                    .sort((a,b) => b.points - a.points)
+                    .map((vote) => (
+                      <>
+                      <div className="awards__checkbox">
+
+                        <label className="awards__label">
+                          <span className="awards__span">{vote.name}</span>
+                        </label>
+                        <span className="awards__teamName">{vote.club}</span>
+                      </div>
+                      <div className="awards__points"> 
+                      <Percent width={(vote.points/sumPoints.allPoints)*100}>{((vote.points/sumPoints.allPoints)*100).toFixed(2)}%</Percent>
+
+                      </div>
+          
+                      </>
+                    ))}
+                    
+                </div>
+
+                <div className="awards__box">
+                  <h2 className="awards__title">
+                    <div className="awards__title-slash"></div> Midfielders
+                  </h2>
+
+                  {votes
+                    .filter((vote) => vote.category === "Midfielder")
+                    .sort((a,b) => b.points - a.points)
+                    .map((vote) => (
+                      <>
+                      <div className="awards__checkbox">
+
+                        <label className="awards__label">
+                          <span className="awards__span">{vote.name}</span>
+                        </label>
+                        <span className="awards__teamName">{vote.club}</span>
+                      </div>
+                      <div className="awards__points"> 
+                      <Percent width={(vote.points/sumPoints.allPoints)*100}>{((vote.points/sumPoints.allPoints)*100).toFixed(2)}%</Percent>
+
+                      </div>
+          
+                      </>
+                    ))}
+                    
+                </div>
+
+                <div className="awards__box">
+                  <h2 className="awards__title">
+                    <div className="awards__title-slash"></div> Forwards
+                  </h2>
+
+                  {votes
+                    .filter((vote) => vote.category === "Forward")
+                    .sort((a,b) => b.points - a.points)
+                    .map((vote) => (
+                      <>
+                      <div className="awards__checkbox">
+
+                        <label className="awards__label">
+                          <span className="awards__span">{vote.name}</span>
+                        </label>
+                        <span className="awards__teamName">{vote.club}</span>
+                      </div>
+                      <div className="awards__points"> 
+                      <Percent width={(vote.points/sumPoints.allPoints)*100}>{((vote.points/sumPoints.allPoints)*100).toFixed(2)}%</Percent>
+
+                      </div>
+          
+                      </>
+                    ))}
+                    
+                </div>
+
+                <div className="awards__box">
+                  <h2 className="awards__title">
+                    <div className="awards__title-slash"></div> Coaches
+                  </h2>
+
+                  {votes
+                    .filter((vote) => vote.category === "Coach")
+                    .sort((a,b) => b.points - a.points)
+                    .map((vote) => (
+                      <>
+                      <div className="awards__checkbox">
+
+                        <label className="awards__label">
+                          <span className="awards__span">{vote.name}</span>
+                        </label>
+                        <span className="awards__teamName">{vote.club}</span>
+                      </div>
+                      <div className="awards__points"> 
+                      <Percent width={(vote.points/sumPoints.allPoints)*100}>{((vote.points/sumPoints.allPoints)*100).toFixed(2)}%</Percent>
+
+                      </div>
+          
+                      </>
+                    ))}
+                    
+                </div>
+
               </div>
             </>
           )}
