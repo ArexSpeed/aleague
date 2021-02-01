@@ -1,19 +1,34 @@
 import React, { useState, useEffect } from "react";
-import {votes} from '../data/voting'
+//import {votes} from '../data/voting'
 import {Percent} from './AwardsElement'
+import axios from 'axios';
 
 import "../styles/Awards.scss";
 
 
 const AwardsSite = () => {
+  const [votes, setVotes] = useState([])
   const [votesStatus, setVoteStatus] = useState(false)
   const [votesPoints, setVotePoints] = useState(false)
   const [sumPoints, setSumPoints] = useState({})
   const [voten, setVoten] = useState({
     goalkeeper: '',
     defender: '',
-    forward: ''
+    miedfielder: '',
+    forward: '',
+    coach: ''
   })
+
+  useEffect(() => {
+    const fetchVotes = async () => {
+      const { data } = await axios.get('/api/votes')
+      console.log(data, 'Teams')
+      setVotes(data)
+    }
+
+    fetchVotes()
+  }, [])
+
   console.log('allpts', votes.find(vote => vote.allPoints))
   const countPoints = () => {
     votes.filter(vote => vote.name === voten.goalkeeper ? vote.points++ : '')
@@ -40,6 +55,11 @@ const AwardsSite = () => {
   }
 
   const voteDefender = (e) => {
+    setVoten({...voten, defender: e.target.value})
+    console.log(voten)
+  }
+
+  const voteMidfielder = (e) => {
     setVoten({...voten, defender: e.target.value})
     console.log(voten)
   }
@@ -107,6 +127,30 @@ const AwardsSite = () => {
 
               <div className="awards__box">
                 <h2 className="awards__title">
+                  <div className="awards__title-slash"></div> Midfielders
+                </h2>
+
+                {votes
+                  .filter((vote) => vote.category === "Midfielder")
+                  .map((vote) => (
+                    <div className="awards__checkbox">
+                      <input
+                        type="radio"
+                        name="midfielder"
+                        id={vote.name}
+                        value={vote.name}
+                        onClick={voteMidfielder}
+                      />
+                      <label for={vote.name} className="awards__label">
+                        <span className="awards__span">{vote.name}</span>
+                      </label>
+                      <span className="awards__teamName">{vote.club}</span>
+                    </div>
+                  ))}
+              </div>
+
+              <div className="awards__box">
+                <h2 className="awards__title">
                   <div className="awards__title-slash"></div> Forwards
                 </h2>
 
@@ -117,6 +161,31 @@ const AwardsSite = () => {
                       <input
                         type="radio"
                         name="forward"
+                        id={vote.name}
+                        value={vote.name}
+                        onClick={voteForward}
+                      />
+                      <label for={vote.name} className="awards__label">
+                        <span className="awards__span">{vote.name}</span>
+                      </label>
+                      <span className="awards__teamName">{vote.club}</span>
+                    </div>
+                  ))}
+              </div>
+
+
+              <div className="awards__box">
+                <h2 className="awards__title">
+                  <div className="awards__title-slash"></div> Coaches
+                </h2>
+
+                {votes
+                  .filter((vote) => vote.category === "Coach")
+                  .map((vote) => (
+                    <div className="awards__checkbox">
+                      <input
+                        type="radio"
+                        name="coach"
                         id={vote.name}
                         value={vote.name}
                         onClick={voteForward}
