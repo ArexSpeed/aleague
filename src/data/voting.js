@@ -1,5 +1,8 @@
 export const votes = [
   {
+    allPoints: 3
+  },
+  {
     category: "Goalkeeper",
     name: "Lance Clumber",
     club: "Victory Tigers",
