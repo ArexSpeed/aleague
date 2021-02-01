@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {votes} from '../data/voting'
+import {Percent} from './AwardsElement'
 
 import "../styles/Awards.scss";
 
@@ -127,7 +128,7 @@ const AwardsSite = () => {
                     </div>
                   ))}
               </div>
-              <button type="submit">Vote</button>
+              <button type="submit" className="awards__button">Vote</button>
             </form>
           ) : (
             <>
@@ -149,8 +150,11 @@ const AwardsSite = () => {
                         </label>
                         <span className="awards__teamName">{vote.club}</span>
                       </div>
-                      <div className="awards__points">{vote.points} : {sumPoints.allPoints}</div>
-                      {console.log(sumPoints)}
+                      <div className="awards__points"> 
+                      <Percent width={(vote.points/sumPoints.allPoints)*100}>{(vote.points/sumPoints.allPoints)*100}%</Percent>
+
+                      </div>
+          
                       </>
                     ))}
                     

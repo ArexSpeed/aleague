@@ -101,3 +101,51 @@ input[type=radio] + label:before{
    
   }
 }
+.awards__points{
+  margin-bottom: 10px;
+  display: flex;
+  width: 400px;
+  height: 30px;
+  background: transparent;
+  transform: skewX(-25deg);
+  position: relative;
+}
+.awards__button{
+  padding: 10px;
+  background: transparent;
+  border: none;
+  position: relative;
+  color: white;
+  font-size: 30px;
+  top: 20px;
+  transition: 0.3s ease-in-out;
+  &::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: $secondary;
+    border-bottom: 2px solid rgba(0,0,0,0.1);
+    border-top: 2px solid rgba(0,0,0,0.1);
+    transform: skewX(-25deg);
+    z-index: -2;
+  }
+  &::after{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0%;
+    background: $primary;
+    transform: skewX(-25deg);
+    z-index: -1;
+    transition: 0.3s ease-in-out;
+  }
+  &:hover::after{
+    transition: 0.3s ease-in-out;
+    width: 100%;
+  }
+}
