@@ -11,10 +11,10 @@ const AwardsSite = () => {
   const [votesStatus, setVoteStatus] = useState(false)
   const [votesPoints, setVotePoints] = useState(false)
   const [sumPoints, setSumPoints] = useState({})
-  const [voten, setVoten] = useState({
+  const [voteResult, setVoteResult] = useState({
     goalkeeper: '',
     defender: '',
-    miedfielder: '',
+    midfielder: '',
     forward: '',
     coach: ''
   })
@@ -29,48 +29,39 @@ const AwardsSite = () => {
     fetchVotes()
   }, [])
 
-  console.log('allpts', votes.find(vote => vote.allPoints))
+  
+
   const countPoints = () => {
-    votes.filter(vote => vote.name === voten.goalkeeper ? vote.points++ : '')
-    votes.filter(vote => vote.name === voten.defender ? vote.points++ : '')
-    votes.filter(vote => vote.name === voten.forward ? vote.points++ : '')
-    votes.find(vote => vote.allPoints ? vote.allPoints++ : '')
+    axios.post('/api/votes', voteResult)
     let pointsSum = votes.find(vote => vote.allPoints)
-    console.log(pointsSum, 'pointsSum')
     setVotePoints(true)
     setSumPoints(pointsSum)
-    console.log(sumPoints)
   }
 
   const voteSend = (e) => {
     e.preventDefault()
     setVoteStatus(true)
-    console.log('All Votes', voten)
+    console.log('All Votes', voteResult)
     countPoints()
   }
 
   const voteGoalkeeper = (e) => {
-    setVoten({...voten, goalkeeper: e.target.value})
-    console.log(voten)
+    setVoteResult({...voteResult, goalkeeper: e.target.value})
   }
 
   const voteDefender = (e) => {
-    setVoten({...voten, defender: e.target.value})
-    console.log(voten)
+    setVoteResult({...voteResult, defender: e.target.value})
   }
 
   const voteMidfielder = (e) => {
-    setVoten({...voten, miedfielder: e.target.value})
-    console.log(voten)
+    setVoteResult({...voteResult, midfielder: e.target.value})
   }
 
   const voteForward = (e) => {
-    setVoten({...voten, forward: e.target.value})
-    console.log(voten)
+    setVoteResult({...voteResult, forward: e.target.value})
   }
   const voteCoach = (e) => {
-    setVoten({...voten, coach: e.target.value})
-    console.log(voten)
+    setVoteResult({...voteResult, coach: e.target.value})
   }
   return (
     <>
