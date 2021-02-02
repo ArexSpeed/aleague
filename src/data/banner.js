@@ -1,20 +1,30 @@
-export const banner = [
+import bannerOne from '../images/BannerOne.png'
+import bannerTwo from '../images/BannerTwo.png'
+import bannerThree from '../images/BannerThree.png'
+
+export const banners = [
   {
     id: 1,
-    src:
-      "https://www.barflya.com/wp-content/uploads/2017/07/SKY-SPORTS-PVC-BANNER.jpg",
-    desc: "Take your best option"
+    src: bannerOne,
+    title: "Bring emotion to your home with AL TV",
+    desc: "Watch all games in one place",
+    button: "Go to TV",
+    link: '/tv'
   },
   {
     id: 2,
-    src:
-      "https://sites.google.com/site/queenstconclub/_/rsrc/1359120954380/config/SS-Web-Banner3.jpg",
-    desc: "Watch all in one place"
+    src: bannerTwo,
+    title: "Vote for the best players",
+    desc: "Who win the awards",
+    button: "Vote now",
+    link: '/awards'
   },
   {
     id: 3,
-    src:
-      " https://seatca.org/wp-content/uploads/2020/01/Atlas-Website-Banner-Final.png",
-    desc: "get ticket to final"
+    src: bannerThree,
+    title: "Stay informed with current stats",
+    desc: "Check all the stats in one place",
+    button: "Go to stats",
+    link: '/stats'
   }
 ];

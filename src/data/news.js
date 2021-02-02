@@ -21,6 +21,25 @@ export const news = [
   {
     id: 4,
     title: 'Greatest player',
-    description: 'Oustragenius team'
+    category: 'Coverage',
+    description: [
+      {
+      t: 'First half',
+      p: 'This was one of the best match on this week'
+      },
+      {
+        t: 'Second half',
+        p: 'This was one of the best match on this week'
+      },
+    ]
+  },
+  {
+    id: 5,
+    title: 'Greatest player',
+    category: 'Interview',
+    description: [{
+      q: 'Tararala',
+      a: "rutututu"
+    }]
   },
 ]
