@@ -32,7 +32,7 @@ const AwardsSite = () => {
   
 
   const countPoints = () => {
-    axios.post('/api/votes', voteResult)
+     axios.post('/api/votes', voteResult)
     let pointsSum = votes.find(vote => vote.allPoints)
     setVotePoints(true)
     setSumPoints(pointsSum)

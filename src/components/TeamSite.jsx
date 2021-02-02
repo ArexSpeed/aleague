@@ -272,12 +272,11 @@ const TeamSite = (props) => {
           <span className="sectionLine__title">Fixtures</span>
         </div>
         <div className="containerTable">
-          <div className="fixtures__schedule">
+          <div className="teams-fixtures">
           <div className="switch">
             <div className={fixtures ? 'switch-on' : 'switch-off'} onClick={() => setFixtures(true)}>Played</div>
           <div className={!fixtures ?'switch-on' : 'switch-off'} onClick={() => setFixtures(false)}>Upcoming</div>
             </div>
-          
             <table className="table">
               <tr>
                 <th>R</th>
@@ -288,6 +287,7 @@ const TeamSite = (props) => {
               </tr>
               {fixtures ? playedMatches : upcomingMatches}
             </table>
+
           </div>
         </div>
       </section>

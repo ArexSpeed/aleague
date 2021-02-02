@@ -1,6 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import {news} from '../data/news'
+import Footer from './Footer'
 
 const NewsRead = ({match}) => {
   console.log(match)
@@ -38,6 +39,7 @@ const NewsRead = ({match}) => {
       {showNews}
     </div>
     </section>
+    <Footer />
     </main>
   )
 }

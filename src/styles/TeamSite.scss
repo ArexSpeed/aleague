@@ -81,7 +81,15 @@ $secondary: #2b9cdc;
 
   // }
 }
+.team-fixtures{
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin:auto;
 
+}
   // played upcoming switch
   .switch{
     display: flex;
@@ -90,6 +98,7 @@ $secondary: #2b9cdc;
     justify-content: center;
     align-items: center;
     height: 30px;
+    margin-top: 20px;
     cursor: pointer;
     &-on{
       flex:1;
