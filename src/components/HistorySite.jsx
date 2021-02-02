@@ -8,7 +8,7 @@ import "../styles/History.scss";
 import { Prev } from "react-bootstrap/esm/PageItem";
 
 function HistorySite() {
-  const [seasonSelect, setSeasonSelect] = useState(2011);
+  const [seasonSelect, setSeasonSelect] = useState(2020);
   const [show, setShow] = useState(true);
   const [medalsTab, setMedalsTab] = useState([]);
   const [teams, setTeams] = useState([])
@@ -40,13 +40,15 @@ function HistorySite() {
 
   //Table seasons choose ***
   let seasonArr = [];
-  tables.map((table) =>
+  tables.filter(table => table.season !== 2021)
+  .map((table) =>
     seasonArr.push(table.season)
   );
   seasonArr = seasonArr.filter(
     (item, index, aref) => aref.indexOf(item) === index
   );
-  const optionSeason = seasonArr.map((season, index) => (
+  const optionSeason = seasonArr.sort((a,b) => b-a)
+  .map((season, index) => (
     <option value={season} key={index}>
       {season}
     </option>
