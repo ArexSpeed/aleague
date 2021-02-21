@@ -6,6 +6,8 @@ import { useState, useEffect } from "react";
 import video1 from "../videos/video1.mp4";
 import News from "./News";
 import axios from 'axios'
+import {news} from '../data/news';
+
 
 const HomeSite = () => {
   const [play, setPlay] = useState(false);
@@ -72,29 +74,16 @@ const HomeSite = () => {
           <span className="sectionLine__title">Latest News</span>
         </div>
         <div className="container">
-          <News
-            id={1}
-            title="Victory promote to Atland Cup Final"
-            text="Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Inventore vitae corporis quam voluptatem animi deserunt, officia
-                beatae nisi quaerat nemo. "
-          />
-          <News
-            id={2}
-            title="Final Analise after the best macth in the world"
-            text="Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Inventore vitae corporis quam voluptatem animi deserunt, officia
-                beatae nisi quaerat nemo. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Inventore vitae corporis quam voluptatem animi deserunt, officia
-                beatae nisi quaerat nemo."
-          />
-          <News
-            id={3}
-            title="Third news"
-            text="Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Inventore vitae corporis quam voluptatem animi deserunt, officia
-                beatae nisi quaerat nemo."
-          />
+        {news.filter(item => item.id >= 3)
+            .map((item, index) => (
+              <News
+              key={index}
+              id={item.id}
+              title=  {item.title}
+              text= {item.desc}
+            />
+            ))}
+         
         </div>
       </section>
 

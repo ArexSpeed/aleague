@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import "../styles/News.scss";
 import News from "./News";
+import {news} from '../data/news';
 
 function NewsSite() {
   const [dimensions, setDimensions] = useState({
@@ -41,32 +42,32 @@ function NewsSite() {
         </div>
         <div className="container">
           <div className="news__box-main">
-            <News
-              id={4}
-              title="Interview"
-              text="Coach Victory want to win the league and he want to go throught the history to be the best coach in the world and in all history in ~Arkadian League. Until now he won 5 title as a player and 4 title as a coach. He plays in Victory Tigers, Victory City FC and Leyonell Lions"
+            {news.filter(item => item.id <= 2)
+            .map((item, index) => (
+              <News
+              key={index}
+              id={item.id}
+              title=  {item.title}
+              text= {item.desc}
               style={
                 dimensions.width > 900 ? newsMainStyle : newsMainStyleMobile
               }
             />
-            <News
-              id={4}
-              title="Interview"
-              text="Coach Victory want to win the league and he "
-              style={
-                dimensions.width > 900 ? newsMainStyle : newsMainStyleMobile
-              }
-            />
+            ))}
+            
           </div>
 
           <div className="news__box-rest">
-            <News
-              id={4}
-              title="Interview"
-              text="Coach Victory want to win the league and he want to go throught the history to be the best coach in the world and in all history in ~Arkadian League. Until now he won 5 title as a player and 4 title as a coach. He plays in Victory Tigers, Victory City FC and Leyonell Lions"
+          {news.filter(item => item.id >= 3)
+            .map((item, index) => (
+              <News
+              key={index}
+              id={item.id}
+              title=  {item.title}
+              text= {item.desc}
             />
-            <div className="news__box"></div>
-            <div className="news__box"></div>
+            ))}
+
           </div>
         </div>
       </section>

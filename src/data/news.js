@@ -2,8 +2,9 @@ export const news = [
   {
     id: 1,
     img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Football_iu_1996.jpg/1200px-Football_iu_1996.jpg',
-    category: 'Coverage',
-    title: "Half Season Summery",
+    category: 'Interview',
+    title: "Half Season Summary",
+    desc: "A recap after round 15 and discussion of each team's performance. There are positive surprises but also big disappointments. ",
     description: [
       {
       t: 'We are after 15 rounds of the season, that means we are on the half of the way to meet the champion of 2021.',
@@ -40,6 +41,7 @@ export const news = [
     id: 2,
     title: 'Exclusive interview with Diamonds coach',
     category: 'Interview',
+    desc: "Interview with the leader's coach. Talking about how the team got into such good shape",
     description: [
       {
       q: 'Good morning. You are the leader after the first half of the season. How do you feel?',
@@ -79,6 +81,7 @@ export const news = [
     id: 3,
     title: "Leaders show 3-1 Arkov Diamond - Tozen Goats / Georgee’s show",
     category: 'Coverage',
+    desc: "In the last game of the 15 round Arkov Diamond hosted Tozen Goats and as predicted they won 3:1. But this game was a total show of one player.",
     description: [
       {
       t: "Big show on Arkovia Arena",
@@ -94,8 +97,9 @@ export const news = [
   },
   {
     id: 4,
-    title: 'Exclusive interview with one of the main referee Paul Bertney',
+    title: 'Exclusive interview with Paul Bertney',
     category: 'Interview',
+    desc: "From football player to referee. An interview with one of the league's top referees. What is the job of a referee and their pros and cons",
     description: [
       {
       q: 'You started working as a referee 15 years ago. Why did you choose this profession?',
@@ -125,6 +129,7 @@ export const news = [
     id: 5,
     title: "Diampero Bolts is finalizing the transfer. They play about 70 millions.",
     category: 'Coverage',
+    desc: "Three transfers and medal aspirations. How is the transfer period going in the Diampero Bolts team ",
     description: [
       {
       t: "New faces on Bolts Area",
