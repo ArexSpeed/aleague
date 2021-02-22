@@ -10,8 +10,6 @@ function Footer() {
     <>
       <footer className="footer__container">
         <div className="footer__wrap">
-          <div className="footer__linksContainer">
-            <div className="footer__linksWrapper">
               <div className="footer__linksItem">
                 <div className="footer__linksTitle"> About us </div>
                 <Link className="footer__link" to="/stats">
@@ -66,8 +64,6 @@ function Footer() {
                   Best Coach
                 </Link>
               </div>
-            </div>
-          </div>
         </div>
       </footer>
       <section className="socialMedia">
