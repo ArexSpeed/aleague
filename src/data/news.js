@@ -2,7 +2,7 @@ export const news = [
   {
     id: 1,
     img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Football_iu_1996.jpg/1200px-Football_iu_1996.jpg',
-    category: 'Interview',
+    category: 'Coverage',
     title: "Half Season Summary",
     desc: "A recap after round 15 and discussion of each team's performance. There are positive surprises but also big disappointments. ",
     description: [

@@ -74,7 +74,7 @@ const HomeSite = () => {
           <span className="sectionLine__title">Latest News</span>
         </div>
         <div className="container">
-        {news.filter(item => item.id >= 3)
+        {news.filter(item => item.id <= 3)
             .map((item, index) => (
               <News
               key={index}

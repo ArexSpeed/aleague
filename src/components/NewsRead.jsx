@@ -50,7 +50,7 @@ const NewsRead = ({match}) => {
       <Link to={item.id>1 ? `/news/${item.id-1}` : `/news/`} className="news__change-prev">Prev
       {news.filter(item => item.id === Number(match.params.id)-1).map(next => <h5 className="news__change-title">{next.title}</h5>)}
       </Link>
-      <Link to={item.id!==news.length-1 ? `/news/${item.id+1}` : `/news/`} className="news__change-next">Next
+      <Link to={item.id<news.length ? `/news/${item.id+1}` : `/news/`} className="news__change-next">Next
       {news.filter(item => item.id === Number(match.params.id)+1).map(next => <h5 className="news__change-title">{next.title}</h5>)}
       </Link>
       </div>
