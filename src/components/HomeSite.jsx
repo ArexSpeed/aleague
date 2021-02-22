@@ -1,16 +1,14 @@
 import { Link } from "react-router-dom";
-import { BsTriangleFill } from "react-icons/bs";
 import "../styles/Home.scss";
 import Table from "./Table";
 import { useState, useEffect } from "react";
-import video1 from "../videos/video1.mp4";
 import News from "./News";
 import axios from 'axios'
 import {news} from '../data/news';
+import Video from "./Video";
 
 
 const HomeSite = () => {
-  const [play, setPlay] = useState(false);
   const [matches, setMatches] = useState([])
   const [teams, setTeams] = useState([])
 
@@ -41,16 +39,6 @@ const HomeSite = () => {
     </div>
   ));
 
-  const videoPlay = (e) => {
-    let video = e.target;
-    setPlay(true);
-    video.play();
-  };
-  const videoStop = (e) => {
-    let video = e.target;
-    setPlay(false);
-    video.pause();
-  };
   return (
     <>
       <section id="table">
@@ -93,63 +81,9 @@ const HomeSite = () => {
           <span className="sectionLine__title">Latest Video</span>
         </div>
         <div className="container">
-          <div className="video__box">
-            <video
-              src={video1}
-              id="video1"
-              className="video__background"
-              onClick={videoPlay}
-              onMouseEnter={videoPlay}
-              onMouseLeave={videoStop}
-            >
-              {" "}
-            </video>
-            <div className="video__btn-circle">
-              {play ? "" : <BsTriangleFill className="video__btn-triangle" />}
-            </div>
-            <div className="video__title">Third news</div>
-          </div>
-
-          <div className="video__box">
-            <video
-              src={video1}
-              className="video__background"
-              onClick={videoPlay}
-              onMouseEnter={videoPlay}
-              onMouseLeave={videoStop}
-            >
-              {" "}
-            </video>
-            <div className="video__btn-circle">
-              {play ? "" : <BsTriangleFill className="video__btn-triangle" />}
-            </div>
-            <div className="video__title">Third news</div>
-          </div>
-
-          <div className="video__box">
-            <video
-              src={video1}
-              className="video__background"
-              onClick={videoPlay}
-              onMouseEnter={videoPlay}
-              onMouseLeave={videoStop}
-            >
-              {" "}
-            </video>
-            <div className="video__btn-circle">
-              {play ? "" : <BsTriangleFill className="video__btn-triangle" />}
-            </div>
-            <div className="video__title">Third news</div>
-          </div>
+          <Video />
         </div>
       </section>
-
-      {/* <video
-        src={video1}
-        className="video__background"
-        onMouseEnter={videoPlay}
-        onMouseLeave={videoStop}
-      /> */}
     </>
   );
 };
