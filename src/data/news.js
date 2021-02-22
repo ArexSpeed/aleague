@@ -1,7 +1,7 @@
 export const news = [
   {
     id: 1,
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Football_iu_1996.jpg/1200px-Football_iu_1996.jpg',
+    img: 'https://images.unsplash.com/photo-1520470082789-e347ad8b1944?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1568&q=80',
     category: 'Coverage',
     title: "Half Season Summary",
     desc: "A recap after round 15 and discussion of each team's performance. There are positive surprises but also big disappointments. ",
@@ -40,6 +40,7 @@ export const news = [
   {
     id: 2,
     title: 'Exclusive interview with Diamonds coach',
+    img: "https://images.unsplash.com/photo-1605509603173-ab689807e860?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
     category: 'Interview',
     desc: "Interview with the leader's coach. Talking about how the team got into such good shape",
     description: [
@@ -80,6 +81,7 @@ export const news = [
   {
     id: 3,
     title: "Leaders show 3-1 Arkov Diamond - Tozen Goats / Georgee’s show",
+    img: "https://images.unsplash.com/photo-1600250395178-40fe752e5189?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2089&q=80",
     category: 'Coverage',
     desc: "In the last game of the 15 round Arkov Diamond hosted Tozen Goats and as predicted they won 3:1. But this game was a total show of one player.",
     description: [
@@ -98,6 +100,7 @@ export const news = [
   {
     id: 4,
     title: 'Exclusive interview with Paul Bertney',
+    img: "https://images.unsplash.com/photo-1513880136864-aed6e4b88b1d?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1949&q=80",
     category: 'Interview',
     desc: "From football player to referee. An interview with one of the league's top referees. What is the job of a referee and their pros and cons",
     description: [
@@ -127,7 +130,8 @@ export const news = [
   },
   {
     id: 5,
-    title: "Diampero Bolts is finalizing the transfer. They play about 70 millions.",
+    title: "Diampero Bolts is finalizing the transfer.",
+    img: "https://images.unsplash.com/photo-1522260980274-3fdb238bf382?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1953&q=80",
     category: 'Coverage',
     desc: "Three transfers and medal aspirations. How is the transfer period going in the Diampero Bolts team ",
     description: [

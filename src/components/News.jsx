@@ -18,7 +18,9 @@ function News({ id, image, title, text, style }) {
           justifyContent: "space-between",
         }}
       >
-        <div className="news__img"></div>
+        <div className="news__img-small-shadow">
+          <img src={image} alt="img" className="news__img-small-picture"/>
+        </div>
 
         <h1 className="news__title">{title}</h1>
         <div className="news__text">

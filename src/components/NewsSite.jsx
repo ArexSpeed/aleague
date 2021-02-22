@@ -48,6 +48,7 @@ function NewsSite() {
               key={index}
               id={item.id}
               title=  {item.title}
+              image = {item.img}
               text= {item.desc}
               style={
                 dimensions.width > 900 ? newsMainStyle : newsMainStyleMobile
@@ -64,6 +65,7 @@ function NewsSite() {
               key={index}
               id={item.id}
               title=  {item.title}
+              image = {item.img}
               text= {item.desc}
             />
             ))}

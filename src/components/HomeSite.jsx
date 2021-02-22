@@ -80,6 +80,7 @@ const HomeSite = () => {
               key={index}
               id={item.id}
               title=  {item.title}
+              image= {item.img}
               text= {item.desc}
             />
             ))}

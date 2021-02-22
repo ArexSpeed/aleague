@@ -1,11 +1,14 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {Link} from 'react-router-dom'
 import {news} from '../data/news'
 import Footer from './Footer'
 import '../styles/NewsRead.scss'
 
 const NewsRead = ({match}) => {
-  console.log(match)
+  // useEffect(() => {
+  //   window.scrollTo(0,0)
+  // }, [])
+
   const showNews = news.filter(item => item.id === Number(match.params.id))
   .map(item => (
     <>
