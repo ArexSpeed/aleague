@@ -1,6 +1,5 @@
 import React from "react";
 import Table from "./Table";
-import { Link } from "react-router-dom";
 
 import "../styles/Section.scss";
 import Fixtures from "./Fixtures";

@@ -1,20 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { scores } from "../data/matches";
-import axios from 'axios';
+import axios from "axios";
 
 import "../styles/Fixtures.scss";
 function Fixtures() {
   const [roundSelect, setRoundSelect] = useState(1);
-  const [matches, setMatches] = useState([])
+  const [matches, setMatches] = useState([]);
 
   useEffect(() => {
     const fetchMatches = async () => {
-      const { data } = await axios.get('/api/matches')
-      setMatches(data)
-    }
+      const { data } = await axios.get("/api/matches");
+      setMatches(data);
+    };
 
-    fetchMatches()
-  },[])
+    fetchMatches();
+  }, []);
 
   let arrayRounds = [];
 
@@ -34,7 +33,9 @@ function Fixtures() {
   };
 
   const fixtures = matches
-    .filter((match) => match.round === Number(roundSelect) && match.season === 2021)
+    .filter(
+      (match) => match.round === Number(roundSelect) && match.season === 2021
+    )
     .map((match, index) => (
       <tr key={index}>
         <td className="td-skew td__round">{match.round}</td>

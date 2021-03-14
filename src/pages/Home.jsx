@@ -1,6 +1,5 @@
 import React from "react";
 import Banner from "../components/Banner";
-import Card from "../components/Card";
 import Footer from "../components/Footer";
 import HomeSite from "../components/HomeSite";
 

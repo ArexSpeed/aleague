@@ -1,16 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../styles/Table.scss";
-import { table, oldTables } from "../data/table";
-import { teams } from "../data/teams";
 import axios from 'axios';
 import "../styles/History.scss";
-import { Prev } from "react-bootstrap/esm/PageItem";
 
 function HistorySite() {
   const [seasonSelect, setSeasonSelect] = useState(2020);
   const [show, setShow] = useState(true);
-  const [medalsTab, setMedalsTab] = useState([]);
   const [teams, setTeams] = useState([])
   const [tables, setTables] = useState([])
   const [matches, setMatches] = useState([])

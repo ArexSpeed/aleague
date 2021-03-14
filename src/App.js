@@ -9,7 +9,7 @@ import Tv from "./pages/Tv";
 import Team from "./pages/Team";
 import Sidebar from "./components/Sidebar";
 
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./style.css";
 import TeamSite from "./components/TeamSite";
 import Awards from "./pages/Awards";

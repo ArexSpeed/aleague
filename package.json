@@ -1,6 +1,6 @@
 {
   "name": "aleague",
-  "proxy": "http://127.0.0.1:5000",
+  "proxy": "https://aleague.herokuapp.com/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

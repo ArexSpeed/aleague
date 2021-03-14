@@ -1,43 +1,57 @@
-import { Link } from "react-router-dom";
 import "../styles/Home.scss";
 import Table from "./Table";
 import { useState, useEffect } from "react";
 import News from "./News";
-import axios from 'axios'
-import {news} from '../data/news';
+import axios from "axios";
+import { news } from "../data/news";
 import Video from "./Video";
 
-
 const HomeSite = () => {
-  const [matches, setMatches] = useState([])
-  const [teams, setTeams] = useState([])
+  const [matches, setMatches] = useState([]);
+  const [teams, setTeams] = useState([]);
 
   useEffect(() => {
     const fetchMatches = async () => {
-      const { data } = await axios.get('/api/matches')
-      setMatches(data)
-    }
-    const fetchTeams = async() => {
-      const { data } = await axios.get('/api/teams')
-      setTeams(data)
-    }
+      const { data } = await axios.get("/api/matches");
+      setMatches(data);
+    };
+    const fetchTeams = async () => {
+      const { data } = await axios.get("/api/teams");
+      setTeams(data);
+    };
 
-    fetchMatches()
-    fetchTeams()
-  },[])
+    fetchMatches();
+    fetchTeams();
+  }, []);
 
   const results = matches
-  .filter(match => match.season === 2021 && match.round === 15)
-  .map((match, index) => (
-    <div key={index} className="score__box btn-slide-center-out">
-      {teams.filter(team => team.name === match.host_name).map(team => <img src={team.logo} className="score__box-team_host" alt={team.name} />)}
-      <div className="score__box-score_result">
-        <span className="score__box-score_host">{match.host_score}</span>
-        <span className="score__box-score_guest">{match.guest_score}</span>
+    .filter((match) => match.season === 2021 && match.round === 15)
+    .map((match, index) => (
+      <div key={index} className="score__box btn-slide-center-out">
+        {teams
+          .filter((team) => team.name === match.host_name)
+          .map((team) => (
+            <img
+              src={team.logo}
+              className="score__box-team_host"
+              alt={team.name}
+            />
+          ))}
+        <div className="score__box-score_result">
+          <span className="score__box-score_host">{match.host_score}</span>
+          <span className="score__box-score_guest">{match.guest_score}</span>
+        </div>
+        {teams
+          .filter((team) => team.name === match.guest_name)
+          .map((team) => (
+            <img
+              src={team.logo}
+              className="score__box-team_guest"
+              alt={team.name}
+            />
+          ))}
       </div>
-      {teams.filter(team => team.name === match.guest_name).map(team => <img src={team.logo} className="score__box-team_guest" alt={team.name} />)}
-    </div>
-  ));
+    ));
 
   return (
     <>
@@ -62,17 +76,17 @@ const HomeSite = () => {
           <span className="sectionLine__title">Latest News</span>
         </div>
         <div className="container">
-        {news.filter(item => item.id <= 3)
+          {news
+            .filter((item) => item.id <= 3)
             .map((item, index) => (
               <News
-              key={index}
-              id={item.id}
-              title=  {item.title}
-              image= {item.img}
-              text= {item.desc}
-            />
+                key={index}
+                id={item.id}
+                title={item.title}
+                image={item.img}
+                text={item.desc}
+              />
             ))}
-         
         </div>
       </section>
 
