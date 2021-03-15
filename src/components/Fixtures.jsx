@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
+import {Context} from '../context'
 
 import "../styles/Fixtures.scss";
+
 function Fixtures() {
   const [roundSelect, setRoundSelect] = useState(1);
   const [matches, setMatches] = useState([]);
-
+  const {url} = useContext(Context);
   useEffect(() => {
     const fetchMatches = async () => {
-      const { data } = await axios.get("/api/matches");
+      const { data } = await axios.get(`${url}/api/matches`);
       setMatches(data);
     };
 

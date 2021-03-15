@@ -1,16 +1,15 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useContext} from "react";
 import Tilt from "react-tilt";
 import { BsFillStarFill } from "react-icons/bs";
 import Footer from './Footer'
 import axios from 'axios'
-
+import {Context} from '../context'
 import "../styles/TeamSite.scss";
 
 const TeamSite = (props) => {
-  console.log(props.match.params.team);
   const teamSiteName = props.match.params.team;
   let teamTitle = "";
-
+  const {url} = useContext(Context)
   const [teams, setTeams] = useState([])
   const [tables, setTables] = useState([])
   const [matches, setMatches] = useState([])
@@ -18,18 +17,17 @@ const TeamSite = (props) => {
 
   useEffect(() => {
     const fetchTeams = async () => {
-      const { data } = await axios.get('/api/teams')
-      console.log(data, 'Teams')
+      const { data } = await axios.get(`${url}/api/teams`)
       setTeams(data)
     }
 
     const fetchTables = async () => {
-      const {data} = await axios.get('/api/tables')
+      const {data} = await axios.get(`${url}/api/tables`)
       setTables(data)
     }
 
     const fetchMatches = async () => {
-      const {data} = await axios.get('/api/matches')
+      const {data} = await axios.get(`${url}/api/matches`)
       setMatches(data)
     }
 
@@ -82,7 +80,7 @@ const TeamSite = (props) => {
           </tr>
         </table>
   ))
-  console.log(showCurrentTeamTable, 'name in table')
+  //console.log(showCurrentTeamTable, 'name in table')
 
   const showTeam = teams
   .filter((team) => team.site === teamSiteName)

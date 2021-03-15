@@ -1,13 +1,15 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useContext} from "react";
 import "../styles/Card.scss";
 import {stats} from '../data/stats'
 import axios from 'axios'
+import {Context} from '../context'
 
 function Card() {
   const [teams, setTeams] = useState([])
+  const {url} = useContext(Context)
   useEffect(() => {
     const fetchTeams = async () => {
-      const {data} = await axios.get('/api/teams')
+      const {data} = await axios.get(`${url}/api/teams`)
       setTeams(data)
     }
 

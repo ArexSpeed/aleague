@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
-//import {votes} from '../data/voting'
+import React, { useState, useEffect, useContext } from "react";
 import {Percent} from './AwardsElement'
 import axios from 'axios';
+import {Context} from '../context'
 
 import "../styles/Awards.scss";
 
 
 const AwardsSite = () => {
+  const {url} = useContext(Context)
   const [votes, setVotes] = useState([])
   const [votesStatus, setVoteStatus] = useState(false)
   const [votesPoints, setVotePoints] = useState(false)
@@ -21,8 +22,7 @@ const AwardsSite = () => {
 
   useEffect(() => {
     const fetchVotes = async () => {
-      const { data } = await axios.get('/api/votes')
-      console.log(data, 'Teams')
+      const { data } = await axios.get(`${url}/api/votes`)
       setVotes(data)
     }
 
@@ -32,7 +32,7 @@ const AwardsSite = () => {
   
 
   const countPoints = () => {
-     axios.post('/api/votes', voteResult)
+     axios.post(`${url}/api/votes`, voteResult)
     let pointsSum = votes.find(vote => vote.allPoints)
     setVotePoints(true)
     setSumPoints(pointsSum)
@@ -41,7 +41,6 @@ const AwardsSite = () => {
   const voteSend = (e) => {
     e.preventDefault()
     setVoteStatus(true)
-    console.log('All Votes', voteResult)
     countPoints()
   }
 

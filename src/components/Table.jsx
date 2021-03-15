@@ -1,15 +1,14 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useContext} from "react";
 import { Link } from "react-router-dom";
 import "../styles/Table.scss";
 import axios from 'axios';
-
+import {Context} from '../context'
 function Table() {
-
   const [tables, setTables] = useState([])
-
+  const {url} = useContext(Context)
   useEffect(() => {
     const fetchTables = async () => {
-      const {data} = await axios.get('/api/tables')
+      const {data} = await axios.get(`${url}/api/tables`)
       setTables(data)
     }
 

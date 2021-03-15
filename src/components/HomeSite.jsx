@@ -1,6 +1,7 @@
+import { useState, useEffect, useContext } from "react";
+import { Context } from "../context";
 import "../styles/Home.scss";
 import Table from "./Table";
-import { useState, useEffect } from "react";
 import News from "./News";
 import axios from "axios";
 import { news } from "../data/news";
@@ -9,14 +10,15 @@ import Video from "./Video";
 const HomeSite = () => {
   const [matches, setMatches] = useState([]);
   const [teams, setTeams] = useState([]);
+  const {  url  } = useContext(Context);;
 
   useEffect(() => {
     const fetchMatches = async () => {
-      const { data } = await axios.get("/api/matches");
+      const { data } = await axios.get(`${url}/api/matches`);
       setMatches(data);
     };
     const fetchTeams = async () => {
-      const { data } = await axios.get("/api/teams");
+      const { data } = await axios.get(`${url}/api/teams`);
       setTeams(data);
     };
 

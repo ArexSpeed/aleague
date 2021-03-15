@@ -4,7 +4,9 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 
 const reducer = combineReducers({})
 
-const initialState = {}
+const initialState = {
+  url: "",
+};
 
 const middleware = [thunk]
 

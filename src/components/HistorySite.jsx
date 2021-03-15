@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import "../styles/Table.scss";
 import axios from 'axios';
 import "../styles/History.scss";
+import {Context} from '../context'
 
 function HistorySite() {
   const [seasonSelect, setSeasonSelect] = useState(2020);
@@ -12,20 +13,20 @@ function HistorySite() {
   const [matches, setMatches] = useState([])
   const [h2hTeamOne, setH2hTeamOne] = useState('')
   const [h2hTeamTwo, setH2hTeamTwo] = useState('')
+  const {url} = useContext(Context)
 
   useEffect(() => {
     const fetchTeams = async () => {
-      const { data } = await axios.get('/api/teams')
-      console.log(data, 'Teams')
+      const { data } = await axios.get(`${url}/api/teams`)
       setTeams(data)
     }
     const fetchTables = async () => {
-      const {data} = await axios.get('/api/tables')
+      const {data} = await axios.get(`${url}/api/tables`)
       setTables(data)
     }
 
     const fetchMatches = async () => {
-      const {data} = await axios.get('/api/matches')
+      const {data} = await axios.get(`${url}/api/matches`)
       setMatches(data)
     }
 
@@ -241,6 +242,7 @@ let currentStatsReduce = [
       case 1: found.first++  ; break;
       case 2: found.second++ ; break;
       case 3: found.third++  ; break;
+      default: break;
     }
   });
   //console.log('medalTable sorted', medalTables)
