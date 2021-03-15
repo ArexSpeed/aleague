@@ -18,9 +18,10 @@ const Sidebar = ({ activeSidebar, setActiveSidebar }) => {
   }, []);
 
   const teamsSite = teams.map((team) => (
-    <Link to={`/team/${team.site}`} onClick={() => window.scrollTo(0, 0)}>
+    <Link key={team.id} to={`/team/${team.site}`}
+          onClick={() => window.scrollTo(0, 0)}
+    >
       <li
-        key={team.id}
         style={{
           display: "flex",
           justifyContent: "center",

@@ -17,23 +17,23 @@ function HistorySite() {
 
   useEffect(() => {
     const fetchTeams = async () => {
-      const { data } = await axios.get(`${url}/api/teams`)
-      setTeams(data)
-    }
+      const { data } = await axios.get(`${url}/api/teams`);
+      setTeams(data);
+    };
     const fetchTables = async () => {
-      const {data} = await axios.get(`${url}/api/tables`)
-      setTables(data)
-    }
+      const { data } = await axios.get(`${url}/api/tables`);
+      setTables(data);
+    };
 
     const fetchMatches = async () => {
-      const {data} = await axios.get(`${url}/api/matches`)
-      setMatches(data)
-    }
+      const { data } = await axios.get(`${url}/api/matches`);
+      setMatches(data);
+    };
 
-    fetchTeams()
-    fetchTables()
-    fetchMatches()
-  }, [])
+    fetchTeams();
+    fetchTables();
+    fetchMatches();
+  }, [url]);
 
   //Table seasons choose ***
   let seasonArr = [];

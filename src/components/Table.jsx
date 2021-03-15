@@ -8,12 +8,12 @@ function Table() {
   const {url} = useContext(Context)
   useEffect(() => {
     const fetchTables = async () => {
-      const {data} = await axios.get(`${url}/api/tables`)
-      setTables(data)
-    }
+      const { data } = await axios.get(`${url}/api/tables`);
+      setTables(data);
+    };
 
-    fetchTables()
-  }, [])
+    fetchTables();
+  }, [url]);
 
     //Table show result **
     const showTable = tables
