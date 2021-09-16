@@ -1,0 +1,21 @@
+.loader {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  justify-content: center;
+  align-items: center;
+  &__img {
+    height: 50px;
+    animation: spin 1s infinite linear;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform:rotateY(0deg);
+  }
+  to {
+    transform:rotateY(360deg);
+  }
+}

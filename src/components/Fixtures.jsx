@@ -3,15 +3,19 @@ import axios from "axios";
 import {Context} from '../context'
 
 import "../styles/Fixtures.scss";
+import Loader from "./Loader";
 
 function Fixtures() {
+  const [loading, setLoading] = useState(false);
   const [roundSelect, setRoundSelect] = useState(1);
   const [matches, setMatches] = useState([]);
-  const {url} = useContext(Context);
+  const { url } = useContext(Context);
   useEffect(() => {
+    setLoading(true);
     const fetchMatches = async () => {
       const { data } = await axios.get(`${url}/api/matches`);
       setMatches(data);
+      setLoading(false);
     };
 
     fetchMatches();
@@ -55,6 +59,7 @@ function Fixtures() {
       </div>
       <div className="fixtures__schedule">
         <table className="table">
+          {loading && <Loader text="fixtures" />}
           <tr>
             <th>R</th>
             <th>Host</th>

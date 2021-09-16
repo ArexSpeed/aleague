@@ -5,37 +5,40 @@ import Footer from './Footer'
 import axios from 'axios'
 import {Context} from '../context'
 import "../styles/TeamSite.scss";
+import Loader from "./Loader";
 
 const TeamSite = (props) => {
   const teamSiteName = props.match.params.team;
   let teamTitle = "";
-  const {url} = useContext(Context)
-  const [teams, setTeams] = useState([])
-  const [tables, setTables] = useState([])
-  const [matches, setMatches] = useState([])
-  const [fixtures, setFixtures] = useState(true)
+  const { url } = useContext(Context);
+  const [loading, setLoading] = useState(false);
+  const [teams, setTeams] = useState([]);
+  const [tables, setTables] = useState([]);
+  const [matches, setMatches] = useState([]);
+  const [fixtures, setFixtures] = useState(true);
 
   useEffect(() => {
+    setLoading(true);
     const fetchTeams = async () => {
-      const { data } = await axios.get(`${url}/api/teams`)
-      setTeams(data)
-    }
+      const { data } = await axios.get(`${url}/api/teams`);
+      setTeams(data);
+    };
 
     const fetchTables = async () => {
-      const {data} = await axios.get(`${url}/api/tables`)
-      setTables(data)
-    }
+      const { data } = await axios.get(`${url}/api/tables`);
+      setTables(data);
+    };
 
     const fetchMatches = async () => {
-      const {data} = await axios.get(`${url}/api/matches`)
-      setMatches(data)
-    }
+      const { data } = await axios.get(`${url}/api/matches`);
+      setLoading(false);
+      setMatches(data);
+    };
 
-    fetchTeams()
-    fetchTables()
-    fetchMatches()
-  }, [])
-
+    fetchTeams();
+    fetchTables();
+    fetchMatches();
+  }, []);
 
   //TEAM INFO ***
   teams.filter((team) =>
@@ -44,63 +47,60 @@ const TeamSite = (props) => {
 
   // First show current table for chosen team
   const showCurrentTeamTable = tables
-  .filter(table => teamTitle === table.team_name)
-  .filter(table => table.season === 2021)
-  .map((team, index) => (
-    <table className="table" style={{textAlign: 'center'}} key={index}>
-          <tr>
-            <th>Current Table</th>
-          </tr>
-          <tr>
-            <td className='td-skew'>Position: {team.position}</td>
-          </tr>
-          <tr>
-            <td className='td-skew'>Match: {team.match}</td>
-          </tr>
-          <tr>
-            <td className='td-skew'>Points: {team.points}</td>
-          </tr>
-          <tr>
-            <td className='td-skew'>Win: {team.win}</td>
-          </tr>
-          <tr>
-            <td className='td-skew'>Draw: {team.draw}</td>
-          </tr>
-          <tr>
-            <td className='td-skew'>Lost: {team.lose}</td>
-          </tr>
-          <tr>
-            <td className='td-skew'>Goal+: {team.goal_plus}</td>
-          </tr>
-          <tr>
-            <td className='td-skew'>Goal-: {team.goal_minus}</td>
-          </tr>
-          <tr>
-            <td className='td-skew'>Bilans: {team.bilans}</td>
-          </tr>
-        </table>
-  ))
+    .filter((table) => teamTitle === table.team_name)
+    .filter((table) => table.season === 2021)
+    .map((team, index) => (
+      <table className="table" style={{ textAlign: "center" }} key={index}>
+        <tr>
+          <th>Current Table</th>
+        </tr>
+        <tr>
+          <td className="td-skew">Position: {team.position}</td>
+        </tr>
+        <tr>
+          <td className="td-skew">Match: {team.match}</td>
+        </tr>
+        <tr>
+          <td className="td-skew">Points: {team.points}</td>
+        </tr>
+        <tr>
+          <td className="td-skew">Win: {team.win}</td>
+        </tr>
+        <tr>
+          <td className="td-skew">Draw: {team.draw}</td>
+        </tr>
+        <tr>
+          <td className="td-skew">Lost: {team.lose}</td>
+        </tr>
+        <tr>
+          <td className="td-skew">Goal+: {team.goal_plus}</td>
+        </tr>
+        <tr>
+          <td className="td-skew">Goal-: {team.goal_minus}</td>
+        </tr>
+        <tr>
+          <td className="td-skew">Bilans: {team.bilans}</td>
+        </tr>
+      </table>
+    ));
   //console.log(showCurrentTeamTable, 'name in table')
 
   const showTeam = teams
-  .filter((team) => team.site === teamSiteName)
-  .map((team, index) => (
-    <div className="team__info" key={index}>
-      <div className="team__logo">
-      <img src={team.logo} className="team__logo-img" alt="logo" />
-      </div>
-      
-      <div className="team__table">
-        {showCurrentTeamTable}
-      </div>
-    </div>
-  ));
+    .filter((team) => team.site === teamSiteName)
+    .map((team, index) => (
+      <div className="team__info" key={index}>
+        <div className="team__logo">
+          <img src={team.logo} className="team__logo-img" alt="logo" />
+        </div>
 
+        <div className="team__table">{showCurrentTeamTable}</div>
+      </div>
+    ));
 
   //TROPHIES ***
   const showTrophies = tables
     .filter((table) => table.team_name === teamTitle && table.season !== 2021)
-    .sort((a,b) => a.season-b.season)
+    .sort((a, b) => a.season - b.season)
     .map((team, index) => {
       if (team.position === 1 || team.position === 2 || team.position === 3) {
         return (
@@ -167,10 +167,10 @@ const TeamSite = (props) => {
     .filter(
       (match) => match.host_name === teamTitle || match.guest_name === teamTitle
     )
-    .filter((match) => match.season === 2021 && match.round <=15)
-    .sort((a,b) => a.round - b.round)
+    .filter((match) => match.season === 2021 && match.round <= 15)
+    .sort((a, b) => a.round - b.round)
     .map((match, index) => (
-        <tr key={index}>
+      <tr key={index}>
         <td className="td-skew td__round">{match.round}</td>
         <td className="td-skew td__host-name">{match.host_name}</td>
         <td className="td-skew td__host-score">{match.host_score}</td>
@@ -179,14 +179,14 @@ const TeamSite = (props) => {
       </tr>
     ));
 
-    const upcomingMatches = matches
+  const upcomingMatches = matches
     .filter(
       (match) => match.host_name === teamTitle || match.guest_name === teamTitle
     )
-    .filter((match) => match.season === 2021 && match.round >15)
-    .sort((a,b) => a.round - b.round)
+    .filter((match) => match.season === 2021 && match.round > 15)
+    .sort((a, b) => a.round - b.round)
     .map((match, index) => (
-        <tr key={index}>
+      <tr key={index}>
         <td className="td-skew td__round">{match.round}</td>
         <td className="td-skew td__host-name">{match.host_name}</td>
         <td className="td-skew td__host-score">{match.host_score}</td>
@@ -196,24 +196,24 @@ const TeamSite = (props) => {
     ));
 
   // SHOW LATEST TABLE ***
-  let sumTableArr = []
+  let sumTableArr = [];
   const latestSeasons = tables
-  .filter(table => teamTitle === table.team_name)
-  .sort((a,b) => a.season - b.season)
-  .map((team, index) => {
-    sumTableArr.push({
-      teamPoints: team.points,
-      teamMatch: team.match,
-      teamWin: team.win,
-      teamDraw: team.draw,
-      teamLose: team.lose,
-      teamGoalPlus: team.goal_plus,
-      teamGoalMinus: team.goal_minus,
-      teamBilans: team.bilans
-    })
+    .filter((table) => teamTitle === table.team_name)
+    .sort((a, b) => a.season - b.season)
+    .map((team, index) => {
+      sumTableArr.push({
+        teamPoints: team.points,
+        teamMatch: team.match,
+        teamWin: team.win,
+        teamDraw: team.draw,
+        teamLose: team.lose,
+        teamGoalPlus: team.goal_plus,
+        teamGoalMinus: team.goal_minus,
+        teamBilans: team.bilans,
+      });
 
-    return (
-      <tr key={index} className="tr-scale">
+      return (
+        <tr key={index} className="tr-scale">
           <td className="td-skew td__poz">{team.season}</td>
           <td className="td-skew td__poz">{team.position}</td>
           <td className="td-skew td__club">{team.team_name}</td>
@@ -226,43 +226,74 @@ const TeamSite = (props) => {
           <td className="td-skew">{team.goal_minus}</td>
           <td className="td-skew">{team.bilans}</td>
         </tr>
-    )
-  } )
+      );
+    });
 
   //SHOW SUM TABLE **
   const showSumTable = (
     <>
       <tr>
-          <td className="td-skew td__poz">All time</td>
-          <td className="td-skew td__poz"></td>
-          <td className="td-skew td__club">{teamTitle}</td>
-          <td className="td-skew td__points">{sumTableArr.length > 1 && sumTableArr.map(team => team.teamPoints).reduce((a,b) => a+b)}</td>
-          <td className="td-skew">{sumTableArr.length > 1 && sumTableArr.map(team => team.teamMatch).reduce((a,b) => a+b)}</td>
-          <td className="td-skew td__win">{sumTableArr.length > 1 && sumTableArr.map(team => team.teamWin).reduce((a,b) => a+b)}</td>
-          <td className="td-skew">{sumTableArr.length > 1 && sumTableArr.map(team => team.teamDraw).reduce((a,b) => a+b)}</td>
-          <td className="td-skew td__lose">{sumTableArr.length > 1 && sumTableArr.map(team => team.teamLose).reduce((a,b) => a+b)}</td>
-          <td className="td-skew">{sumTableArr.length > 1 && sumTableArr.map(team => team.teamGoalPlus).reduce((a,b) => a+b)}</td>
-          <td className="td-skew">{sumTableArr.length > 1 && sumTableArr.map(team => team.teamGoalMinus).reduce((a,b) => a+b)}</td>
-          <td className="td-skew">{sumTableArr.length > 1 && sumTableArr.map(team => team.teamBilans).reduce((a,b) => a+b)}</td>
-          
-        </tr>
-        <tr></tr>
+        <td className="td-skew td__poz">All time</td>
+        <td className="td-skew td__poz"></td>
+        <td className="td-skew td__club">{teamTitle}</td>
+        <td className="td-skew td__points">
+          {sumTableArr.length > 1 &&
+            sumTableArr.map((team) => team.teamPoints).reduce((a, b) => a + b)}
+        </td>
+        <td className="td-skew">
+          {sumTableArr.length > 1 &&
+            sumTableArr.map((team) => team.teamMatch).reduce((a, b) => a + b)}
+        </td>
+        <td className="td-skew td__win">
+          {sumTableArr.length > 1 &&
+            sumTableArr.map((team) => team.teamWin).reduce((a, b) => a + b)}
+        </td>
+        <td className="td-skew">
+          {sumTableArr.length > 1 &&
+            sumTableArr.map((team) => team.teamDraw).reduce((a, b) => a + b)}
+        </td>
+        <td className="td-skew td__lose">
+          {sumTableArr.length > 1 &&
+            sumTableArr.map((team) => team.teamLose).reduce((a, b) => a + b)}
+        </td>
+        <td className="td-skew">
+          {sumTableArr.length > 1 &&
+            sumTableArr
+              .map((team) => team.teamGoalPlus)
+              .reduce((a, b) => a + b)}
+        </td>
+        <td className="td-skew">
+          {sumTableArr.length > 1 &&
+            sumTableArr
+              .map((team) => team.teamGoalMinus)
+              .reduce((a, b) => a + b)}
+        </td>
+        <td className="td-skew">
+          {sumTableArr.length > 1 &&
+            sumTableArr.map((team) => team.teamBilans).reduce((a, b) => a + b)}
+        </td>
+      </tr>
+      <tr></tr>
     </>
-  )
+  );
   return (
     <main className="main">
       <section id="info">
         <div className="sectionLine">
           <span className="sectionLine__title">{teamTitle}</span>
         </div>
-        <div className="containerTable">{showTeam}</div>
+        <div className="containerTable">
+          {loading ? <Loader text="team info" /> : showTeam}
+        </div>
       </section>
 
       <section id="trophy">
         <div className="sectionLine">
           <span className="sectionLine__title">Trophies</span>
         </div>
-        <div className="container">{showTrophies}</div>
+        <div className="container">
+          {loading ? <Loader text="team trophy" /> : showTrophies}
+        </div>
       </section>
 
       <section id="fixtures">
@@ -271,9 +302,19 @@ const TeamSite = (props) => {
         </div>
         <div className="containerTable">
           <div className="teams-fixtures">
-          <div className="switch">
-            <div className={fixtures ? 'switch-on' : 'switch-off'} onClick={() => setFixtures(true)}>Played</div>
-          <div className={!fixtures ?'switch-on' : 'switch-off'} onClick={() => setFixtures(false)}>Upcoming</div>
+            <div className="switch">
+              <div
+                className={fixtures ? "switch-on" : "switch-off"}
+                onClick={() => setFixtures(true)}
+              >
+                Played
+              </div>
+              <div
+                className={!fixtures ? "switch-on" : "switch-off"}
+                onClick={() => setFixtures(false)}
+              >
+                Upcoming
+              </div>
             </div>
             <table className="table">
               <tr>
@@ -285,7 +326,6 @@ const TeamSite = (props) => {
               </tr>
               {fixtures ? playedMatches : upcomingMatches}
             </table>
-
           </div>
         </div>
       </section>
@@ -295,28 +335,28 @@ const TeamSite = (props) => {
           <span className="sectionLine__title">Latest Seasons</span>
         </div>
         <div className="containerTable">
-          
           <table className="table">
-          <tr>
-        <td>S</td>
-        <td>Pos</td>
-        <td>Team</td>
-        <td className="td__points">Pts</td>
-        <td>M</td>
-        <td>W</td>
-        <td>D</td>
-        <td>L</td>
-        <td>G+</td>
-        <td>G-</td>
-        <td>Bil</td>
-      </tr>
-      {showSumTable}
-      {latestSeasons}</table>
+            <tr>
+              <td>S</td>
+              <td>Pos</td>
+              <td>Team</td>
+              <td className="td__points">Pts</td>
+              <td>M</td>
+              <td>W</td>
+              <td>D</td>
+              <td>L</td>
+              <td>G+</td>
+              <td>G-</td>
+              <td>Bil</td>
+            </tr>
+            {showSumTable}
+            {latestSeasons}
+          </table>
         </div>
       </section>
       <Footer />
     </main>
   );
-}
+};
 
 export default TeamSite;

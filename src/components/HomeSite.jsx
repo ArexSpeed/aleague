@@ -6,15 +6,19 @@ import News from "./News";
 import axios from "axios";
 import { news } from "../data/news";
 import Video from "./Video";
+import Loader from "./Loader";
 
 const HomeSite = () => {
+  const [loading, setLoading] = useState(false);
   const [matches, setMatches] = useState([]);
   const [teams, setTeams] = useState([]);
-  const {  url  } = useContext(Context);;
+  const { url } = useContext(Context);
 
   useEffect(() => {
+    setLoading(true);
     const fetchMatches = async () => {
       const { data } = await axios.get(`${url}/api/matches`);
+      setLoading(false);
       setMatches(data);
     };
     const fetchTeams = async () => {
@@ -70,7 +74,10 @@ const HomeSite = () => {
         <div className="sectionLine">
           <span className="sectionLine__title">Last Scores</span>
         </div>
-        <div className="container">{results}</div>
+
+        <div className="container">
+          {loading ? <Loader text="results" /> : results}
+        </div>
       </section>
 
       <section className="last__news" id="news">

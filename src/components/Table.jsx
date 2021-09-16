@@ -3,27 +3,36 @@ import { Link } from "react-router-dom";
 import "../styles/Table.scss";
 import axios from 'axios';
 import {Context} from '../context'
+import Loader from "./Loader";
 function Table() {
-  const [tables, setTables] = useState([])
-  const {url} = useContext(Context)
+  const [loading, setLoading] = useState(false);
+  const [tables, setTables] = useState([]);
+  const { url } = useContext(Context);
   useEffect(() => {
+    setLoading(true);
     const fetchTables = async () => {
       const { data } = await axios.get(`${url}/api/tables`);
       setTables(data);
+      setLoading(false);
     };
 
     fetchTables();
   }, [url]);
 
-    //Table show result **
-    const showTable = tables
+  //Table show result **
+  const showTable = tables
     .filter((table) => table.season === 2021)
-    .sort((a,b) => a.position - b.position)
+    .sort((a, b) => a.position - b.position)
     .map((table, index) => (
       <tr className="tr-scale" key={index}>
         <td className="td-skew td__poz">{table.position}</td>
         <td className="td-skew td__club">
-          <Link to={`/team/${table.team_name.split(' ')[1].toLowerCase()}`} style={{color: '#fff'}}>{table.team_name}</Link>
+          <Link
+            to={`/team/${table.team_name.split(" ")[1].toLowerCase()}`}
+            style={{ color: "#fff" }}
+          >
+            {table.team_name}
+          </Link>
         </td>
         <td className="td-skew td__points">{table.points}</td>
         <td className="td-skew td__num">{table.match}</td>
@@ -50,7 +59,7 @@ function Table() {
         <th>G-</th>
         <th>Bil</th>
       </tr>
-      {showTable}
+      {loading ? <Loader text="table" /> : showTable}
     </table>
   );
 }
