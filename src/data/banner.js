@@ -1,6 +1,6 @@
 import bannerOne from '../images/BannerOne.png'
 import bannerTwo from '../images/BannerTwo.png'
-import bannerThree from '../images/BannerThree.png'
+//import bannerThree from '../images/BannerThree.png'
 
 export const banners = [
   {
@@ -21,7 +21,7 @@ export const banners = [
   },
   {
     id: 3,
-    src: bannerThree,
+    src: bannerTwo,
     title: "Stay informed with current stats",
     desc: "Check all the stats in one place",
     button: "Go to stats",
