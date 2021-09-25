@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import { Context } from "../context";
 import { Link } from "react-router-dom";
 import Table from "./Table";
-import News from "./News";
+import NewsCard from "./NewsCard";
 import axios from "axios";
 import { news } from "../data/news";
 import Video from "./Video";
@@ -94,37 +94,33 @@ const HomeSite = () => {
             View more
           </Link>
         </div>
-      </section>
-
-      {/* 
-
-      <section className="last__news" id="news">
-        <div className="sectionLine">
-          <span className="sectionLine__title">Latest News</span>
-        </div>
-        <div className="container">
+        <article className="subsection">
+          <div className="subsection__square"></div>
+          <div className="subsection__title">Articles</div>
+        </article>
+        <div className="subsection__news">
           {news
             .filter((item) => item.id <= 3)
             .map((item, index) => (
-              <News
+              <NewsCard
                 key={index}
                 id={item.id}
+                category={item.category}
                 title={item.title}
                 image={item.img}
                 text={item.desc}
+                teams={item.teams}
               />
             ))}
         </div>
-      </section>
-
-      <section className="last__video">
-        <div className="sectionLine">
-          <span className="sectionLine__title">Latest Video</span>
-        </div>
-        <div className="container">
+        <article className="subsection">
+          <div className="subsection__square"></div>
+          <div className="subsection__title">Videos</div>
+        </article>
+        <div className="subsection__news">
           <Video />
         </div>
-      </section> */}
+      </section>
     </>
   );
 };

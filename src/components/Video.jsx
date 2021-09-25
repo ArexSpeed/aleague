@@ -22,57 +22,57 @@ const Video = () => {
   return (
     <>
       <div className="video__box">
-            <video
-              src={video1}
-              id="video1"
-              className="video__background"
-              onClick={videoPlay}
-              onMouseEnter={videoPlay}
-              onMouseLeave={videoStop}
-            >
-              {" "}
-            </video>
-            <div className="video__btn-circle">
-              {play ? "" : <BsTriangleFill className="video__btn-triangle" />}
-            </div>
-            <div className="video__title">Third news</div>
+        <video
+          src={video1}
+          id="video1"
+          className="video__background"
+          onClick={videoPlay}
+          onMouseEnter={videoPlay}
+          onMouseLeave={videoStop}
+        >
+          {" "}
+        </video>
+        <div className="video__btn-circle">
+          {play ? "" : <BsTriangleFill className="video__btn-triangle" />}
         </div>
+        <div className="video__title">Third news</div>
+      </div>
 
-        <div className="video__box">
-            <video
-              src={video2}
-              id="video2"
-              className="video__background"
-              onClick={videoPlay}
-              onMouseEnter={videoPlay}
-              onMouseLeave={videoStop}
-            >
-              {" "}
-            </video>
-            <div className="video__btn-circle">
-              {play ? "" : <BsTriangleFill className="video__btn-triangle" />}
-            </div>
-            <div className="video__title">Third news</div>
+      <div className="video__box">
+        <video
+          src={video2}
+          id="video2"
+          className="video__background"
+          onClick={videoPlay}
+          onMouseEnter={videoPlay}
+          onMouseLeave={videoStop}
+        >
+          {" "}
+        </video>
+        <div className="video__btn-circle">
+          {play ? "" : <BsTriangleFill className="video__btn-triangle" />}
         </div>
+        <div className="video__title">Third news</div>
+      </div>
 
-        <div className="video__box">
-            <video
-              src={video3}
-              id="video3"
-              className="video__background"
-              onClick={videoPlay}
-              onMouseEnter={videoPlay}
-              onMouseLeave={videoStop}
-            >
-              {" "}
-            </video>
-            <div className="video__btn-circle">
-              {play ? "" : <BsTriangleFill className="video__btn-triangle" />}
-            </div>
-            <div className="video__title">Third news</div>
+      <div className="video__box">
+        <video
+          src={video3}
+          id="video3"
+          className="video__background"
+          onClick={videoPlay}
+          onMouseEnter={videoPlay}
+          onMouseLeave={videoStop}
+        >
+          {" "}
+        </video>
+        <div className="video__btn-circle">
+          {play ? "" : <BsTriangleFill className="video__btn-triangle" />}
         </div>
+        <div className="video__title">Third news</div>
+      </div>
     </>
-  )
+  );
 }
 
 export default Video

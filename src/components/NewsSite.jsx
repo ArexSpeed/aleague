@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 
 import "../styles/News.scss";
-import News from "./News";
-import {news} from '../data/news';
+import NewsCard from "./NewsCard";
+import { news } from "../data/news";
 
 function NewsSite() {
   const [dimensions, setDimensions] = useState({
@@ -42,34 +42,34 @@ function NewsSite() {
         </div>
         <div className="container">
           <div className="news__box-main">
-            {news.filter(item => item.id <= 2)
-            .map((item, index) => (
-              <News
-              key={index}
-              id={item.id}
-              title=  {item.title}
-              image = {item.img}
-              text= {item.desc}
-              style={
-                dimensions.width > 900 ? newsMainStyle : newsMainStyleMobile
-              }
-            />
-            ))}
-            
+            {news
+              .filter((item) => item.id <= 2)
+              .map((item, index) => (
+                <NewsCard
+                  key={index}
+                  id={item.id}
+                  title={item.title}
+                  image={item.img}
+                  text={item.desc}
+                  style={
+                    dimensions.width > 900 ? newsMainStyle : newsMainStyleMobile
+                  }
+                />
+              ))}
           </div>
 
           <div className="news__box-rest">
-          {news.filter(item => item.id >= 3)
-            .map((item, index) => (
-              <News
-              key={index}
-              id={item.id}
-              title=  {item.title}
-              image = {item.img}
-              text= {item.desc}
-            />
-            ))}
-
+            {news
+              .filter((item) => item.id >= 3)
+              .map((item, index) => (
+                <NewsCard
+                  key={index}
+                  id={item.id}
+                  title={item.title}
+                  image={item.img}
+                  text={item.desc}
+                />
+              ))}
           </div>
         </div>
       </section>
