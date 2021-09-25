@@ -1,86 +1,95 @@
-$primary:  #a2fa92;
-$secondary: #2b9cdc;
-$lastary: rgb(221, 63, 23);
-
-.table{
-  width: 90%;
-  height: auto;
-  margin-top: 15px;
-  border-collapse: separate; 
-  border-spacing: 0 5px;
+@import 'Var';
+.tableContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 768px;
 }
-.tr-scale{
+.table {
+  width: 100%;
   border: none;
-  margin: 10px 0;
-  transition: 0.3s ease-in;
-  &:hover{
-    transform: scale(1.1)
+  border-collapse: separate;
+  border-spacing: 0 5px; 
+  & thead {
+    background: transparent;
+    color: $grayblack;
+    & tr th {
+      font-size: 14px;
+    }
+  }
+  & tbody {
+    & tr {
+      width: 100%;
+      height: 40px;
+      text-align: center;
+      background: transparent;
+      border: none;
+      transition: all 0.3s ease-in-out;
+      &:hover {
+        transform: scale(1.02);
+        transition: all 0.3s ease-in-out;
+      }
+      & td {
+        background: $white;
+        height: 100%;
+        &:first-child { border-radius: 16px 0 0 0; width: 40px; }  
+        &:last-child { 
+          border-radius: 0 0 16px 0;
+          width: 40px; 
+        }
+      }
+    }
   }
 }
 
-.td-skew{
-  text-align: center;
-  background: inherit;
-  position: relative;
-  margin: 20px;
-  &::before{
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    background: white;
-    box-shadow: 0 0 1px $secondary;
-    transform: skewX(-25deg);
-    z-index: -1;
-   
-  }
-}
-tr:nth-child(2) .td__poz::before{
-  background: $primary;
-}
-
-.td{
-  &__poz{
-    background: inherit;
-    position: relative;
-    &::before{
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    background: #fff;
-    transform: skewX(-25deg);
-    z-index: -1;
+.td{  
+  &__pos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 16px 0 16px 0;
+    background: $green;
+    &.gold {
+      background: gold;
+    }
+    &.silver {
+      background: silver;
+    }
+    &.brown {
+      background: brown;
     }
   }
-  &__club{
-    background: inherit;
-    position: relative;
-    font-weight: bold;
-    color: #fff;
-    &::before{
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    background: $secondary;
-    transform: skewX(-25deg);
-    z-index: -1;
+  &__club {
+    color: $black !important;
+    padding: 0 8px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    &-image {
+      max-width: 25px;
+      max-height: 25px;
+      margin-right: 4px;
     }
   }
-  &__points{
-    font-weight: bold;
+  &__win {
+    color: $darkgreen;
   }
-  &__win{
-    color: green;
+  &__lose {
+    color: $red;
   }
-  &__lose{
-    color: red;
+  &__pts {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 16px 0 16px 0;
+    background: $blue;
+    color: $white;
   }
 }

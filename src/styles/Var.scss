@@ -11,6 +11,14 @@ $yellow: #FBFF23;
 $white: #ffffff;
 $black: #000000;
 $graywhite: #dddddd;
-$grayblack: #333333;
+$grayblack: #555555;
 
 $fontFamily: 'Righteous', cursive;
+
+@mixin hideScrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

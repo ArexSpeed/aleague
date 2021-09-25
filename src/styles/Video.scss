@@ -1,4 +1,4 @@
-@import "./Section.scss";
+@import "Var";
 // Video****
 .video{
   &__box{    
@@ -38,12 +38,12 @@
   &__btn-triangle{
     font-size: 50px;
     transform: rotate(90deg);
-    color: $primary;
+    color: $green;
   }
   &__title{
     flex: 0.1;
     color: #fff;
-    background: -webkit-linear-gradient($primary, $secondary);
+    background: -webkit-linear-gradient($green, $blue);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }

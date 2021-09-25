@@ -1,64 +1,147 @@
-$primary:    #a2fa92;
-$secondary: #2b9cdc;
-
-.container {
+@import 'Var';
+.section {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-top: 10px;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
   width: 100%;
-  @media screen and (max-width: 768px) {
-    overflow-x: scroll;
-  }
-}
-.containerTable {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-top: 10px;
-  width: 100%;
-  @media screen and (max-width: 768px) {
-    min-width: 100%;
-    padding: 20px auto;
-    justify-content: start;
-    overflow-x: scroll;
-  }
-}
-.sectionLine {
-  width: 200px;
-  height: 40px;
-  display: flex;
-  border: none;
-  position: relative;
-  &::before{
-  position: absolute;
-  content: "";
-  top: 30%;
-  left: -10%;
-  width: 110%;
-  height: 100%;
-  // background: $primary;
-  border-bottom: 5px solid $primary;
-  border-right: 5px solid $primary;
-  transform: skewX(-25deg);
-  z-index: -1;
-  }
-  &::after{
-  position: absolute;
-  content: "";
-  bottom: 60%;
-  left: 205px;
-  width: 100vw;
-  height: 5px;
-  background: linear-gradient(45deg, $primary 0%, $secondary 50%);
-  transform: skewX(-25deg);
-  z-index: -2;
-  }
-  &__title{
+  padding: 8px 0;
+  &__title {
     display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 4px 0;
+    border-bottom: 1px solid $green;
+    &-name {
+      font-size: 24px;
+      color: $black;
+    }
+    &-link {
+      font-size: 16px;
+      color: $grayblack;
+    }
+  }
+}
+
+.subsection {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  padding: 8px 4px;
+  &__table {
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-size:25px;
-    margin: auto;
+    width: 100%;
+    max-width: 768px;
+  }
+  &__result {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+  &__square {
+    width: 40px;
+    height: 20px;
+    border-radius: 0px;
+    position: relative;
+    outline: none; 
+    border: none; 
+    background: transparent;
+    &::before, &::after { 
+      content: ""; 
+      position: absolute; 
+      background: $green; 
+      height: 100%; 
+      width: 50%; 
+      transition: all 0.5s cubic-bezier(0.68, -0.6, 0.32, 1.6); 
+    } &::before { 
+      top: -20%; 
+      left: 0rem; 
+    } &::after { 
+      background: $blue;
+      top: 20%; 
+      left: 50%; 
+    } &:hover::before { 
+      top: 0; 
+      left: 50%; 
+    } &:hover::after { 
+      top: 0; 
+      left: 0; 
+    }
+  }
+  &__title {
+    padding: 0 8px;
+    font-size: 16px;
   }
 }
+
+// .container {
+//   display: flex;
+//   flex-wrap: wrap;
+//   justify-content: center;
+//   margin-top: 10px;
+//   width: 100%;
+//   @media screen and (max-width: 768px) {
+//     overflow-x: scroll;
+//   }
+// }
+// .containerTable {
+//   display: flex;
+//   flex-wrap: wrap;
+//   justify-content: center;
+//   margin-top: 10px;
+//   width: 100%;
+//   @media screen and (max-width: 768px) {
+//     min-width: 100%;
+//     padding: 20px auto;
+//     justify-content: start;
+//     overflow-x: scroll;
+//   }
+// }
+// .sectionLine {
+//   width: 200px;
+//   height: 40px;
+//   display: flex;
+//   border: none;
+//   position: relative;
+//   &::before{
+//   position: absolute;
+//   content: "";
+//   top: 30%;
+//   left: -10%;
+//   width: 110%;
+//   height: 100%;
+//   // background: $primary;
+//   border-bottom: 5px solid $primary;
+//   border-right: 5px solid $primary;
+//   transform: skewX(-25deg);
+//   z-index: -1;
+//   }
+//   &::after{
+//   position: absolute;
+//   content: "";
+//   bottom: 60%;
+//   left: 205px;
+//   width: 100vw;
+//   height: 5px;
+//   background: linear-gradient(45deg, $primary 0%, $secondary 50%);
+//   transform: skewX(-25deg);
+//   z-index: -2;
+//   }
+//   &__title{
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     font-size:25px;
+//     margin: auto;
+//   }
+// }

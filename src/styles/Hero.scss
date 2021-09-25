@@ -1,0 +1,42 @@
+.hero {
+  display: flex;
+  flex-direction: column;
+  &__title {
+    position: relative;
+    margin-bottom: 50px;
+    max-width: 300px;
+    &-top {
+      font-size: 32px;
+      color: $black;
+      background: $green;
+      border-radius: 16px;
+      padding: 8px 16px;
+    }
+    &-bottom {
+      position: absolute;
+      bottom: -16px;
+      right: -60px;
+      font-size: 16px;
+      color: $white;
+      background: $blue;
+      border-radius: 8px;
+      padding: 4px 8px;
+    }
+  }
+  &__banner {
+    width: 100%;
+    height: 200px;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+}
+.banner {
+  &__image {
+    max-height: 200px;
+    width: 100%;
+    object-fit: cover;
+  }
+  &__desc {
+    font-size: 16px;
+  }
+}

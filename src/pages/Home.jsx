@@ -1,6 +1,6 @@
 import React from "react";
-import Banner from "../components/Banner";
 import Footer from "../components/Footer";
+import Hero from "../components/Hero";
 import HomeSite from "../components/HomeSite";
 
 import "../styles/Main.scss";
@@ -9,9 +9,8 @@ const Home = () => {
   return (
     <>
       <section className="main__wrapper">
-        <Banner />
+        <Hero />
         <HomeSite />
-        <Footer />
       </section>
       <section className="main__aside">
         <div className="main__aside-box">xD</div>

@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { Context } from "../context";
-import "../styles/Home.scss";
+import { Link } from "react-router-dom";
 import Table from "./Table";
 import News from "./News";
 import axios from "axios";
@@ -33,26 +33,28 @@ const HomeSite = () => {
   const results = matches
     .filter((match) => match.season === 2021 && match.round === 15)
     .map((match, index) => (
-      <div key={index} className="score__box btn-slide-center-out">
+      <div key={index} className="home__scoreBox btn-effect">
         {teams
           .filter((team) => team.name === match.host_name)
           .map((team) => (
             <img
               src={team.logo}
-              className="score__box-team_host"
+              className="home__scoreBox-image"
               alt={team.name}
             />
           ))}
-        <div className="score__box-score_result">
-          <span className="score__box-score_host">{match.host_score}</span>
-          <span className="score__box-score_guest">{match.guest_score}</span>
+        <div className="home__scoreBox-result">
+          <span className="home__scoreBox-result-host">{match.host_score}</span>
+          <span className="home__scoreBox-result-guest">
+            {match.guest_score}
+          </span>
         </div>
         {teams
           .filter((team) => team.name === match.guest_name)
           .map((team) => (
             <img
               src={team.logo}
-              className="score__box-team_guest"
+              className="home__scoreBox-image"
               alt={team.name}
             />
           ))}
@@ -61,24 +63,40 @@ const HomeSite = () => {
 
   return (
     <>
-      <section id="table">
-        <div className="sectionLine">
-          <span className="sectionLine__title">Table</span>
+      <section className="section">
+        <div className="section__title">
+          <div className="section__title-name">Current Stats</div>
+          <Link to="/stats" className="section__title-link">
+            View more
+          </Link>
         </div>
-        <div className="containerTable">
+        <article className="subsection">
+          <div className="subsection__square"></div>
+          <div className="subsection__title">Table</div>
+        </article>
+        <div className="subsection__table">
           <Table />
         </div>
-      </section>
 
-      <section className="last__score">
-        <div className="sectionLine">
-          <span className="sectionLine__title">Last Scores</span>
-        </div>
-
-        <div className="container">
+        <article className="subsection">
+          <div className="subsection__square"></div>
+          <div className="subsection__title">Latest Games</div>
+        </article>
+        <div className="subsection__result">
           {loading ? <Loader text="results" /> : results}
         </div>
       </section>
+
+      <section className="section">
+        <div className="section__title">
+          <div className="section__title-name">Latest news</div>
+          <Link to="/news" className="section__title-link">
+            View more
+          </Link>
+        </div>
+      </section>
+
+      {/* 
 
       <section className="last__news" id="news">
         <div className="sectionLine">
@@ -106,7 +124,7 @@ const HomeSite = () => {
         <div className="container">
           <Video />
         </div>
-      </section>
+      </section> */}
     </>
   );
 };
