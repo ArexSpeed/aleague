@@ -7,11 +7,16 @@ import "../styles/Main.scss";
 
 const Home = () => {
   return (
-    <main className="main">
-      <Banner />
-      <HomeSite />
-      <Footer />
-    </main>
+    <>
+      <section className="main__wrapper">
+        <Banner />
+        <HomeSite />
+        <Footer />
+      </section>
+      <section className="main__aside">
+        <div className="main__aside-box">xD</div>
+      </section>
+    </>
   );
 };
 
