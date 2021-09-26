@@ -1,9 +1,9 @@
 import { useState, useEffect, useContext } from "react";
-import { Context } from "../context";
+import { Context } from "../context/Provider";
 import axios from "axios";
 
 const useTeams = () => {
-  const { url } = useContext(Context);
+  const [{ url }] = useContext(Context);
   const [teams, setTeams] = useState([]);
   const [loading, setLoading] = useState(false);
 
