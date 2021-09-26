@@ -77,7 +77,7 @@ const Votes = () => {
                     value={vote.name}
                     onClick={voteGoalkeeper}
                   />
-                  <label for={vote.name} className="votes__label">
+                  <label htmlFor={vote.name} className="votes__label">
                     <span className="votes__span">{vote.name}</span>
                     <span className="votes__teamName">{vote.club_short}</span>
                   </label>
@@ -100,7 +100,7 @@ const Votes = () => {
                     value={vote.name}
                     onClick={voteDefender}
                   />
-                  <label for={vote.name} className="votes__label">
+                  <label htmlFor={vote.name} className="votes__label">
                     <span className="votes__span">{vote.name}</span>
                     <span className="votes__teamName">{vote.club_short}</span>
                   </label>
@@ -124,7 +124,7 @@ const Votes = () => {
                     value={vote.name}
                     onClick={voteMidfielder}
                   />
-                  <label for={vote.name} className="votes__label">
+                  <label htmlFor={vote.name} className="votes__label">
                     <span className="votes__span">{vote.name}</span>
                     <span className="votes__teamName">{vote.club_short}</span>
                   </label>
@@ -147,7 +147,7 @@ const Votes = () => {
                     value={vote.name}
                     onClick={voteForward}
                   />
-                  <label for={vote.name} className="votes__label">
+                  <label htmlFor={vote.name} className="votes__label">
                     <span className="votes__span">{vote.name}</span>
                     <span className="votes__teamName">{vote.club_short}</span>
                   </label>
@@ -170,7 +170,7 @@ const Votes = () => {
                     value={vote.name}
                     onClick={voteCoach}
                   />
-                  <label for={vote.name} className="votes__label">
+                  <label htmlFor={vote.name} className="votes__label">
                     <span className="votes__span">{vote.name}</span>
                     <span className="votes__teamName">{vote.club_short}</span>
                   </label>

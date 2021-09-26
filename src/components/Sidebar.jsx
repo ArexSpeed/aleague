@@ -41,6 +41,7 @@ const Sidebar = ({ activeSidebar }) => {
         </header>
         {loading && <Loader text="teams" />}
         <ul className="sidebar__list">{teamsSite}</ul>
+
         <div className="sidebar__switcher">
           <button className="sidebar__switcher-btn">
             <svg
