@@ -69,7 +69,7 @@ const Votes = () => {
             {votes
               .filter((vote) => vote.category === "Goalkeeper")
               .map((vote) => (
-                <div className="votes__checkbox">
+                <div key={vote.name} className="votes__checkbox">
                   <input
                     type="radio"
                     name="goalkeeper"
@@ -92,7 +92,7 @@ const Votes = () => {
             {votes
               .filter((vote) => vote.category === "Defender")
               .map((vote) => (
-                <div className="votes__checkbox">
+                <div key={vote.name} className="votes__checkbox">
                   <input
                     type="radio"
                     name="defender"
@@ -116,7 +116,7 @@ const Votes = () => {
             {votes
               .filter((vote) => vote.category === "Midfielder")
               .map((vote) => (
-                <div className="votes__checkbox">
+                <div key={vote.name} className="votes__checkbox">
                   <input
                     type="radio"
                     name="midfielder"
@@ -139,7 +139,7 @@ const Votes = () => {
             {votes
               .filter((vote) => vote.category === "Forward")
               .map((vote) => (
-                <div className="votes__checkbox">
+                <div key={vote.name} className="votes__checkbox">
                   <input
                     type="radio"
                     name="forward"
@@ -162,7 +162,7 @@ const Votes = () => {
             {votes
               .filter((vote) => vote.category === "Coach")
               .map((vote) => (
-                <div className="votes__checkbox">
+                <div key={vote.name} className="votes__checkbox">
                   <input
                     type="radio"
                     name="coach"
@@ -192,7 +192,7 @@ const Votes = () => {
               .filter((vote) => vote.category === "Goalkeeper")
               .sort((a, b) => b.points - a.points)
               .map((vote) => (
-                <>
+                <div key={vote.name}>
                   <div className="votes__checkbox">
                     <label className="votes__label">
                       <span className="votes__span">{vote.name}</span>
@@ -204,7 +204,7 @@ const Votes = () => {
                       {((vote.points / sumPoints.allPoints) * 100).toFixed(2)}%
                     </Percent>
                   </div>
-                </>
+                </div>
               ))}
           </div>
           {/* Defender score */}
@@ -216,7 +216,7 @@ const Votes = () => {
               .filter((vote) => vote.category === "Defender")
               .sort((a, b) => b.points - a.points)
               .map((vote) => (
-                <>
+                <div key={vote.name}>
                   <div className="votes__checkbox">
                     <label className="votes__label">
                       <span className="votes__span">{vote.name}</span>
@@ -228,7 +228,7 @@ const Votes = () => {
                       {((vote.points / sumPoints.allPoints) * 100).toFixed(2)}%
                     </Percent>
                   </div>
-                </>
+                </div>
               ))}
           </div>
           {/* Midfielder score */}
@@ -241,7 +241,7 @@ const Votes = () => {
               .filter((vote) => vote.category === "Midfielder")
               .sort((a, b) => b.points - a.points)
               .map((vote) => (
-                <>
+                <div key={vote.name}>
                   <div className="votes__checkbox">
                     <label className="votes__label">
                       <span className="votes__span">{vote.name}</span>
@@ -253,7 +253,7 @@ const Votes = () => {
                       {((vote.points / sumPoints.allPoints) * 100).toFixed(2)}%
                     </Percent>
                   </div>
-                </>
+                </div>
               ))}
           </div>
           {/* Forward score */}
@@ -265,7 +265,7 @@ const Votes = () => {
               .filter((vote) => vote.category === "Forward")
               .sort((a, b) => b.points - a.points)
               .map((vote) => (
-                <>
+                <div key={vote.name}>
                   <div className="votes__checkbox">
                     <label className="votes__label">
                       <span className="votes__span">{vote.name}</span>
@@ -277,7 +277,7 @@ const Votes = () => {
                       {((vote.points / sumPoints.allPoints) * 100).toFixed(2)}%
                     </Percent>
                   </div>
-                </>
+                </div>
               ))}
           </div>
           {/* Coach score */}
@@ -289,7 +289,7 @@ const Votes = () => {
               .filter((vote) => vote.category === "Coach")
               .sort((a, b) => b.points - a.points)
               .map((vote) => (
-                <>
+                <div key={vote.name}>
                   <div className="votes__checkbox">
                     <label className="votes__label">
                       <span className="votes__span">{vote.name}</span>
@@ -301,7 +301,7 @@ const Votes = () => {
                       {((vote.points / sumPoints.allPoints) * 100).toFixed(2)}%
                     </Percent>
                   </div>
-                </>
+                </div>
               ))}
           </div>
         </div>

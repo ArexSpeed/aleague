@@ -16,7 +16,6 @@ const Hero = () => {
     const intervalId = setInterval(() => {
       changeIndex();
     }, 3000);
-    console.log("effect");
     return () => clearInterval(intervalId);
   }, [index]);
 

@@ -7,27 +7,20 @@ import axios from "axios";
 import { news } from "../data/news";
 import Video from "./Video";
 import Loader from "./Loader";
+import useTeams from "../hooks/useTeams";
 
 const HomeSite = () => {
-  const [loading, setLoading] = useState(false);
+  const { teams, loading } = useTeams();
   const [matches, setMatches] = useState([]);
-  const [teams, setTeams] = useState([]);
   const { url } = useContext(Context);
 
   useEffect(() => {
-    setLoading(true);
     const fetchMatches = async () => {
       const { data } = await axios.get(`${url}/api/matches`);
-      setLoading(false);
       setMatches(data);
-    };
-    const fetchTeams = async () => {
-      const { data } = await axios.get(`${url}/api/teams`);
-      setTeams(data);
     };
 
     fetchMatches();
-    fetchTeams();
   }, []);
 
   const results = matches

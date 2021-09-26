@@ -1,4 +1,5 @@
 import { useState } from "react";
+import AsideStats from "./AsideStats";
 import Votes from "./Votes";
 
 const Aside = () => {
@@ -30,7 +31,12 @@ const Aside = () => {
           </div>
         </div>
       ) : (
-        <div className="aside__content">Stats</div>
+        <div className="aside__content">
+          <div className="aside__content-title">AL STATS</div>
+          <div className="aside__content-container">
+            <AsideStats />
+          </div>
+        </div>
       )}
     </div>
   );

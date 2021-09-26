@@ -1,12 +1,13 @@
 import React, {useState, useEffect, useContext} from "react";
+import useTeams from "../hooks/useTeams";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { Context } from "../context";
 import Loader from "./Loader";
 function Table() {
+  const { teams } = useTeams();
   const [loading, setLoading] = useState(false);
   const [tables, setTables] = useState([]);
-  const [teams, setTeams] = useState([]);
   const { url } = useContext(Context);
   useEffect(() => {
     setLoading(true);
@@ -15,13 +16,8 @@ function Table() {
       setTables(data);
       setLoading(false);
     };
-    const fetchTeams = async () => {
-      const { data } = await axios.get(`${url}/api/teams`);
-      setTeams(data);
-    };
 
     fetchTables();
-    fetchTeams();
   }, [url]);
 
   //Table show result **
@@ -29,7 +25,7 @@ function Table() {
     .filter((table) => table.season === 2021)
     .sort((a, b) => a.position - b.position)
     .map((table, index) => (
-      <tr className="" key={index}>
+      <tr key={index}>
         <td>
           <div
             className={`td__pos ${
@@ -64,11 +60,11 @@ function Table() {
         </td>
         <td>{table.match}</td>
         <td className="td__win">{table.win}</td>
-        <td className="">{table.draw}</td>
+        <td>{table.draw}</td>
         <td className="td__lose">{table.lose}</td>
-        <td className="">{table.goal_plus}</td>
-        <td className="">{table.goal_minus}</td>
-        <td className="">{table.bilans}</td>
+        <td>{table.goal_plus}</td>
+        <td>{table.goal_minus}</td>
+        <td>{table.bilans}</td>
         <td>
           <div className="td__pts">{table.points}</div>
         </td>

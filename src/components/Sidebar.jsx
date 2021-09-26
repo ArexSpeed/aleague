@@ -1,25 +1,10 @@
-import React, { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
-import { Context } from "../context";
+import useTeams from "../hooks/useTeams";
 import Loader from "./Loader";
 import logo from "../images/AL.png";
 
 const Sidebar = ({ activeSidebar }) => {
-  const [teams, setTeams] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const { url } = useContext(Context);
-  useEffect(() => {
-    setLoading(true);
-    const fetchTeams = async () => {
-      const { data } = await axios.get(`${url}/api/teams`);
-
-      setTeams(data);
-      setLoading(false);
-    };
-
-    fetchTeams();
-  }, []);
+  const { teams, loading } = useTeams();
 
   const teamsSite = teams.map((team) => (
     <Link
