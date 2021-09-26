@@ -2,12 +2,19 @@
   display: flex;
   flex-direction: column;
   margin-top: 16px;
+  @media screen and (max-width: $medium) {
+    flex-direction: row;
+    overflow: scroll;
+  }
   &__box {
     display: flex;
     flex-direction: column;
     justify-content: center;
     font-family: $fontFamily;
     margin: 8px 0;
+    @media screen and (max-width: $medium) {
+      margin: 8px;
+    }
   }
 }
 
@@ -16,6 +23,9 @@
   border: none;
   border-collapse: separate;
   border-spacing: 0 4px; 
+  @media screen and (max-width: $medium) {
+    width: 250px;
+  }
   & thead {
     background: transparent;
     color: $graywhite;

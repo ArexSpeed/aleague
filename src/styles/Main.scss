@@ -10,6 +10,9 @@
   border-radius: 32px;
   overflow: hidden;
   color: $black;
+  @media screen and (max-width: $medium) {
+    overflow-y: scroll;
+  }
   //overflow-y: scroll;
   // @media screen and (max-width: 768px){
   //   display: flex;
@@ -22,22 +25,27 @@
     align-items: flex-start;
     width: 100%;
     overflow: hidden;
+    @media screen and (max-width: $medium) {
+      flex-direction: column;
+      overflow-y: scroll;
+    }
   }
   &__wrapper {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    //max-width: 768px;
     width: 100%;
-    //background: rgba(0,0,0,.1);
     height: 100%;
     padding: 8px 8px 8px 32px;
     overflow: scroll;
     @include hideScrollbar;
+    @media screen and (max-width: $medium) {
+      //height: auto;
+      //overflow: hidden;
+    }
   }
   &__aside {
-    flex-grow: none;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -49,11 +57,28 @@
     max-width: 350px;
     width: 350px;
     color: $white;
+    @media screen and (max-width: $medium) {
+      display: none;
+    }
+    &-mobile {
+      display: none;
+      @media screen and (max-width: $medium) {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        width: 100%;
+        padding: 8px 0;
+      }
+    }
     &-box {
       width: 100%;
       min-height: 100%;
       background: $bgDark;
       border-radius: 16px;
+      @media screen and (max-width: $medium) {
+        height: 100%;
+      }
     }
   }
 }

@@ -17,6 +17,10 @@ $grayblack: #555555;
 $fontFamily: 'Righteous', cursive;
 $fontPoppins: 'Poppins', sans-serif;
 
+$medium: 1025px;
+$tablet: 769px;
+$phone: 621px;
+
 @mixin hideScrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;

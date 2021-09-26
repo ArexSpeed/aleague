@@ -21,7 +21,7 @@ const HomeSite = () => {
     };
 
     fetchMatches();
-  }, []);
+  }, [url]);
 
   const results = matches
     .filter((match) => match.season === 2021 && match.round === 15)

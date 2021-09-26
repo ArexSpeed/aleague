@@ -177,12 +177,14 @@ const Votes = () => {
                 </div>
               ))}
           </div>
-          <button type="submit" className="votes__button">
-            Vote
-          </button>
+          <div className="votes__box-button">
+            <button type="submit" className="votes__button">
+              Vote
+            </button>
+          </div>
         </form>
       ) : (
-        <div className="votes__boxes">
+        <div className="votes__form">
           <div className="votes__box">
             <div className="votes__title">
               <div className="subsection__square"></div>{" "}

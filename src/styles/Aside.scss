@@ -9,6 +9,9 @@
   overflow: hidden;
   height: 75vh;
   max-height: 75vh;
+  @media screen and (max-width: $medium) {
+    height: auto;
+  }
   &__header {
     display: flex;
     width: 100%;

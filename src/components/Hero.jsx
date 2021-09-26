@@ -22,8 +22,10 @@ const Hero = () => {
   return (
     <div className="hero">
       <div className="hero__title">
-        <div className="hero__title-top">ATLAND LEAGUE</div>
-        <div className="hero__title-bottom">Your best football league</div>
+        <div className="hero__title-top">
+          ATLAND LEAGUE
+          <div className="hero__title-bottom">Your best football league</div>
+        </div>
       </div>
       <div className="hero__banner">
         <div className="hero__banner-box">
@@ -32,20 +34,20 @@ const Hero = () => {
             alt=""
             className="hero__banner-image-host"
           />
-          <div className="hero__banner-square green"></div>
+          <div className="hero__banner-square host"></div>
           <div className="hero__banner-info">
             <div className="hero__banner-info-title">Next Round</div>
             <div className="hero__banner-info-match">
               {matches[index].host} - {matches[index].guest}
             </div>
             <div className="hero__banner-info-subtitle">
-              Watch all seconds on AL TV
+              Watch every seconds on AL TV
             </div>
             <Link to="/tv">
               <button className="hero__banner-info-button">Join now</button>
             </Link>
           </div>
-          <div className="hero__banner-square blue"></div>
+          <div className="hero__banner-square guest"></div>
           <img
             src={matches[index].imageGuest}
             alt=""

@@ -9,9 +9,21 @@
     flex-direction: column;
     justify-content: center;
     font-family: $fontFamily;
+    @media screen and (max-width: $medium) {
+      flex-direction: row;
+      justify-content: flex-start;
+    }
   }
   &__box {
     margin: 8px 0;
+    @media screen and (max-width: $medium) {
+      margin: 8px;
+    }
+    &-button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   }
   &__title {
     display: flex;
