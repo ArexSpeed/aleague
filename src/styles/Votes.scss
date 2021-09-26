@@ -1,0 +1,130 @@
+@import 'Var';
+
+.votes {
+  display: flex;
+  flex-direction: column;
+  margin-top: 16px;
+  &__form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-family: $fontFamily;
+  }
+  &__box {
+    margin: 8px 0;
+  }
+  &__title {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 16px;
+    & span {
+      font-size: 16px;
+      color: $white;
+      padding-left: 4px;
+    }
+  }
+  &__checkbox{
+    display: flex;
+    flex-direction: row;
+  }
+  // input lower
+  &__label {
+    width: 250px;
+    height: 30px;
+    margin: 2px 0;
+    background-color: $blue;
+    color: $white;
+    font-size: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 16px 0 16px 0;
+    cursor: pointer;
+  }
+  &__span {
+    padding-left: 2px;
+  }
+  &__teamName {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    background: $green;
+    color: $black;
+    font-size: 16px;
+    border-radius: 16px 0 16px 0;
+  }
+  &__points {
+    margin-bottom: 4px;
+    display: flex;
+    width: 100%;
+    height: 20px;
+    font-size: 12px;
+    background: $grayblack;
+    color: $black;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+  }
+  &__button {
+    font-size: 20px;
+    font-family: $fontFamily;
+    width: 120px;
+    height: 30px;
+    margin: 8px auto;
+    border-radius: 16px 0 16px 0;
+    background: $blue;
+    color: $white;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    z-index: 2;
+    &::before {
+      position: absolute;
+      content: "";
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 100%;
+      background: $green;
+      color: #fff;
+      transition: all 0.5s;
+      z-index: -1;
+    }
+    &:hover {
+      color: $black;
+      transition: all 0.2s ease-in-out;
+      &::before {
+        width: 100%;
+        transition: all 0.4s ease-in-out;
+      }
+    }
+  }
+}
+
+input[type=radio]{
+  /* Hide original inputs */
+  visibility: hidden;
+  position: absolute;
+}
+input[type=radio] + label:before{
+  height:30px;
+  width:30px;
+  content: " ";
+  display:inline-block;
+  border: none;
+  background: $white;
+}
+input[type=radio]:checked + label:before{
+  background: $green;
+}
+
+/* CUSTOM RADIO AND CHECKBOX STYLES */
+input[type=radio] + label:before{
+  border-radius: 16px 0 16px 0;
+}

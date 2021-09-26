@@ -9,7 +9,6 @@ import Tv from "./pages/Tv";
 import Team from "./pages/Team";
 import Sidebar from "./components/Sidebar";
 import TeamSite from "./components/TeamSite";
-import Awards from "./pages/Awards";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./styles/Styles.scss";
@@ -39,7 +38,6 @@ export default function App() {
               <Route path="/tv" component={Tv} />
               <Route exact path="/team" component={Team} />
               <Route path="/team/:team" component={TeamSite} />
-              <Route path="/awards" component={Awards} />
             </Switch>
           </section>
         </main>
