@@ -1,29 +1,24 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { banners } from "../data/banner";
-//import "bootstrap/dist/css/bootstrap.min.css";
-import Carousel from "react-bootstrap/Carousel";
+import { matches } from "../data/bannerMatches";
 
 const Hero = () => {
-  const carouselItem = banners.map((banner) => (
-    <Carousel.Item key={banner.id} style={{ height: "200px", width: "100%" }}>
-      <img className="banner__image" src={banner.src} alt="First slide" />
-      <div className="banner__desc">
-        <div className="banner__title-background">
-          <h1 className="banner__title">{banner.title}</h1>
-        </div>
-        <div className="banner__subtitle-background">
-          <h4 className="banner__subtitle">{banner.desc}</h4>
-        </div>
-      </div>
+  const [index, setIndex] = useState(0);
 
-      <Link to={banner.link} className="banner__button">
-        <div className="banner__button-background">
-          <span className="banner__button-desc">{banner.button}</span>
-        </div>
-      </Link>
-    </Carousel.Item>
-  ));
+  useEffect(() => {
+    const changeIndex = () => {
+      if (index === 7) {
+        setIndex(0);
+      } else {
+        setIndex((prev) => prev + 1);
+      }
+    };
+    const intervalId = setInterval(() => {
+      changeIndex();
+    }, 3000);
+    console.log("effect");
+    return () => clearInterval(intervalId);
+  }, [index]);
 
   return (
     <div className="hero">
@@ -32,9 +27,32 @@ const Hero = () => {
         <div className="hero__title-bottom">Your best football league</div>
       </div>
       <div className="hero__banner">
-        <Carousel style={{ height: "200px", width: "768px" }}>
-          {carouselItem}
-        </Carousel>
+        <div className="hero__banner-box">
+          <img
+            src={matches[index].imageHost}
+            alt=""
+            className="hero__banner-image-host"
+          />
+          <div className="hero__banner-square green"></div>
+          <div className="hero__banner-info">
+            <div className="hero__banner-info-title">Next Round</div>
+            <div className="hero__banner-info-match">
+              {matches[index].host} - {matches[index].guest}
+            </div>
+            <div className="hero__banner-info-subtitle">
+              Watch all seconds on AL TV
+            </div>
+            <Link to="/tv">
+              <button className="hero__banner-info-button">Join now</button>
+            </Link>
+          </div>
+          <div className="hero__banner-square blue"></div>
+          <img
+            src={matches[index].imageGuest}
+            alt=""
+            className="hero__banner-image-guest"
+          />
+        </div>
       </div>
     </div>
   );
