@@ -2,13 +2,13 @@ import React, {useState, useEffect, useContext} from "react";
 import useTeams from "../hooks/useTeams";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { Context } from "../context";
+import { Context } from "../context/Provider";
 import Loader from "./Loader";
 function Table() {
   const { teams } = useTeams();
   const [loading, setLoading] = useState(false);
   const [tables, setTables] = useState([]);
-  const { url } = useContext(Context);
+  const [{ url }] = useContext(Context);
   useEffect(() => {
     setLoading(true);
     const fetchTables = async () => {

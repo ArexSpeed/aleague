@@ -3,14 +3,14 @@ import Tilt from "react-tilt";
 import { BsFillStarFill } from "react-icons/bs";
 import Footer from './Footer'
 import axios from 'axios'
-import {Context} from '../context'
+import { Context } from "../context/Provider";
 import "../styles/TeamSite.scss";
 import Loader from "./Loader";
 
 const TeamSite = (props) => {
   const teamSiteName = props.match.params.team;
   let teamTitle = "";
-  const { url } = useContext(Context);
+  const [{ url }] = useContext(Context);
   const [loading, setLoading] = useState(false);
   const [teams, setTeams] = useState([]);
   const [tables, setTables] = useState([]);

@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Percent } from "./Votes.styled";
 import axios from "axios";
-import { Context } from "../context";
+import { Context } from "../context/Provider";
 
 const Votes = () => {
-  const { url } = useContext(Context);
+  const [{ url }] = useContext(Context);
   const [votes, setVotes] = useState([]);
   const [votesPoints, setVotePoints] = useState(false);
   const [sumPoints, setSumPoints] = useState({});

@@ -11,6 +11,29 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    &-open {
+      display: none;
+      @media screen and (max-width: $phone) {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        border: none;
+        background: transparent;
+        outline: none;
+      }
+      &-icon {
+        width: 16px;
+        height: 16px;
+        color: $black;
+      }
+      &-text {
+        font-size: 16px;
+        font-family: $fontFamily;
+        padding-left: 4px;
+      }
+    }
     &-item {
       font-size: 20px;
       padding: 8px;

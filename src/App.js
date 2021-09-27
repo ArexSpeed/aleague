@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useContext } from "react";
+import { Context } from "./context/Provider";
 import Nav from "./components/Nav";
 import Home from "./pages/Home";
 import Stats from "./pages/Stats";
@@ -11,22 +12,14 @@ import Sidebar from "./components/Sidebar";
 import TeamSite from "./components/TeamSite";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import "./styles/Styles.scss";
 
 export default function App() {
-  const [activeSidebar, setActiveSidebar] = useState(true);
+  const [{ mobileSidebar }] = useContext(Context);
   return (
     <div className="App">
       <Router>
-        {/* <Menu
-          activeSidebar={activeSidebar}
-          setActiveSidebar={setActiveSidebar}
-        /> */}
-        <Sidebar
-          activeSidebar={activeSidebar}
-          setActiveSidebar={setActiveSidebar}
-        />
-        <main className="main">
+        <Sidebar />
+        <main className={`main ${mobileSidebar && "hide"}`}>
           <Nav />
           <section className="main__container">
             <Switch>

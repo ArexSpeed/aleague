@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import { Context } from "../context";
+import { Context } from "../context/Provider";
 import { Link } from "react-router-dom";
 import Table from "./Table";
 import NewsCard from "./NewsCard";
@@ -12,7 +12,7 @@ import useTeams from "../hooks/useTeams";
 const HomeSite = () => {
   const { teams, loading } = useTeams();
   const [matches, setMatches] = useState([]);
-  const { url } = useContext(Context);
+  const [{ url }] = useContext(Context);
 
   useEffect(() => {
     const fetchMatches = async () => {

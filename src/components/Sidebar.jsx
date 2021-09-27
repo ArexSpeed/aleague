@@ -1,5 +1,6 @@
 import { useState, useContext } from "react";
-import { Context } from "../context";
+import { Context } from "../context/Provider";
+import { actions } from "../context/reducer";
 import { Link } from "react-router-dom";
 import useTeams from "../hooks/useTeams";
 import Loader from "./Loader";
@@ -7,7 +8,7 @@ import logo from "../images/AL.png";
 
 const Sidebar = ({ activeSidebar }) => {
   const { teams, loading } = useTeams();
-  const [mobileSidebar, dispatch] = useContext(Context);
+  const [{ mobileSidebar }, dispatch] = useContext(Context);
 
   const teamsSite = teams.map((team) => (
     <Link
@@ -68,7 +69,10 @@ const Sidebar = ({ activeSidebar }) => {
       {/* Mobile */}
       <div className={`sidebarMobile ${mobileSidebar && "active"}`}>
         <header className="sidebarMobile__header">
-          <button className="sidebarMobile__button">
+          <button
+            className="sidebarMobile__button"
+            onClick={() => dispatch({ type: actions.toggleMobileSidebar })}
+          >
             <svg
               className="sidebarMobile__button-icon"
               fill="none"
@@ -85,10 +89,7 @@ const Sidebar = ({ activeSidebar }) => {
             </svg>
           </button>
           <span>Teams</span>
-          <button
-            className="sidebarMobile__button"
-            onClick={() => dispatch("TOOGLE_MOBILE_SIDEBAR")}
-          >
+          <button className="sidebarMobile__button">
             <svg
               className="sidebarMobile__button-icon"
               fill="#ffffff"
