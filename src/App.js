@@ -12,6 +12,7 @@ import Sidebar from "./components/Sidebar";
 import TeamSite from "./components/TeamSite";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import NavMobile from "./components/NavMobile";
 
 export default function App() {
   const [{ mobileSidebar }] = useContext(Context);
@@ -21,6 +22,7 @@ export default function App() {
         <Sidebar />
         <main className={`main ${mobileSidebar && "hide"}`}>
           <Nav />
+          <NavMobile />
           <section className="main__container">
             <Switch>
               <Route exact path={["/", "/home"]} component={Home} />
