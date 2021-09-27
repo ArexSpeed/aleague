@@ -11,6 +11,9 @@
   align-items: center;
   overflow: hidden;
   z-index: 99;
+  @media screen and (min-width: $phone) {
+    display: none;
+  }
   &__menu {
     display: flex;
     flex-direction: row;

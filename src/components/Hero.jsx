@@ -36,16 +36,23 @@ const Hero = () => {
           />
           <div className="hero__banner-square host"></div>
           <div className="hero__banner-info">
-            <div className="hero__banner-info-title">Next Round</div>
-            <div className="hero__banner-info-match">
-              {matches[index].host} - {matches[index].guest}
+            <div>
+              <div className="hero__banner-info-title">Next Round</div>
+              <div className="hero__banner-info-match">
+                {matches[index].host} - {matches[index].guest}
+              </div>
             </div>
             <div className="hero__banner-info-subtitle">
               Watch every seconds on AL TV
             </div>
-            <Link to="/tv">
-              <button className="hero__banner-info-button">Join now</button>
-            </Link>
+            <div className="hero__banner-info-mobile">
+              <div className="hero__banner-info-subtitle-mobile">
+                Watch every seconds on AL TV
+              </div>
+              <Link to="/tv">
+                <button className="hero__banner-info-button">Join now</button>
+              </Link>
+            </div>
           </div>
           <div className="hero__banner-square guest"></div>
           <img

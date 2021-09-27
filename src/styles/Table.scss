@@ -18,6 +18,11 @@
     & tr th {
       font-size: 14px;
     }
+    & .th__mobileHide {
+      @media screen and (max-width: $phone) {
+        display: none;
+      }
+    }
   }
   & tbody {
     & tr {
@@ -91,5 +96,10 @@
     border-radius: 16px 0 16px 0;
     background: $blue;
     color: $white;
+  }
+  &__mobileHide {
+    @media screen and (max-width: $phone) {
+      display: none;
+    }
   }
 }

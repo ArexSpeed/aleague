@@ -71,6 +71,11 @@
     width: 100%;
     padding: 16px 16px;
     overflow-y: scroll;
+    color: $white;
+    @include hideScrollbar;
+    @media screen and (max-width: $medium) {
+      overflow: hidden;
+    }
     &-subtitle {
       color: $graywhite;
       font-size: 14px;

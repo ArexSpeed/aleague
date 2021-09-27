@@ -48,9 +48,8 @@
     padding: 8px 8px 8px 32px;
     overflow: scroll;
     @include hideScrollbar;
-    @media screen and (max-width: $medium) {
-      //height: auto;
-      //overflow: hidden;
+    @media screen and (max-width: $phone) {
+      padding: 8px;
     }
   }
   &__aside {

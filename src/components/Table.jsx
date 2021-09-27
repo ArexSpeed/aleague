@@ -62,9 +62,9 @@ function Table() {
         <td className="td__win">{table.win}</td>
         <td>{table.draw}</td>
         <td className="td__lose">{table.lose}</td>
-        <td>{table.goal_plus}</td>
-        <td>{table.goal_minus}</td>
-        <td>{table.bilans}</td>
+        <td className="td__mobileHide">{table.goal_plus}</td>
+        <td className="td__mobileHide">{table.goal_minus}</td>
+        <td className="td__mobileHide">{table.bilans}</td>
         <td>
           <div className="td__pts">{table.points}</div>
         </td>
@@ -81,9 +81,9 @@ function Table() {
           <th>W</th>
           <th>D</th>
           <th>L</th>
-          <th>G+</th>
-          <th>G-</th>
-          <th>Bil</th>
+          <th className="th__mobileHide">G+</th>
+          <th className="th__mobileHide">G-</th>
+          <th className="th__mobileHide">Bil</th>
           <th>PTS</th>
         </tr>
       </thead>

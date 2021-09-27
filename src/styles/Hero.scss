@@ -43,6 +43,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    // @media screen and (max-width: $phone) {
+    //   flex-direction: column;
+    // }
     &-box {
       display: flex;
       flex-direction: row;
@@ -134,6 +137,13 @@
       align-items: center;
       height: 100%;
       width: 100%;
+      @media screen and (max-width: $phone) {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        justify-content: space-between;
+        z-index: 20;
+      }
       &-title,
       &-subtitle {
         color: $graywhite;
@@ -142,12 +152,34 @@
           font-size: 14px;
         }
       }
+      &-subtitle {
+        @media screen and (max-width: $phone) {
+          display: none;
+        }
+        &-mobile {
+          display: none;
+          @media screen and (max-width: $phone) {
+            display: inline;
+            color: $graywhite;
+            font-size: 12px;
+          }
+        }
+      }
       &-match {
         color: $white;
         font-size: 20px;
         @media screen and (max-width: $tablet) {
           font-size: 16px;
         }
+        @media screen and (max-width: $phone) {
+          //margin-top: -44px;
+        }
+      }
+      &-mobile {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: flex-end;
       }
       &-button {
         margin: 16px 0;
@@ -161,6 +193,11 @@
         cursor: pointer;
         box-shadow: 4px 4px 10px rgba(0,0,0,1);
         transition: all 0.3s ease-in-out;
+        @media screen and (max-width: $phone) {
+          margin: 2px;
+          padding: 4px 8px;
+          font-size: 16px;
+        }
         &:hover {
           transform: scale(1.02);
           text-shadow: 4px 4px 10px rgba(0,0,0,1);
