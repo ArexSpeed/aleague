@@ -15,12 +15,14 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import NavMobile from "./components/NavMobile";
 
 export default function App() {
-  const [{ mobileSidebar }] = useContext(Context);
+  const [{ mobileSidebar, darkTheme }] = useContext(Context);
   return (
-    <div className="App">
+    <div className={`App ${darkTheme && "dark"}`}>
       <Router>
         <Sidebar />
-        <main className={`main ${mobileSidebar && "hide"}`}>
+        <main
+          className={`main ${mobileSidebar && "hide"} ${darkTheme && "dark"}`}
+        >
           <Nav />
           <NavMobile />
           <section className="main__container">

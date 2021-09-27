@@ -1,10 +1,13 @@
+import { useContext } from "react";
+import { Context } from "../context/Provider";
 import { Link, useLocation } from "react-router-dom";
 
 const NavMobile = () => {
+  const [{ darkTheme }] = useContext(Context);
   const { pathname } = useLocation();
   return (
     <div className="navMobile">
-      <ul className="navMobile__menu">
+      <ul className={`navMobile__menu ${darkTheme && "dark"}`}>
         <Link className="navMobile__menu-link" to="/">
           <svg
             className={`navMobile__menu-link-icon ${

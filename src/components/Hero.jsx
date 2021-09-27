@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { Context } from "../context/Provider";
 import { Link } from "react-router-dom";
 import { matches } from "../data/bannerMatches";
 
 const Hero = () => {
+  const [{ darkTheme }] = useContext(Context);
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
@@ -22,9 +24,11 @@ const Hero = () => {
   return (
     <div className="hero">
       <div className="hero__title">
-        <div className="hero__title-top">
+        <div className={`hero__title-top ${darkTheme && "dark"}`}>
           ATLAND LEAGUE
-          <div className="hero__title-bottom">Your best football league</div>
+          <div className={`hero__title-bottom ${darkTheme && "dark"}`}>
+            Your best football league
+          </div>
         </div>
       </div>
       <div className="hero__banner">

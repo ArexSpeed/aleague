@@ -7,8 +7,6 @@
   box-sizing: border-box;
 }
 body{
-  background: $bgDark;
-  color: $white;
   font-family: $fontFamily;
   overflow: hidden;
 }
@@ -18,7 +16,12 @@ body{
   flex-direction: row;
   width: 100vw;
   height: 100vh;
+  background: $bgDark;
+  color: $white;
   overflow: hidden;
+  &.dark {
+    background: $black;
+  }
 }
 a{
   text-decoration: none;

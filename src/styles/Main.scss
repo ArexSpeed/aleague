@@ -12,6 +12,10 @@
   overflow: hidden;
   color: $black;
   position: relative;
+  &.dark {
+    background: $bgDark;
+    color: $white;
+  }
   &.hide {
     @media screen and (max-width: $phone) {
       display: none;
@@ -83,6 +87,9 @@
       min-height: 100%;
       background: $bgDark;
       border-radius: 16px;
+      &.dark {
+        background: $black;
+      }
       @media screen and (max-width: $medium) {
         height: 100%;
       }

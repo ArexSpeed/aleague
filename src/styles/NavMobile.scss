@@ -23,6 +23,9 @@
     width: 100%;
     height: 50px;
     border-radius: 8px;
+    &.dark {
+      background: $black;
+    }
     &-link {
      display: flex;
      flex-direction: column;

@@ -6,6 +6,10 @@
   align-items: center;
   width: 100%;
   padding: 8px 0;
+  color: $black;
+  &.dark {
+    color: $white;
+  }
   &__title {
     display: flex;
     flex-direction: row;
@@ -16,7 +20,6 @@
     border-bottom: 1px solid $green;
     &-name {
       font-size: 24px;
-      color: $black;
       @media screen and (max-width: $tablet) {
         font-size: 20px;
       }
@@ -24,6 +27,9 @@
     &-link {
       font-size: 16px;
       color: $grayblack;
+      &.dark {
+        color: $graywhite;
+      }
       @media screen and (max-width: $tablet) {
         font-size: 14px;
       }

@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import { Context } from "../context/Provider";
 import { actions } from "../context/reducer";
 import { Link } from "react-router-dom";
@@ -6,9 +6,9 @@ import useTeams from "../hooks/useTeams";
 import Loader from "./Loader";
 import logo from "../images/AL.png";
 
-const Sidebar = ({ activeSidebar }) => {
+const Sidebar = () => {
   const { teams, loading } = useTeams();
-  const [{ mobileSidebar }, dispatch] = useContext(Context);
+  const [{ mobileSidebar, darkTheme }, dispatch] = useContext(Context);
 
   const teamsSite = teams.map((team) => (
     <Link
@@ -47,7 +47,10 @@ const Sidebar = ({ activeSidebar }) => {
         <ul className="sidebar__list">{teamsSite}</ul>
 
         <div className="sidebar__switcher">
-          <button className="sidebar__switcher-btn">
+          <button
+            className="sidebar__switcher-btn"
+            onClick={() => dispatch({ type: actions.toggleTheme })}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               enable-background="new 0 0 24 24"
@@ -67,8 +70,13 @@ const Sidebar = ({ activeSidebar }) => {
         </div>
       </div>
       {/* Mobile */}
-      <div className={`sidebarMobile ${mobileSidebar && "active"}`}>
+      <div
+        className={`sidebarMobile ${mobileSidebar && "active"} ${
+          darkTheme && "dark"
+        }`}
+      >
         <header className="sidebarMobile__header">
+          {/* Close btn */}
           <button
             className="sidebarMobile__button"
             onClick={() => dispatch({ type: actions.toggleMobileSidebar })}
@@ -89,7 +97,14 @@ const Sidebar = ({ activeSidebar }) => {
             </svg>
           </button>
           <span>Teams</span>
-          <button className="sidebarMobile__button">
+          {/* ThemeSwitch */}
+          <button
+            className="sidebarMobile__button"
+            onClick={() => {
+              dispatch({ type: actions.toggleTheme });
+              dispatch({ type: actions.toggleMobileSidebar });
+            }}
+          >
             <svg
               className="sidebarMobile__button-icon"
               fill="#ffffff"

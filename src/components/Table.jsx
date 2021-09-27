@@ -8,7 +8,7 @@ function Table() {
   const { teams } = useTeams();
   const [loading, setLoading] = useState(false);
   const [tables, setTables] = useState([]);
-  const [{ url }] = useContext(Context);
+  const [{ url, darkTheme }] = useContext(Context);
   useEffect(() => {
     setLoading(true);
     const fetchTables = async () => {
@@ -26,25 +26,29 @@ function Table() {
     .sort((a, b) => a.position - b.position)
     .map((table, index) => (
       <tr key={index}>
-        <td>
+        <td className={`${darkTheme && "dark"}`}>
           <div
-            className={`td__pos ${
+            className={`td__pos ${darkTheme && "dark"} ${
               table.position === 1
                 ? "gold"
                 : table.position === 2
                 ? "silver"
                 : table.position === 3
                 ? "brown"
+                : table.position > 14
+                ? "red"
+                : table.position > 12
+                ? "purple"
                 : ""
             }`}
           >
             {table.position}
           </div>
         </td>
-        <td>
+        <td className={`${darkTheme && "dark"}`}>
           <Link
             to={`/team/${table.team_name.split(" ")[1].toLowerCase()}`}
-            className="td__club"
+            className={`td__club ${darkTheme && "dark"}`}
           >
             {teams
               .filter((team) => team.name === table.team_name)
@@ -58,22 +62,28 @@ function Table() {
             {table.team_name}
           </Link>
         </td>
-        <td>{table.match}</td>
-        <td className="td__win">{table.win}</td>
-        <td>{table.draw}</td>
-        <td className="td__lose">{table.lose}</td>
-        <td className="td__mobileHide">{table.goal_plus}</td>
-        <td className="td__mobileHide">{table.goal_minus}</td>
-        <td className="td__mobileHide">{table.bilans}</td>
-        <td>
-          <div className="td__pts">{table.points}</div>
+        <td className={`${darkTheme && "dark"}`}>{table.match}</td>
+        <td className={`td__win ${darkTheme && "dark"}`}>{table.win}</td>
+        <td className={`${darkTheme && "dark"}`}>{table.draw}</td>
+        <td className={`td__lose ${darkTheme && "dark"}`}>{table.lose}</td>
+        <td className={`"td__mobileHide" ${darkTheme && "dark"}`}>
+          {table.goal_plus}
+        </td>
+        <td className={`"td__mobileHide" ${darkTheme && "dark"}`}>
+          {table.goal_minus}
+        </td>
+        <td className={`"td__mobileHide" ${darkTheme && "dark"}`}>
+          {table.bilans}
+        </td>
+        <td className={`${darkTheme && "dark"}`}>
+          <div className={`td__pts ${darkTheme && "dark"}`}>{table.points}</div>
         </td>
       </tr>
     ));
 
   return (
-    <table className="table">
-      <thead>
+    <table className={`table ${darkTheme && "dark"}`}>
+      <thead className={`${darkTheme && "dark"}`}>
         <tr>
           <th>Poz</th>
           <th>Club</th>

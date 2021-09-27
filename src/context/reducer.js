@@ -1,10 +1,12 @@
 export const initialState = {
   url: "https://aleague.herokuapp.com",
   mobileSidebar: false,
+  darkTheme: false,
 };
 
 export const actions = {
   toggleMobileSidebar: "TOGGLE_MOBILE_SIDEBAR",
+  toggleTheme: "TOGGLE_THEME",
 };
 
 const reducer = (state, action) => {
@@ -14,6 +16,11 @@ const reducer = (state, action) => {
       return {
         ...state,
         mobileSidebar: !state.mobileSidebar,
+      };
+    case actions.toggleTheme:
+      return {
+        ...state,
+        darkTheme: !state.darkTheme,
       };
 
     default:

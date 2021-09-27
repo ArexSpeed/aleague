@@ -19,6 +19,9 @@
       box-shadow: 0 4px 14px rgba(0,0,0,0.35);
       padding: 8px 16px;
       position: relative;
+      &.dark {
+        background: $darkgreen;
+      }
       @media screen and (max-width: $tablet) {
         font-size: 24px;
       }
@@ -32,6 +35,9 @@
       background: $blue;
       border-radius: 8px;
       padding: 4px 8px;
+      &.dark {
+        background: $darkblue;
+      }
       @media screen and (max-width: $tablet) {
         font-size: 14px;
       }

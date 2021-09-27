@@ -1,7 +1,6 @@
-import React from "react";
+import { useContext } from "react";
+import { Context } from "../context/Provider";
 import { Link } from "react-router-dom";
-import { news } from "../data/news";
-import logo from "../images/AL.png";
 
 const ArticleIcon = () => (
   <svg
@@ -35,6 +34,7 @@ const InterviewIcon = () => (
 );
 
 function NewsCard({ id, category, image, title, text, teams, style }) {
+  const [{ darkTheme }] = useContext(Context);
   return (
     <Link
       to={`/news/${id}`}
@@ -57,9 +57,9 @@ function NewsCard({ id, category, image, title, text, teams, style }) {
           </div>
           <img src={image} alt="img" className="news__box-image" />
         </div>
-        <div className="news__box-content">
-          <div className="news__title">{title}</div>
-          <div className="news__text">
+        <div className={`news__box-content ${darkTheme && "dark"}`}>
+          <div className={`news__title ${darkTheme && "dark"}`}>{title}</div>
+          <div className={`news__text ${darkTheme && "dark"}`}>
             {text.length > 150 ? text.slice(150) + "..." : text}
           </div>
           <div className="news__avatars">

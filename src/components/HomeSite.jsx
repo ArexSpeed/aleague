@@ -12,7 +12,7 @@ import useTeams from "../hooks/useTeams";
 const HomeSite = () => {
   const { teams, loading } = useTeams();
   const [matches, setMatches] = useState([]);
-  const [{ url }] = useContext(Context);
+  const [{ url, darkTheme }] = useContext(Context);
 
   useEffect(() => {
     const fetchMatches = async () => {
@@ -56,10 +56,13 @@ const HomeSite = () => {
 
   return (
     <>
-      <section className="section">
+      <section className={`section ${darkTheme && "dark"}`}>
         <div className="section__title">
           <div className="section__title-name">Current Stats</div>
-          <Link to="/stats" className="section__title-link">
+          <Link
+            to="/stats"
+            className={`section__title-link ${darkTheme && "dark"}`}
+          >
             View more
           </Link>
         </div>
@@ -80,10 +83,13 @@ const HomeSite = () => {
         </div>
       </section>
 
-      <section className="section">
+      <section className={`section ${darkTheme && "dark"}`}>
         <div className="section__title">
           <div className="section__title-name">Latest news</div>
-          <Link to="/news" className="section__title-link">
+          <Link
+            to="/news"
+            className={`section__title-link ${darkTheme && "dark"}`}
+          >
             View more
           </Link>
         </div>

@@ -12,9 +12,16 @@
   border: none;
   border-collapse: separate;
   border-spacing: 0 5px; 
+  color: $black;
+  &.dark {
+    color: $white;
+  }
   & thead {
     background: transparent;
     color: $grayblack;
+    &.dark {
+      color: $graywhite;
+    }
     & tr th {
       font-size: 14px;
     }
@@ -39,6 +46,9 @@
       & td {
         background: $white;
         height: 100%;
+        &.dark {
+          background: $black;
+        }
         &:first-child { border-radius: 16px 0 0 0; width: 40px; }  
         &:last-child { 
           border-radius: 0 0 16px 0;
@@ -58,6 +68,9 @@
     height: 40px;
     border-radius: 16px 0 16px 0;
     background: $green;
+    &.dark {
+      background: $darkgreen;
+    }
     &.gold {
       background: gold;
     }
@@ -67,14 +80,23 @@
     &.brown {
       background: brown;
     }
+    &.purple {
+      background: purple;
+    }
+    &.red {
+      background: red;
+    }
   }
   &__club {
-    color: $black !important;
+    color: $black;
     padding: 0 8px;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
+    &.dark {
+      color: $white;
+    }
     &-image {
       max-width: 25px;
       max-height: 25px;
@@ -96,6 +118,9 @@
     border-radius: 16px 0 16px 0;
     background: $blue;
     color: $white;
+    &.dark {
+      background: $darkblue;
+    }
   }
   &__mobileHide {
     @media screen and (max-width: $phone) {
