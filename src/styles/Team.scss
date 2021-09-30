@@ -1,0 +1,110 @@
+@import 'Var';
+.team {
+  &__info {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 16px 0;
+    @media screen and (max-width: $phone) {
+      flex-direction: column;
+    }
+    &-logo {
+      max-width: 200px;
+      &-img {
+        width: 100%;
+        max-height: 250px;
+      }
+    }
+    &-currentStats {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 50%;
+      &-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+      }
+      &-box {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 50px;
+        height: 50px;
+        border-radius: 16px 0 16px 0;
+        margin: 4px;
+        background: $white;
+        color: $black;
+        &-number {
+          font-size: 20px;
+        }
+        &-name {
+          font-size: 12px;
+          color: $grayblack;
+          // &.dark {
+          //   color: $graywhite;
+          // }
+        }
+        &.points {
+          background: $blue;
+        }
+        &.matches {
+          background: $white;
+          &.dark {
+            background: $black;
+            color: $white;
+          }
+        }
+        &.win {
+          background: $green;
+        }
+        &.draw {
+          background: $yellow;
+        }
+        &.lose {
+          background: $red;
+        }
+        &.plus {
+          color: $darkgreen;
+          &.dark {
+            background: $black;
+          }
+        }
+        &.minus {
+          color: $red;
+          &.dark {
+            background: $black;
+          }
+        }
+        &.bilans {
+          color: $blue;
+          &.dark {
+            background: $black;
+          }
+        }
+        // for place
+        &.gold {
+          background: gold;
+        }
+        &.silver {
+          background: silver;
+        }
+        &.brown {
+          background: brown;
+        }
+        &.purple {
+          background: purple;
+        }
+        &.red {
+          background: red;
+        }
+      }
+    }
+  }
+}

@@ -26,7 +26,10 @@ const Sidebar = () => {
     <Link
       key={team.id}
       to={`/team/${team.site}`}
-      onClick={() => window.scrollTo(0, 0)}
+      onClick={() => {
+        window.scrollTo(0, 0);
+        dispatch({ type: actions.toggleMobileSidebar });
+      }}
     >
       <li className="sidebarMobile__list-item">
         <div className="sidebarMobile__list-imageBox">
