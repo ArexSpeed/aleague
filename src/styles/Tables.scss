@@ -24,6 +24,7 @@
     }
     & tr th {
       font-size: 14px;
+      cursor: pointer;
     }
     & .th__mobileHide {
       @media screen and (max-width: $phone) {
@@ -109,6 +110,9 @@
   &__lose {
     color: $red;
   }
+  &__draw {
+    color: $yellow;
+  }
   &__pts {
     display: flex;
     justify-content: center;
@@ -154,6 +158,9 @@
       outline: none;
       cursor: pointer;
       position: relative;
+      &.dark {
+        color: $graywhite;
+      }
       &:nth-child(2) {
         display: none;
         @media screen and (max-width: $phone) {
@@ -181,6 +188,9 @@
       }
       &.active {
         color: $black;
+        &.dark {
+          color: $white;
+        }
         &::before {
           position: absolute;
           content: '';
