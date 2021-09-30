@@ -1,16 +1,16 @@
-import { useContext } from "react";
+import { useState, useContext } from "react";
 import useTeams from "../hooks/useTeams";
 import useTables from "../hooks/useTables";
 import { Link } from "react-router-dom";
 import { Context } from "../context/Provider";
 import Loader from "./Loader";
 
-function Table() {
+const TableStats = () => {
   const { teams } = useTeams();
   const { tables, loading } = useTables();
   const [{ darkTheme }] = useContext(Context);
+  const [tab, setTab] = useState("Points");
 
-  //Table show result **
   const showTable = tables
     .filter((table) => table.season === 2021)
     .sort((a, b) => a.position - b.position)
@@ -72,24 +72,48 @@ function Table() {
     ));
 
   return (
-    <table className={`table ${darkTheme && "dark"}`}>
-      <thead className={`${darkTheme && "dark"}`}>
-        <tr>
-          <th>Poz</th>
-          <th>Club</th>
-          <th>M</th>
-          <th>W</th>
-          <th>D</th>
-          <th>L</th>
-          <th className="th__mobileHide">G+</th>
-          <th className="th__mobileHide">G-</th>
-          <th className="th__mobileHide">Bil</th>
-          <th>PTS</th>
-        </tr>
-      </thead>
-      <tbody>{loading ? <Loader text="table" /> : showTable}</tbody>
-    </table>
+    <>
+      <section className="tableStats">
+        <div className="tableStats__header">
+          <button
+            className={`${tab === "Points" && "active"}`}
+            onClick={() => setTab("Points")}
+          >
+            Points
+          </button>
+          <button
+            className={`${tab === "Goals" && "active"}`}
+            onClick={() => setTab("Goals")}
+          >
+            Goals
+          </button>
+          <button
+            className={`${tab === "Form" && "active"}`}
+            onClick={() => setTab("Form")}
+          >
+            Form
+          </button>
+        </div>
+        <table className={`table ${darkTheme && "dark"}`}>
+          <thead className={`${darkTheme && "dark"}`}>
+            <tr>
+              <th>Poz</th>
+              <th>Club</th>
+              <th>M</th>
+              <th>W</th>
+              <th>D</th>
+              <th>L</th>
+              <th className="th__mobileHide">G+</th>
+              <th className="th__mobileHide">G-</th>
+              <th className="th__mobileHide">Bil</th>
+              <th>PTS</th>
+            </tr>
+          </thead>
+          <tbody>{loading ? <Loader text="table" /> : showTable}</tbody>
+        </table>
+      </section>
+    </>
   );
-}
+};
 
-export default Table;
+export default TableStats;

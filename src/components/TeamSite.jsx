@@ -1,8 +1,7 @@
 import React, {useEffect, useState, useContext} from "react";
 import Tilt from "react-tilt";
 import { BsFillStarFill } from "react-icons/bs";
-import Footer from './Footer'
-import axios from 'axios'
+import axios from "axios";
 import { Context } from "../context/Provider";
 import "../styles/TeamSite.scss";
 import Loader from "./Loader";
@@ -354,7 +353,6 @@ const TeamSite = (props) => {
           </table>
         </div>
       </section>
-      <Footer />
     </main>
   );
 };
