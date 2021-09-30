@@ -1,8 +1,8 @@
 import { useContext } from "react";
 import { Context } from "../context/Provider";
 import { Link } from "react-router-dom";
-import Table from "./Table";
 import TableStats from "./TableStats";
+import Fixtures from "./Fixtures";
 
 const StatsSite = () => {
   const [{ darkTheme }] = useContext(Context);
@@ -17,6 +17,9 @@ const StatsSite = () => {
         </div>
         <div className="section__title">
           <div className="section__title-name">Fixtures</div>
+        </div>
+        <div className="subsection__table">
+          <Fixtures />
         </div>
       </section>
     </>

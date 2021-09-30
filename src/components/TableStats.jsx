@@ -11,7 +11,7 @@ const TableStats = () => {
   const { tables, loading } = useTables();
   const { matches } = useMatches();
   const [{ darkTheme }] = useContext(Context);
-  const [tab, setTab] = useState("Points");
+  const [tab, setTab] = useState("Results");
   const [sortKey, setSortKey] = useState("position");
   const [sortAsc, setSortAsc] = useState(true);
 
@@ -23,8 +23,9 @@ const TableStats = () => {
       .filter((match) => match.host_name === team || match.guest_name === team)
       .filter((match) => match.round >= 11 && match.round <= 15)
       .sort((a, b) => b.round - a.round)
-      .map((match) => (
+      .map((match, i) => (
         <td
+          key={i}
           className={`
             ${
               match.host_name === team && match.host_score > match.guest_score
@@ -115,7 +116,7 @@ const TableStats = () => {
             {table.team_name}
           </Link>
         </td>
-        {tab === "Points" && (
+        {tab === "Results" && (
           <>
             <td className={`${darkTheme && "dark"}`}>{table.match}</td>
             <td className={`td__win ${darkTheme && "dark"}`}>{table.win}</td>
@@ -155,10 +156,12 @@ const TableStats = () => {
       <section className="tableStats">
         <div className="tableStats__header">
           <button
-            className={`${tab === "Points" && "active"} ${darkTheme && "dark"}`}
-            onClick={() => setTab("Points")}
+            className={`${tab === "Results" && "active"} ${
+              darkTheme && "dark"
+            }`}
+            onClick={() => setTab("Results")}
           >
-            Points
+            Results
           </button>
           <button
             className={`${tab === "Goals" && "active"} ${darkTheme && "dark"}`}
@@ -182,10 +185,10 @@ const TableStats = () => {
                   setSortAsc(!sortAsc);
                 }}
               >
-                Poz
+                Pos
               </th>
               <th>Club</th>
-              {tab === "Points" && (
+              {tab === "Results" && (
                 <>
                   <th>M</th>
                   <th

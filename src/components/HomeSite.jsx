@@ -1,27 +1,18 @@
-import { useState, useEffect, useContext } from "react";
+import { useContext } from "react";
 import { Context } from "../context/Provider";
 import { Link } from "react-router-dom";
 import Table from "./Table";
 import NewsCard from "./NewsCard";
-import axios from "axios";
 import { news } from "../data/news";
 import Video from "./Video";
 import Loader from "./Loader";
 import useTeams from "../hooks/useTeams";
+import useMatches from "../hooks/useMatches";
 
 const HomeSite = () => {
   const { teams, loading } = useTeams();
-  const [matches, setMatches] = useState([]);
-  const [{ url, darkTheme }] = useContext(Context);
-
-  useEffect(() => {
-    const fetchMatches = async () => {
-      const { data } = await axios.get(`${url}/api/matches`);
-      setMatches(data);
-    };
-
-    fetchMatches();
-  }, [url]);
+  const { matches } = useMatches();
+  const [{ darkTheme }] = useContext(Context);
 
   const results = matches
     .filter((match) => match.season === 2021 && match.round === 15)

@@ -1,94 +1,151 @@
-$primary:  #a2fa92;
-$secondary: #2b9cdc;
+@import 'Var';
 .fixtures{
-  width: 90vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-
-.fixtures__select{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  margin: 10px auto;
-  position: relative;
-  border: none;
-  width: 200px;
-  height: 50px;
-  &::before{
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
+  width: 100%;
+  &__table {
     width: 100%;
-    background: white;
-    box-shadow: 0 0 1px $secondary;
-    transform: skewX(-25deg);
-    z-index: -1;
-  }
-  & select{
-    background: inherit;
     border: none;
+    border-collapse: separate;
+    border-spacing: 0 5px; 
+    color: $black;
+    &.dark {
+      color: $white;
+    }
+    & thead {
+      background: transparent;
+      color: $grayblack;
+      &.dark {
+        color: $graywhite;
+      }
+      & tr th {
+        font-size: 14px;
+      }
+    }
+    & tbody {
+      & tr {
+        width: 100%;
+        height: 40px;
+        text-align: center;
+        background: transparent;
+        border: none;
+        transition: all 0.3s ease-in-out;
+        &:hover {
+          transform: scale(1.02);
+          transition: all 0.3s ease-in-out;
+        }
+        & td {
+          background: $white;
+          height: 100%;
+          &.dark {
+            background: $black;
+          }
+          &:first-child { border-radius: 8px 0 0 8px; }  
+          &:last-child { 
+            border-radius: 0 8px 8px 0;
+          }
+          &.td__hostName {
+            color: $darkgreen;
+          }
+          &.td__guestName {
+            color: $darkblue;
+            &.dark {
+              color: $blue;
+            }
+          }
+          & .td__hostScore {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 40px;
+            background: $green;
+            color: $black;
+            padding: 0 4px;
+            border-radius: 8px 0 0 8px;
+            &.dark {
+              background: $darkgreen;
+            }
+          }
+          & .td__guestScore {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 40px;
+            background: $blue;
+            color: $white;
+            padding: 0 4px;
+            border-radius: 0 8px 8px 0;
+            &.dark {
+              background: $darkblue;
+            }
+          }
+        }
+      }
+    }
   }
-}
-.fixtures__schedule{
-  width: auto;
-  display: flex;
-  justify-content: center;
-  @media screen and (max-width: 768px){
-    justify-content: start;
+  &__rounds {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    max-width: 500px;
+    padding: 8px 0;
+    &-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      overflow: hidden;
+    }
+    &-buttons {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      width: 220px;
+      overflow-x: scroll;
+      @include hideScrollbar;
+    }
+    &-button {
+      min-width: 30px;
+      min-height: 30px;
+      background: transparent;
+      border: none;
+      outline: none;
+      font-size: 16px;
+      font-family: $fontFamily;
+      cursor: pointer;
+      color: $grayblack;
+      transition: all 0.3s ease-in-out;
+      &:hover {
+        font-size: 20px;
+        transition: all 0.3s ease-in-out;
+      }
+      &.current {
+        font-size: 20px;
+        border-bottom: 1px solid $blue;
+        color: $black;
+        &.dark {
+          color: $white;
+        }
+      }
+      &.dark {
+        color: $graywhite;
+      }
+    }
+    &-icon {
+      width: 30px;
+      height: 30px;
+      border: none;
+      background: transparent;
+      outline: none;
+      color: $grayblack;
+      cursor: pointer;
+    }
   }
 }
 
-.td{
-  &__round{
-    color: red;
-  }
-  &__host-name{
-    min-width: 200px;
-    position: relative;
-    color: #000;
-    &::before{
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 100%;
-      background: $primary;
-      transform: skewX(-25deg);
-      z-index: -1;
-    }
-  }
-  &__host-score{
-    color: $primary;
-    font-weight: bold;
-  }
-  &__guest-name{
-    min-width: 200px;
-    position: relative;
-    color: #fff !important;
-    &::before{
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 100%;
-      background: $secondary;
-      transform: skewX(-25deg);
-      z-index: -1;
-    }
-  }
-  &__guest-score{
-    color: $secondary;
-    font-weight: bold;
-  }
-  &__date{
-    width: 100%;
-  }
-}
