@@ -1,0 +1,63 @@
+@import 'Var';
+.h2h {
+  &__wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    margin: 16px 0;
+  }
+  &__select {
+    height: 40px;
+    border-radius: 8px;
+    font-size: 16px;
+    padding: 4px;
+    font-family: $fontFamily;
+    border: none;
+    outline: none;
+    &.dark {
+      background: $black;
+      color: $white;
+    }
+  }
+  &__logo {
+    max-width: 200px;
+    max-height: 250px;
+    @media screen and (max-width: $phone) {
+      max-width: 100px;
+      max-height: 150px;
+    }
+  }
+  &__table {
+    & tr {
+      height: 30px;
+    }
+    &-td {
+      &_teamOne {
+        border-radius: 4px 0 0 4px;
+        padding: 2px 4px;
+        background: $green;
+        &.dark {
+          background: $darkgreen;
+        }
+      }
+      &_teamTwo {
+        border-radius: 0 4px 4px 0;
+        padding: 2px 4px;
+        background: $blue;
+        &.dark {
+          background: $darkblue;
+        }
+      }
+      &_title {
+        background: $white;
+        color: $black;
+        &.dark {
+          background: $black;
+          color: $white;
+        }
+      }
+    }
+  }
+}
