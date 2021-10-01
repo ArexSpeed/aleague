@@ -41,6 +41,7 @@
           height: 100%;
           &.dark {
             background: $black;
+            color: $white;
           }
           &:first-child { border-radius: 8px 0 0 8px; }  
           &:last-child { 
@@ -82,6 +83,10 @@
             &.dark {
               background: $darkblue;
             }
+          }
+          // class for only in fixtures for team site
+          &.td__teamSiteName {
+            color: $darkgreen;
           }
         }
       }

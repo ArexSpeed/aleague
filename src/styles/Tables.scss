@@ -161,7 +161,7 @@
       &.dark {
         color: $graywhite;
       }
-      &:nth-child(2) {
+      &.mobile {
         display: none;
         @media screen and (max-width: $phone) {
           display: inline;

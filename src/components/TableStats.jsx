@@ -69,7 +69,7 @@ const TableStats = () => {
             : ""}
         </td>
       ));
-    //console.log(match, "match info");
+
     return match;
   };
 
@@ -164,7 +164,9 @@ const TableStats = () => {
             Results
           </button>
           <button
-            className={`${tab === "Goals" && "active"} ${darkTheme && "dark"}`}
+            className={`mobile ${tab === "Goals" && "active"} ${
+              darkTheme && "dark"
+            }`}
             onClick={() => setTab("Goals")}
           >
             Goals

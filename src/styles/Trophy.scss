@@ -1,0 +1,61 @@
+@import 'Var';
+
+.trophy{
+  &__container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+  &__card{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    width: 150px;
+    height: 200px;
+    border-radius: 20px;
+    background: linear-gradient(90deg, $green, $blue);
+    box-shadow: 4px 0 5px rgba(0,0,0,.5);
+    text-shadow: 4px 0 5px rgba(0,0,0,.5);
+    transform: translateZ(0px);
+    transform-origin: top;
+    transition: 0.5s;
+    transform-style: preserve-3d;
+    &:hover .trophy__line{
+      transform: translateZ(50px);
+      transition: all 0.5s ease-in-out;
+      box-shadow: 2px 2px 10px rgba(0,0,0,.5);
+    }
+    &:hover .trophy__star,
+    &:hover .trophy__year{
+      transform: translateZ(50px);
+      transition: all 0.5s ease-in-out;
+    }
+  }
+  &__star{
+    width: 100px;
+    height: 100px;
+    color: red;
+    &.gold {
+      color: gold;
+    }
+    &.silver {
+      color: silver;
+    }
+    &.brown {
+      color: brown;
+    }
+  }
+  &__line{
+    background-color: blue;
+    width: 100%;
+    height: 10px;
+  }
+  &__year{
+    font-size: 24px;
+  }
+}
