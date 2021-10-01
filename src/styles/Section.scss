@@ -35,6 +35,20 @@
       }
     }
   }
+  &__row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+  &__col {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
 }
 
 .subsection {
@@ -103,3 +117,4 @@
     font-size: 16px;
   }
 }
+

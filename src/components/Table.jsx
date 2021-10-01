@@ -75,7 +75,7 @@ function Table() {
     <table className={`table ${darkTheme && "dark"}`}>
       <thead className={`${darkTheme && "dark"}`}>
         <tr>
-          <th>Poz</th>
+          <th>Pos</th>
           <th>Club</th>
           <th>M</th>
           <th>W</th>

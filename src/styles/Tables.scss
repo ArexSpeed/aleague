@@ -131,7 +131,26 @@
       display: none;
     }
   }
+  // in medals
+  &__gold {
+    background: gold !important;
+  }
+  &__silver {
+    background: silver !important;
+  }
+  &__brown {
+    background: brown !important;
+  }
 }
+// .td__gold {
+//   background: gold;
+// }
+// .td__silver {
+//   background: silver;
+// }
+// .td__brown {
+//   background: brown;
+// }
 
 // Table for stats page
 .tableStats {
@@ -204,5 +223,36 @@
         }
       }
     }
+  }
+}
+
+// Animation for history table
+.tr__motion{
+  top: 0;
+  transform: translateX(-150%);
+  animation: animate 2s;
+  animation-fill-mode: forwards;
+}
+.tr__motionb{
+  top: 0;
+  transform: translateX(-150%);
+  animation: animate2 2s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes animate{
+  0%{
+    transform: translateX(-150%);
+  }
+  100%{
+    transform: translateX(0px);
+  }
+}
+@keyframes animate2{
+  0%{
+    transform: translateX(-150%);
+  }
+  100%{
+    transform: translateX(0px);
   }
 }
