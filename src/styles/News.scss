@@ -63,6 +63,12 @@
         &.article {
           background: $darkgreen;
         }
+        &.transfer {
+          background: $yellow;
+        }
+        &.report {
+          background: $red;
+        }
       }
     }
     &-content {

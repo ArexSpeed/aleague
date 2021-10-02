@@ -33,6 +33,32 @@ const InterviewIcon = () => (
   </svg>
 );
 
+const ReportIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    height="16px"
+    viewBox="0 0 24 24"
+    width="16px"
+    fill="#ffffff"
+  >
+    <path d="M0 0h24v24H0V0z" fill="none" />
+    <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2zm-7 5h5v5h-5z" />
+  </svg>
+);
+
+const TransferIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    height="16px"
+    viewBox="0 0 24 24"
+    width="16px"
+    fill="#ffffff"
+  >
+    <path d="M0 0h24v24H0V0z" fill="none" />
+    <path d="M6.99 11L3 15l3.99 4v-3H14v-2H6.99v-3zM21 9l-3.99-4v3H10v2h7.01v3L21 9z" />
+  </svg>
+);
+
 function NewsCard({ id, category, image, title, text, teams, style }) {
   const [{ darkTheme }] = useContext(Context);
   return (
@@ -45,10 +71,15 @@ function NewsCard({ id, category, image, title, text, teams, style }) {
         <div className="news__box-image">
           <div
             className={`news__box-image-type ${
-              category === "Interview" ? "interview" : "article"
-            }`}
+              category === "Interview" && "interview"
+            } ${category === "Article" && "article"} ${
+              category === "Report" && "report"
+            } ${category === "Transfer" && "transfer"}`}
           >
-            {category === "Interview" ? <InterviewIcon /> : <ArticleIcon />}
+            {category === "Interview" && <InterviewIcon />}
+            {category === "Article" && <ArticleIcon />}
+            {category === "Report" && <ReportIcon />}
+            {category === "Transfer" && <TransferIcon />}
             <span
               style={{ fontSize: "12px", paddingLeft: "4px", color: "#ffffff" }}
             >

@@ -24,37 +24,8 @@ export const news = [
     title: "Half Season Summary",
     desc: "A recap after round 15 and discussion of each team's performance. There are positive surprises but also big disappointments. ",
     teams: [al],
-    description: [
-      {
-        t: "We are after 15 rounds of the season, that means we are on the half of the way to meet the champion of 2021.",
-        p: `We saw a lot of emotional games and this season is really special.
-      For the first time the leader is Arkov Diamod, a team which is built on young players from academy and I think everyone enjoys their game. As leader the didn't lost any game, won 11 and draw 4 times what gives 37 points. 
-      `,
-      },
-      {
-        t: "Chasing the leader",
-        p: `Very close are Shamrock with 33 points and they lost only 1 games which still makes them very dangerous rival.
-        Over 30 points have also Diampero and Angelo Angels and both conceded the fewest goals in the league only 6.
-        Current champion Victory Tigers are 6 but we have to remember they are always dangerous and unpredictable. Their games are so emotional and gripping to the last second. They lost only 2 games but they draw as many as six.
-        `,
-      },
-      {
-        t: "Big disappointment",
-        p: `The most disappointing team is Dark Knight. Before the season they were one of the favorites, last season they were fourth with medals aspiration. In this season they won only 2 games and drew 6 and they are only 13 in the table. Maybe in the second part they will overcome the crisis and back to their level.
-        `,
-      },
-      {
-        t: "The red lanterns",
-        p: "On the bottom of the table are Kingsleen Monarch with only one win and 4 draws and Ronnpolis FC which doesn’t win any match and score only 5 goals. They are in a very big crisis and if they will not face it they will probably finish the league on the bottom.",
-      },
-      {
-        t: "Players stats",
-        p: `The best scorer on the half is George Gegree with 12 goals and 3 assists. He is the real leader of Diamond with shares of 15 goals from 24. In this form he should win this ranking, but he has to watch out for the second in classification Jack Adams who has 11 goals.
-        The best assistant second season in row is Tim Arkovsky with 8 assists and 8 goals is even the best in the summary classification. The brain of Shamrock is on another level and his quality is a great advantage of his club. 
-        In an infamous cards classification the first is Tales Milan who collected as many as 3 red cards which show us how big a mess is inside the worst current team Ronnpolis.
-        `,
-      },
-    ],
+    description:
+      "This is only testing example article, and webiste is made for learning UI. Thank you for checking it :)",
   },
   {
     id: 2,
@@ -63,59 +34,18 @@ export const news = [
     category: "Interview",
     desc: "Interview with the leader's coach. Talking about how the team got into such good shape",
     teams: [diamonds],
-    description: [
-      {
-        q: "Good morning. You are the leader after the first half of the season. How do you feel?",
-        a: "Hello. Yes this is an amazing score. We worked really hard before the season and now we have the results. ",
-      },
-      {
-        q: "Diamonds has not won any medal for ten years and if we remind last four seasons when your team was in the second ten then your current results shocked many experts",
-        a: "Yes that is true. Last seasons have not been easy for us because we had a thorough reconstruction of the team. We gave young players a chance even if we didn’t have a result for a while but our team was a bit old and we had to take steps to rejuvenate the staff.",
-      },
-      {
-        q: "After 2016 you lost 6 main players. Any team didn’t have such a difficult situation. Why did you choose to bet players from the Academy instead of buying a few class players?      ",
-        a: "This process had been going on for a long time because years ago club management invested a lot of money to build one of the best Academy in the league and we knew that day when this player would be ready to play at a higher level would finally come. Situation from 2016 just accelerated this process.      ",
-      },
-      {
-        q: "Exactly and now we can see that the risk was worth it. You made new football stars.      ",
-        a: "I wouldn’t say it was a risk because most of them were a Junior League Champion. We known that if we give them a chance they will be able to get something great. But we had to be patient and now you are right they are stars but we have to remember they are still young and they still can be better.      ",
-      },
-      {
-        q: "If they are young how do you think, will you be able to keep this good level?      ",
-        a: " I hope but now it’s only half of the season and it is too early to judge anything. We are ready to fight.      ",
-      },
-      {
-        q: "Your series are incredible, because you haven’t lost any matches yet. Are you going for a record and don’t lose any games?        ",
-        a: "I don't even know the actual record but usually the champion won the most meetings. For now we have to be focus on the next game and hard work every training session then maybe we can break the record but I will be satisfied when our players will stick to our tactic and will not make mistakes.",
-      },
-      {
-        q: "Are you planning any transfers in this half season break or you are good with the current squad?        ",
-        a: "No, we are lucky that our players are healthy and are in good shape. We don’t need any new players because for now our squad is wide and even if something will happen we can next ambitious players who only wait for a chance.        ",
-      },
-      {
-        q: "Thank you for this conversation and I wish you all the best and maybe in a half year I will be able to call you a champion.",
-        a: "Thanks also too, I hope your wish will come true.",
-      },
-    ],
+    description:
+      "This is only testing example article, and webiste is made for learning UI. Thank you for checking it :)",
   },
   {
     id: 3,
     title: "Leaders show 3-1 Arkov Diamond - Tozen Goats",
     img: "https://images.unsplash.com/photo-1600250395178-40fe752e5189?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2089&q=80",
-    category: "Article",
+    category: "Report",
     desc: "In the last game of the 15 round Arkov Diamond hosted Tozen Goats and as predicted they won 3:1. But this game was a total show of one player.",
     teams: [diamonds, goats],
-    description: [
-      {
-        t: "Big show on Arkovia Arena",
-        p: "In the last game of the 15 round Arkov Diamond hosted Tozen Goats and as predicted they won 3:1. But this game was a total show of one player. Leader Diamonds Georg Gorgee scored a hat-trick. The stricker quickly opened the score in the 10 minute he shot for the first time. ",
-      },
-      {
-        t: "",
-        p: `Few minutes ago he signed up to the shooter list for the second time. From right side Tom Innik played perfectly on the striker’s head and he shot over the goalkeeper’s hand, shot no to save. Guest was trying to go back to the game but Armin Soler shot right next to the gate.
-        In the second half Goat’s coach made two changes and their play looked a little better. In 55 minute players from Tozen managed to defeat the hosts goalkeeper and the score was 2:1. However after this goal the host only increased their domination and in 10 minutes they did 10 shots, and of course one of these was the third goal of George Gorgee. After game the hosts strengthened on the leader position and thank 3 goals Gorgee is a leader of shooter in this season.`,
-      },
-    ],
+    description:
+      "This is only testing example article, and webiste is made for learning UI. Thank you for checking it :)",
   },
   {
     id: 4,
@@ -124,42 +54,178 @@ export const news = [
     category: "Interview",
     desc: "From football player to referee. An interview with one of the league's top referees. What is the job of a referee and their pros and cons",
     teams: [al],
-    description: [
-      {
-        q: "You started working as a referee 15 years ago. Why did you choose this profession?",
-        a: "When I was teenager I was playing in a local club, then I went into the university team. But when I graduated High School I realised that I can’t have the chance and so much talent to play in one of the clubs in primary league. But I still loved football and it was always my passion, so I thought signing to the referee course could be a great idea.",
-      },
-      {
-        q: `5 years later you start refereeing your first ALeague game. Your example shows that never give up on your dreams.`,
-        a: `We have to realise that football teaches humility. The starting point should be that anyone who wants to become a football player or referee has to love football. Remember that a football game needs a referee to start. He is a permanent element of the game.In referee you have to understand that there is no easy situation sometimes you have to make a difficult decision. The function of arbitrator develops various human traits, such as quick decision making, people management or coping with work under conditions of stress and time pressure. This is useful not only on the pitch but also in life.
-      `,
-      },
-      {
-        q: `So we can say that work as referee is a forge for character
-      `,
-        a: `Of course. From a player's view you look at football through the prism of the will to win. For referees the most important is that the competition follows strictly defined rules. This teaches discipline. In addition, referee training means that you always maintain a proper physical condition, you have to pass exams and train regularly. Moreover it is easier to stay fit in a group of referees. You can also learn more about training secrets and methods of regeneration. It is a constant exchange of information as well as interesting acquaintances and friendship that can remain for life.
-      `,
-      },
-      {
-        q: `The continental cup will take place next year. Is your goal to be in the group of referees at this championship?
-      `,
-        a: `I prefer to set myself short-term goals. The most important thing is to keep form and health. The more games you referee, the more chances you have to take part in the tournament. I would like refereeing to still be fun and if I will be good enough I can get a chance to appear on the biggest ares.
-      `,
-      },
-    ],
+    description:
+      "This is only testing example article, and webiste is made for learning UI. Thank you for checking it :)",
   },
   {
     id: 5,
     title: "Diampero Bolts is finalizing the transfer.",
     img: "https://images.unsplash.com/photo-1522260980274-3fdb238bf382?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1953&q=80",
-    category: "Article",
+    category: "Transfer",
     desc: "Three transfers and medal aspirations. How is the transfer period going in the Diampero Bolts team ",
     teams: [bolts],
-    description: [
-      {
-        t: "New faces on Bolts Area",
-        p: "Diampero is arming before the second part of the season and they make third reinforcement.  The third team in the table will join 19-years old striker Piter Lerke. Value of this player looks very high but he is a big talent. At this moment he is a top scorer in Junior League and 4 clubs fought for his services. Finally he will join the northern team. He is 19 years old and plays as a central striker but he is also flexible and he can play also on the wings. This will be useful for tactics. The transfer talks are nearing completion and player should start medical tests in a few days. Let us remind you that this is the third transfer to the Bolts teams. After strengthening the defence they want to add quality to attack. It heralds that Diampero wants to join the fight for the championship. ",
-      },
-    ],
+    description:
+      "This is only testing example article, and webiste is made for learning UI. Thank you for checking it :)",
+  },
+  {
+    id: 6,
+    title: "Torros beats Knights",
+    img: "https://i.dailymail.co.uk/1s/2021/09/15/21/47970001-0-image-a-5_1631736572050.jpg",
+    category: "Report",
+    desc: "Three transfers and medal aspirations. How is the transfer period going in the Diampero Bolts team ",
+    teams: [torros, knights],
+    description:
+      "This is only testing example article, and webiste is made for learning UI. Thank you for checking it :)",
+  },
+  {
+    id: 7,
+    title: "15 round summary",
+    img: "https://wallpapercave.com/wp/wp7624125.jpg",
+    category: "Article",
+    desc: "Three transfers and medal aspirations. How is the transfer period going in the Diampero Bolts team ",
+    teams: [al],
+    description:
+      "This is only testing example article, and webiste is made for learning UI. Thank you for checking it :)",
+  },
+  {
+    id: 8,
+    title: "Does the tigers defend their title?",
+    img: "https://wallpaper.dog/large/5539635.jpg",
+    category: "Article",
+    desc: "The title defenders are currently on 6 place after first half of season. This task might be very difficult for them",
+    teams: [tigers],
+    description:
+      "This is only testing example article, and webiste is made for learning UI. Thank you for checking it :)",
+  },
+  {
+    id: 9,
+    title: "Defenders exchange between Monarch and Torros",
+    img: "http://www.ucc.ie/en/media/mandc/newsimagesnew/january2018/iStock-698677286edit.jpg",
+    category: "Transfer",
+    desc: "Two defenders are involved in an exchange between two clubs from second half of the table. Monarchs can play 20M $ bonus",
+    teams: [monarch, torros],
+    description:
+      "This is only testing example article, and webiste is made for learning UI. Thank you for checking it :)",
+  },
+  {
+    id: 10,
+    title: "Fight for the champions",
+    img: "https://www.infobae.com/new-resizer/EAAdqmNRaMoizVM09He7p-aRff4=/1200x628/filters:format(jpg):quality(85)//cloudfront-us-east-1.images.arcpublishing.com/infobae/OY4JWAXOMJHYHEKR5ED4UCUDYI.jpg",
+    category: "Article",
+    desc: "After 14 rounds we have 4 teams who can play for the championship. Diamonds are on the top but the other teams are right behind them.",
+    teams: [diamonds, shamrock, bolts, angels],
+    description:
+      "This is only testing example article, and webiste is made for learning UI. Thank you for checking it :)",
+  },
+  {
+    id: 11,
+    title: "Victory Tigers champions of the 2020",
+    img: "https://images.squarespace-cdn.com/content/56e2e6741d07c0f4f336953a/1554489448793-1OS2D5RC7BOTSE85OVW0/methode_times_prod_web_bin_4f836c26-5654-11e9-a8f5-a9ee11ff7e6d.jpg?content-type=image%2Fjpeg",
+    category: "Article",
+    desc: "2020 season are behind us, and the best team for the 4 times in history are Tigers. They played amazing durning all season.",
+    teams: [al, tigers],
+    description:
+      "This is only testing example article, and webiste is made for learning UI. Thank you for checking it :)",
+  },
+  {
+    id: 12,
+    title: "Roses sold Henricksen to Foxes",
+    img: "https://i.guim.co.uk/img/media/fbc179cd65831fab0510e1012dd62f000f04c917/0_0_2560_1536/master/2560.jpg?width=445&quality=45&auto=format&fit=max&dpr=2&s=5d52a98f90d983f382e6694aaf70c621",
+    category: "Transfer",
+    desc: "Young talented winger change his club for the next season. Foxes paid 35M $ and hope that he will improve their force.",
+    teams: [roses, fox],
+    description:
+      "This is only testing example article, and webiste is made for learning UI. Thank you for checking it :)",
+  },
+  {
+    id: 13,
+    title: "Big transfer between Bats and Neptuns",
+    img: "https://www.arsenalreview.co.uk/wp-content/uploads/2020/03/3nyxqusbmsu-770x513.jpg",
+    category: "Transfer",
+    desc: "Neptuns lose their best striker for 120M $. This is their record transfer but also a problem to find someone who can replace this position.",
+    teams: [bats, neptuns],
+    description:
+      "This is only testing example article, and webiste is made for learning UI. Thank you for checking it :)",
+  },
+  {
+    id: 14,
+    title: "Ronnpolis still without win. Next beat by Wolves",
+    img: "https://weexpats.com/wp-content/uploads/2019/10/necaxa-pachuca.jpg",
+    category: "Report",
+    desc: "The red lanters of the table are still without one wins and their situation is very difficult. This time they lost 3:1 in Tarnhem.",
+    teams: [ronnpolis, wolves],
+    description:
+      "This is only testing example article, and webiste is made for learning UI. Thank you for checking it :)",
+  },
+  {
+    id: 15,
+    title: "Bears announce their team and new kits for next season.",
+    img: "https://cdn.24.co.za/files/Cms/General/d/11472/fd416e4deb844c6fbe862533ec285ad4.jpg",
+    category: "Article",
+    desc: "2021 season ic comming very soon, and the team from the north is annoucing their new team and kits for playing new games.",
+    teams: [ronnpolis, wolves],
+    description:
+      "This is only testing example article, and webiste is made for learning UI. Thank you for checking it :)",
+  },
+  {
+    id: 16,
+    title: "Summer West Cup is finished. Shamrock win 3rd time in a row.",
+    img: "https://pbs.twimg.com/profile_images/344513261577353039/abe60d189e578c3ad68f27513f503381_400x400.jpeg",
+    category: "Article",
+    desc: "Annual tournament held in the west has come to an end. For the third time the best team is Shamrock who beat Monarch in final.",
+    teams: [shamrock, monarch, torros, ronnpolis],
+    description:
+      "This is only testing example article, and webiste is made for learning UI. Thank you for checking it :)",
+  },
+  {
+    id: 17,
+    title:
+      "Three teams are interested Goats goalkeeper. At the table even 80M $.",
+    img: "https://www.spanishprofootball.com/wp-content/uploads/2020/06/DSC_0354-862x564.jpg",
+    category: "Transfer",
+    desc: "Kliman's contract will be end in the next year so he is a very attractive on the market. Npetuns, Angels and Wolves are ready to fight for his sign.",
+    teams: [goats, neptuns, angels, wolves],
+    description:
+      "This is only testing example article, and webiste is made for learning UI. Thank you for checking it :)",
+  },
+  {
+    id: 18,
+    title: "Without goals on Bats Arena",
+    img: "http://s2.fbcdn.pl/6/clubs/18336/data/images/n/3eca921af4f30cabef791ae9027bf2c4.png",
+    category: "Report",
+    desc: "In 13 games between Gotan Bats and Tigra Fox was a draw without goals, but the meeting was very attractive and both teams often attacked.",
+    teams: [bats, fox],
+    description:
+      "This is only testing example article, and webiste is made for learning UI. Thank you for checking it :)",
+  },
+  {
+    id: 19,
+    title: "The northen derbty for Bears",
+    img: "https://www.derbyunion.co.uk/pageassets/sports/mensfootball/M.Football-2.jpg",
+    category: "Report",
+    desc: "The Derby of the north gives a great emotion every season. This time after a hard fight better team was Montanviu winning 2:0 with Rossengaard.",
+    teams: [bears, roses],
+    description:
+      "This is only testing example article, and webiste is made for learning UI. Thank you for checking it :)",
+  },
+  {
+    id: 20,
+    title: "Exclusive with captain of the best team in 2020.",
+    img: "https://nwscdn.com/media/catalog/product/cache/all/thumbnail/800x/9df78eab33525d08d6e5fb8d27136e95/y/e/yellow-3.jpg",
+    category: "Interview",
+    desc: "Victory Tigers are the champions of 2020 and now after celebration we annouce this exclusive talk with the best player and captain of new champions.",
+    teams: [tigers],
+    description:
+      "This is only testing example article, and webiste is made for learning UI. Thank you for checking it :)",
+  },
+  {
+    id: 21,
+    title: "Plans for the new season",
+    img: "https://s3.amazonaws.com/snwceomedia/tsn/142910be-ea6a-40bf-b735-4462adf19511.sized-1000x1000.jpg",
+    category: "Interview",
+    desc: "With preparation and plans for the new season with 4th team of the 2020 season Dark Knights Coach.",
+    teams: [knights],
+    description:
+      "This is only testing example article, and webiste is made for learning UI. Thank you for checking it :)",
   },
 ];
