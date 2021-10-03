@@ -2,7 +2,8 @@
 
 Website for this projects -> https://alleague.web.app/
 
-![aleague1](https://user-images.githubusercontent.com/62649296/113474035-9493ea80-946d-11eb-9e46-c1d19d67484c.png)
+<img width="1439" alt="aleague" src="https://user-images.githubusercontent.com/62649296/135770557-cb15bdbc-7b13-4be3-947d-9fbaeec9865a.png">
+
 
 This respository is a frontend code for aleague app. Backend side you can check this -> https://github.com/ArexSpeed/aleague_server
 
