@@ -1,6 +1,5 @@
 import { useContext } from "react";
 import { Context } from "../context/Provider";
-import { Link } from "react-router-dom";
 import TableStats from "./TableStats";
 import Fixtures from "./Fixtures";
 

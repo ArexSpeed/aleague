@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import useTeams from "../hooks/useTeams";
 import useMatches from "../hooks/useMatches";
 import { Context } from "../context/Provider";

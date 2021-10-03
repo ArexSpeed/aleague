@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useContext } from "react";
 import NewsCard from "./NewsCard";
 import { news } from "../data/news";
 import { Context } from "../context/Provider";

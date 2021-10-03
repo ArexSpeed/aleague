@@ -1,6 +1,5 @@
 import { useState, useEffect, useContext } from "react";
 import { Context } from "../context/Provider";
-import { Link } from "react-router-dom";
 import useTables from "../hooks/useTables";
 import useTeams from "../hooks/useTeams";
 
