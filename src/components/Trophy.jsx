@@ -67,51 +67,47 @@ const Trophy = ({ team }) => {
   const latestSeasons = tables
     .filter((table) => team?.name === table.team_name)
     .sort((a, b) => a.season - b.season)
-    .map((team, index) => {
-      return (
-        <tr key={index}>
-          <td className={`${darkTheme && "dark"}`}>
-            <div
-              className={`td__pos ${darkTheme && "dark"} ${
-                team.position === 1
-                  ? "gold"
-                  : team.position === 2
-                  ? "silver"
-                  : team.position === 3
-                  ? "brown"
-                  : team.position > 14
-                  ? "red"
-                  : team.position > 12
-                  ? "purple"
-                  : ""
-              }`}
-            >
-              {team.position}
-            </div>
-          </td>
-          <td className={`${darkTheme && "dark"}`}>{team.season}</td>
-          <td className={`${darkTheme && "dark"}`}>{team.team_name}</td>
-          <td className={`${darkTheme && "dark"}`}>{team.match}</td>
-          <td className={`td__win ${darkTheme && "dark"}`}>{team.win}</td>
-          <td className={`${darkTheme && "dark"}`}>{team.draw}</td>
-          <td className={`td__lose ${darkTheme && "dark"}`}>{team.lose}</td>
-          <td className={`td__mobileHide ${darkTheme && "dark"}`}>
-            {team.goal_plus}
-          </td>
-          <td className={`td__mobileHide ${darkTheme && "dark"}`}>
-            {team.goal_minus}
-          </td>
-          <td className={`td__mobileHide ${darkTheme && "dark"}`}>
-            {team.bilans}
-          </td>
-          <td className={`${darkTheme && "dark"}`}>
-            <div className={`td__pts ${darkTheme && "dark"}`}>
-              {team.points}
-            </div>
-          </td>
-        </tr>
-      );
-    });
+    .map((team, index) => (
+      <tr key={index}>
+        <td className={`${darkTheme && "dark"}`}>
+          <div
+            className={`td__pos ${darkTheme && "dark"} ${
+              team.position === 1
+                ? "gold"
+                : team.position === 2
+                ? "silver"
+                : team.position === 3
+                ? "brown"
+                : team.position > 14
+                ? "red"
+                : team.position > 12
+                ? "purple"
+                : ""
+            }`}
+          >
+            {team.position}
+          </div>
+        </td>
+        <td className={`${darkTheme && "dark"}`}>{team.season}</td>
+        <td className={`${darkTheme && "dark"}`}>{team.team_name}</td>
+        <td className={`${darkTheme && "dark"}`}>{team.match}</td>
+        <td className={`td__win ${darkTheme && "dark"}`}>{team.win}</td>
+        <td className={`${darkTheme && "dark"}`}>{team.draw}</td>
+        <td className={`td__lose ${darkTheme && "dark"}`}>{team.lose}</td>
+        <td className={`td__mobileHide ${darkTheme && "dark"}`}>
+          {team.goal_plus}
+        </td>
+        <td className={`td__mobileHide ${darkTheme && "dark"}`}>
+          {team.goal_minus}
+        </td>
+        <td className={`td__mobileHide ${darkTheme && "dark"}`}>
+          {team.bilans}
+        </td>
+        <td className={`${darkTheme && "dark"}`}>
+          <div className={`td__pts ${darkTheme && "dark"}`}>{team.points}</div>
+        </td>
+      </tr>
+    ));
 
   return (
     <section className={`section ${darkTheme && "dark"}`}>

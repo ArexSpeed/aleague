@@ -6,6 +6,8 @@ import Aside from "../components/Aside";
 import TeamInfo from "../components/TeamInfo";
 import Trophy from "../components/Trophy";
 import TeamFixtures from "../components/TeamFixtures";
+import { news } from "../data/news";
+import NewsCard from "../components/NewsCard";
 
 function Team() {
   const [{ darkTheme }] = useContext(Context);
@@ -24,6 +26,26 @@ function Team() {
         <TeamInfo />
         <Trophy team={team} />
         <TeamFixtures team={team} />
+        <section className={`section ${darkTheme && "dark"}`}>
+          <div className="section__title">
+            <div className="section__title-name">Team News</div>
+          </div>
+          <div className="subsection__news">
+            {news
+              .filter((item) => item.teamSite.includes(teamsite))
+              .map((item, index) => (
+                <NewsCard
+                  key={index}
+                  id={item.id}
+                  category={item.category}
+                  title={item.title}
+                  image={item.img}
+                  text={item.desc}
+                  teams={item.teams}
+                />
+              ))}
+          </div>
+        </section>
         <section className="main__aside-mobile">
           <div className={`main__aside-box ${darkTheme && "dark"}`}>
             <Aside />

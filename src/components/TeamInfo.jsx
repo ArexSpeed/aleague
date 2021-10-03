@@ -27,7 +27,6 @@ const TeamInfo = () => {
   return (
     <>
       <section className={`section ${darkTheme && "dark"}`}>
-        {console.log(team, "team")}
         <div className="section__title">
           <div className="section__title-name">{team?.name}</div>
         </div>
@@ -105,7 +104,7 @@ const TeamInfo = () => {
                     darkTheme && "dark"
                   }`}
                 >
-                  Wins
+                  Win
                 </span>
               </div>
               <div className="team__info-currentStats-box draw">
@@ -117,7 +116,7 @@ const TeamInfo = () => {
                     darkTheme && "dark"
                   }`}
                 >
-                  Draws
+                  Draw
                 </span>
               </div>
               <div className="team__info-currentStats-box lose">
@@ -129,7 +128,7 @@ const TeamInfo = () => {
                     darkTheme && "dark"
                   }`}
                 >
-                  Loses
+                  Lose
                 </span>
               </div>
             </div>
