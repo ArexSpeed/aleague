@@ -25,7 +25,7 @@ export const news = [
     desc: "A recap after round 15 and discussion of each team's performance. There are positive surprises but also big disappointments. ",
     teamSite: "aleague",
     teams: [al],
-    description:
+    content:
       "This is only testing example article, and webiste is made for learning UI. Thank you for checking it :)",
   },
   {
@@ -36,7 +36,7 @@ export const news = [
     desc: "Interview with the leader's coach. Talking about how the team got into such good shape",
     teamSite: "diamond",
     teams: [diamonds],
-    description:
+    content:
       "This is only testing example article, and webiste is made for learning UI. Thank you for checking it :)",
   },
   {
@@ -47,7 +47,7 @@ export const news = [
     desc: "In the last game of the 15 round Arkov Diamond hosted Tozen Goats and as predicted they won 3:1. But this game was a total show of one player.",
     teamSite: "diamond, goats",
     teams: [diamonds, goats],
-    description:
+    content:
       "This is only testing example article, and webiste is made for learning UI. Thank you for checking it :)",
   },
   {
@@ -58,7 +58,7 @@ export const news = [
     desc: "From football player to referee. An interview with one of the league's top referees. What is the job of a referee and their pros and cons",
     teamSite: "aleague",
     teams: [al],
-    description:
+    content:
       "This is only testing example article, and webiste is made for learning UI. Thank you for checking it :)",
   },
   {
@@ -69,7 +69,7 @@ export const news = [
     desc: "Three transfers and medal aspirations. How is the transfer period going in the Diampero Bolts team ",
     teamSite: "bolts",
     teams: [bolts],
-    description:
+    content:
       "This is only testing example article, and webiste is made for learning UI. Thank you for checking it :)",
   },
   {
@@ -80,7 +80,7 @@ export const news = [
     desc: "Three transfers and medal aspirations. How is the transfer period going in the Diampero Bolts team ",
     teamSite: "torros, knights",
     teams: [torros, knights],
-    description:
+    content:
       "This is only testing example article, and webiste is made for learning UI. Thank you for checking it :)",
   },
   {
@@ -91,7 +91,7 @@ export const news = [
     desc: "Three transfers and medal aspirations. How is the transfer period going in the Diampero Bolts team ",
     teamSite: "aleague",
     teams: [al],
-    description:
+    content:
       "This is only testing example article, and webiste is made for learning UI. Thank you for checking it :)",
   },
   {
@@ -102,7 +102,7 @@ export const news = [
     desc: "The title defenders are currently on 6 place after first half of season. This task might be very difficult for them",
     teamSite: "tigers",
     teams: [tigers],
-    description:
+    content:
       "This is only testing example article, and webiste is made for learning UI. Thank you for checking it :)",
   },
   {
@@ -113,7 +113,7 @@ export const news = [
     desc: "Two defenders are involved in an exchange between two clubs from second half of the table. Monarchs can play 20M $ bonus",
     teamSite: "monarch, torros",
     teams: [monarch, torros],
-    description:
+    content:
       "This is only testing example article, and webiste is made for learning UI. Thank you for checking it :)",
   },
   {
@@ -124,7 +124,7 @@ export const news = [
     desc: "After 14 rounds we have 4 teams who can play for the championship. Diamonds are on the top but the other teams are right behind them.",
     teamSite: "diamond, shamrock, bolts, angels",
     teams: [diamonds, shamrock, bolts, angels],
-    description:
+    content:
       "This is only testing example article, and webiste is made for learning UI. Thank you for checking it :)",
   },
   {
@@ -135,7 +135,7 @@ export const news = [
     desc: "2020 season are behind us, and the best team for the 4 times in history are Tigers. They played amazing durning all season.",
     teamSite: "tigers",
     teams: [al, tigers],
-    description:
+    content:
       "This is only testing example article, and webiste is made for learning UI. Thank you for checking it :)",
   },
   {
@@ -146,7 +146,7 @@ export const news = [
     desc: "Young talented winger change his club for the next season. Foxes paid 35M $ and hope that he will improve their force.",
     teamSite: "roses, fox",
     teams: [roses, fox],
-    description:
+    content:
       "This is only testing example article, and webiste is made for learning UI. Thank you for checking it :)",
   },
   {
@@ -157,7 +157,7 @@ export const news = [
     desc: "Neptuns lose their best striker for 120M $. This is their record transfer but also a problem to find someone who can replace this position.",
     teamSite: "bats, neptuns",
     teams: [bats, neptuns],
-    description:
+    content:
       "This is only testing example article, and webiste is made for learning UI. Thank you for checking it :)",
   },
   {
@@ -168,7 +168,7 @@ export const news = [
     desc: "The red lanters of the table are still without one wins and their situation is very difficult. This time they lost 3:1 in Tarnhem.",
     teamSite: "ronnpolis, wolves",
     teams: [ronnpolis, wolves],
-    description:
+    content:
       "This is only testing example article, and webiste is made for learning UI. Thank you for checking it :)",
   },
   {
@@ -179,7 +179,7 @@ export const news = [
     desc: "2021 season ic comming very soon, and the team from the north is annoucing their new team and kits for playing new games.",
     teamSite: "bears",
     teams: [bears],
-    description:
+    content:
       "This is only testing example article, and webiste is made for learning UI. Thank you for checking it :)",
   },
   {
@@ -190,7 +190,7 @@ export const news = [
     desc: "Annual tournament held in the west has come to an end. For the third time the best team is Shamrock who beat Monarch in final.",
     teamSite: "shamrock, monarch, torros, ronnpolis",
     teams: [shamrock, monarch, torros, ronnpolis],
-    description:
+    content:
       "This is only testing example article, and webiste is made for learning UI. Thank you for checking it :)",
   },
   {
@@ -199,10 +199,10 @@ export const news = [
       "Three teams are interested Goats goalkeeper. At the table even 80M $.",
     img: "https://www.spanishprofootball.com/wp-content/uploads/2020/06/DSC_0354-862x564.jpg",
     category: "Transfer",
-    desc: "Kliman's contract will be end in the next year so he is a very attractive on the market. Npetuns, Angels and Wolves are ready to fight for his sign.",
+    desc: "Kliman's contract will be end in the next year so he is a very attractive on the market. Neptuns, Angels and Wolves are ready to fight for his sign.",
     teamSite: "goats, neptuns, angels, wolves",
     teams: [goats, neptuns, angels, wolves],
-    description:
+    content:
       "This is only testing example article, and webiste is made for learning UI. Thank you for checking it :)",
   },
   {
@@ -213,7 +213,7 @@ export const news = [
     desc: "In 13 games between Gotan Bats and Tigra Fox was a draw without goals, but the meeting was very attractive and both teams often attacked.",
     teamSite: "bats, fox",
     teams: [bats, fox],
-    description:
+    content:
       "This is only testing example article, and webiste is made for learning UI. Thank you for checking it :)",
   },
   {
@@ -224,7 +224,7 @@ export const news = [
     desc: "The Derby of the north gives a great emotion every season. This time after a hard fight better team was Montanviu winning 2:0 with Rossengaard.",
     teamSite: "bears, roses",
     teams: [bears, roses],
-    description:
+    content:
       "This is only testing example article, and webiste is made for learning UI. Thank you for checking it :)",
   },
   {
@@ -235,7 +235,7 @@ export const news = [
     desc: "Victory Tigers are the champions of 2020 and now after celebration we annouce this exclusive talk with the best player and captain of new champions.",
     teamSite: "tigers",
     teams: [tigers],
-    description:
+    content:
       "This is only testing example article, and webiste is made for learning UI. Thank you for checking it :)",
   },
   {
@@ -246,7 +246,7 @@ export const news = [
     desc: "With preparation and plans for the new season with 4th team of the 2020 season Dark Knights Coach.",
     teamSite: "knights",
     teams: [knights],
-    description:
+    content:
       "This is only testing example article, and webiste is made for learning UI. Thank you for checking it :)",
   },
 ];

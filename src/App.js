@@ -5,7 +5,7 @@ import Home from "./pages/Home";
 import Stats from "./pages/Stats";
 import History from "./pages/History";
 import News from "./pages/News";
-import NewsRead from "./components/NewsRead";
+import NewsRead from "./pages/NewsRead";
 import Tv from "./pages/Tv";
 import Team from "./pages/Team";
 import Sidebar from "./components/Sidebar";
