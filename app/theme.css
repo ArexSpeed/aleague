@@ -1,0 +1,66 @@
+/*
+ * aleague layout tokens (ported from the AI Studio design).
+ * Imported from globals.css, right after the existing @import lines:
+ *   @import "./theme.css";
+ *
+ * Semantic names on purpose, so they never collide with shadcn tokens
+ * (background, foreground, primary, card, ...).
+ */
+
+:root {
+  --shell: #101126; /* TopBar, SideNav, BottomNav */
+  --shell-deep: #0c0d1e; /* outer frame behind everything */
+  --shell-surface: #191a2f; /* detail panel, popups, chips on the shell */
+  --shell-surface-hover: #252848;
+  --shell-foreground: #ffffff;
+  --shell-muted: #9ca3af;
+
+  --main: #ddebf2; /* main arena (light) */
+  --main-foreground: #101126;
+
+  --brand: #2b9cdc;
+  --positive: #a2fa9a;
+  --negative: #ff4d4d;
+  --warning: #fee140;
+
+  /* Standings positions */
+  --rank-gold: #f59e0b;
+  --rank-silver: #94a3b8;
+  --rank-bronze: #d97706;
+  --rank-relegation: #ff5757;
+}
+
+.dark {
+  --main: #101126;
+  --main-foreground: #ffffff;
+}
+
+@theme inline {
+  --color-shell: var(--shell);
+  --color-shell-deep: var(--shell-deep);
+  --color-shell-surface: var(--shell-surface);
+  --color-shell-surface-hover: var(--shell-surface-hover);
+  --color-shell-foreground: var(--shell-foreground);
+  --color-shell-muted: var(--shell-muted);
+
+  --color-main: var(--main);
+  --color-main-foreground: var(--main-foreground);
+
+  --color-brand: var(--brand);
+  --color-positive: var(--positive);
+  --color-negative: var(--negative);
+  --color-warning: var(--warning);
+
+  --color-rank-gold: var(--rank-gold);
+  --color-rank-silver: var(--rank-silver);
+  --color-rank-bronze: var(--rank-bronze);
+  --color-rank-relegation: var(--rank-relegation);
+}
+
+/* Hide scrollbars but keep scrolling (used on tab bars and lists). */
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
