@@ -7,7 +7,7 @@ import { buildLeagueHref, LEAGUE_TABS, type LeagueParams } from "./search-params
 export function LeagueTabs({ params }: { params: LeagueParams }) {
   return (
     <nav
-      aria-label="Widok ligi"
+      aria-label="tabs"
       className="no-scrollbar flex shrink-0 items-center gap-4 overflow-x-auto border-b border-black/5 pb-1 lg:gap-6"
     >
       {LEAGUE_TABS.map((tab) => {
@@ -15,7 +15,7 @@ export function LeagueTabs({ params }: { params: LeagueParams }) {
         return (
           <Link
             key={tab.id}
-            href={buildLeagueHref(params, { tab: tab.id })}
+            href={buildLeagueHref(params, { tab: tab.id, team: undefined, match: undefined })}
             scroll={false}
             aria-current={active ? "page" : undefined}
             className={cn(

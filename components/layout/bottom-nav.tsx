@@ -11,8 +11,8 @@ export function BottomNav() {
 
   return (
     <nav
-      aria-label="main navigation"
-      className="flex h-16 shrink-0 items-stretch bg-shell text-shell-foreground md:hidden"
+      aria-label="Mobile navigation"
+      className="flex h-12 shrink-0 items-stretch bg-shell text-shell-foreground md:hidden"
     >
       {NAV_ITEMS.map((item) => (
         <NavButton

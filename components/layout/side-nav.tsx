@@ -11,7 +11,7 @@ export function SideNav() {
 
   return (
     <nav
-      aria-label="Główna nawigacja"
+      aria-label="Main navigation"
       className="hidden w-16 shrink-0 flex-col items-center justify-between bg-shell py-4 text-shell-foreground md:flex lg:w-20"
     >
       <ul className="flex flex-col items-center gap-4 px-2">

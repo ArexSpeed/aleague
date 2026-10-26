@@ -7,30 +7,31 @@ import { cn } from "@/lib/utils";
 type MasterDetailProps = {
   /** Left part: tabs, filters, tables. */
   master: ReactNode;
-  /** Right part. Pass null to hide the panel. */
+  /** Right part. Rendered always on lg+, as a drawer on mobile. */
   detail: ReactNode | null;
-  /** Where the close button and the mobile backdrop navigate (URL without the detail param). */
-  closeHref: string;
   /**
-   * true (default): the whole master part scrolls.
-   * false: the master part is a flex column that does not scroll; the page keeps
-   * tabs/filters fixed and scrolls only its own list (flex-1 min-h-0 overflow-y-auto).
+   * Mobile only: is the drawer open? (e.g. "a team is selected in the URL").
+   * On lg+ the panel is visible regardless of this flag.
    */
+  detailOpen: boolean;
+  /** Close button / backdrop target (URL without the selection param). */
+  closeHref: string;
+  /** true (default): the whole master part scrolls. false: the page scrolls its own list. */
   scrollMaster?: boolean;
 };
 
 /**
  * Two-part content of <main>.
- * - lg and up: master | detail side by side (detail is a dark aside card).
- * - below lg: detail becomes a bottom sheet over the page, with a backdrop.
+ * - lg and up: master | detail side by side, detail is always visible.
+ * - below lg: detail is a drawer sliding in from the right, only when `detailOpen`.
  *
- * Open/closed state lives in the URL (e.g. ?team=wolves), so the browser back
- * button closes the panel and the view is shareable. The page decides what to
- * pass as `detail`; this component has no state.
+ * No JS and no state here: visibility is pure CSS (breakpoints) + the `detailOpen`
+ * flag derived from the URL, so resizing the window can never leave it inconsistent.
  */
 export function MasterDetail({
   master,
   detail,
+  detailOpen,
   closeHref,
   scrollMaster = true,
 }: MasterDetailProps) {
@@ -48,22 +49,31 @@ export function MasterDetail({
       {detail ? (
         <>
           {/* Mobile backdrop: tap to close */}
-          <Link
-            href={closeHref}
-            scroll={false}
-            aria-label="Close panel"
-            className="fixed inset-0 z-40 bg-black/50 lg:hidden"
-          />
+          {detailOpen ? (
+            <Link
+              href={closeHref}
+              scroll={false}
+              aria-label="Close panel"
+              className="fixed inset-0 z-40 bg-black/50 lg:hidden"
+            />
+          ) : null}
 
           <aside
             aria-label="Details"
-            className="fixed inset-x-0 bottom-0 top-14 z-50 flex flex-col overflow-hidden rounded-t-3xl bg-shell-surface text-shell-foreground shadow-2xl lg:static lg:inset-auto lg:z-auto lg:m-3 lg:ml-0 lg:w-[400px] lg:shrink-0 lg:rounded-3xl lg:shadow-none xl:w-[440px]"
+            className={cn(
+              "flex-col overflow-hidden bg-shell-surface text-shell-foreground shadow-2xl",
+              // mobile: right drawer, shown only when open
+              detailOpen ? "flex" : "hidden",
+              "fixed inset-y-0 right-0 z-50 w-[min(100%,420px)] rounded-l-3xl max-lg:animate-drawer-in motion-reduce:animate-none",
+              // desktop: static card, always shown
+              "lg:static lg:z-auto lg:m-3 lg:ml-0 lg:flex lg:w-100 lg:shrink-0 lg:rounded-3xl lg:shadow-none xl:w-110",
+            )}
           >
             <Link
               href={closeHref}
               scroll={false}
               aria-label="Close panel"
-              className="absolute top-4 right-4 z-10 rounded-lg p-1 text-shell-muted transition-colors hover:bg-white/10 hover:text-white"
+              className="absolute top-4 right-4 z-10 rounded-lg p-1 text-shell-muted transition-colors hover:bg-white/10 hover:text-white lg:hidden"
             >
               <X className="size-5" aria-hidden />
             </Link>

@@ -12,7 +12,7 @@ export type NavItem = {
 export const NAV_ITEMS: NavItem[] = [
   { id: "back", label: "Cofnij", icon: RotateCcw },
   { id: "home", label: "Home", icon: House, href: "/home" },
-  { id: "competitions", label: "Rozgrywki", icon: Trophy, href: "/rozgrywki" },
+  { id: "competitions", label: "Competitions", icon: Trophy, href: "/competitions" },
   { id: "teams", label: "Teams", icon: Shield, href: "/teams" },
   { id: "more", label: "More", icon: LayoutGrid },
 ];

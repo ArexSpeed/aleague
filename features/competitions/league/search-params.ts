@@ -43,12 +43,19 @@ export const SUB_FILTERS: Record<RoundType, SubFilter[]> = {
     { id: "ark", label: "ARK" },
     { id: "cos", label: "COS" },
     { id: "arv", label: "ARV" },
+    { id: "arv", label: "RIV" },
+    { id: "arv", label: "GOT" },
   ],
   Nation: [
     { id: "all", label: "All" },
-    { id: "div-1", label: "Division 1" },
-    { id: "div-2", label: "Division 2" },
-    { id: "playoffs", label: "Playoffs" },
+    { id: "rot", label: "ROT" },
+    { id: "cel", label: "CEL" },
+    { id: "mon", label: "MON" },
+    { id: "ark", label: "ARK" },
+    { id: "cos", label: "COS" },
+    { id: "arv", label: "ARV" },
+    { id: "arv", label: "RIV" },
+    { id: "arv", label: "GOT" },
   ],
 };
 
@@ -60,6 +67,10 @@ const paramsSchema = z.object({
   view: z.enum(VIEW_MODES).catch("detailed"),
   team: z.string().optional().catch(undefined),
   panel: z.enum(PANEL_TABS).catch("stats"),
+  /** Fixtures: selected match. */
+  match: z.string().optional().catch(undefined),
+  /** Fixtures: undefined = current matchday. */
+  matchday: z.coerce.number().int().min(1).optional().catch(undefined),
 });
 
 export type LeagueParams = z.infer<typeof paramsSchema>;
@@ -91,6 +102,8 @@ export function buildLeagueHref(params: LeagueParams, patch: Partial<LeagueParam
     if (next[key] !== DEFAULTS[key]) qs.set(key, next[key]);
   }
   if (next.team) qs.set("team", next.team);
+  if (next.match) qs.set("match", next.match);
+  if (next.matchday !== undefined) qs.set("matchday", String(next.matchday));
   const query = qs.toString();
   return query ? `/competitions?${query}` : "/competitions";
 }
