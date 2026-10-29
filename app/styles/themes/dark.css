@@ -1,0 +1,96 @@
+/*
+ * THEME: dark
+ * Same variables as light.css, different values. See light.css for the rules.
+ */
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* ── Shell ─────────────────────────────────────────────────────────────── */
+  --shell-deep: #06070f;
+  --shell: #0b0c18;
+  --shell-surface: #151729;
+  --shell-surface-hover: #20233f;
+
+  /* ── Main arena ────────────────────────────────────────────────────────── */
+  --main: #101126;
+
+  /* ── Brand + status ────────────────────────────────────────────────────── */
+  --brand: #38b2f0;
+  --brand-foreground: #06121c;
+  --positive: #a2fa9a;
+  --negative: #ff6b6b;
+  --warning: #fee140;
+
+  /* ── Standings positions ───────────────────────────────────────────────── */
+  --rank-gold: #f59e0b;
+  --rank-silver: #94a3b8;
+  --rank-bronze: #d97706;
+  --rank-relegation: #ff5757;
+  --rank-on-light: #020617;
+  --rank-on-dark: #ffffff;
+
+  /* ── Chips ─────────────────────────────────────────────────────────────── */
+  --chip: #20233f;
+  --chip-foreground: #f1f5f9;
+  --chip-muted: #94a3b8;
+  --chip-win: #34d399;
+  --chip-loss: #fb7185;
+
+  /* ── Region "main" ─────────────────────────────────────────────────────── */
+  --main-surface: rgb(255 255 255 / 0.06);
+  --main-surface-hover: rgb(255 255 255 / 0.1);
+  --main-foreground: #f1f5f9;
+  --main-muted: #94a3b8;
+  --main-faint: #64748b;
+  --main-line: rgb(255 255 255 / 0.08);
+  --main-control: rgb(255 255 255 / 0.05);
+  --main-control-active: rgb(255 255 255 / 0.14);
+  --main-win: #34d399;
+  --main-loss: #fb7185;
+
+  /* ── Region "shell" ────────────────────────────────────────────────────── */
+  --shell-card: rgb(255 255 255 / 0.05);
+  --shell-card-hover: rgb(255 255 255 / 0.1);
+  --shell-foreground: #ffffff;
+  --shell-muted: #cbd5e1;
+  --shell-faint: #94a3b8;
+  --shell-line: rgb(255 255 255 / 0.1);
+  --shell-control: rgb(255 255 255 / 0.05);
+  --shell-control-active: rgb(255 255 255 / 0.14);
+  --shell-win: #34d399;
+  --shell-loss: #fb7185;
+
+  /* ── shadcn/ui tokens ──────────────────────────────────────────────────── */
+  --background: var(--main);
+  --foreground: var(--main-foreground);
+  --card: #151729;
+  --card-foreground: var(--main-foreground);
+  --popover: #151729;
+  --popover-foreground: var(--main-foreground);
+  --primary: var(--brand);
+  --primary-foreground: var(--brand-foreground);
+  --secondary: rgb(255 255 255 / 0.08);
+  --secondary-foreground: var(--main-foreground);
+  --muted: rgb(255 255 255 / 0.08);
+  --muted-foreground: var(--main-muted);
+  --accent: rgb(255 255 255 / 0.1);
+  --accent-foreground: var(--main-foreground);
+  --destructive: var(--negative);
+  --border: rgb(255 255 255 / 0.1);
+  --input: rgb(255 255 255 / 0.15);
+  --ring: var(--brand);
+  --chart-1: var(--brand);
+  --chart-2: #34d399;
+  --chart-3: #fbbf24;
+  --chart-4: #fb7185;
+  --chart-5: #a78bfa;
+  --sidebar: var(--shell);
+  --sidebar-foreground: var(--shell-foreground);
+  --sidebar-primary: var(--brand);
+  --sidebar-primary-foreground: var(--brand-foreground);
+  --sidebar-accent: var(--shell-surface);
+  --sidebar-accent-foreground: var(--shell-foreground);
+  --sidebar-border: var(--shell-line);
+  --sidebar-ring: var(--brand);
+}

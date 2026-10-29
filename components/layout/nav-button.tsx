@@ -1,10 +1,10 @@
 import Link from "next/link";
 
 import { cn } from "@/lib/utils";
-import type { NavItem } from "@/lib/navigation";
+import type { ResolvedNavItem } from "@/lib/navigation";
 
 type NavButtonProps = {
-  item: NavItem;
+  item: ResolvedNavItem;
   active: boolean;
   variant: "side" | "bottom";
 };
@@ -14,14 +14,14 @@ const base = "flex flex-col items-center justify-center transition-colors durati
 const variants = {
   side: {
     box: "size-12 rounded-2xl",
-    active: "bg-brand text-white shadow-lg shadow-brand/30",
-    idle: "text-shell-muted hover:bg-white/10 hover:text-white",
+    active: "bg-brand text-brand-foreground shadow-lg shadow-brand/30",
+    idle: "text-fg-faint hover:bg-surface-hover hover:text-fg",
     label: "mt-0.5 text-[9px] font-bold tracking-tight",
   },
   bottom: {
     box: "h-full flex-1",
     active: "text-brand",
-    idle: "text-shell-muted hover:text-white",
+    idle: "text-fg-faint hover:text-fg",
     label: "mt-0.5 text-[11px] font-bold tracking-tight",
   },
 } as const;
