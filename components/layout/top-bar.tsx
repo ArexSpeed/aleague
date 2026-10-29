@@ -10,7 +10,7 @@ export function TopBar({ sportName }: { sportName: string }) {
   return (
     <header
       data-region="shell"
-      className="relative z-30 flex h-12 shrink-0 items-center justify-between gap-2 border-b border-line bg-shell px-3 text-fg sm:px-4"
+      className="relative z-30 flex h-12 shrink-0 items-center justify-between gap-2 bg-shell px-3 text-fg sm:px-4"
     >
       {/* Left: logo + current sport chip */}
       <div className="flex items-center gap-3">

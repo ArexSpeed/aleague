@@ -27,13 +27,6 @@ export function TeamRiders({
 
   return (
     <section>
-      <div className="mb-2 flex items-center justify-between">
-        <h3 className="text-xs font-bold tracking-wider text-fg uppercase">
-          Kadra i statystyki: {team.name}
-        </h3>
-        <span className="text-[10px] font-bold text-brand">{riders.length} zawodników</span>
-      </div>
-
       <div className="flex items-center justify-between border-b border-line px-1.5 py-1 text-[10px] font-extrabold tracking-wider text-fg-faint uppercase">
         <div className="flex items-center gap-1.5">
           <span className="w-5 text-center font-bold">#</span>
@@ -73,10 +66,10 @@ export function TeamRiders({
                   {rider.teamIcon}
                 </span>
                 <span className="flex min-w-0 flex-col truncate text-[11px] leading-tight font-extrabold tracking-tight uppercase">
-                  <span className="truncate">{rider.name}</span>
-                  <span className="truncate text-[9px] font-semibold text-fg-faint">
-                    {rider.role}
+                   <span className="truncate text-[9px] font-semibold text-fg-faint">
+                    {rider.firstName}
                   </span>
+                  <span className="truncate">{rider.lastName}</span>
                 </span>
               </div>
 

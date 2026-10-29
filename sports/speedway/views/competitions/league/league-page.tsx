@@ -18,8 +18,8 @@ export function LeaguePage(props: CompetitionViewProps) {
   );
 }
 
-async function LeagueContent({ basePath, searchParams }: CompetitionViewProps) {
-  const params = parseLeagueParams(await searchParams, basePath);
+async function LeagueContent({ basePath, searchParams, sport }: CompetitionViewProps) {
+  const params = parseLeagueParams(await searchParams, basePath, sport);
   const aside = await getLeagueAside(params);
 
   return (

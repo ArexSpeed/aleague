@@ -1,11 +1,20 @@
 import { z } from "zod";
 
 import { CURRENT_MATCHDAY, FIXTURES, TOTAL_MATCHDAYS } from "@/sports/speedway/mocks/fixtures";
-import { fixtureSchema, type Fixture, type FixtureWithTeams, type TeamRef } from "@/sports/speedway/types/fixtures";
+import {
+  fixtureSchema,
+  type Fixture,
+  type FixtureWithTeams,
+  type TeamRef,
+} from "@/sports/speedway/types/fixtures";
 import { getLeagueTeams } from "./league";
 
 export async function getMatchdayInfo(): Promise<{ current: number; total: number }> {
   return { current: CURRENT_MATCHDAY, total: TOTAL_MATCHDAYS };
+}
+
+export async function getFixtures(): Promise<FixtureWithTeams[]> {
+  return withTeams(parseFixtures());
 }
 
 async function withTeams(fixtures: Fixture[]): Promise<FixtureWithTeams[]> {
@@ -13,7 +22,14 @@ async function withTeams(fixtures: Fixture[]): Promise<FixtureWithTeams[]> {
   const byId = new Map<string, TeamRef>(
     teams.map((t) => [
       t.id,
-      { id: t.id, name: t.name, subName: t.subName, short: t.short, color: t.color },
+      {
+        id: t.id,
+        name: t.name,
+        subName: t.subName,
+        short: t.short,
+        color: t.color,
+        badgeIcon: t.badgeIcon,
+      },
     ]),
   );
 

@@ -19,5 +19,5 @@ export const fixtureSchema = z.object({
 
 export type Fixture = z.infer<typeof fixtureSchema>;
 
-export type TeamRef = Pick<LeagueTeam, "id" | "name" | "subName" | "short" | "color">;
+export type TeamRef = Pick<LeagueTeam, "id" | "name" | "subName" | "short" | "color" | "badgeIcon">;
 export type FixtureWithTeams = Fixture & { home: TeamRef; away: TeamRef };

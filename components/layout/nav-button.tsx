@@ -14,7 +14,7 @@ const base = "flex flex-col items-center justify-center transition-colors durati
 const variants = {
   side: {
     box: "size-12 rounded-2xl",
-    active: "bg-brand text-brand-foreground shadow-lg shadow-brand/30",
+    active: "text-brand",
     idle: "text-fg-faint hover:bg-surface-hover hover:text-fg",
     label: "mt-0.5 text-[9px] font-bold tracking-tight",
   },

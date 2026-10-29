@@ -18,6 +18,7 @@ export const LEAGUE_TABS: readonly { id: (typeof LEAGUE_TAB_IDS)[number]; label:
 
 export const ROUND_TYPES = ["League", "Regio", "Nation"] as const;
 export const VENUES = ["all", "home", "away"] as const;
+export const SCHEDULE_MODES = ["all", "upcoming", "recent"] as const;
 export const VIEW_MODES = ["detailed", "compact"] as const;
 export const PANEL_TABS = ["stats", "games", "riders", "details"] as const;
 
@@ -66,6 +67,7 @@ const paramsSchema = z.object({
   round: z.enum(ROUND_TYPES).catch("League"),
   group: z.string().catch("all"),
   venue: z.enum(VENUES).catch("all"),
+  schedule: z.enum(SCHEDULE_MODES).catch("all"),
   view: z.enum(VIEW_MODES).catch("detailed"),
   team: z.string().optional().catch(undefined),
   panel: z.enum(PANEL_TABS).catch("stats"),
@@ -76,14 +78,14 @@ const paramsSchema = z.object({
 });
 
 /** Parsed URL state plus `base`, the page URL without query (/<sport>/competitions/league). */
-export type LeagueParams = z.infer<typeof paramsSchema> & { base: string };
+export type LeagueParams = z.infer<typeof paramsSchema> & { base: string; sport: string };
 
 type RawSearchParams = Record<string, string | string[] | undefined>;
 
-export function parseLeagueParams(raw: RawSearchParams, base: string): LeagueParams {
+export function parseLeagueParams(raw: RawSearchParams, base: string, sport: string): LeagueParams {
   const parsed = paramsSchema.parse(raw);
   const groupExists = SUB_FILTERS[parsed.round].some((f) => f.id === parsed.group);
-  return { ...parsed, group: groupExists ? parsed.group : "all", base };
+  return { ...parsed, group: groupExists ? parsed.group : "all", base, sport };
 }
 
 const DEFAULTS = {
@@ -100,7 +102,7 @@ const KEYS = ["tab", "round", "group", "venue", "view", "panel"] as const;
 /** Builds a page URL from current params plus a patch. `team: undefined` removes the panel. */
 export function buildLeagueHref(
   params: LeagueParams,
-  patch: Partial<Omit<LeagueParams, "base">> = {},
+  patch: Partial<Omit<LeagueParams, "base" | "sport">> = {},
 ): string {
   const next = { ...params, ...patch };
   const qs = new URLSearchParams();
@@ -109,7 +111,7 @@ export function buildLeagueHref(
   }
   if (next.team) qs.set("team", next.team);
   if (next.match) qs.set("match", next.match);
-  if (next.matchday !== undefined) qs.set("matchday", String(next.matchday));
+  if (next.schedule !== "all") qs.set("schedule", next.schedule);
   const query = qs.toString();
   return query ? `${next.base}?${query}` : next.base;
 }
