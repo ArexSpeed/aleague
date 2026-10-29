@@ -1,0 +1,21 @@
+/* Hide scrollbars but keep scrolling (tab bars, lists). */
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Mobile detail drawer slides in from the right. */
+@theme {
+  --animate-drawer-in: drawer-in 220ms ease-out;
+
+  @keyframes drawer-in {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+}

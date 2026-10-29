@@ -20,7 +20,7 @@ type TableRowProps<T> = {
 };
 
 const EMPHASIS =
-  "flex h-6 items-center justify-center rounded-md bg-brand font-extrabold text-white shadow-xs sm:h-7 sm:rounded-lg";
+  "flex h-6 items-center justify-center rounded-md bg-brand font-extrabold text-brand-foreground shadow-xs sm:h-7 sm:rounded-lg";
 
 export function TableRow<T>({
   item,
@@ -32,9 +32,9 @@ export function TableRow<T>({
   detail,
 }: TableRowProps<T>) {
   const className = cn(
-    "group mb-1 block rounded-lg border-2 bg-white px-1 py-1 transition-all duration-150",
+    "group mb-1 block rounded-lg border-2 bg-surface px-1 py-1 transition-all duration-150",
     selected ? "border-brand shadow-md" : "border-transparent shadow-xs",
-    href && !selected && "hover:bg-white/90",
+    href && !selected && "hover:bg-surface-hover",
   );
 
   const content = (
@@ -48,7 +48,7 @@ export function TableRow<T>({
               key={c.id}
               className={cn(
                 c.width ?? (c.emphasis ? POINTS_COLUMN_WIDTH : DEFAULT_COLUMN_WIDTH),
-                c.emphasis ? EMPHASIS : (c.className ?? "font-semibold text-main-foreground"),
+                c.emphasis ? EMPHASIS : (c.className ?? "font-semibold text-fg"),
               )}
             >
               {c.cell(item)}
@@ -58,7 +58,7 @@ export function TableRow<T>({
       </div>
 
       {density === "detailed" && detail ? (
-        <div className="mt-1 border-t border-slate-100 px-1 pt-1 text-[11px] text-slate-600">
+        <div className="mt-1 border-t border-line px-1 pt-1 text-[11px] text-fg-muted">
           {detail}
         </div>
       ) : null}

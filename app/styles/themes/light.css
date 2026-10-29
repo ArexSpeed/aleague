@@ -1,0 +1,105 @@
+/*
+ * THEME: light  (default)
+ *
+ * Only VALUES live here. Components never reference a theme: they use the
+ * semantic utilities (bg-surface, text-fg, text-fg-muted, border-line, text-win...)
+ * which are resolved per region in ../regions.css.
+ *
+ * To restyle the app: edit the values below.
+ * To add a theme: copy this file, change the selector to [data-theme="name"],
+ * add { id, label } to lib/themes.ts. Nothing else.
+ */
+
+:root,
+[data-theme="light"] {
+  color-scheme: light;
+
+  /* ── Shell: TopBar, SideNav, BottomNav, detail Aside ───────────────────── */
+  --shell-deep: #0c0d1e; /* outer frame behind everything */
+  --shell: #101126; /* bars */
+  --shell-surface: #191a2f; /* detail aside, popups */
+  --shell-surface-hover: #252848;
+
+  /* ── Main arena ────────────────────────────────────────────────────────── */
+  --main: #ddebf2;
+
+  /* ── Brand + status (same in every region) ─────────────────────────────── */
+  --brand: #2b9cdc;
+  --brand-foreground: #ffffff;
+  --positive: #a2fa9a; /* bright accents on the dark shell */
+  --negative: #ff4d4d;
+  --warning: #fee140;
+
+  /* ── Standings positions ───────────────────────────────────────────────── */
+  --rank-gold: #f59e0b;
+  --rank-silver: #94a3b8;
+  --rank-bronze: #d97706;
+  --rank-relegation: #ff5757;
+  --rank-on-light: #020617; /* text on gold / silver */
+  --rank-on-dark: #ffffff; /* text on bronze / relegation */
+
+  /* ── Chips: light cards used also inside the dark aside (StatCard) ─────── */
+  --chip: #ffffff;
+  --chip-foreground: #101126;
+  --chip-muted: #1e293b;
+  --chip-win: #10b981;
+  --chip-loss: #f43f5e;
+
+  /* ── Region "main" (content on --main) ─────────────────────────────────── */
+  --main-surface: #ffffff; /* table rows, cards */
+  --main-surface-hover: rgb(255 255 255 / 0.9);
+  --main-foreground: #101126;
+  --main-muted: #475569;
+  --main-faint: #64748b;
+  --main-line: rgb(0 0 0 / 0.05);
+  --main-control: rgb(255 255 255 / 0.7); /* segmented control track */
+  --main-control-active: #ffffff;
+  --main-win: #059669;
+  --main-loss: #f43f5e;
+
+  /* ── Region "shell" (content on --shell / --shell-surface) ─────────────── */
+  --shell-card: rgb(255 255 255 / 0.05);
+  --shell-card-hover: rgb(255 255 255 / 0.1);
+  --shell-foreground: #ffffff;
+  --shell-muted: #cbd5e1;
+  --shell-faint: #94a3b8;
+  --shell-line: rgb(255 255 255 / 0.1);
+  --shell-control: rgb(255 255 255 / 0.05);
+  --shell-control-active: rgb(255 255 255 / 0.14);
+  --shell-win: #34d399;
+  --shell-loss: #fb7185;
+
+  /* ── shadcn/ui tokens (dialogs, sheets, dropdowns render in portals) ───── */
+  --background: var(--main);
+  --foreground: var(--main-foreground);
+  --card: #ffffff;
+  --card-foreground: var(--main-foreground);
+  --popover: #ffffff;
+  --popover-foreground: var(--main-foreground);
+  --primary: var(--brand);
+  --primary-foreground: var(--brand-foreground);
+  --secondary: rgb(16 17 38 / 0.06);
+  --secondary-foreground: var(--main-foreground);
+  --muted: rgb(16 17 38 / 0.06);
+  --muted-foreground: var(--main-muted);
+  --accent: rgb(16 17 38 / 0.08);
+  --accent-foreground: var(--main-foreground);
+  --destructive: var(--negative);
+  --border: rgb(16 17 38 / 0.1);
+  --input: rgb(16 17 38 / 0.15);
+  --ring: var(--brand);
+  --chart-1: var(--brand);
+  --chart-2: #10b981;
+  --chart-3: #f59e0b;
+  --chart-4: #f43f5e;
+  --chart-5: #8b5cf6;
+  --sidebar: var(--shell);
+  --sidebar-foreground: var(--shell-foreground);
+  --sidebar-primary: var(--brand);
+  --sidebar-primary-foreground: var(--brand-foreground);
+  --sidebar-accent: var(--shell-surface);
+  --sidebar-accent-foreground: var(--shell-foreground);
+  --sidebar-border: var(--shell-line);
+  --sidebar-ring: var(--brand);
+  --radius: 0.625rem;
+}

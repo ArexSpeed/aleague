@@ -1,0 +1,40 @@
+/*
+ * REGIONS: this is what makes components theme-agnostic.
+ *
+ * The app has two kinds of surface: the dark "shell" (bars, detail aside) and the
+ * "main" arena. A component just says `bg-surface text-fg border-line` and gets the
+ * right colours for whichever region it sits in, in whichever theme is active.
+ *
+ *   <main data-region="main">   -> --surface = --main-surface ...
+ *   <aside data-region="shell"> -> --surface = --shell-card ...
+ *
+ * No region = "main" (also what portals such as dialogs get).
+ * Themes only provide the --main-* and --shell-* values (see themes/*.css).
+ */
+
+:root,
+[data-region="main"] {
+  --surface: var(--main-surface);
+  --surface-hover: var(--main-surface-hover);
+  --fg: var(--main-foreground);
+  --fg-muted: var(--main-muted);
+  --fg-faint: var(--main-faint);
+  --line: var(--main-line);
+  --control: var(--main-control);
+  --control-active: var(--main-control-active);
+  --win: var(--main-win);
+  --loss: var(--main-loss);
+}
+
+[data-region="shell"] {
+  --surface: var(--shell-card);
+  --surface-hover: var(--shell-card-hover);
+  --fg: var(--shell-foreground);
+  --fg-muted: var(--shell-muted);
+  --fg-faint: var(--shell-faint);
+  --line: var(--shell-line);
+  --control: var(--shell-control);
+  --control-active: var(--shell-control-active);
+  --win: var(--shell-win);
+  --loss: var(--shell-loss);
+}

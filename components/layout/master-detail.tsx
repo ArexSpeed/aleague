@@ -60,8 +60,9 @@ export function MasterDetail({
 
           <aside
             aria-label="Details"
+            data-region="shell"
             className={cn(
-              "flex-col overflow-hidden bg-shell-surface text-shell-foreground shadow-2xl",
+              "flex-col overflow-hidden bg-shell-surface text-fg shadow-2xl",
               // mobile: right drawer, shown only when open
               detailOpen ? "flex" : "hidden",
               "fixed inset-y-0 right-0 z-50 w-[min(100%,420px)] rounded-l-3xl max-lg:animate-drawer-in motion-reduce:animate-none",
@@ -73,7 +74,7 @@ export function MasterDetail({
               href={closeHref}
               scroll={false}
               aria-label="Close panel"
-              className="absolute top-4 right-4 z-10 rounded-lg p-1 text-shell-muted transition-colors hover:bg-white/10 hover:text-white lg:hidden"
+              className="absolute top-4 right-4 z-10 rounded-lg p-1 text-fg-faint transition-colors hover:bg-surface-hover hover:text-fg lg:hidden"
             >
               <X className="size-5" aria-hidden />
             </Link>

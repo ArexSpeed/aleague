@@ -1,6 +1,9 @@
 import { redirect } from "next/navigation";
 
-// Competitions is the first page we build; Home comes later.
+import { sportPath } from "@/lib/paths";
+import { DEFAULT_SPORT } from "@/sports/registry";
+
+// Home is per sport. A cross-sport landing page can replace this redirect later.
 export default function RootPage() {
-  redirect("/competitions");
+  redirect(sportPath(DEFAULT_SPORT, "home"));
 }

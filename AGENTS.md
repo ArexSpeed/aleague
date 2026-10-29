@@ -17,19 +17,22 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 ### Structure (no `src/`)
 
-- `app/`: routing only, thin files, logic lives in `features/`.
-- `components/ui/`: shadcn components, do not edit unless necessary.
-- `components/layout/`: TopBar, SideNav, MasterDetailLayout.
-- `features/<name>/`: components and hooks for one area (competitions, teams, riders, match).
-- `lib/`, `types/`, `stores/`, `mocks/`.
+Full description: `docs/folder-structure.md`.
+
+- `app/`: routing only, thin files. Routes are generic: `app/(app)/[sport]/...`.
+- `sports/<sport>/`: config, api, mocks, types and `views/` of one sport. Registered in `sports/registry.ts`.
+- `components/`: shared bricks (`ui`, `layout`, `table`, `toggle`, `tabs`, `data`). No sport knowledge; they take data, hrefs and labels as props.
+- `lib/`, `stores/`.
 - `docs/screens/`: screen specifications.
 
 ### Rules
 
-- All data comes from `mocks/` through an API layer (functions returning Promises), so swapping in the real API later does not change components.
+- Dependencies go one way: `app -> sports/<sport> -> components, lib`. Sports never import each other (ESLint enforces it).
+- A new screen of a sport is a new folder under `sports/<sport>/views/`, composed from `components/` bricks. If two sports need the same view, extract the shared part into `components/`.
+- All data comes from `sports/<sport>/mocks/` through `sports/<sport>/api/` (functions returning Promises).
 - Define data types as Zod schemas and derive TS types from them.
-- Styling: tokens in `app/globals.css` (CSS variables), no hardcoded colors in components.
+- State that can be linked (tab, filter, selected team) lives in the URL, not in Zustand.
+- Styling: no hardcoded colours. Use semantic classes (`bg-surface`, `text-fg`, `text-fg-muted`, `border-line`, `text-win`, `bg-brand`...). Values live only in `app/styles/themes/*.css`; never check the active theme in a component.
 - Before finishing work, run `pnpm typecheck && pnpm lint && pnpm build`.
-- A new screen means a new file under `features/`, not extending existing generic components.
 
 <!-- END:nextjs-agent-rules -->
