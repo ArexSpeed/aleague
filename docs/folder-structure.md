@@ -50,14 +50,17 @@ stores/                            Zustand, UI state only
 ```
 
 ## Adding a sport
+
 1. `SportId` union in `sports/types.ts`, folder `sports/<id>/` with `config.ts`, `index.ts`, `views/...`.
 2. Register it in `sports/registry.ts` and in `SPORTS` in `eslint.config.mjs`.
 3. Routes, nav and TopBar pick it up automatically.
 
 ## Adding a competition view
+
 Build `sports/<id>/views/competitions/<type>/...-page.tsx` and add it to `competitionViews` in the sport's `index.ts`. Types without a view show a placeholder.
 
 ## Theming
+
 Components use semantic classes only (`bg-surface text-fg text-fg-muted border-line text-win`).
 `data-region="main|shell"` decides what they resolve to, `data-theme` (next-themes) decides the palette.
 New theme = new `themes/<id>.css` + a line in `lib/themes.ts`.
