@@ -34,3 +34,23 @@ export function RowName({ primary, secondary }: { primary: string; secondary?: s
     </span>
   );
 }
+
+/** First name small above, last name bold below (people). */
+export function PersonName({ first, last }: { first: string; last: string }) {
+  return (
+    <span className="flex min-w-0 flex-col truncate leading-tight uppercase">
+      <span className="truncate text-[11px] font-semibold text-fg-muted">{first}</span>
+      <span className="truncate text-xs font-extrabold tracking-tight text-fg transition-colors group-hover:text-brand">
+        {last}
+      </span>
+    </span>
+  );
+}
+
+/** Rank badge colours for lists without relegation: gold, silver, bronze, neutral. */
+export function podiumBadgeClass(pos: number): string {
+  if (pos === 1) return "bg-rank-gold text-rank-on-light font-black";
+  if (pos === 2) return "bg-rank-silver text-rank-on-light font-black";
+  if (pos === 3) return "bg-rank-bronze text-rank-on-dark font-black";
+  return "bg-chip text-chip-foreground font-bold";
+}

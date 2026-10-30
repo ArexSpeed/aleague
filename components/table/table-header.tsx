@@ -22,6 +22,7 @@ export function TableHeader<T>({ columns, lead }: TableHeaderProps<T>) {
             className={cn(
               c.width ?? (c.emphasis ? POINTS_COLUMN_WIDTH : DEFAULT_COLUMN_WIDTH),
               c.emphasis && "font-extrabold text-fg",
+              c.headerClassName,
             )}
           >
             {c.header}

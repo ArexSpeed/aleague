@@ -82,3 +82,14 @@ export type VenueStats = z.infer<typeof venueStatsSchema>;
 export type LeagueTeam = z.infer<typeof leagueTeamSchema>;
 export type RiderTelemetry = z.infer<typeof riderTelemetrySchema>;
 export type LeagueRider = z.infer<typeof leagueRiderSchema>;
+
+export const riderSkillsSchema = z.object({
+  strength: z.number(),
+  technique: z.number(),
+  fighting: z.number(),
+  reflex: z.number(),
+  condition: z.number(),
+});
+
+export type RiderSkills = z.infer<typeof riderSkillsSchema>;
+export type LeagueRiderWithSkills = LeagueRider & { skills: RiderSkills };

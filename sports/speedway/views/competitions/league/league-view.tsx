@@ -10,6 +10,7 @@ import {
 } from "./search-params";
 import { FixturesTab } from "./tabs/fixtures/fixtures-tab";
 import { StandingsTab } from "./tabs/table/standings-tab";
+import { StatsTab } from "./tabs/stats/stats-tab";
 
 function ComingSoon({ label }: { label: string }) {
   return (
@@ -23,7 +24,7 @@ function ComingSoon({ label }: { label: string }) {
 const TAB_CONTENT: Record<LeagueTab, (params: LeagueParams) => ReactNode> = {
   table: (params) => <StandingsTab params={params} />,
   fixtures: (params) => <FixturesTab params={params} />,
-  stats: () => <ComingSoon label="Stats" />,
+  stats: (params) => <StatsTab params={params} />,
   history: () => <ComingSoon label="History" />,
 };
 

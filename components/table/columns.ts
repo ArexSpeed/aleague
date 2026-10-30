@@ -15,4 +15,6 @@ export type Column<T> = {
   className?: string;
   /** Filled badge, used for PTS. */
   emphasis?: boolean;
+  /** Extra classes for the header cell only (e.g. highlight a column in brand colour). */
+  headerClassName?: string;
 };

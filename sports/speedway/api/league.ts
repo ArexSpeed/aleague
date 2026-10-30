@@ -7,6 +7,8 @@ import {
   leagueTeamSchema,
   type LeagueRider,
   type LeagueTeam,
+  type RiderSkills,
+  type LeagueRiderWithSkills,
 } from "@/sports/speedway/types/league";
 
 /**
@@ -27,4 +29,25 @@ export async function getLeagueTeam(id: string): Promise<LeagueTeam | null> {
 export async function getTeamRiders(teamId: string): Promise<LeagueRider[]> {
   const riders = z.array(leagueRiderSchema).parse(LEAGUE_RIDERS);
   return riders.filter((rider) => rider.teamId === teamId);
+}
+
+/** TODO: skills are generated from avgHeat until real skill data exists. */
+function mockSkills(rider: LeagueRider): RiderSkills {
+  const seed = [...rider.id].reduce((sum, char) => sum + char.charCodeAt(0), 0);
+  const base = 60 + rider.avgHeat * 12;
+  const value = (i: number) =>
+    Math.max(40, Math.min(99, Math.round(base + ((seed * (i + 3)) % 9) - 4)));
+
+  return {
+    strength: value(0),
+    technique: value(1),
+    fighting: value(2),
+    reflex: value(3),
+    condition: value(4),
+  };
+}
+
+export async function getLeagueRiders(): Promise<LeagueRiderWithSkills[]> {
+  const riders = z.array(leagueRiderSchema).parse(LEAGUE_RIDERS);
+  return riders.map((rider) => ({ ...rider, skills: mockSkills(rider) }));
 }

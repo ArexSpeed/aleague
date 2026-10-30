@@ -36,8 +36,9 @@ export const PANEL_TABS = ["stats", "games", "riders", "details"] as const;
 export const FILTERS = defineFilters({
   round: { values: ROUND_TYPES, default: "League" },
   view: { values: ["detailed", "compact"], default: "detailed" },
-  venue: { values: ["all", "home", "away"], default: "all", tabs: ["table"] },
+  venue: { values: ["all", "home", "away"], default: "all", tabs: ["table", "stats"] },
   schedule: { values: ["all", "upcoming", "recent"], default: "all", tabs: ["fixtures"] },
+  metrics: { values: ["stats", "skills"], default: "stats", tabs: ["stats"] },
 });
 
 type FilterState = FilterValues<typeof FILTERS>;
@@ -46,6 +47,7 @@ export type RoundType = FilterState["round"];
 export type ViewMode = FilterState["view"];
 export type Venue = FilterState["venue"];
 export type Schedule = FilterState["schedule"];
+export type Metrics = FilterState["metrics"];
 export type LeagueTab = (typeof LEAGUE_TAB_IDS)[number];
 export type PanelTab = (typeof PANEL_TABS)[number];
 
