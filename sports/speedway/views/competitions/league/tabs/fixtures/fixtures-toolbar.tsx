@@ -1,18 +1,16 @@
-import { buildLeagueHref, type LeagueParams } from "@/sports/speedway/views/competitions/league/search-params";
 import { FixturesToggle } from "@/components/toggle/fixtures-toggle";
+import { ViewModeToggle } from "@/components/toggle/view-mode-toggle";
+import { buildLeagueHref, type LeagueParams } from "../../search-params";
 
-type FixturesToolbarProps = {
-  params: LeagueParams;
-  matchday?: number;
-  current?: number;
-  total?: number;
-};
-
-/** Previous / "Kolejka N" (click = back to current) / next, plus the view toggle. */
-export function FixturesToolbar({ params }: FixturesToolbarProps) {
+/** All / Upcoming / Recent on the left, Detailed / Compact on the right. */
+export function FixturesToolbar({ params }: { params: LeagueParams }) {
   return (
     <div className="flex shrink-0 items-center justify-between gap-2 py-1.5">
-      <FixturesToggle value={params.schedule} hrefFor={(schedule) => buildLeagueHref(params, { schedule })} />
+      <FixturesToggle
+        value={params.schedule}
+        hrefFor={(schedule) => buildLeagueHref(params, { schedule })}
+      />
+      <ViewModeToggle value={params.view} hrefFor={(view) => buildLeagueHref(params, { view })} />
     </div>
   );
 }

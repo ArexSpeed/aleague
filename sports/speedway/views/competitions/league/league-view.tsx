@@ -35,8 +35,8 @@ export function LeagueView({ params }: { params: LeagueParams }) {
         label="League sections"
         active={params.tab}
         tabs={LEAGUE_TABS.map((tab) => ({
-          ...tab,
-          href: buildLeagueHref(params, { tab: tab.id, team: undefined, match: undefined }),
+        ...tab,
+        href: buildLeagueHref(params, { tab: tab.id, team: undefined }),
         }))}
       />
       <LeagueFilters params={params} />

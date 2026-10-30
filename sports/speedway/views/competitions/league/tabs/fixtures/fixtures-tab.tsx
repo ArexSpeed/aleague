@@ -64,17 +64,11 @@ function toGroups(fixtures: FixtureWithTeams[], params: LeagueParams, today: str
 }
 
 /** Fixtures tab: toolbar, then rounds with match cards. `filter` comes from your All / Upcoming / Recent toggle. */
-export async function FixturesTab({
-  params,
-  filter = "all",
-}: {
-  params: LeagueParams;
-  filter?: FixtureFilter;
-}) {
+export async function FixturesTab({ params }: { params: LeagueParams }) {
   const fixtures = await getFixtures();
   await connection();
-  const today = todayIso(); // after the awaits, so it is not read during prerender
-  const groups = toGroups(applyFilter(fixtures, filter), params, today);
+  const today = todayIso();
+  const groups = toGroups(applyFilter(fixtures, params.schedule), params, today);
 
   return (
     <div className="mt-1 flex min-h-0 min-w-0 flex-1 flex-col">

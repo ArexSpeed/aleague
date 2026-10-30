@@ -1,17 +1,17 @@
-import { Globe, House, Plane } from "lucide-react";
+import { CalendarClock, Globe, History } from "lucide-react";
 
 import { SegmentedControl } from "./segmented-control";
 
-export type Venue = "all" | "upcoming" | "recent";
+export type Schedule = "all" | "upcoming" | "recent";
 
 type FixturesToggleProps = {
-  value: Venue;
-  hrefFor: (venue: Venue) => string;
+  value: Schedule;
+  hrefFor: (schedule: Schedule) => string;
 };
 
 const ICON = "size-3.5";
 
-/** All / Upcoming / Recent filter. */
+/** All / Upcoming / Recent filter for fixture lists. */
 export function FixturesToggle({ value, hrefFor }: FixturesToggleProps) {
   return (
     <SegmentedControl
@@ -35,7 +35,7 @@ export function FixturesToggle({ value, hrefFor }: FixturesToggleProps) {
           href: hrefFor("upcoming"),
           label: (
             <>
-              <House className={ICON} aria-hidden />
+              <CalendarClock className={ICON} aria-hidden />
               <span>Upcoming</span>
             </>
           ),
@@ -46,7 +46,7 @@ export function FixturesToggle({ value, hrefFor }: FixturesToggleProps) {
           href: hrefFor("recent"),
           label: (
             <>
-              <Plane className={ICON} aria-hidden />
+              <History className={ICON} aria-hidden />
               <span>Recent</span>
             </>
           ),
