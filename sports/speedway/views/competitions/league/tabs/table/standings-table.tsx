@@ -4,24 +4,26 @@ import { buildLeagueHref, type LeagueParams } from "@/sports/speedway/views/comp
 import { getStandingsColumns } from "./standings-columns";
 import { StandingsRow } from "./standings-row";
 
-/** Header stays put; only the list below it scrolls. */
+/** The header sticks to the top of the scroll area; rows scroll under it. */
 export function StandingsTable({ teams, params }: { teams: LeagueTeam[]; params: LeagueParams }) {
   const sorted = [...teams].sort((a, b) => a.pos - b.pos);
   const columns = getStandingsColumns(params.venue);
 
   return (
-    <div className="flex min-h-0 flex-1 flex-col">
-      <TableHeader
-        columns={columns}
-        lead={
-          <>
-            <span className="w-6 text-center font-bold sm:w-7">#</span>
-            <span>Team</span>
-          </>
-        }
-      />
+    <div>
+      <div className="sticky top-0 z-10 bg-main">
+        <TableHeader
+          columns={columns}
+          lead={
+            <>
+              <span className="w-6 text-center font-bold sm:w-7">#</span>
+              <span>Team</span>
+            </>
+          }
+        />
+      </div>
 
-      <ol className="no-scrollbar min-h-0 flex-1 overflow-y-auto px-1 pb-1">
+      <ol className="px-1 pb-1">
         {sorted.map((team) => (
           <StandingsRow
             key={team.id}

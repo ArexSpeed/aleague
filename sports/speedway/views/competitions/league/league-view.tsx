@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-
+import { ScrollArea } from "@/components/layout/scroll-area";
 import { TabNav } from "@/components/tabs/tab-nav";
 import { LeagueFilters } from "./league-filters";
 import {
@@ -40,8 +40,10 @@ export function LeagueView({ params }: { params: LeagueParams }) {
         href: buildLeagueHref(params, { tab: tab.id, team: undefined }),
         }))}
       />
-      <LeagueFilters params={params} />
-      {TAB_CONTENT[params.tab](params)}
+      <ScrollArea key={params.tab}>
+        <LeagueFilters params={params} />
+        {TAB_CONTENT[params.tab](params)}
+      </ScrollArea>
     </>
   );
 }

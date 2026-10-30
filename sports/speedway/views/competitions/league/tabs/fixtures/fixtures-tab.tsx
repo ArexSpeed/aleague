@@ -71,7 +71,7 @@ export async function FixturesTab({ params }: { params: LeagueParams }) {
   const groups = toGroups(applyFilter(fixtures, params.schedule), params, today);
 
   return (
-    <div className="mt-1 flex min-h-0 min-w-0 flex-1 flex-col">
+    <div className="mt-1 min-w-0">
       {/* Here stays your toolbar with the All / Upcoming / Recent toggle. */}
       <FixturesToolbar params={params} />
       <FixtureList groups={groups} empty="Brak meczów" />

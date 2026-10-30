@@ -33,10 +33,10 @@ export function AppShell({
         <Suspense fallback={<div className="hidden w-16 shrink-0 bg-shell md:block lg:w-20" />}>
           <SideNav sport={sport} />
         </Suspense>
-        <div className="min-w-0 flex-1 px-0 pb-2 md:px-2 md:pl-0">
+        <div className="flex min-h-0 min-w-0 flex-1 flex-col px-0 pb-2 md:px-2 md:pl-0">
           <main
             data-region="main"
-            className="h-full overflow-hidden rounded-lg border border-line bg-main text-fg shadow-2xl md:rounded-xl"
+            className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-lg border border-line bg-main text-fg shadow-2xl md:rounded-xl"
           >
             <Suspense
               fallback={<div className="p-4 text-sm font-semibold opacity-60">Ładowanie…</div>}

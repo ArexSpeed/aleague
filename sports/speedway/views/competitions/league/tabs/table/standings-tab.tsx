@@ -9,7 +9,7 @@ export async function StandingsTab({ params }: { params: LeagueParams }) {
   const teams = await getLeagueTeams();
 
   return (
-    <div className="mt-1 flex min-h-0 min-w-0 flex-1 flex-col">
+    <div className="mt-1 min-w-0">
       <StandingsToolbar params={params} />
       <StandingsTable teams={teams} params={params} />
       <StandingsLegend />
