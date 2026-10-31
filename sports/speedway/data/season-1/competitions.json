@@ -1,0 +1,258 @@
+{
+  "note": "Format is data: one scheduler builds every competition from these stages.",
+  "competitions": [
+    {
+      "id": "east-gold",
+      "name": "East Gold League",
+      "level": 1,
+      "zone": "east",
+      "teams": 16,
+      "stages": [
+        {
+          "id": "regular",
+          "type": "double-round-robin",
+          "groups": [
+            {
+              "id": "main",
+              "size": 16
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "west-gold",
+      "name": "West Gold League",
+      "level": 1,
+      "zone": "west",
+      "teams": 12,
+      "stages": [
+        {
+          "id": "regular",
+          "type": "double-round-robin",
+          "groups": [
+            {
+              "id": "main",
+              "size": 12
+            }
+          ]
+        },
+        {
+          "id": "final",
+          "type": "split",
+          "from": "regular",
+          "carryPoints": true,
+          "groups": [
+            {
+              "id": "champions",
+              "take": [
+                {
+                  "group": "main",
+                  "ranks": [
+                    1,
+                    6
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "relegation",
+              "take": [
+                {
+                  "group": "main",
+                  "ranks": [
+                    7,
+                    12
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "east-silver",
+      "name": "East Silver League",
+      "level": 2,
+      "zone": "east",
+      "teams": 8,
+      "stages": [
+        {
+          "id": "regular",
+          "type": "double-round-robin",
+          "groups": [
+            {
+              "id": "main",
+              "size": 8
+            }
+          ]
+        },
+        {
+          "id": "final",
+          "type": "split",
+          "from": "regular",
+          "carryPoints": true,
+          "groups": [
+            {
+              "id": "promotion",
+              "take": [
+                {
+                  "group": "main",
+                  "ranks": [
+                    1,
+                    4
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "relegation",
+              "take": [
+                {
+                  "group": "main",
+                  "ranks": [
+                    5,
+                    8
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "west-silver",
+      "name": "West Silver League",
+      "level": 2,
+      "zone": "west",
+      "teams": 12,
+      "stages": [
+        {
+          "id": "regular",
+          "type": "double-round-robin",
+          "groups": [
+            {
+              "id": "A",
+              "size": 6
+            },
+            {
+              "id": "B",
+              "size": 6
+            }
+          ]
+        },
+        {
+          "id": "final",
+          "type": "split",
+          "from": "regular",
+          "carryPoints": true,
+          "groups": [
+            {
+              "id": "promotion",
+              "take": [
+                {
+                  "group": "A",
+                  "ranks": [
+                    1,
+                    3
+                  ]
+                },
+                {
+                  "group": "B",
+                  "ranks": [
+                    1,
+                    3
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "relegation",
+              "take": [
+                {
+                  "group": "A",
+                  "ranks": [
+                    4,
+                    6
+                  ]
+                },
+                {
+                  "group": "B",
+                  "ranks": [
+                    4,
+                    6
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "movement": [
+    {
+      "from": "east-gold",
+      "stage": "regular",
+      "ranks": [
+        15,
+        16
+      ],
+      "to": "east-silver"
+    },
+    {
+      "from": "east-silver",
+      "stage": "final",
+      "group": "promotion",
+      "ranks": [
+        1,
+        2
+      ],
+      "to": "east-gold"
+    },
+    {
+      "from": "west-gold",
+      "stage": "final",
+      "group": "relegation",
+      "ranks": [
+        11,
+        12
+      ],
+      "to": "west-silver"
+    },
+    {
+      "from": "west-silver",
+      "stage": "final",
+      "group": "promotion",
+      "ranks": [
+        1,
+        2
+      ],
+      "to": "west-gold"
+    }
+  ],
+  "todo": "Level 2 -> regional-level relegation does not exist (regional leagues run alongside the league). Nations (national teams) call up riders later; their competitions are not defined yet.",
+  "regional": {
+    "note": "One regional competition per region; its members are the clubs with that regionId. Same clubs also play their league.",
+    "idPrefix": "regional-",
+    "size": 6,
+    "stages": [
+      {
+        "id": "regular",
+        "type": "double-round-robin",
+        "groups": [
+          {
+            "id": "main",
+            "size": 6
+          }
+        ]
+      }
+    ]
+  },
+  "calendar": {
+    "note": "Every Nth week is a regional week, the rest are league weeks. A club never plays twice in one week.",
+    "regionalEvery": 4
+  }
+}
