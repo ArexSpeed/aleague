@@ -31,6 +31,13 @@ export type CompetitionViewProps = {
 
 export type SportViewProps = { sport: SportId };
 
+export type MatchViewProps = {
+  sport: SportId;
+  matchId: string;
+  basePath: string;
+  searchParams: Promise<RawSearchParams>;
+};
+
 /**
  * Everything the app needs from one sport. `app/` routes are generic and look
  * the views up here, so a sport only ever adds files under sports/<id>/.
@@ -40,5 +47,6 @@ export type SportModule = {
   config: SportConfig;
   HomeView: ComponentType<SportViewProps>;
   TeamsView: ComponentType<SportViewProps>;
+  MatchView: ComponentType<MatchViewProps>;
   competitionViews: Partial<Record<CompetitionType, ComponentType<CompetitionViewProps>>>;
 };

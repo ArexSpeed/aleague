@@ -17,6 +17,8 @@ type TableRowProps<T> = {
   density?: TableDensity;
   /** Extra lines, rendered only in the "detailed" density. */
   detail?: ReactNode;
+  /** Without href: the row becomes a button (e.g. opens a dialog). Use only from client code. */
+  onClick?: () => void;
 };
 
 const EMPHASIS =
@@ -30,11 +32,12 @@ export function TableRow<T>({
   selected = false,
   density = "compact",
   detail,
+  onClick,
 }: TableRowProps<T>) {
   const className = cn(
     "group mb-1 block rounded-lg border-2 bg-surface px-1 py-1 transition-all duration-150",
     selected ? "border-brand shadow-md" : "border-transparent shadow-xs",
-    href && !selected && "hover:bg-surface-hover",
+    (href || onClick) && !selected && "hover:bg-surface-hover",
   );
 
   const content = (
@@ -76,6 +79,10 @@ export function TableRow<T>({
         >
           {content}
         </Link>
+      ) : onClick ? (
+        <button type="button" onClick={onClick} className={cn(className, "w-full text-left")}>
+          {content}
+        </button>
       ) : (
         <div className={className}>{content}</div>
       )}
