@@ -102,6 +102,10 @@ export type LeagueParams = FilterState & {
   group: string;
   /** Selected team in the aside. */
   team?: string;
+  /** Selected fixture in the aside. */
+  match?: string;
+  /** Selected matchday for the fixtures tab. */
+  matchday?: number;
   panel: PanelTab;
   /** Page URL without query: /<sport>/competitions/league */
   base: string;
@@ -112,6 +116,8 @@ export function parseLeagueParams(raw: RawSearchParams, base: string, sport: str
   const filters = parseFilters(FILTERS, raw);
   const rawGroup = firstParam(raw.group);
   const groupExists = SUB_FILTERS[filters.round].some((f) => f.id === rawGroup);
+  const rawMatchday = firstParam(raw.matchday);
+  const matchday = rawMatchday ? Number.parseInt(rawMatchday, 10) : undefined;
 
   return {
     ...filters,
@@ -119,6 +125,8 @@ export function parseLeagueParams(raw: RawSearchParams, base: string, sport: str
     panel: pickOne(PANEL_TABS, firstParam(raw.panel), "stats"),
     group: groupExists && rawGroup ? rawGroup : defaultGroup(filters.round),
     team: firstParam(raw.team),
+    match: firstParam(raw.match),
+    matchday: Number.isFinite(matchday) && matchday! > 0 ? matchday : undefined,
     base,
     sport,
   };
@@ -139,6 +147,8 @@ export function buildLeagueHref(params: LeagueParams, patch: LeaguePatch = {}): 
   if (next.group !== defaultGroup(next.round)) qs.set("group", next.group);
   if (next.panel !== "stats") qs.set("panel", next.panel);
   if (next.team) qs.set("team", next.team);
+  if (next.match) qs.set("match", next.match);
+  if (next.matchday !== undefined && next.matchday > 0) qs.set("matchday", String(next.matchday));
 
   const query = qs.toString();
   return query ? `${next.base}?${query}` : next.base;

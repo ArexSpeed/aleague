@@ -31,6 +31,12 @@ export type CompetitionViewProps = {
 
 export type SportViewProps = { sport: SportId };
 
+export type TeamsViewProps = {
+  sport: SportId;
+  basePath: string;
+  searchParams: Promise<RawSearchParams>;
+};
+
 export type MatchViewProps = {
   sport: SportId;
   matchId: string;
@@ -46,7 +52,7 @@ export type MatchViewProps = {
 export type SportModule = {
   config: SportConfig;
   HomeView: ComponentType<SportViewProps>;
-  TeamsView: ComponentType<SportViewProps>;
+  TeamsView: ComponentType<TeamsViewProps>;
   MatchView: ComponentType<MatchViewProps>;
   competitionViews: Partial<Record<CompetitionType, ComponentType<CompetitionViewProps>>>;
 };
