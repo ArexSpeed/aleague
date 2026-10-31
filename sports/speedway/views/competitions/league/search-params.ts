@@ -61,7 +61,6 @@ export type SubFilter = { id: string; label: string; dot?: string };
 /** Ids are unique on purpose: "West" exists twice in League (gold and silver). */
 export const SUB_FILTERS: Record<RoundType, SubFilter[]> = {
   League: [
-    { id: "all-league", label: "All" },
     { id: "gold-west", label: "West", dot: "bg-rank-gold" },
     { id: "gold-east", label: "East", dot: "bg-rank-gold" },
     { id: "silver-west", label: "West", dot: "bg-rank-silver" },

@@ -28,9 +28,9 @@ export function ColorDot({ color }: { color: string }) {
 /** Two-line name. `secondary` also fits a substitute rider ("za: Kowalski"). */
 export function RowName({ primary, secondary }: { primary: string; secondary?: string }) {
   return (
-    <span className="flex min-w-0 flex-col truncate text-xs leading-tight font-extrabold tracking-tight text-main-foreground uppercase">
-      <span className="truncate transition-colors group-hover:text-brand">{primary}</span>
-      {secondary ? <span className="truncate font-semibold text-slate-700">{secondary}</span> : null}
+    <span className="flex min-w-0 flex-col truncate text-xs leading-tight font-extrabold tracking-tight text-main-foreground uppercase group-hover:text-brand">
+      <span className="truncate transition-colors font-semibold">{primary}</span>
+      {secondary ? <span className="truncate transition-colors ">{secondary}</span> : null}
     </span>
   );
 }

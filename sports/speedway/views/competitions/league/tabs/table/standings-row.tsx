@@ -25,7 +25,7 @@ export function StandingsRow({ team, totalTeams, columns, selected, href, densit
         <>
           <PositionBadge value={team.pos} className={positionBadgeClass(team.pos, totalTeams)} />
           <ColorDot color={team.color} />
-          <RowName primary={team.name} secondary={team.subName} />
+          <RowName primary={team.name.split(" ")[0]} secondary={team.subName} />
         </>
       }
       // detail={<StandingsDetail team={team} />}  // Detailed variant, next step

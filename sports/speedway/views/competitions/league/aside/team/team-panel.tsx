@@ -42,7 +42,7 @@ export async function TeamPanel({ team, params }: { team: LeagueTeam; params: Le
             {team.name}
           </h2>
           <span className="truncate text-[10px] font-bold text-fg-faint uppercase">
-            {team.subName}
+            {team.short}
           </span>
         </div>
       </header>
