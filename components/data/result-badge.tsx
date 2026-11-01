@@ -1,14 +1,15 @@
 import { cn } from "@/lib/utils";
 
-export type MatchResult = "W" | "D" | "L";
+/** W / D / L for a played match, ? for a match that has not been played yet. */
+export type MatchResult = "W" | "D" | "L" | "?";
 
 const tone: Record<MatchResult, string> = {
   W: "border-win/30 bg-win/20 text-win",
   L: "border-loss/30 bg-loss/20 text-loss",
-  D: "border-line bg-surface text-fg-muted",
+  D: "border-warning/30 bg-warning/20 text-warning",
+  "?": "border-line bg-surface text-fg-faint",
 };
 
-/** W / D / L square. */
 export function ResultBadge({ result, className }: { result: MatchResult; className?: string }) {
   return (
     <span

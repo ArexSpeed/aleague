@@ -4,6 +4,8 @@ import type { LeagueTeam } from "./league";
 
 export const fixtureSchema = z.object({
   id: z.string(),
+  /** east-gold, west-silver, ... */
+  competitionId: z.string(),
   matchday: z.number(),
   /** YYYY-MM-DD */
   date: z.string(),
