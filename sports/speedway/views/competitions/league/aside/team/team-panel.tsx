@@ -42,7 +42,7 @@ export async function TeamPanel({ team, params }: { team: LeagueTeam; params: Le
             {team.name}
           </h2>
           <span className="truncate text-[10px] font-bold text-fg-faint uppercase">
-            {team.subName}
+            {team.short}
           </span>
         </div>
       </header>
@@ -59,7 +59,7 @@ export async function TeamPanel({ team, params }: { team: LeagueTeam; params: Le
       />
 
       {params.panel === "stats" ? <TeamStats team={team} /> : null}
-      {params.panel === "games" ? <TeamGames team={team} /> : null}
+      {params.panel === "games" ? <TeamGames team={team} params={params} /> : null}
       {params.panel === "riders" ? (
         <TeamRiders team={team} riders={riders} venue={params.venue} />
       ) : null}

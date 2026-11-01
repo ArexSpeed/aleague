@@ -1,4 +1,4 @@
-import { getLeagueTeams } from "@/sports/speedway/api/league";
+import { getLeagueTeams, resolveLeagueGroupId } from "@/sports/speedway/api/league";
 import type { LeagueParams } from "@/sports/speedway/views/competitions/league/search-params";
 import { StandingsLegend } from "./standings-legend";
 import { StandingsTable } from "./standings-table";
@@ -6,7 +6,8 @@ import { StandingsToolbar } from "./standings-toolbar";
 
 /** Table tab: venue/view toolbar, standings, legend. */
 export async function StandingsTab({ params }: { params: LeagueParams }) {
-  const teams = await getLeagueTeams();
+  const leagueId = params.round === "League" ? resolveLeagueGroupId(params.group) : undefined;
+  const teams = await getLeagueTeams(leagueId ?? params.group);
 
   return (
     <div className="mt-1 min-w-0">

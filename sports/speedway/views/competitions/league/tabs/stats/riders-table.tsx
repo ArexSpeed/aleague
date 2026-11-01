@@ -65,7 +65,7 @@ export function RidersTable({ riders, params }: { riders: LeagueRiderWithSkills[
           {detailed ? (
             <RowName
               primary={`${rider.firstName} ${rider.lastName}`}
-              secondary={`${rider.teamName} ${rider.teamSubName}`}
+              secondary={rider.teamName}
             />
           ) : (
             <PersonName first={rider.firstName} last={rider.lastName} />

@@ -1,0 +1,10 @@
+[
+  { "id": "arkadia", "name": "Arkadia", "short": "ARK" },
+  { "id": "montania", "name": "Montania", "short": "MON" },
+  { "id": "celtania", "name": "Celtania", "short": "CEL" },
+  { "id": "rotania", "name": "Rotania", "short": "ROT" },
+  { "id": "costalia", "name": "Costalia", "short": "COS" },
+  { "id": "arvia", "name": "Arvia", "short": "ARV" },
+  { "id": "gotavia", "name": "Gotavia", "short": "GOT" },
+  { "id": "riveria", "name": "Riveria", "short": "RIV" }
+]

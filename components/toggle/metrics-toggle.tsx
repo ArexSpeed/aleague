@@ -15,7 +15,7 @@ const ICON = "size-3.5";
 export function MetricsToggle({ value, hrefFor }: MetricsToggleProps) {
   return (
     <SegmentedControl
-      label="Dane"
+      label="Data"
       variant="brand"
       options={[
         {

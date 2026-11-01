@@ -1,0 +1,878 @@
+[
+  {
+    "id": "DIA",
+    "name": "ARKOV DIAMONDS",
+    "subName": "DIAMONDS",
+    "short": "DIA",
+    "fullName": "Arkov Diamonds",
+    "city": "Arkov",
+    "color": "#30bced",
+    "icon": "💎",
+    "leagueId": "west-gold",
+    "regionId": "arvia",
+    "stadium": {
+      "name": "Arkov Speedway Arena",
+      "capacity": 34200,
+      "trackLength": 348,
+      "surface": "Medium"
+    }
+  },
+  {
+    "id": "GOA",
+    "name": "TOZEN GOATS",
+    "subName": "GOATS",
+    "short": "GOA",
+    "fullName": "Tozen Goats",
+    "city": "Tozen",
+    "color": "#8d99ae",
+    "icon": "🐐",
+    "leagueId": "west-gold",
+    "regionId": "arvia",
+    "stadium": {
+      "name": "Tozen Speedway Arena",
+      "capacity": 28500,
+      "trackLength": 325,
+      "surface": "Soft"
+    }
+  },
+  {
+    "id": "HOR",
+    "name": "SHLEN HORSES",
+    "subName": "HORSES",
+    "short": "HOR",
+    "fullName": "Shlen Horses",
+    "city": "Shlen",
+    "color": "#b5838d",
+    "icon": "🐎",
+    "leagueId": "west-gold",
+    "regionId": "arvia",
+    "stadium": {
+      "name": "Shlen Speedway Arena",
+      "capacity": 31000,
+      "trackLength": 372,
+      "surface": "Hard"
+    }
+  },
+  {
+    "id": "SOR",
+    "name": "XANDAM SORCERES",
+    "subName": "SORCERES",
+    "short": "SOR",
+    "fullName": "Xandam Sorceres",
+    "city": "Xandam",
+    "color": "#6a4c93",
+    "icon": "🔮",
+    "leagueId": "west-gold",
+    "regionId": "costalia",
+    "stadium": {
+      "name": "Xandam Speedway Arena",
+      "capacity": 36800,
+      "trackLength": 310,
+      "surface": "Soft"
+    }
+  },
+  {
+    "id": "DRA",
+    "name": "KAME DRAGONS",
+    "subName": "DRAGONS",
+    "short": "DRA",
+    "fullName": "Kame Dragons",
+    "city": "Kame",
+    "color": "#d90429",
+    "icon": "🐉",
+    "leagueId": "west-gold",
+    "regionId": "costalia",
+    "stadium": {
+      "name": "Kame Speedway Arena",
+      "capacity": 42000,
+      "trackLength": 385,
+      "surface": "Medium"
+    }
+  },
+  {
+    "id": "SHA",
+    "name": "PORTLAN SHARKS",
+    "subName": "SHARKS",
+    "short": "SHA",
+    "fullName": "Portlan Sharks",
+    "city": "Portlan",
+    "color": "#118ab2",
+    "icon": "🦈",
+    "leagueId": "west-gold",
+    "regionId": "costalia",
+    "stadium": {
+      "name": "Portlan Speedway Arena",
+      "capacity": 39500,
+      "trackLength": 360,
+      "surface": "Hard"
+    }
+  },
+  {
+    "id": "BEE",
+    "name": "BELTRA BEES",
+    "subName": "BEES",
+    "short": "BEE",
+    "fullName": "Beltra Bees",
+    "city": "Beltra",
+    "color": "#ffb703",
+    "icon": "🐝",
+    "leagueId": "west-gold",
+    "regionId": "riveria",
+    "stadium": {
+      "name": "Beltra Speedway Arena",
+      "capacity": 27000,
+      "trackLength": 305,
+      "surface": "Soft"
+    }
+  },
+  {
+    "id": "DOL",
+    "name": "CROSSRIVER DOLPHINS",
+    "subName": "DOLPHINS",
+    "short": "DOL",
+    "fullName": "Crossriver Dolphins",
+    "city": "Crossriver",
+    "color": "#2a9d8f",
+    "icon": "🐬",
+    "leagueId": "west-gold",
+    "regionId": "riveria",
+    "stadium": {
+      "name": "Crossriver Speedway Arena",
+      "capacity": 33000,
+      "trackLength": 340,
+      "surface": "Medium"
+    }
+  },
+  {
+    "id": "DEV",
+    "name": "HORN DEVILS",
+    "subName": "DEVILS",
+    "short": "DEV",
+    "fullName": "Horn Devils",
+    "city": "Horn",
+    "color": "#9e2a2b",
+    "icon": "😈",
+    "leagueId": "west-gold",
+    "regionId": "riveria",
+    "stadium": {
+      "name": "Horn Speedway Arena",
+      "capacity": 35000,
+      "trackLength": 390,
+      "surface": "Hard"
+    }
+  },
+  {
+    "id": "BAT",
+    "name": "GOTUN BATS",
+    "subName": "BATS",
+    "short": "BAT",
+    "fullName": "Gotun Bats",
+    "city": "Gotun",
+    "color": "#353535",
+    "icon": "🦇",
+    "leagueId": "west-gold",
+    "regionId": "gotavia",
+    "stadium": {
+      "name": "Gotun Speedway Arena",
+      "capacity": 29800,
+      "trackLength": 315,
+      "surface": "Soft"
+    }
+  },
+  {
+    "id": "NEP",
+    "name": "MAVICK NEPTUNS",
+    "subName": "NEPTUNS",
+    "short": "NEP",
+    "fullName": "Mavick Neptuns",
+    "city": "Mavick",
+    "color": "#0077b6",
+    "icon": "🔱",
+    "leagueId": "west-gold",
+    "regionId": "gotavia",
+    "stadium": {
+      "name": "Mavick Speedway Arena",
+      "capacity": 38000,
+      "trackLength": 355,
+      "surface": "Medium"
+    }
+  },
+  {
+    "id": "ARC",
+    "name": "ARKENAM ARCHERS",
+    "subName": "ARCHERS",
+    "short": "ARC",
+    "fullName": "Arkenam Archers",
+    "city": "Arkenam",
+    "color": "#52b788",
+    "icon": "🏹",
+    "leagueId": "west-gold",
+    "regionId": "gotavia",
+    "stadium": {
+      "name": "Arkenam Speedway Arena",
+      "capacity": 31200,
+      "trackLength": 368,
+      "surface": "Hard"
+    }
+  },
+  {
+    "id": "SHM",
+    "name": "ASHTON SHAMROCK",
+    "subName": "SHAMROCK",
+    "short": "SHM",
+    "fullName": "Ashton Shamrock",
+    "city": "Ashton",
+    "color": "#2a9d8f",
+    "icon": "☘️",
+    "leagueId": "east-gold",
+    "regionId": "celtania",
+    "stadium": {
+      "name": "Ashton Speedway Arena",
+      "capacity": 32000,
+      "trackLength": 330,
+      "surface": "Soft"
+    }
+  },
+  {
+    "id": "BOL",
+    "name": "DIAMPERO BOLTS",
+    "subName": "BOLTS",
+    "short": "BOL",
+    "fullName": "Diampero Bolts",
+    "city": "Diampero",
+    "color": "#f4a261",
+    "icon": "⚡",
+    "leagueId": "east-gold",
+    "regionId": "celtania",
+    "stadium": {
+      "name": "Diampero Speedway Arena",
+      "capacity": 41000,
+      "trackLength": 380,
+      "surface": "Medium"
+    }
+  },
+  {
+    "id": "LIO",
+    "name": "KINGLY LIONS",
+    "subName": "LIONS",
+    "short": "LIO",
+    "fullName": "Kingly Lions",
+    "city": "Kingly",
+    "color": "#e76f51",
+    "icon": "🦁",
+    "leagueId": "east-gold",
+    "regionId": "celtania",
+    "stadium": {
+      "name": "Kingly Speedway Arena",
+      "capacity": 37500,
+      "trackLength": 350,
+      "surface": "Hard"
+    }
+  },
+  {
+    "id": "FLA",
+    "name": "ROTAN FLAMES",
+    "subName": "FLAMES",
+    "short": "FLA",
+    "fullName": "Rotan Flames",
+    "city": "Rotan",
+    "color": "#e63946",
+    "icon": "🔥",
+    "leagueId": "east-gold",
+    "regionId": "rotania",
+    "stadium": {
+      "name": "Rotan Speedway Arena",
+      "capacity": 36000,
+      "trackLength": 305,
+      "surface": "Soft"
+    }
+  },
+  {
+    "id": "TOR",
+    "name": "QUARDA TORROS",
+    "subName": "TORROS",
+    "short": "TOR",
+    "fullName": "Quarda Torros",
+    "city": "Quarda",
+    "color": "#9b5de5",
+    "icon": "🐂",
+    "leagueId": "east-gold",
+    "regionId": "rotania",
+    "stadium": {
+      "name": "Quarda Speedway Arena",
+      "capacity": 29000,
+      "trackLength": 345,
+      "surface": "Medium"
+    }
+  },
+  {
+    "id": "FOX",
+    "name": "ANKRAN FOXES",
+    "subName": "FOXES",
+    "short": "FOX",
+    "fullName": "Ankran Foxes",
+    "city": "Ankran",
+    "color": "#f15bb5",
+    "icon": "🦊",
+    "leagueId": "east-gold",
+    "regionId": "rotania",
+    "stadium": {
+      "name": "Ankran Speedway Arena",
+      "capacity": 33500,
+      "trackLength": 362,
+      "surface": "Hard"
+    }
+  },
+  {
+    "id": "TIG",
+    "name": "VICTORY TIGERS",
+    "subName": "TIGERS",
+    "short": "TIG",
+    "fullName": "Victory Tigers",
+    "city": "Victory",
+    "color": "#00f5d4",
+    "icon": "🐯",
+    "leagueId": "east-gold",
+    "regionId": "arkadia",
+    "stadium": {
+      "name": "Victory Speedway Arena",
+      "capacity": 44000,
+      "trackLength": 388,
+      "surface": "Soft"
+    }
+  },
+  {
+    "id": "ANG",
+    "name": "ANGELO ANGELS",
+    "subName": "ANGELS",
+    "short": "ANG",
+    "fullName": "Angelo Angels",
+    "city": "Angelo",
+    "color": "#00bbf9",
+    "icon": "😇",
+    "leagueId": "east-gold",
+    "regionId": "arkadia",
+    "stadium": {
+      "name": "Angelo Speedway Arena",
+      "capacity": 31000,
+      "trackLength": 320,
+      "surface": "Medium"
+    }
+  },
+  {
+    "id": "EAG",
+    "name": "ARKAN EAGLES",
+    "subName": "EAGLES",
+    "short": "EAG",
+    "fullName": "Arkan Eagles",
+    "city": "Arkan",
+    "color": "#ffee32",
+    "icon": "🦅",
+    "leagueId": "east-gold",
+    "regionId": "arkadia",
+    "stadium": {
+      "name": "Arkan Speedway Arena",
+      "capacity": 35200,
+      "trackLength": 375,
+      "surface": "Hard"
+    }
+  },
+  {
+    "id": "BEA",
+    "name": "MONTAVIU BEARS",
+    "subName": "BEARS",
+    "short": "BEA",
+    "fullName": "Montaviu Bears",
+    "city": "Montaviu",
+    "color": "#7f4f24",
+    "icon": "🐻",
+    "leagueId": "east-gold",
+    "regionId": "montania",
+    "stadium": {
+      "name": "Montaviu Speedway Arena",
+      "capacity": 30500,
+      "trackLength": 390,
+      "surface": "Soft"
+    }
+  },
+  {
+    "id": "ICE",
+    "name": "ISSEN ICEMEN",
+    "subName": "ICEMEN",
+    "short": "ICE",
+    "fullName": "Issen Icemen",
+    "city": "Issen",
+    "color": "#a2d2ff",
+    "icon": "🧊",
+    "leagueId": "east-gold",
+    "regionId": "montania",
+    "stadium": {
+      "name": "Issen Speedway Arena",
+      "capacity": 28000,
+      "trackLength": 300,
+      "surface": "Medium"
+    }
+  },
+  {
+    "id": "WOL",
+    "name": "TARNHEM WOLVES",
+    "subName": "WOLVES",
+    "short": "WOL",
+    "fullName": "Tarnhem Wolves",
+    "city": "Tarnhem",
+    "color": "#4a4e69",
+    "icon": "🐺",
+    "leagueId": "east-gold",
+    "regionId": "montania",
+    "stadium": {
+      "name": "Tarnhem Speedway Arena",
+      "capacity": 39000,
+      "trackLength": 358,
+      "surface": "Hard"
+    }
+  },
+  {
+    "id": "JAG",
+    "name": "SANTAN JAGUARS",
+    "subName": "JAGUARS",
+    "short": "JAG",
+    "fullName": "Santan Jaguars",
+    "city": "Santan",
+    "color": "#d4a373",
+    "icon": "🐆",
+    "leagueId": "east-gold",
+    "regionId": "rotania",
+    "stadium": {
+      "name": "Santan Speedway Arena",
+      "capacity": 32500,
+      "trackLength": 338,
+      "surface": "Soft"
+    }
+  },
+  {
+    "id": "VDK",
+    "name": "VICTORY DARK KNIGHT",
+    "subName": "DARK KNIGHT",
+    "short": "VDK",
+    "fullName": "Victory Dark Knight",
+    "city": "Victory",
+    "color": "#1e1e24",
+    "icon": "♞",
+    "leagueId": "east-gold",
+    "regionId": "arkadia",
+    "stadium": {
+      "name": "Victory Knight Speedway Arena",
+      "capacity": 45000,
+      "trackLength": 382,
+      "surface": "Medium"
+    }
+  },
+  {
+    "id": "MAM",
+    "name": "SCIS MAMMOTHS",
+    "subName": "MAMMOTHS",
+    "short": "MAM",
+    "fullName": "Scis Mammoths",
+    "city": "Scis",
+    "color": "#6c584c",
+    "icon": "🦣",
+    "leagueId": "east-gold",
+    "regionId": "montania",
+    "stadium": {
+      "name": "Scis Speedway Arena",
+      "capacity": 27500,
+      "trackLength": 390,
+      "surface": "Hard"
+    }
+  },
+  {
+    "id": "MON",
+    "name": "KINGLY MONARCHS",
+    "subName": "MONARCHS",
+    "short": "MON",
+    "fullName": "Kingly Monarchs",
+    "city": "Kingly",
+    "color": "#d4af37",
+    "icon": "👑",
+    "leagueId": "east-gold",
+    "regionId": "celtania",
+    "stadium": {
+      "name": "Kingly Monarchs Speedway Arena",
+      "capacity": 38500,
+      "trackLength": 342,
+      "surface": "Soft"
+    }
+  },
+  {
+    "id": "DER",
+    "name": "DORN DEER",
+    "subName": "DEER",
+    "short": "DER",
+    "fullName": "Dorn Deer",
+    "city": "Dorn",
+    "color": "#a3b18a",
+    "icon": "🦌",
+    "leagueId": "east-silver",
+    "regionId": "celtania",
+    "stadium": {
+      "name": "Dorn Speedway Arena",
+      "capacity": 22000,
+      "trackLength": 318,
+      "surface": "Medium"
+    }
+  },
+  {
+    "id": "GRE",
+    "name": "GREENSTOCK GREENS",
+    "subName": "GREENS",
+    "short": "GRE",
+    "fullName": "Greenstock Greens",
+    "city": "Greenstock",
+    "color": "#588157",
+    "icon": "🥬",
+    "leagueId": "east-silver",
+    "regionId": "celtania",
+    "stadium": {
+      "name": "Greenstock Speedway Arena",
+      "capacity": 19500,
+      "trackLength": 335,
+      "surface": "Hard"
+    }
+  },
+  {
+    "id": "QUE",
+    "name": "QUENSY QUEENS",
+    "subName": "QUEENS",
+    "short": "QUE",
+    "fullName": "Quensy Queens",
+    "city": "Quensy",
+    "color": "#ff70a6",
+    "icon": "👸",
+    "leagueId": "east-silver",
+    "regionId": "rotania",
+    "stadium": {
+      "name": "Quensy Speedway Arena",
+      "capacity": 24000,
+      "trackLength": 360,
+      "surface": "Soft"
+    }
+  },
+  {
+    "id": "KAN",
+    "name": "QUARDA KANGAROOS",
+    "subName": "KANGAROOS",
+    "short": "KAN",
+    "fullName": "Quarda Kangaroos",
+    "city": "Quarda",
+    "color": "#ff9770",
+    "icon": "🦘",
+    "leagueId": "east-silver",
+    "regionId": "rotania",
+    "stadium": {
+      "name": "Quarda Kangaroos Speedway Arena",
+      "capacity": 21500,
+      "trackLength": 370,
+      "surface": "Medium"
+    }
+  },
+  {
+    "id": "STA",
+    "name": "LEYNELL STARS",
+    "subName": "STARS",
+    "short": "STA",
+    "fullName": "Leynell Stars",
+    "city": "Leynell",
+    "color": "#ffd670",
+    "icon": "⭐",
+    "leagueId": "east-silver",
+    "regionId": "arkadia",
+    "stadium": {
+      "name": "Leynell Speedway Arena",
+      "capacity": 26000,
+      "trackLength": 328,
+      "surface": "Hard"
+    }
+  },
+  {
+    "id": "STO",
+    "name": "ARCHAS STORKS",
+    "subName": "STORKS",
+    "short": "STO",
+    "fullName": "Archas Storks",
+    "city": "Archas",
+    "color": "#e9ecef",
+    "icon": "🪶",
+    "leagueId": "east-silver",
+    "regionId": "arkadia",
+    "stadium": {
+      "name": "Archas Speedway Arena",
+      "capacity": 18000,
+      "trackLength": 308,
+      "surface": "Soft"
+    }
+  },
+  {
+    "id": "RAV",
+    "name": "WEAVAREN RAVENS",
+    "subName": "RAVENS",
+    "short": "RAV",
+    "fullName": "Weavaren Ravens",
+    "city": "Weavaren",
+    "color": "#343a40",
+    "icon": "🐦‍⬛",
+    "leagueId": "east-silver",
+    "regionId": "montania",
+    "stadium": {
+      "name": "Weavaren Speedway Arena",
+      "capacity": 23000,
+      "trackLength": 382,
+      "surface": "Medium"
+    }
+  },
+  {
+    "id": "SNO",
+    "name": "MONTAVIU SNOWMEN",
+    "subName": "SNOWMEN",
+    "short": "SNO",
+    "fullName": "Montaviu Snowmen",
+    "city": "Montaviu",
+    "color": "#e0f1f7",
+    "icon": "☃️",
+    "leagueId": "east-silver",
+    "regionId": "montania",
+    "stadium": {
+      "name": "Montaviu Snowmen Speedway Arena",
+      "capacity": 20500,
+      "trackLength": 348,
+      "surface": "Hard"
+    }
+  },
+  {
+    "id": "HAW",
+    "name": "YASTER HAWKS",
+    "subName": "HAWKS",
+    "short": "HAW",
+    "fullName": "Yaster Hawks",
+    "city": "Yaster",
+    "color": "#bc6c25",
+    "icon": "🦅",
+    "leagueId": "west-silver",
+    "group": "A",
+    "regionId": "costalia",
+    "stadium": {
+      "name": "Yaster Speedway Arena",
+      "capacity": 22500,
+      "trackLength": 312,
+      "surface": "Soft"
+    }
+  },
+  {
+    "id": "PIR",
+    "name": "MANTLIS PIRATES",
+    "subName": "PIRATES",
+    "short": "PIR",
+    "fullName": "Mantlis Pirates",
+    "city": "Mantlis",
+    "color": "#1d3557",
+    "icon": "🏴‍☠️",
+    "leagueId": "west-silver",
+    "group": "A",
+    "regionId": "costalia",
+    "stadium": {
+      "name": "Mantlis Speedway Arena",
+      "capacity": 25000,
+      "trackLength": 352,
+      "surface": "Medium"
+    }
+  },
+  {
+    "id": "NIN",
+    "name": "HEMNIX NINJAS",
+    "subName": "NINJAS",
+    "short": "NIN",
+    "fullName": "Hemnix Ninjas",
+    "city": "Hemnix",
+    "color": "#212529",
+    "icon": "🥷",
+    "leagueId": "west-silver",
+    "group": "A",
+    "regionId": "costalia",
+    "stadium": {
+      "name": "Hemnix Speedway Arena",
+      "capacity": 21000,
+      "trackLength": 378,
+      "surface": "Hard"
+    }
+  },
+  {
+    "id": "HAM",
+    "name": "ARLAN HAMMERS",
+    "subName": "HAMMERS",
+    "short": "HAM",
+    "fullName": "Arlan Hammers",
+    "city": "Arlan",
+    "color": "#6c757d",
+    "icon": "🔨",
+    "leagueId": "west-silver",
+    "group": "A",
+    "regionId": "arvia",
+    "stadium": {
+      "name": "Arlan Speedway Arena",
+      "capacity": 23500,
+      "trackLength": 332,
+      "surface": "Soft"
+    }
+  },
+  {
+    "id": "PAN",
+    "name": "ARKOV PANTHERS",
+    "subName": "PANTHERS",
+    "short": "PAN",
+    "fullName": "Arkov Panthers",
+    "city": "Arkov",
+    "color": "#38b000",
+    "icon": "🐆",
+    "leagueId": "west-silver",
+    "group": "A",
+    "regionId": "arvia",
+    "stadium": {
+      "name": "Arkov Panthers Speedway Arena",
+      "capacity": 27000,
+      "trackLength": 365,
+      "surface": "Medium"
+    }
+  },
+  {
+    "id": "SPA",
+    "name": "VROLEN SPARROWS",
+    "subName": "SPARROWS",
+    "short": "SPA",
+    "fullName": "Vrolen Sparrows",
+    "city": "Vrolen",
+    "color": "#ccff33",
+    "icon": "🐦",
+    "leagueId": "west-silver",
+    "group": "A",
+    "regionId": "arvia",
+    "stadium": {
+      "name": "Vrolen Speedway Arena",
+      "capacity": 17500,
+      "trackLength": 300,
+      "surface": "Hard"
+    }
+  },
+  {
+    "id": "SCO",
+    "name": "OAKLAND SCORPIONS",
+    "subName": "SCORPIONS",
+    "short": "SCO",
+    "fullName": "Oakland Scorpions",
+    "city": "Oakland",
+    "color": "#d00000",
+    "icon": "🦂",
+    "leagueId": "west-silver",
+    "group": "B",
+    "regionId": "gotavia",
+    "stadium": {
+      "name": "Oakland Speedway Arena",
+      "capacity": 24500,
+      "trackLength": 385,
+      "surface": "Soft"
+    }
+  },
+  {
+    "id": "CAP",
+    "name": "MAVICK CAPTAINS",
+    "subName": "CAPTAINS",
+    "short": "CAP",
+    "fullName": "Mavick Captains",
+    "city": "Mavick",
+    "color": "#0096c7",
+    "icon": "👨‍✈️",
+    "leagueId": "west-silver",
+    "group": "B",
+    "regionId": "gotavia",
+    "stadium": {
+      "name": "Mavick Captains Speedway Arena",
+      "capacity": 26500,
+      "trackLength": 340,
+      "surface": "Medium"
+    }
+  },
+  {
+    "id": "RHI",
+    "name": "KENAM RHINOS",
+    "subName": "RHINOS",
+    "short": "RHI",
+    "fullName": "Kenam Rhinos",
+    "city": "Kenam",
+    "color": "#9d4edd",
+    "icon": "🦏",
+    "leagueId": "west-silver",
+    "group": "B",
+    "regionId": "gotavia",
+    "stadium": {
+      "name": "Kenam Speedway Arena",
+      "capacity": 20000,
+      "trackLength": 320,
+      "surface": "Hard"
+    }
+  },
+  {
+    "id": "ROS",
+    "name": "ROSENGAARD ROSES",
+    "subName": "ROSES",
+    "short": "ROS",
+    "fullName": "Rosengaard Roses",
+    "city": "Rosengaard",
+    "color": "#ff4d6d",
+    "icon": "🌹",
+    "leagueId": "west-silver",
+    "group": "B",
+    "regionId": "riveria",
+    "stadium": {
+      "name": "Rosengaard Speedway Arena",
+      "capacity": 22800,
+      "trackLength": 360,
+      "surface": "Soft"
+    }
+  },
+  {
+    "id": "ACE",
+    "name": "BALIN ACES",
+    "subName": "ACES",
+    "short": "ACE",
+    "fullName": "Balin Aces",
+    "city": "Balin",
+    "color": "#ffb703",
+    "icon": "♠️",
+    "leagueId": "west-silver",
+    "group": "B",
+    "regionId": "riveria",
+    "stadium": {
+      "name": "Balin Speedway Arena",
+      "capacity": 25800,
+      "trackLength": 330,
+      "surface": "Medium"
+    }
+  },
+  {
+    "id": "HUR",
+    "name": "WINDEN HURRICANE",
+    "subName": "HURRICANE",
+    "short": "HUR",
+    "fullName": "Winden Hurricane",
+    "city": "Winden",
+    "color": "#7209b7",
+    "icon": "🌀",
+    "leagueId": "west-silver",
+    "group": "B",
+    "regionId": "riveria",
+    "stadium": {
+      "name": "Winden Speedway Arena",
+      "capacity": 19000,
+      "trackLength": 375,
+      "surface": "Hard"
+    }
+  }
+]
