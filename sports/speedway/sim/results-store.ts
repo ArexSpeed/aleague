@@ -21,6 +21,7 @@ export type StoredMatch = {
   squads: { home: string[]; away: string[] };
   /** Heats played so far, in order. 15 = the match is finished. */
   heats: PlayedHeat[];
+  substitutions?: Record<number, Record<number, { riderId: string; kind: "normal" | "tactic" }>>;
 };
 
 type Db = { version: 1; attempts: Record<string, number>; matches: Record<string, StoredMatch> };

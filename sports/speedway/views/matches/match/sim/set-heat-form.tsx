@@ -1,9 +1,11 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import { toast } from "sonner";
 
 import { cn } from "@/lib/utils";
 import { setHeatAction } from "@/sports/speedway/sim/actions";
+import { lineupDraft, useLineupStore } from "@/sports/speedway/stores/match-lineup";
 import { HelmetDot } from "../shared/helmet";
 import type { Helmet, Side } from "@/sports/speedway/types/match";
 
@@ -20,6 +22,20 @@ export function SetHeatForm({ fixtureId, starts }: { fixtureId: string; starts: 
   const valid = [1, 2, 3, 4].every((p) => positions.includes(p));
   const points = (side: Side) =>
     starts.reduce((sum, s) => sum + (s.side === side ? POINTS[positions[s.gate - 1]! - 1]! : 0), 0);
+
+  function save() {
+    // Read the store at click time, so the latest lineup changes go along with the result.
+    const draft = lineupDraft(useLineupStore.getState(), fixtureId);
+    startTransition(async () => {
+      try {
+        await setHeatAction(fixtureId, positions, draft);
+        setOpen(false);
+        setPositions([1, 2, 3, 4]);
+      } catch (error) {
+        toast.error(error instanceof Error ? error.message : "Could not save the result");
+      }
+    });
+  }
 
   return (
     <div className="basis-full">
@@ -63,13 +79,7 @@ export function SetHeatForm({ fixtureId, starts }: { fixtureId: string; starts: 
             <button
               type="button"
               disabled={!valid || pending}
-              onClick={() =>
-                startTransition(async () => {
-                  await setHeatAction(fixtureId, positions);
-                  setOpen(false);
-                  setPositions([1, 2, 3, 4]);
-                })
-              }
+              onClick={save}
               className="rounded-lg bg-brand px-3 py-1.5 text-xs font-black text-brand-foreground disabled:opacity-40"
             >
               Save result

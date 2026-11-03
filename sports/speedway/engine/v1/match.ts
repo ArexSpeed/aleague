@@ -1,7 +1,14 @@
 import { simulateHeat } from "./heat";
 import { createRng } from "./rng";
 import { overall } from "./squad";
-import type { Conditions, EngineRider, Helmet, Side } from "./types";
+import type {
+  Conditions,
+  EngineRider,
+  Helmet,
+  Side,
+  Substitution,
+  SubstitutionKind,
+} from "./types";
 
 export const ENGINE_VERSION = "v1";
 export const MATCH_HEATS = 15;
@@ -79,17 +86,21 @@ export type MatchSetup = {
   /** Eight riders each, index 0 = slot 1. */
   home: EngineRider[];
   away: EngineRider[];
+  /** heat number -> gate (1-4) -> rider who starts instead of the planned one. */
+  substitutions?: Record<number, Record<number, Substitution>>;
 };
 
-export type Start = { side: Side; slot: number };
+export type Start = { side: Side; slot: number; substitute?: Substitution };
 
 export type HeatRiderResult = {
   riderId: string;
   side: Side;
-  /** Slot 1-8 inside the squad. */
+  /** Slot 1-8 inside the squad (for a substitute: the slot he replaced). */
   slot: number;
   gate: number;
   helmet: Helmet;
+  /** Set when a substitute rode instead of the planned rider. */
+  substitution?: SubstitutionKind;
   /** Empty and null for a heat whose result was set by hand. */
   laps: number[];
   time: number | null;
@@ -128,19 +139,26 @@ export const matchScore = (heats: PlayedHeat[]) => ({
   away: heats.reduce((sum, h) => sum + h.awayPoints, 0),
 });
 
-/** Slots 1-8 of a side ranked by match points so far, then by overall. */
+/** Who actually rides: the substitute if there is one, otherwise the planned slot. */
+export const riderOf = (setup: MatchSetup, start: Start): EngineRider =>
+  start.substitute?.rider ?? (start.side === "home" ? setup.home : setup.away)[start.slot - 1]!;
+
+/**
+ * Slots 1-8 of a side ranked by match points so far, then by overall.
+ * Points are counted by rider id, so a substitute's points never go to the rider he replaced.
+ */
 function ranking(heats: PlayedHeat[], side: Side, squad: EngineRider[]): number[] {
-  const points = new Map<number, number>();
+  const points = new Map<string, number>();
   for (const heat of heats) {
     for (const r of heat.riders) {
-      if (r.side === side) points.set(r.slot, (points.get(r.slot) ?? 0) + r.points);
+      if (r.side === side) points.set(r.riderId, (points.get(r.riderId) ?? 0) + r.points);
     }
   }
   return squad
     .map((_, i) => i + 1)
     .sort(
       (a, b) =>
-        (points.get(b) ?? 0) - (points.get(a) ?? 0) ||
+        (points.get(squad[b - 1]!.id) ?? 0) - (points.get(squad[a - 1]!.id) ?? 0) ||
         overall(squad[b - 1]!) - overall(squad[a - 1]!),
     );
 }
@@ -157,7 +175,7 @@ function nominated(rank: number[], squad: EngineRider[], heat: 14 | 15): [number
 
 /**
  * Who starts heat `number` (1-15). Heats 14-15 depend on the played heats; before they are played
- * this is a projection from the heats played so far.
+ * this is a projection from the heats played so far. Substitutions of that heat are applied by gate.
  */
 export function heatStarts(setup: MatchSetup, played: PlayedHeat[], number: number): Start[] {
   let home: [number, number];
@@ -171,33 +189,38 @@ export function heatStarts(setup: MatchSetup, played: PlayedHeat[], number: numb
     home = nominated(ranking(before, "home", setup.home), setup.home, number as 14 | 15);
     away = nominated(ranking(before, "away", setup.away), setup.away, number as 14 | 15);
   }
-  return [
+
+  const starts: Start[] = [
     { side: "home", slot: home[0] },
     { side: "home", slot: home[1] },
     { side: "away", slot: away[0] },
     { side: "away", slot: away[1] },
   ];
+
+  const subs = setup.substitutions?.[number];
+  if (!subs) return starts;
+  return starts.map((s, i) => (subs[i + 1] ? { ...s, substitute: subs[i + 1] } : s));
 }
 
 type Finish = { gate: number; position: number; time: number | null; laps: number[] };
 
 function buildHeat(
+  starts: Start[],
   setup: MatchSetup,
   number: number,
-  starts: Start[],
   finishes: Finish[],
   source: "sim" | "set",
 ): PlayedHeat {
-  const squads = { home: setup.home, away: setup.away };
   const riders = finishes
     .map((f): HeatRiderResult => {
       const start = starts[f.gate - 1]!;
       return {
-        riderId: squads[start.side][start.slot - 1]!.id,
+        riderId: riderOf(setup, start).id,
         side: start.side,
         slot: start.slot,
         gate: f.gate,
         helmet: HELMET_BY_GATE[f.gate - 1]!,
+        substitution: start.substitute?.kind,
         laps: f.laps,
         time: f.time,
         position: f.position,
@@ -233,15 +256,14 @@ export function playNextHeat(setup: MatchSetup, played: PlayedHeat[]): PlayedHea
   if (number > MATCH_HEATS) throw new Error("The match is over");
 
   const starts = heatStarts(setup, played, number);
-  const squads = { home: setup.home, away: setup.away };
   const rng = createRng(`${ENGINE_VERSION}:${setup.seed}:${number}`);
   const runs = simulateHeat(
-    starts.map((s, i) => ({ rider: squads[s.side][s.slot - 1]!, gate: i + 1 })),
+    starts.map((s, i) => ({ rider: riderOf(setup, s), gate: i + 1 })),
     setup.conditions,
     rng,
     setup.luck,
   );
-  return buildHeat(setup, number, starts, runs, "sim");
+  return buildHeat(starts, setup, number, runs, "sim");
 }
 
 /** Sets the next heat by hand: `positions[gate - 1]` is the finishing position (1-4) of that gate. */
@@ -257,9 +279,9 @@ export function setNextHeat(
   }
   const starts = heatStarts(setup, played, number);
   return buildHeat(
+    starts,
     setup,
     number,
-    starts,
     positions.map((position, i) => ({ gate: i + 1, position, time: null, laps: [] })),
     "set",
   );

@@ -1,8 +1,9 @@
-import { resetMatchAction, startHeatAction, undoHeatAction } from "@/sports/speedway/sim/actions";
+import { resetMatchAction, undoHeatAction } from "@/sports/speedway/sim/actions";
 import { isSimEnabled } from "@/sports/speedway/sim/sim-config";
 import type { Heat, Match } from "@/sports/speedway/types/match";
-import { SetHeatForm } from "./set-heat-form";
 import { SimButton } from "@/sports/speedway/views/sim/sim-button";
+import { SetHeatForm } from "./set-heat-form";
+import { StartHeatButton } from "./start-heat-button";
 
 /**
  * Aside > Heat, test tools: Set (choose the result) and Start (simulate) for the next heat.
@@ -20,9 +21,7 @@ export function HeatSimControls({ match, heat }: { match: Match; heat: Heat }) {
 
       {isNext ? (
         <div className="mt-2 flex flex-wrap items-start gap-2">
-          <SimButton tone="primary" action={startHeatAction.bind(null, match.id)}>
-            Start
-          </SimButton>
+          <StartHeatButton fixtureId={match.id} />
           <SetHeatForm
             fixtureId={match.id}
             starts={[...heat.riders]

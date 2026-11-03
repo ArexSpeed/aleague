@@ -1,6 +1,20 @@
 import { CLUB_BY_REF } from "@/sports/speedway/data/season";
-import { heatStarts, MATCH_HEATS, matchScore, overall, withTotals, type Weather } from "@/sports/speedway/engine/v1";
-import { newStoredMatch, RIDER_BY_ID, setupOf, toEngineRider, clubRiders, type SeasonRider } from "@/sports/speedway/sim/match-setup";
+import {
+  heatStarts,
+  MATCH_HEATS,
+  matchScore,
+  overall,
+  withTotals,
+  type Weather,
+} from "@/sports/speedway/engine/v1";
+import {
+  newStoredMatch,
+  RIDER_BY_ID,
+  setupOf,
+  toEngineRider,
+  clubRiders,
+  type SeasonRider,
+} from "@/sports/speedway/sim/match-setup";
 import { attemptOf, readMatches, type StoredMatch } from "@/sports/speedway/sim/results-store";
 import { computeRiderStats, isFinished, type RiderStats } from "@/sports/speedway/sim/stats";
 import {
@@ -25,7 +39,12 @@ const roleOf = (age: number, number: number) =>
 /** Shirt number of slot 1-8: away 1-8, home 9-16. The two riders left out are 9-10 / 17-18. */
 const shirt = (side: Side, index: number) => (side === "home" ? 9 : 1) + index;
 
-function toMatchRider(rider: SeasonRider, side: Side, index: number, stats: Map<string, RiderStats>): MatchRider {
+function toMatchRider(
+  rider: SeasonRider,
+  side: Side,
+  index: number,
+  stats: Map<string, RiderStats>,
+): MatchRider {
   return {
     id: rider.id,
     number: shirt(side, index),
@@ -45,25 +64,47 @@ function toMatchRider(rider: SeasonRider, side: Side, index: number, stats: Map<
 }
 
 /** The whole club: the squad of 8 first (slot order), then the rest by overall rating. */
-function rosterOf(clubId: string, squadIds: string[], side: Side, stats: Map<string, RiderStats>): MatchRider[] {
+function rosterOf(
+  clubId: string,
+  squadIds: string[],
+  side: Side,
+  stats: Map<string, RiderStats>,
+): MatchRider[] {
   const rest = clubRiders(clubId)
     .filter((r) => !squadIds.includes(r.id))
     .sort((a, b) => overall(toEngineRider(b)) - overall(toEngineRider(a)));
-  return [...squadIds.map((id) => RIDER_BY_ID.get(id)!), ...rest].map((r, i) => toMatchRider(r, side, i, stats));
+  return [...squadIds.map((id) => RIDER_BY_ID.get(id)!), ...rest].map((r, i) =>
+    toMatchRider(r, side, i, stats),
+  );
 }
 
 /** Heats 1-15: run ones with their result, the rest as the planned lineup. */
-function heatsOf(stored: StoredMatch, squads: Record<Side, MatchRider[]>): Heat[] {
+function heatsOf(
+  stored: StoredMatch,
+  squads: Record<Side, MatchRider[]>,
+  roster: Record<Side, MatchRider[]>,
+): Heat[] {
   const setup = setupOf(stored);
   const played = withTotals(stored.heats);
 
-  const toStart = (side: Side, slot: number, gate: number, result?: (typeof played)[number]["riders"][number]): HeatRider => {
-    const rider = squads[side][slot - 1]!;
+  const toStart = (
+    side: Side,
+    start: { slot: number; substitute?: { rider: { id: string } } },
+    gate: number,
+    result?: (typeof played)[number]["riders"][number],
+  ): HeatRider => {
+    const actualRider =
+      (result ? roster[side].find((rider) => rider.id === result.riderId) : null) ??
+      (start.substitute
+        ? roster[side].find((rider) => rider.id === start.substitute!.rider.id)
+        : null) ??
+      squads[side][start.slot - 1]!;
+
     return {
-      riderId: rider.id,
-      number: rider.number,
-      firstName: rider.firstName,
-      lastName: rider.lastName,
+      riderId: actualRider.id,
+      number: actualRider.number,
+      firstName: actualRider.firstName,
+      lastName: actualRider.lastName,
       side,
       gate,
       helmet: (["red", "blue", "white", "yellow"] as const)[gate - 1]!,
@@ -79,7 +120,7 @@ function heatsOf(stored: StoredMatch, squads: Record<Side, MatchRider[]>): Heat[
     const starts = heatStarts(setup, stored.heats, number);
     const riders = starts.map((s, i) => {
       const result = done?.riders.find((r) => r.gate === i + 1);
-      return toStart(s.side, s.slot, i + 1, result);
+      return toStart(s.side, s, i + 1, result);
     });
 
     return {
@@ -139,7 +180,6 @@ export async function getMatch(id: string): Promise<Match | null> {
     awayScore: score?.away ?? null,
     squads,
     roster,
-    heats: heatsOf(stored, squads),
+    heats: heatsOf(stored, squads, roster),
   });
 }
-

@@ -23,3 +23,6 @@ export type Rng = () => number;
 
 export type Side = "home" | "away";
 export type Helmet = "red" | "blue" | "white" | "yellow";
+
+export type SubstitutionKind = "normal" | "tactic";
+export type Substitution = { rider: EngineRider; kind: SubstitutionKind };

@@ -26,7 +26,8 @@ export const toEngineRider = (r: SeasonRider): EngineRider => ({
   form: r.form,
 });
 
-export const clubRiders = (clubId: string) => RIDERS.filter((r) => CLUB_BY_REF.get(r.clubId)?.id === clubId);
+export const clubRiders = (clubId: string) =>
+  RIDERS.filter((r) => CLUB_BY_REF.get(r.clubId)?.id === clubId);
 
 /** Default squad of 8 for a club: rider ids by slot. */
 export const defaultSquadIds = (clubId: string) =>
@@ -58,8 +59,23 @@ export function setupOf(stored: StoredMatch): MatchSetup {
   return {
     seed: stored.seed,
     luck: stored.luck,
-    conditions: { trackLength: stadium.trackLength, surface: surfaceOf(stadium.surface), weather: stored.weather },
+    conditions: {
+      trackLength: stadium.trackLength,
+      surface: surfaceOf(stadium.surface),
+      weather: stored.weather,
+    },
     home: riders(stored.squads.home),
     away: riders(stored.squads.away),
+    substitutions: Object.fromEntries(
+      Object.entries(stored.substitutions ?? {}).map(([heat, byGate]) => [
+        heat,
+        Object.fromEntries(
+          Object.entries(byGate).map(([gate, s]) => [
+            gate,
+            { kind: s.kind, rider: toEngineRider(RIDER_BY_ID.get(s.riderId)!) },
+          ]),
+        ),
+      ]),
+    ),
   };
 }
