@@ -20,11 +20,11 @@ const skill = (id: string, header: string, title: string, get: (r: MatchRider) =
 });
 
 const COLUMNS: Column<MatchRider>[] = [
-  skill("s", "S", "Start", (r) => r.skills.start),
+  skill("s", "S", "Strength", (r) => r.skills.strength),
   skill("t", "T", "Technique", (r) => r.skills.technique),
-  skill("f", "F", "Form", (r) => r.skills.form),
-  skill("r", "R", "Judgement", (r) => r.skills.judgement),
-  skill("c", "C", "Character", (r) => r.skills.character),
+  skill("f", "F", "Fighting", (r) => r.skills.fighting),
+  skill("r", "R", "Reflex", (r) => r.skills.reflex),
+  skill("c", "C", "Condition", (r) => r.skills.condition),
   {
     id: "avg",
     header: "AVG",

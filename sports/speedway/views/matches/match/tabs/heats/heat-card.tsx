@@ -11,7 +11,7 @@ import { RunChip } from "../../shared/run-chip";
 
 /** One heat: result in the header, the four riders by gate below. */
 export function HeatCard({ heat, params }: { heat: Heat; params: MatchParams }) {
-  const finished = heat.time !== null;
+  const finished = heat.homePoints !== null;
   const selected = params.panel === "heat" && params.heat === heat.number;
   const riders = byGate(heat.riders);
 
@@ -33,7 +33,9 @@ export function HeatCard({ heat, params }: { heat: Heat; params: MatchParams }) 
         </span>
         {finished ? (
           <span className="flex items-center gap-2 text-xs">
-            <span className="font-mono text-fg-muted">{heat.time!.toFixed(2)} s</span>
+            <span className="font-mono text-fg-muted">
+              {heat.time !== null ? `${heat.time.toFixed(2)} s` : "set"}
+            </span>
             <span className="rounded-md bg-fg/5 px-2 py-0.5 font-black text-fg">
               {heat.homePoints}:{heat.awayPoints}
             </span>
@@ -59,7 +61,7 @@ export function HeatCard({ heat, params }: { heat: Heat; params: MatchParams }) 
                   <HelmetBadge helmet={start.helmet} number={start.number} />
                   <PersonName first={start.firstName} last={start.lastName} />
                   <span className="ml-auto font-mono text-xs text-fg-muted">
-                    {start.time?.toFixed(2)} s
+                    {start.time !== null ? `${start.time.toFixed(2)} s` : ""}
                   </span>
                   <span className="w-9 shrink-0">
                     <RunChip run={start} />

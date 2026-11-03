@@ -8,23 +8,24 @@ import type { Match, MatchTeam, Side } from "@/sports/speedway/types/match";
 import type { SportId } from "@/sports/types";
 import { formatDayMonth } from "../format";
 import { isFinished, scoreOf, winnerSide } from "../match-stats";
+import { MatchSimBar } from "../sim/match-sim-bar";
 
 export function scoreTone(match: Match, side: Side) {
   const winner = winnerSide(match);
-  if (!isFinished(match) || winner === null) return "text-fg";
+  if (match.status !== "finished" || winner === null) return "text-fg";
   return winner === side ? "text-positive" : "text-negative";
 }
 
 export function StatusChip({ match }: { match: Match }) {
-  const finished = isFinished(match);
+  const { status } = match;
   return (
     <span
       className={cn(
         "rounded-full px-2.5 py-1 text-[10px] font-black tracking-wider uppercase",
-        finished ? "bg-positive/15 text-positive" : "bg-brand/15 text-brand",
+        status === "finished" ? "bg-positive/15 text-positive" : "bg-brand/15 text-brand",
       )}
     >
-      {finished ? "Finished" : "Upcoming"}
+      {status === "finished" ? "Finished" : status === "live" ? "In progress" : "Upcoming"}
     </span>
   );
 }
@@ -88,14 +89,18 @@ export function MatchHero({ match, sport }: { match: Match; sport: SportId }) {
             <span className="font-mono text-3xl font-black text-fg-faint sm:text-5xl">VS</span>
           )}
           <span className="text-[11px] font-semibold text-fg-muted">
-            {finished
+            {match.status === "finished"
               ? `Finished · ${formatDayMonth(match.date)}`
-              : `${formatDayMonth(match.date)} · ${match.time}`}
+              : finished
+                ? `After heat ${match.heats.filter((h) => h.homePoints !== null).length}`
+                : `${formatDayMonth(match.date)} · ${match.time}`}
           </span>
         </div>
 
         <HeroTeam team={match.away} side="away" sport={sport} />
       </div>
+
+      <MatchSimBar match={match} />
     </section>
   );
 }

@@ -26,7 +26,7 @@
   /* ── Brand + status (same in every region) ─────────────────────────────── */
   --brand: #2b9cdc;
   --brand-foreground: #ffffff;
-  --positive: #a2fa9a; /* bright accents on the dark shell */
+  --positive: #18a00c; /* bright accents on the dark shell */
   --negative: #ff4d4d;
   --warning: #fee140;
 

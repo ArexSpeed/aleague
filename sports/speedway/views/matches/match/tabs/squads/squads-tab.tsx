@@ -6,7 +6,7 @@ import type { MatchParams } from "../../match-params";
 import { isFinished, SIDES } from "../../match-stats";
 import { SquadTable } from "./squad-table";
 
-const SKILLS_LEGEND = "S Start · T Technique · F Form · R Judgement · C Character · AVG Heat average";
+const SKILLS_LEGEND = "S Strength · T Technique · F Fighting · R Reflex · C Condition · FRM Form · AVG Heat average";
 
 /**
  * Squads tab. Played: points table per team. Not played: skills table where the player

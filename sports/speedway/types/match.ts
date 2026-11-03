@@ -16,20 +16,23 @@ export const matchTeamSchema = z.object({
 
 export const matchRiderSchema = z.object({
   id: z.string(),
-  /** Shirt / squad number (home 9-17, away 1-9). */
+  /** Shirt / squad number (home 9-18, away 1-10). Slots 1-8 of the squad are home 9-16, away 1-8. */
   number: z.number(),
   firstName: z.string(),
   lastName: z.string(),
   role: z.string(),
   /** Season heat average, shown when choosing a substitute. */
   avgHeat: z.number(),
+  /** S T F R C in the UI. */
   skills: z.object({
-    start: z.number(),
+    strength: z.number(),
     technique: z.number(),
-    form: z.number(),
-    judgement: z.number(),
-    character: z.number(),
+    fighting: z.number(),
+    reflex: z.number(),
+    condition: z.number(),
   }),
+  /** Current form in percent. */
+  form: z.number(),
 });
 
 export const heatRiderSchema = z.object({
@@ -42,8 +45,9 @@ export const heatRiderSchema = z.object({
   /** 1-4. Home rides on 1-2 (red, blue), away on 3-4 (white, yellow). */
   gate: z.number().int().min(1).max(4),
   helmet: helmetSchema,
-  /** null until the heat is run */
+  /** null until the heat is run, and for a heat whose result was set by hand */
   time: z.number().nullable(),
+  /** null until the heat is run */
   points: z.number().nullable(),
   /** Bonus point ("2+"), on top of `points`. */
   bonus: z.boolean(),
@@ -51,6 +55,7 @@ export const heatRiderSchema = z.object({
 
 export const heatSchema = z.object({
   number: z.number(),
+  /** Winner's time. null until the heat is run, and for a heat set by hand (use homePoints to tell). */
   time: z.number().nullable(),
   homePoints: z.number().nullable(),
   awayPoints: z.number().nullable(),
@@ -66,7 +71,8 @@ export const matchSchema = z.object({
   /** YYYY-MM-DD */
   date: z.string(),
   time: z.string(),
-  status: z.enum(["scheduled", "finished"]),
+  /** live = some heats are run, the match is not over. */
+  status: z.enum(["scheduled", "live", "finished"]),
   stadium: z.object({
     name: z.string(),
     city: z.string(),
@@ -79,7 +85,7 @@ export const matchSchema = z.object({
   away: matchTeamSchema,
   homeScore: z.number().nullable(),
   awayScore: z.number().nullable(),
-  /** The 7 riders announced for the match (slots). */
+  /** The 8 riders announced for the match (slots 1-8). */
   squads: z.object({ home: z.array(matchRiderSchema), away: z.array(matchRiderSchema) }),
   /** The whole club roster: who can be picked as a substitute. */
   roster: z.object({ home: z.array(matchRiderSchema), away: z.array(matchRiderSchema) }),
