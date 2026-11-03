@@ -8,13 +8,12 @@ import { resolveLeagueIds } from "@/sports/speedway/api/league";
 import type { LineupDraft } from "./lineup-draft";
 import { clubRiders, FIXTURE_BY_ID, newStoredMatch, setupOf } from "./match-setup";
 import {
-  attemptOf,
   clearMatches,
-  db,
-  persist,
-  putMatch,
+  getRow,
+  getRows,
   removeMatch,
   saveMatch,
+  saveMatches,
   type StoredMatch,
 } from "./results-store";
 import { isSimEnabled } from "./sim-config";
@@ -28,8 +27,11 @@ function guard() {
 
 const refresh = () => revalidatePath("/", "layout");
 
-const matchOf = (fixtureId: string): StoredMatch =>
-  db().matches[fixtureId] ?? newStoredMatch(fixtureId, attemptOf(fixtureId));
+/** The stored match, or a fresh one that has not been started (and not saved) yet. */
+async function matchOf(fixtureId: string): Promise<StoredMatch> {
+  const row = await getRow(fixtureId);
+  return row.data ?? newStoredMatch(fixtureId, row.attempt);
+}
 
 /** Saves the lineup changes made in the UI into the match, so the engine rides who the player picked. */
 function applyLineup(match: StoredMatch, draft?: LineupDraft) {
@@ -66,50 +68,50 @@ function applyLineup(match: StoredMatch, draft?: LineupDraft) {
 /** Start: run the next heat of the match. */
 export async function startHeatAction(fixtureId: string, lineup?: LineupDraft) {
   guard();
-  const match = matchOf(fixtureId);
+  const match = await matchOf(fixtureId);
   if (isFinished(match)) return;
   applyLineup(match, lineup);
   match.heats.push(playNextHeat(setupOf(match), match.heats));
-  saveMatch(match);
+  await saveMatch(match);
   refresh();
 }
 
 /** Set: the next heat with a result chosen by hand. `positions[gate - 1]` = finishing position 1-4. */
 export async function setHeatAction(fixtureId: string, positions: number[], lineup?: LineupDraft) {
   guard();
-  const match = matchOf(fixtureId);
+  const match = await matchOf(fixtureId);
   if (isFinished(match)) return;
   applyLineup(match, lineup);
   match.heats.push(setNextHeat(setupOf(match), match.heats, positions));
-  saveMatch(match);
+  await saveMatch(match);
   refresh();
 }
 
 /** Takes back the last heat (test tool). */
 export async function undoHeatAction(fixtureId: string) {
   guard();
-  const match = db().matches[fixtureId];
+  const { data: match } = await getRow(fixtureId);
   if (!match) return;
   match.heats.pop();
-  if (match.heats.length === 0) removeMatch(fixtureId, false);
-  else saveMatch(match);
+  if (match.heats.length === 0) await removeMatch(fixtureId, false);
+  else await saveMatch(match);
   refresh();
 }
 
 /** Simulate match: run every heat that is left. */
 export async function simulateMatchAction(fixtureId: string, lineup?: LineupDraft) {
   guard();
-  const match = matchOf(fixtureId);
+  const match = await matchOf(fixtureId);
   applyLineup(match, lineup);
   match.heats = finishMatch(setupOf(match), match.heats);
-  saveMatch(match);
+  await saveMatch(match);
   refresh();
 }
 
 /** Throws the match away; the next run of it is a different match. */
 export async function resetMatchAction(fixtureId: string) {
   guard();
-  removeMatch(fixtureId, true);
+  await removeMatch(fixtureId, true);
   refresh();
 }
 
@@ -117,20 +119,27 @@ export async function resetMatchAction(fixtureId: string) {
 export async function simulateRoundAction(group: string, matchday: number) {
   guard();
   const leagues = resolveLeagueIds(group || undefined);
-  for (const fixture of SEASON_FIXTURES) {
-    if (fixture.matchday !== matchday || !leagues.includes(fixture.competitionId)) continue;
-    const match = matchOf(fixture.id);
+  const fixtures = SEASON_FIXTURES.filter(
+    (f) => f.matchday === matchday && leagues.includes(f.competitionId),
+  );
+
+  // One read for the whole round, one write for everything that changed.
+  const rows = await getRows(fixtures.map((f) => f.id));
+  const changed: StoredMatch[] = [];
+  for (const fixture of fixtures) {
+    const row = rows.get(fixture.id);
+    const match = row?.data ?? newStoredMatch(fixture.id, row?.attempt ?? 0);
     if (match.heats.length >= MATCH_HEATS) continue;
     match.heats = finishMatch(setupOf(match), match.heats);
-    putMatch(match);
+    changed.push(match);
   }
-  persist();
+  await saveMatches(changed);
   refresh();
 }
 
 /** Removes every result of the season. */
 export async function resetSeasonAction() {
   guard();
-  clearMatches();
+  await clearMatches();
   refresh();
 }

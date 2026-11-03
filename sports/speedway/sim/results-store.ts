@@ -1,13 +1,12 @@
-import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
-import path from "node:path";
+import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import { connection } from "next/server";
 
 import type { PlayedHeat, Weather } from "@/sports/speedway/engine/v1";
 
 /**
- * Match results of the test version, kept on the server: in memory while the app runs and in
- * .sim/season-1.json (git-ignored) so they survive a restart and can be moved to Supabase later.
- * `StoredMatch` is the row shape the database table will have.
+ * Match results of the test version, kept in one Supabase table: `sim_matches`,
+ * a row per match with the whole `StoredMatch` in the jsonb column `data`.
+ * `attempt` survives a reset: a reset empties `data` and changes `attempt`, so the next run is a different match.
  */
 
 export type StoredMatch = {
@@ -24,55 +23,131 @@ export type StoredMatch = {
   substitutions?: Record<number, Record<number, { riderId: string; kind: "normal" | "tactic" }>>;
 };
 
-type Db = { version: 1; attempts: Record<string, number>; matches: Record<string, StoredMatch> };
+/** What the table holds for a fixture. No row = `{ attempt: 0, data: null }`. */
+export type MatchRow = { attempt: number; data: StoredMatch | null };
 
-const FILE = path.join(process.cwd(), ".sim", "season-1.json");
-const globalForDb = globalThis as unknown as { __aleagueSim?: Db };
+const TABLE = "speedway_sim_matches";
+/** Supabase returns at most 1000 rows per request. */
+const PAGE = 1000;
 
-function load(): Db {
-  try {
-    return JSON.parse(readFileSync(FILE, "utf8")) as Db;
-  } catch {
-    return { version: 1, attempts: {}, matches: {} };
+function createSupabase() {
+  const url = process.env.SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!url || !key) throw new Error("Set SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY");
+  return createClient(url, key, {
+    db: { schema: "aleague" },
+    auth: { persistSession: false },
+    // Results change all the time: never let Next cache the requests.
+    global: { fetch: (input, init) => fetch(input, { ...init, cache: "no-store" }) },
+  });
+}
+
+let client: ReturnType<typeof createSupabase> | undefined;
+
+const supabase = () => (client ??= createSupabase());
+
+function chunks<T>(items: T[], size: number): T[][] {
+  const parts: T[][] = [];
+  for (let i = 0; i < items.length; i += size) parts.push(items.slice(i, i + size));
+  return parts;
+}
+
+function fail(error: { message: string }): never {
+  throw new Error(`Database error: ${error.message}`);
+}
+
+const toRow = (r: { attempt: unknown; data: unknown }): MatchRow => ({
+  attempt: Number(r.attempt ?? 0),
+  data: (r.data as StoredMatch | null) ?? null,
+});
+
+/** One fixture: its stored match (if any) and the attempt number. */
+export async function getRow(fixtureId: string): Promise<MatchRow> {
+  const db = supabase();
+  if (!db) return { attempt: 0, data: null };
+
+  const { data, error } = await db
+    .from(TABLE)
+    .select("attempt, data")
+    .eq("fixture_id", fixtureId)
+    .maybeSingle();
+  if (error) fail(error);
+  return data ? toRow(data) : { attempt: 0, data: null };
+}
+
+/** Many fixtures at once (a round). Fixtures without a row are missing from the map. */
+export async function getRows(fixtureIds: string[]): Promise<Map<string, MatchRow>> {
+  const rows = new Map<string, MatchRow>();
+  const db = supabase();
+  if (!db) return rows;
+
+  for (const part of chunks(fixtureIds, 100)) {
+    const { data, error } = await db
+      .from(TABLE)
+      .select("fixture_id, attempt, data")
+      .in("fixture_id", part);
+    if (error) fail(error);
+    for (const r of data ?? []) rows.set(r.fixture_id as string, toRow(r));
+  }
+  return rows;
+}
+
+/** Saves matches (insert or update). Does not touch `attempt`. */
+export async function saveMatches(matches: StoredMatch[]) {
+  const db = supabase();
+  if (!db) return;
+
+  for (const part of chunks(matches, 20)) {
+    const { error } = await db.from(TABLE).upsert(
+      part.map((m) => ({ fixture_id: m.fixtureId, data: m })),
+      { onConflict: "fixture_id" },
+    );
+    if (error) fail(error);
   }
 }
 
-/** Synchronous access for the server actions that change results. */
-export const db = (): Db => (globalForDb.__aleagueSim ??= load());
+export const saveMatch = (match: StoredMatch) => saveMatches([match]);
 
-/** Writes the file. Call once after a batch of `putMatch`. */
-export function persist() {
-  mkdirSync(path.dirname(FILE), { recursive: true });
-  writeFileSync(FILE, JSON.stringify(db()));
+/** Empties a match; `reroll` makes the next run of it a different match. */
+export async function removeMatch(fixtureId: string, reroll: boolean) {
+  const db = supabase();
+  if (!db) return;
+
+  const row: Record<string, unknown> = { fixture_id: fixtureId, data: null };
+  if (reroll) row.attempt = Date.now();
+  const { error } = await db.from(TABLE).upsert(row, { onConflict: "fixture_id" });
+  if (error) fail(error);
+}
+
+/** Empties every match of the season; each of them is a different match next time. */
+export async function clearMatches() {
+  const db = supabase();
+  if (!db) return;
+
+  const { error } = await db
+    .from(TABLE)
+    .update({ data: null, attempt: Date.now() })
+    .not("data", "is", null);
+  if (error) fail(error);
 }
 
 /** For pages: waits for the request first, so results are never frozen into a prerendered page. */
 export async function readMatches(): Promise<Record<string, StoredMatch>> {
   await connection();
-  return db().matches;
-}
+  const matches: Record<string, StoredMatch> = {};
+  const db = supabase();
+  if (!db) return matches;
 
-export const attemptOf = (fixtureId: string) => db().attempts[fixtureId] ?? 0;
-
-/** Keeps the match in memory only; `persist()` writes the file. */
-export function putMatch(match: StoredMatch) {
-  db().matches[match.fixtureId] = match;
-}
-
-export function saveMatch(match: StoredMatch) {
-  putMatch(match);
-  persist();
-}
-
-/** Removes a match; `reroll` makes the next run of it a different match. */
-export function removeMatch(fixtureId: string, reroll: boolean) {
-  delete db().matches[fixtureId];
-  if (reroll) db().attempts[fixtureId] = attemptOf(fixtureId) + 1;
-  persist();
-}
-
-export function clearMatches() {
-  for (const id of Object.keys(db().matches)) db().attempts[id] = attemptOf(id) + 1;
-  db().matches = {};
-  persist();
+  for (let from = 0; ; from += PAGE) {
+    const { data, error } = await db
+      .from(TABLE)
+      .select("fixture_id, data")
+      .not("data", "is", null)
+      .order("fixture_id")
+      .range(from, from + PAGE - 1);
+    if (error) fail(error);
+    for (const row of data ?? []) matches[row.fixture_id as string] = row.data as StoredMatch;
+    if ((data?.length ?? 0) < PAGE) break;
+  }
+  return matches;
 }

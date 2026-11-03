@@ -15,7 +15,7 @@ import {
   clubRiders,
   type SeasonRider,
 } from "@/sports/speedway/sim/match-setup";
-import { attemptOf, readMatches, type StoredMatch } from "@/sports/speedway/sim/results-store";
+import { getRow, readMatches, type StoredMatch } from "@/sports/speedway/sim/results-store";
 import { computeRiderStats, isFinished, type RiderStats } from "@/sports/speedway/sim/stats";
 import {
   matchSchema,
@@ -141,7 +141,8 @@ export async function getMatch(id: string): Promise<Match | null> {
   if (!fixture) return null;
 
   const matches = await readMatches();
-  const stored = matches[id] ?? newStoredMatch(id, attemptOf(id));
+  const row = await getRow(id);
+  const stored = matches[id] ?? newStoredMatch(id, row.attempt);
   const stats = computeRiderStats(matches);
 
   const homeClub = CLUB_BY_REF.get(fixture.homeId)!;
