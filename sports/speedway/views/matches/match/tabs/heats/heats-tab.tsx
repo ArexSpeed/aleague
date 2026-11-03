@@ -7,7 +7,7 @@ import { HeatCard } from "./heat-card";
 
 /** Heats tab: score strip, All / Unplayed filter, a card per heat (two columns on wide screens). */
 export function HeatsTab({ match, params, sport }: { match: Match; params: MatchParams; sport: SportId }) {
-  const unplayed = match.heats.filter((heat) => heat.time === null);
+  const unplayed = match.heats.filter((heat) => heat.homePoints === null);
   const heats = params.show === "unplayed" ? unplayed : match.heats;
 
   return (

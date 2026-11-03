@@ -64,6 +64,7 @@ export const FIXTURES: Fixture[] = [...firstHalf, ...secondHalf].flatMap((pairs,
     const homeScore = 40 + ((matchday * 7 + slot * 13) % 21); // 40..60
     return {
       id: `md${matchday}-${slot + 1}`,
+      competitionId: "league",
       matchday,
       date,
       time: KICKOFF_TIMES[slot] ?? "18:00",

@@ -58,12 +58,13 @@ export function RiderPanel({ match, params }: { match: Match; params: MatchParam
             <StatTile label="Avg" value={average.toFixed(2)} />
           </div>
         ) : (
-          <div className="mt-3 grid grid-cols-6 gap-1.5">
-            <StatTile label="S" title="Start" value={rider.skills.start} />
+          <div className="mt-3 grid grid-cols-7 gap-1.5">
+            <StatTile label="S" title="Strength" value={rider.skills.strength} />
             <StatTile label="T" title="Technique" value={rider.skills.technique} />
-            <StatTile label="F" title="Form" value={rider.skills.form} />
-            <StatTile label="R" title="Judgement" value={rider.skills.judgement} />
-            <StatTile label="C" title="Character" value={rider.skills.character} />
+            <StatTile label="F" title="Fighting" value={rider.skills.fighting} />
+            <StatTile label="R" title="Reflex" value={rider.skills.reflex} />
+            <StatTile label="C" title="Condition" value={rider.skills.condition} />
+            <StatTile label="FRM" title="Form" value={`${rider.form}%`} />
             <StatTile label="AVG" value={rider.avgHeat.toFixed(2)} />
           </div>
         )}

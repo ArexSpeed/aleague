@@ -22,7 +22,7 @@ export function PointsPanel({ match, params }: { match: Match; params: MatchPara
               <span className="flex min-w-0 items-center gap-2 text-sm font-black text-fg uppercase">
                 <ColorDot color={team.color} />
                 <span className="truncate">
-                  {team.name} {team.subName}
+                  {team.name}
                 </span>
               </span>
               <span

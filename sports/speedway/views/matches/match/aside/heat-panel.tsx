@@ -7,12 +7,13 @@ import { heatHref, riderHref, type MatchParams } from "../match-params";
 import { byGate } from "../match-stats";
 import { HELMETS, HelmetDot } from "../shared/helmet";
 import { RunChip } from "../shared/run-chip";
+import { HeatSimControls } from "../sim/heat-sim-controls";
 
 /** Aside > Heat: pick a heat (1-15) and see its result and who started from which gate. */
 export function HeatPanel({ match, params }: { match: Match; params: MatchParams }) {
   const number = Math.min(params.heat ?? 1, match.heats.length);
   const heat = match.heats.find((h) => h.number === number) ?? match.heats[0]!;
-  const finished = heat.time !== null;
+  const finished = heat.homePoints !== null;
   const riders = byGate(heat.riders);
 
   return (
@@ -50,7 +51,7 @@ export function HeatPanel({ match, params }: { match: Match; params: MatchParams
           <div className="flex min-w-0 flex-1 flex-col leading-tight">
             <span className="text-sm font-black text-fg uppercase">Heat {heat.number}</span>
             <span className="text-xs text-fg-faint">
-              {finished ? `Time: ${heat.time!.toFixed(2)} s` : "Not run yet"}
+              {finished ? (heat.time !== null ? `Time: ${heat.time.toFixed(2)} s` : "Result set by hand") : "Not run yet"}
             </span>
           </div>
           {finished ? (
@@ -99,6 +100,8 @@ export function HeatPanel({ match, params }: { match: Match; params: MatchParams
           </div>
         )}
       </section>
+
+      <HeatSimControls match={match} heat={heat} />
     </div>
   );
 }

@@ -4,10 +4,11 @@ import type { HeatRider, Match, MatchRider, Side } from "@/sports/speedway/types
 
 export const SIDES: readonly Side[] = ["home", "away"];
 
-/** Run columns in the squad tables (a rider normally starts 5 times). */
-export const RUN_COLUMNS = 5;
+/** Run columns in the squad tables (a rider starts up to 4 times in the programme, plus nominated heats). */
+export const RUN_COLUMNS = 6;
 
-export const isFinished = (match: Match) => match.status === "finished";
+/** The match has results to show: it is finished or live (some heats are run). */
+export const isFinished = (match: Match) => match.heats.some((heat) => heat.homePoints !== null);
 
 export const shortName = (rider: { firstName: string; lastName: string }) =>
   `${rider.firstName.charAt(0)}.${rider.lastName}`;
