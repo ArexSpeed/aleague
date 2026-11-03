@@ -92,12 +92,13 @@ function buildRoster(team: LeagueTeam, riders: LeagueRider[], firstNumber: numbe
       role: real?.role ?? (i < SQUAD_SIZE ? "Senior" : "Junior U21"),
       avgHeat,
       skills: {
-        start: skill(),
+        strength: skill(),
         technique: skill(),
-        form: skill(),
-        judgement: skill(),
-        character: skill(),
+        fighting: skill(),
+        reflex: skill(),
+        condition: skill(),
       },
+      form: skill(),
     };
   });
 }
