@@ -1,11 +1,17 @@
 import { between } from "./rng";
 import type { Conditions, EngineRider, Rng, Skills } from "./types";
-import { LAP_WEIGHTS, LENGTH_WEIGHTS, lengthCategory, SURFACE_WEIGHTS, WEATHER_WEIGHTS } from "./weights";
+import {
+  LAP_WEIGHTS,
+  LENGTH_WEIGHTS,
+  lengthCategory,
+  SURFACE_WEIGHTS,
+  WEATHER_WEIGHTS,
+} from "./weights";
 
 export const LAPS = 4;
 
 /** Tuning knob (MatchInput.luck): 1 = the original formulas, above 1 = more luck, below 1 = skill decides more. */
-export const DEFAULT_LUCK = 1;
+export const DEFAULT_LUCK = 3;
 
 const clamp01 = (n: number) => Math.max(0, Math.min(1, n));
 /** 30 and below = 0, 100 = 1. */
@@ -32,7 +38,12 @@ export function effectiveSkills(rider: EngineRider): Skills {
 const round3 = (n: number) => Math.round(n * 1000) / 1000;
 
 /** One rider's four laps. Steps 2 and 3: four situational phases, then the three luck dimensions. */
-export function simulateLaps(rider: EngineRider, conditions: Conditions, rng: Rng, luck = DEFAULT_LUCK): number[] {
+export function simulateLaps(
+  rider: EngineRider,
+  conditions: Conditions,
+  rng: Rng,
+  luck = DEFAULT_LUCK,
+): number[] {
   const eff = effectiveSkills(rider);
   const { trackLength, surface, weather } = conditions;
 
@@ -65,14 +76,31 @@ export function simulateLaps(rider: EngineRider, conditions: Conditions, rng: Rn
 }
 
 export type HeatEntry = { rider: EngineRider; gate: number };
-export type HeatRun = { riderId: string; gate: number; laps: number[]; time: number; position: number };
+export type HeatRun = {
+  riderId: string;
+  gate: number;
+  laps: number[];
+  time: number;
+  position: number;
+};
 
 /** Four riders, one heat. Result is sorted by finishing position. */
-export function simulateHeat(entries: HeatEntry[], conditions: Conditions, rng: Rng, luck = DEFAULT_LUCK): HeatRun[] {
+export function simulateHeat(
+  entries: HeatEntry[],
+  conditions: Conditions,
+  rng: Rng,
+  luck = DEFAULT_LUCK,
+): HeatRun[] {
   return entries
     .map(({ rider, gate }) => {
       const laps = simulateLaps(rider, conditions, rng, luck);
-      return { riderId: rider.id, gate, laps, time: round3(laps.reduce((a, b) => a + b, 0)), position: 0 };
+      return {
+        riderId: rider.id,
+        gate,
+        laps,
+        time: round3(laps.reduce((a, b) => a + b, 0)),
+        position: 0,
+      };
     })
     .sort((a, b) => a.time - b.time)
     .map((run, index) => ({ ...run, position: index + 1 }));

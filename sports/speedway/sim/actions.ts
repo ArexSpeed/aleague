@@ -5,8 +5,10 @@ import { revalidatePath } from "next/cache";
 import { SEASON_FIXTURES } from "@/sports/speedway/data/season";
 import { finishMatch, MATCH_HEATS, playNextHeat, setNextHeat } from "@/sports/speedway/engine/v1";
 import { resolveLeagueIds } from "@/sports/speedway/api/league";
+import type { Side } from "@/sports/speedway/types/match";
 import type { LineupDraft } from "./lineup-draft";
 import { clubRiders, FIXTURE_BY_ID, newStoredMatch, setupOf } from "./match-setup";
+import { validateSquad } from "./lineup-draft";
 import {
   clearMatches,
   getRow,
@@ -34,34 +36,88 @@ async function matchOf(fixtureId: string): Promise<StoredMatch> {
 }
 
 /** Saves the lineup changes made in the UI into the match, so the engine rides who the player picked. */
-function applyLineup(match: StoredMatch, draft?: LineupDraft) {
-  if (!draft) return;
+function applyLineup(match: StoredMatch, squads: Record<Side, string[]>) {
   const fixture = FIXTURE_BY_ID.get(match.fixtureId)!;
   const clubId = { home: fixture.homeId, away: fixture.awayId };
-  const inClub = (side: "home" | "away", id: string) =>
-    clubRiders(clubId[side]).some((r) => r.id === id);
 
-  // Squad changes: replace the rider id in the squad array (only before the first heat).
   for (const side of ["home", "away"] as const) {
-    const ids = [...match.squads[side]];
-    let changed = false;
-    for (const [slot, riderId] of Object.entries(draft.squads?.[side] ?? {})) {
-      if (ids[Number(slot) - 1] === riderId) continue;
-      if (!inClub(side, riderId)) throw new Error("Rider is not in this club");
-      ids[Number(slot) - 1] = riderId;
-      changed = true;
+    const ids = [...squads[side]];
+    if (ids.length !== 8) {
+      throw new Error(`Invalid squad for ${side}: expected 8 riders, got ${ids.length}`);
     }
-    if (!changed) continue;
-    if (match.heats.length > 0) throw new Error("The squad can only change before the first heat");
-    if (new Set(ids).size !== ids.length) throw new Error("A rider can be in the squad only once");
+    const club = clubRiders(clubId[side]);
+    const inClub = new Set(club.map((r) => r.id));
+    for (const id of ids) {
+      if (!inClub.has(id)) throw new Error("Rider is not in this club");
+    }
+    const validation = validateSquad(ids, new Map(club.map((r) => [r.id, { age: r.age }])));
+    if (!validation.ok) throw new Error(validation.reason);
     match.squads[side] = ids;
   }
 
-  // Substitutions for a single heat (normal / tactic): only for heats not run yet.
+  if (match.heats.length > 0) throw new Error("The squad can only change before the first heat");
+}
+
+function applyDraft(match: StoredMatch, draft?: LineupDraft) {
+  if (!draft) return;
+
+  for (const side of ["home", "away"] as const) {
+    const sideDraft = draft.squads?.[side];
+    if (!sideDraft) continue;
+    const fixture = FIXTURE_BY_ID.get(match.fixtureId)!;
+    const club = clubRiders(side === "home" ? fixture.homeId : fixture.awayId);
+    const riders = new Map(club.map((r) => [r.id, { age: r.age }]));
+    const ids = [...match.squads[side]];
+    for (const [slot, riderId] of Object.entries(sideDraft)) {
+      const slotIndex = Number(slot) - 1;
+      if (Number.isNaN(slotIndex) || slotIndex < 0 || slotIndex >= ids.length) {
+        throw new Error(`Invalid squad slot ${slot}`);
+      }
+      const next = [...ids];
+      const current = next[slotIndex];
+      if (current === riderId) continue;
+      const otherIndex = next.indexOf(riderId);
+      if (otherIndex >= 0 && otherIndex !== slotIndex) {
+        [next[slotIndex], next[otherIndex]] = [next[otherIndex], next[slotIndex]];
+      } else {
+        next[slotIndex] = riderId;
+      }
+      const validation = validateSquad(next, riders);
+      if (!validation.ok) throw new Error(validation.reason);
+      ids.splice(0, ids.length, ...next);
+    }
+    match.squads[side] = ids;
+  }
+
   match.substitutions ??= {};
   for (const [heat, byGate] of Object.entries(draft.substitutions ?? {})) {
-    if (Number(heat) <= match.heats.length) continue;
-    match.substitutions[Number(heat)] = byGate;
+    const heatNumber = Number(heat);
+    match.substitutions[heatNumber] ??= {};
+    for (const [gate, sub] of Object.entries(byGate)) {
+      const gateNumber = Number(gate);
+      match.substitutions[heatNumber][gateNumber] = { riderId: sub.riderId, kind: sub.kind };
+    }
+  }
+}
+
+export async function saveLineupAction(
+  fixtureId: string,
+  squads: Record<Side, string[]>,
+): Promise<{ ok: true } | { ok: false; error: string }> {
+  try {
+    const match = await matchOf(fixtureId);
+    if (match.heats.length > 0) {
+      return { ok: false, error: "The squad can only change before the first heat" };
+    }
+    applyLineup(match, squads);
+    await saveMatch(match);
+    refresh();
+    return { ok: true };
+  } catch (error) {
+    return {
+      ok: false,
+      error: error instanceof Error ? error.message : "Could not save the lineup",
+    };
   }
 }
 
@@ -70,7 +126,7 @@ export async function startHeatAction(fixtureId: string, lineup?: LineupDraft) {
   guard();
   const match = await matchOf(fixtureId);
   if (isFinished(match)) return;
-  applyLineup(match, lineup);
+  applyDraft(match, lineup);
   match.heats.push(playNextHeat(setupOf(match), match.heats));
   await saveMatch(match);
   refresh();
@@ -81,7 +137,7 @@ export async function setHeatAction(fixtureId: string, positions: number[], line
   guard();
   const match = await matchOf(fixtureId);
   if (isFinished(match)) return;
-  applyLineup(match, lineup);
+  applyDraft(match, lineup);
   match.heats.push(setNextHeat(setupOf(match), match.heats, positions));
   await saveMatch(match);
   refresh();
@@ -102,7 +158,7 @@ export async function undoHeatAction(fixtureId: string) {
 export async function simulateMatchAction(fixtureId: string, lineup?: LineupDraft) {
   guard();
   const match = await matchOf(fixtureId);
-  applyLineup(match, lineup);
+  applyDraft(match, lineup);
   match.heats = finishMatch(setupOf(match), match.heats);
   await saveMatch(match);
   refresh();

@@ -61,9 +61,9 @@ export function LineupEditor({
         }
       />
       <ol className="px-1 pb-1">
-        {riders.map((rider) => (
+        {riders.map((rider, index) => (
           <TableRow
-            key={rider.number}
+            key={`${side}:${index + 1}:${rider.id}`}
             item={rider}
             columns={COLUMNS}
             lead={
@@ -72,9 +72,7 @@ export function LineupEditor({
                 <PersonName first={rider.firstName} last={rider.lastName} />
               </>
             }
-            onClick={() =>
-              openSlot({ type: "squad", side, number: rider.number, currentId: rider.id })
-            }
+            onClick={() => openSlot({ type: "squad", side, number: index + 1, currentId: rider.id })}
           />
         ))}
       </ol>

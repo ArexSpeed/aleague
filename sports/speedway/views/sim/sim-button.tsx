@@ -14,17 +14,27 @@ export function SimButton({
   children,
   tone = "neutral",
   className,
+  disabled = false,
+  title,
 }: {
   action: () => Promise<void>;
   children: ReactNode;
   tone?: keyof typeof TONES;
   className?: string;
+  disabled?: boolean;
+  title?: string;
 }) {
   return (
     <form action={action}>
       <button
         type="submit"
-        className={cn("rounded-lg px-3 py-1.5 text-xs font-black transition-colors", TONES[tone], className)}
+        disabled={disabled}
+        title={title}
+        className={cn(
+          "rounded-lg px-3 py-1.5 text-xs font-black transition-colors disabled:cursor-not-allowed disabled:opacity-40",
+          TONES[tone],
+          className,
+        )}
       >
         {children}
       </button>

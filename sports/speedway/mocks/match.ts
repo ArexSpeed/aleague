@@ -22,23 +22,51 @@ const POINTS = [3, 2, 1, 0];
 
 /** Invented names that fill the roster when a club has fewer than 9 riders. */
 const PAD_NAMES: [string, string][] = [
-  ["Adam", "Kowal"], ["Piotr", "Lis"], ["Marek", "Wolny"], ["Tomasz", "Sowa"],
-  ["Jakub", "Rudy"], ["Kamil", "Zając"], ["Oskar", "Bielik"], ["Filip", "Orzeł"],
-  ["Dawid", "Kruk"], ["Szymon", "Jeleń"], ["Patryk", "Bóbr"], ["Michał", "Żbik"],
-  ["Kacper", "Sokół"], ["Bartek", "Lew"], ["Igor", "Wilk"], ["Jan", "Tur"],
+  ["Adam", "Kowal"],
+  ["Piotr", "Lis"],
+  ["Marek", "Wolny"],
+  ["Tomasz", "Sowa"],
+  ["Jakub", "Rudy"],
+  ["Kamil", "Zając"],
+  ["Oskar", "Bielik"],
+  ["Filip", "Orzeł"],
+  ["Dawid", "Kruk"],
+  ["Szymon", "Jeleń"],
+  ["Patryk", "Bóbr"],
+  ["Michał", "Żbik"],
+  ["Kacper", "Sokół"],
+  ["Bartek", "Lew"],
+  ["Igor", "Wilk"],
+  ["Jan", "Tur"],
 ];
 
 /** Every pair of the 6 main riders = 15 heats, each rider starts exactly 5 times. */
 const PAIRS: [number, number][] = [
-  [0, 1], [2, 3], [4, 5], [0, 2], [1, 4], [3, 5], [0, 3], [1, 5],
-  [2, 4], [0, 4], [1, 3], [2, 5], [0, 5], [1, 2], [3, 4],
+  [0, 1],
+  [2, 3],
+  [4, 5],
+  [0, 2],
+  [1, 4],
+  [3, 5],
+  [0, 3],
+  [1, 5],
+  [2, 4],
+  [0, 4],
+  [1, 3],
+  [2, 5],
+  [0, 5],
+  [1, 2],
+  [3, 4],
 ];
 
 /** Finishing places of the home riders for every possible home heat score. */
 const HOME_PLACES: Record<number, number[][]> = {
   5: [[1, 2]],
   4: [[1, 3]],
-  3: [[1, 4], [2, 3]],
+  3: [
+    [1, 4],
+    [2, 3],
+  ],
   2: [[2, 4]],
   1: [[3, 4]],
 };

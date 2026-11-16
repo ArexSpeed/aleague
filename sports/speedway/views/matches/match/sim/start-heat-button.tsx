@@ -5,18 +5,26 @@ import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import { startHeatAction } from "@/sports/speedway/sim/actions";
-import { lineupDraft, useLineupStore } from "@/sports/speedway/stores/match-lineup";
+import { isDraftDirty, lineupDraft, useLineupStore } from "@/sports/speedway/stores/match-lineup";
+import type { MatchRider, Side } from "@/sports/speedway/types/match";
 
-/** Start: sends the pending lineup changes together with the request, so the engine rides who is on screen. */
-export function StartHeatButton({ fixtureId }: { fixtureId: string }) {
+/** Start: runs on the saved lineup; unsaved changes must be saved first. */
+export function StartHeatButton({
+  fixtureId,
+  savedSquads,
+}: {
+  fixtureId: string;
+  savedSquads: Record<Side, MatchRider[]>;
+}) {
   const [pending, startTransition] = useTransition();
+  const dirty = useLineupStore((s) => isDraftDirty(s, fixtureId, savedSquads));
 
   function start() {
-    // Read the store at click time, not at render time, so it is always the latest draft.
-    const draft = lineupDraft(useLineupStore.getState(), fixtureId);
+    const draft = useLineupStore.getState();
+    const lineup = lineupDraft(draft, fixtureId);
     startTransition(async () => {
       try {
-        await startHeatAction(fixtureId, draft);
+        await startHeatAction(fixtureId, lineup);
       } catch (error) {
         toast.error(error instanceof Error ? error.message : "Could not start the heat");
       }
@@ -24,7 +32,12 @@ export function StartHeatButton({ fixtureId }: { fixtureId: string }) {
   }
 
   return (
-    <Button type="button" onClick={start} disabled={pending}>
+    <Button
+      type="button"
+      onClick={start}
+      disabled={pending || dirty}
+      title={dirty ? "Save or reset your lineup first" : undefined}
+    >
       {pending ? "Running…" : "Start"}
     </Button>
   );

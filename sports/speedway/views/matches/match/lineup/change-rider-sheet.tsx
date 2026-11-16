@@ -17,6 +17,7 @@ import {
   useLineupStore,
   type ChangeKind,
 } from "@/sports/speedway/stores/match-lineup";
+import { isJuniorRider, isJuniorSlot } from "@/sports/speedway/sim/lineup-draft";
 import type { MatchRider, Side } from "@/sports/speedway/types/match";
 import { HELMETS } from "../shared/helmet";
 import type { Slot } from "./lineup-provider";
@@ -41,6 +42,7 @@ export function ChangeRiderSheet({ matchId, teams, roster, slot, onClose }: Prop
   const [kind, setKind] = useState<ChangeKind>("normal");
 
   const team = slot ? teams[slot.side] : null;
+  const juniorOnly = slot?.type === "squad" && isJuniorSlot(slot.number - 1);
 
   function pick(rider: MatchRider) {
     if (!slot) return;
@@ -51,6 +53,12 @@ export function ChangeRiderSheet({ matchId, teams, roster, slot, onClose }: Prop
     }
     onClose();
   }
+
+  const eligibleNormalRider = (rider: MatchRider) => {
+    if (slot?.type !== "heat" || kind !== "normal") return true;
+    const allowed = slot.side === "home" ? [14, 15, 16] : [6, 7, 8];
+    return allowed.includes(rider.number);
+  };
 
   return (
     <Sheet open={slot !== null} onOpenChange={(open) => !open && onClose()}>
@@ -111,13 +119,17 @@ export function ChangeRiderSheet({ matchId, teams, roster, slot, onClose }: Prop
             <ul className="space-y-2">
               {(slot ? roster[slot.side] : []).map((rider) => {
                 const current = slot?.currentId === rider.id;
+                const invalidJunior = juniorOnly && !isJuniorRider(rider);
+                const invalidNormalHeat = slot?.type === "heat" && kind === "normal" && !eligibleNormalRider(rider);
+                const disabled = invalidJunior || invalidNormalHeat;
                 return (
                   <li key={rider.id}>
                     <button
                       type="button"
+                      disabled={disabled}
                       onClick={() => pick(rider)}
                       className={cn(
-                        "flex w-full items-center gap-3 rounded-xl border-2 bg-surface px-3 py-2.5 text-left transition-colors hover:bg-surface-hover",
+                        "flex w-full items-center gap-3 rounded-xl border-2 bg-surface px-3 py-2.5 text-left transition-colors hover:bg-surface-hover disabled:cursor-not-allowed disabled:opacity-40",
                         current ? "border-brand" : "border-line",
                       )}
                     >
@@ -129,7 +141,11 @@ export function ChangeRiderSheet({ matchId, teams, roster, slot, onClose }: Prop
                           {rider.firstName} {rider.lastName}
                         </span>
                         <span className="truncate text-[11px] font-semibold text-fg-faint">
-                          {rider.role}
+                          {invalidJunior
+                            ? "Junior slot only"
+                            : invalidNormalHeat
+                              ? "Normal change: only 6-8 / 14-16"
+                              : rider.role}
                         </span>
                       </span>
                       <span className="rounded-md bg-fg/5 px-2 py-1 text-[11px] font-black text-fg-muted">

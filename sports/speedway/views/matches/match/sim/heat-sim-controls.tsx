@@ -21,7 +21,7 @@ export function HeatSimControls({ match, heat }: { match: Match; heat: Heat }) {
 
       {isNext ? (
         <div className="mt-2 flex flex-wrap items-start gap-2">
-          <StartHeatButton fixtureId={match.id} />
+          <StartHeatButton fixtureId={match.id} savedSquads={match.squads} />
           <SetHeatForm
             fixtureId={match.id}
             starts={[...heat.riders]

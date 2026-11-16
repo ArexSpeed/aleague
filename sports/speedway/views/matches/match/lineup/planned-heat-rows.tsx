@@ -18,11 +18,18 @@ function PlannedRow({ heat, start }: { heat: number; start: HeatRider }) {
   const first = rider?.firstName ?? start.firstName;
   const last = rider?.lastName ?? start.lastName;
   const currentId = rider?.id ?? start.riderId;
+  const displayNumber = rider?.number ?? start.number;
+  const replaced = heatOverride && rider?.id !== start.riderId ? `${start.firstName} ${start.lastName}` : null;
 
   return (
     <li className="group flex items-center gap-2 rounded-lg px-1 py-1">
-      <HelmetBadge helmet={start.helmet} number={start.number} />
-      <PersonName first={first} last={last} />
+      <HelmetBadge helmet={start.helmet} number={displayNumber} />
+      <div className="min-w-0 flex-1">
+        <PersonName first={first} last={last} />
+        {replaced ? (
+          <div className="text-[10px] font-semibold text-fg-faint">Replaced: {replaced}</div>
+        ) : null}
+      </div>
       {heatOverride?.kind === "tactic" ? (
         <span className="rounded bg-fg/10 px-1.5 py-0.5 text-[10px] font-black text-fg-muted uppercase">
           Tactic

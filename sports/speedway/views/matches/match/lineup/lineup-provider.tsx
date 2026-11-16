@@ -64,8 +64,8 @@ export function LineupProvider({
 /** The announced squad with the player's substitutions applied. Slot number stays. */
 export function useResolvedSquad(matchId: string, side: Side, squad: MatchRider[]): MatchRider[] {
   const overrides = useLineupStore((s) => s.squad);
-  return squad.map((rider) => {
-    const picked = overrides[squadKey(matchId, side, rider.number)];
+  return squad.map((rider, index) => {
+    const picked = overrides[squadKey(matchId, side, index + 1)];
     return picked ? { ...picked, number: rider.number } : rider;
   });
 }
