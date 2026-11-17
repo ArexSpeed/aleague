@@ -16,9 +16,9 @@ export function getClubsByLeague(
   return clubs
     .filter((club) => league === "all" || club.leagueId === league)
     .slice()
-    .sort((a, b) =>
-      (leagueOrder.get(a.leagueId) ?? CLUB_LEAGUE_ORDER.length) -
-        (leagueOrder.get(b.leagueId) ?? CLUB_LEAGUE_ORDER.length) ||
-      a.name.localeCompare(b.name),
+    .sort(
+      (a, b) =>
+        (leagueOrder.get(a.leagueId) ?? CLUB_LEAGUE_ORDER.length) -
+          (leagueOrder.get(b.leagueId) ?? CLUB_LEAGUE_ORDER.length) || a.name.localeCompare(b.name),
     );
 }

@@ -53,7 +53,10 @@ export async function getClubCards(league: ClubLeague | "all" = "all"): Promise<
 
 /** Mock for now; parsed at the boundary like the other api files. */
 export async function getTeamEntries(kind: TeamEntry["kind"]): Promise<TeamEntry[]> {
-  return z.array(teamEntrySchema).parse(TEAM_ENTRIES).filter((entry) => entry.kind === kind);
+  return z
+    .array(teamEntrySchema)
+    .parse(TEAM_ENTRIES)
+    .filter((entry) => entry.kind === kind);
 }
 
 export async function getTeamEntry(id: string): Promise<TeamEntry | null> {

@@ -16,13 +16,7 @@ export const PANEL_TABS = [
   { id: "history", label: "History" },
 ] as const;
 
-export const DIVISIONS = [
-  "all",
-  "east-gold",
-  "west-gold",
-  "east-silver",
-  "west-silver",
-] as const;
+export const DIVISIONS = ["all", "east-gold", "west-gold", "east-silver", "west-silver"] as const;
 
 export const DIVISION_LABELS: Record<Division, string> = {
   "east-gold": "East Gold",
@@ -31,12 +25,7 @@ export const DIVISION_LABELS: Record<Division, string> = {
   "west-silver": "West Silver",
 };
 
-export const CLUB_LEAGUE_ORDER = [
-  "east-gold",
-  "west-gold",
-  "east-silver",
-  "west-silver",
-] as const;
+export const CLUB_LEAGUE_ORDER = ["east-gold", "west-gold", "east-silver", "west-silver"] as const;
 
 export type TeamsTab = (typeof TEAMS_TABS)[number]["id"];
 export type PanelTab = (typeof PANEL_TABS)[number]["id"];
@@ -62,18 +51,35 @@ const first = (v: string | string[] | undefined) => (Array.isArray(v) ? v[0] : v
 const pick = <T extends string>(v: string | undefined, allowed: readonly T[]): T | undefined =>
   allowed.find((item) => item === v);
 
-export function parseTeamsParams(raw: RawSearchParams, basePath: string, sport: SportId): TeamsParams {
+export function parseTeamsParams(
+  raw: RawSearchParams,
+  basePath: string,
+  sport: SportId,
+): TeamsParams {
   return {
     sport,
     basePath,
-    tab: pick(first(raw.tab), TEAMS_TABS.map((t) => t.id)) ?? "clubs",
+    tab:
+      pick(
+        first(raw.tab),
+        TEAMS_TABS.map((t) => t.id),
+      ) ?? "clubs",
     division: pick(first(raw.division), DIVISIONS) ?? "all",
     view:
       pick(first(raw.view), ["compact", "detailed"] as const) ??
-      (pick(first(raw.tab), TEAMS_TABS.map((tab) => tab.id)) === "nations" ? "detailed" : "compact"),
+      (pick(
+        first(raw.tab),
+        TEAMS_TABS.map((tab) => tab.id),
+      ) === "nations"
+        ? "detailed"
+        : "compact"),
     q: (first(raw.q) ?? "").trim(),
     team: first(raw.team) || undefined,
-    panel: pick(first(raw.panel), PANEL_TABS.map((t) => t.id)) ?? "info",
+    panel:
+      pick(
+        first(raw.panel),
+        PANEL_TABS.map((t) => t.id),
+      ) ?? "info",
   };
 }
 
@@ -84,7 +90,9 @@ export function buildTeamsHref(params: TeamsParams, patch: Patch = {}): string {
     ...patch,
     view:
       patch.tab === "nations" && patch.view === undefined
-        ? (params.tab === "nations" ? params.view : "detailed")
+        ? params.tab === "nations"
+          ? params.view
+          : "detailed"
         : (patch.view ?? params.view),
   };
   const query = new URLSearchParams();
@@ -98,9 +106,28 @@ export function buildTeamsHref(params: TeamsParams, patch: Patch = {}): string {
   return qs ? `${params.basePath}?${qs}` : params.basePath;
 }
 
-export function matchesSearch(entry: { name: string; subName: string; short: string; fullName: string; region: string; city: string; division?: Division }, q: string): boolean {
+export function matchesSearch(
+  entry: {
+    name: string;
+    subName: string;
+    short: string;
+    fullName: string;
+    region: string;
+    city: string;
+    division?: Division;
+  },
+  q: string,
+): boolean {
   if (!q) return true;
-  const haystack = [entry.name, entry.subName, entry.short, entry.fullName, entry.region, entry.city, entry.division ? DIVISION_LABELS[entry.division] : ""]
+  const haystack = [
+    entry.name,
+    entry.subName,
+    entry.short,
+    entry.fullName,
+    entry.region,
+    entry.city,
+    entry.division ? DIVISION_LABELS[entry.division] : "",
+  ]
     .join(" ")
     .toLowerCase();
   return haystack.includes(q.toLowerCase());

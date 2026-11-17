@@ -2,19 +2,9 @@ import { z } from "zod";
 
 /** Clubs and national teams share one shape: the Teams page and its aside treat them alike. */
 
-export const divisionSchema = z.enum([
-  "west-gold",
-  "east-gold",
-  "west-silver",
-  "east-silver",
-]);
+export const divisionSchema = z.enum(["west-gold", "east-gold", "west-silver", "east-silver"]);
 
-export const clubLeagueSchema = z.enum([
-  "west-gold",
-  "east-gold",
-  "west-silver",
-  "east-silver",
-]);
+export const clubLeagueSchema = z.enum(["west-gold", "east-gold", "west-silver", "east-silver"]);
 
 const medalsSchema = z.object({ gold: z.number(), silver: z.number(), bronze: z.number() });
 
