@@ -1,0 +1,146 @@
+[
+  {
+    "id": "arkadia",
+    "name": "Arkadia",
+    "code": "ARK",
+    "color": "#2563eb",
+    "stadiumName": "Arkadia National Stadium",
+    "trackLength": null,
+    "surface": null,
+    "trackRecord": { "time": null, "rider": null, "year": null },
+    "trophies": {
+      "league": { "gold": 0, "silver": 0, "bronze": 0 },
+      "cup": { "gold": 0, "silver": 0, "bronze": 0 },
+      "junior": { "gold": 0, "silver": 0, "bronze": 0 },
+      "pair": { "gold": 0, "silver": 0, "bronze": 0 },
+      "fourTeam": { "gold": 0, "silver": 0, "bronze": 0 }
+    },
+    "todo": "TODO: final code and color; TODO: real stadium/track data"
+  },
+  {
+    "id": "arvia",
+    "name": "Arvia",
+    "code": "ARV",
+    "color": "#0ea5e9",
+    "stadiumName": "Arvia National Stadium",
+    "trackLength": null,
+    "surface": null,
+    "trackRecord": { "time": null, "rider": null, "year": null },
+    "trophies": {
+      "league": { "gold": 0, "silver": 0, "bronze": 0 },
+      "cup": { "gold": 0, "silver": 0, "bronze": 0 },
+      "junior": { "gold": 0, "silver": 0, "bronze": 0 },
+      "pair": { "gold": 0, "silver": 0, "bronze": 0 },
+      "fourTeam": { "gold": 0, "silver": 0, "bronze": 0 }
+    },
+    "todo": "TODO: final code and color; TODO: real stadium/track data"
+  },
+  {
+    "id": "celtia",
+    "name": "Celtia",
+    "code": "CEL",
+    "color": "#16a34a",
+    "stadiumName": "Celtia National Stadium",
+    "trackLength": null,
+    "surface": null,
+    "trackRecord": { "time": null, "rider": null, "year": null },
+    "trophies": {
+      "league": { "gold": 0, "silver": 0, "bronze": 0 },
+      "cup": { "gold": 0, "silver": 0, "bronze": 0 },
+      "junior": { "gold": 0, "silver": 0, "bronze": 0 },
+      "pair": { "gold": 0, "silver": 0, "bronze": 0 },
+      "fourTeam": { "gold": 0, "silver": 0, "bronze": 0 }
+    },
+    "todo": "TODO: final code and color; TODO: real stadium/track data"
+  },
+  {
+    "id": "costalia",
+    "name": "Costalia",
+    "code": "COS",
+    "color": "#d97706",
+    "stadiumName": "Costalia National Stadium",
+    "trackLength": null,
+    "surface": null,
+    "trackRecord": { "time": null, "rider": null, "year": null },
+    "trophies": {
+      "league": { "gold": 0, "silver": 0, "bronze": 0 },
+      "cup": { "gold": 0, "silver": 0, "bronze": 0 },
+      "junior": { "gold": 0, "silver": 0, "bronze": 0 },
+      "pair": { "gold": 0, "silver": 0, "bronze": 0 },
+      "fourTeam": { "gold": 0, "silver": 0, "bronze": 0 }
+    },
+    "todo": "TODO: final code and color; TODO: real stadium/track data"
+  },
+  {
+    "id": "gotavia",
+    "name": "Gotavia",
+    "code": "GOT",
+    "color": "#dc2626",
+    "stadiumName": "Gotavia National Stadium",
+    "trackLength": null,
+    "surface": null,
+    "trackRecord": { "time": null, "rider": null, "year": null },
+    "trophies": {
+      "league": { "gold": 0, "silver": 0, "bronze": 0 },
+      "cup": { "gold": 0, "silver": 0, "bronze": 0 },
+      "junior": { "gold": 0, "silver": 0, "bronze": 0 },
+      "pair": { "gold": 0, "silver": 0, "bronze": 0 },
+      "fourTeam": { "gold": 0, "silver": 0, "bronze": 0 }
+    },
+    "todo": "TODO: final code and color; TODO: real stadium/track data"
+  },
+  {
+    "id": "montania",
+    "name": "Montania",
+    "code": "MON",
+    "color": "#7c3aed",
+    "stadiumName": "Montania National Stadium",
+    "trackLength": null,
+    "surface": null,
+    "trackRecord": { "time": null, "rider": null, "year": null },
+    "trophies": {
+      "league": { "gold": 0, "silver": 0, "bronze": 0 },
+      "cup": { "gold": 0, "silver": 0, "bronze": 0 },
+      "junior": { "gold": 0, "silver": 0, "bronze": 0 },
+      "pair": { "gold": 0, "silver": 0, "bronze": 0 },
+      "fourTeam": { "gold": 0, "silver": 0, "bronze": 0 }
+    },
+    "todo": "TODO: final code and color; TODO: real stadium/track data"
+  },
+  {
+    "id": "rivia",
+    "name": "Rivia",
+    "code": "RIV",
+    "color": "#0891b2",
+    "stadiumName": "Rivia National Stadium",
+    "trackLength": null,
+    "surface": null,
+    "trackRecord": { "time": null, "rider": null, "year": null },
+    "trophies": {
+      "league": { "gold": 0, "silver": 0, "bronze": 0 },
+      "cup": { "gold": 0, "silver": 0, "bronze": 0 },
+      "junior": { "gold": 0, "silver": 0, "bronze": 0 },
+      "pair": { "gold": 0, "silver": 0, "bronze": 0 },
+      "fourTeam": { "gold": 0, "silver": 0, "bronze": 0 }
+    },
+    "todo": "TODO: final code and color; TODO: real stadium/track data"
+  },
+  {
+    "id": "rotan",
+    "name": "Rotan",
+    "code": "ROT",
+    "color": "#be123c",
+    "stadiumName": "Rotan National Stadium",
+    "trackLength": null,
+    "surface": null,
+    "trackRecord": { "time": null, "rider": null, "year": null },
+    "trophies": {
+      "league": { "gold": 0, "silver": 0, "bronze": 0 },
+      "cup": { "gold": 0, "silver": 0, "bronze": 0 },
+      "junior": { "gold": 0, "silver": 0, "bronze": 0 },
+      "pair": { "gold": 0, "silver": 0, "bronze": 0 },
+      "fourTeam": { "gold": 0, "silver": 0, "bronze": 0 }
+    },
+    "todo": "TODO: final code and color; TODO: real stadium/track data"
+  }
+]

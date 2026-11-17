@@ -16,14 +16,27 @@ export const PANEL_TABS = [
   { id: "history", label: "History" },
 ] as const;
 
-export const DIVISIONS = ["all", "west-gold", "east-gold", "west-silver", "east-silver"] as const;
+export const DIVISIONS = [
+  "all",
+  "east-gold",
+  "west-gold",
+  "east-silver",
+  "west-silver",
+] as const;
 
 export const DIVISION_LABELS: Record<Division, string> = {
-  "west-gold": "West Gold",
   "east-gold": "East Gold",
-  "west-silver": "West Silver",
+  "west-gold": "West Gold",
   "east-silver": "East Silver",
+  "west-silver": "West Silver",
 };
+
+export const CLUB_LEAGUE_ORDER = [
+  "east-gold",
+  "west-gold",
+  "east-silver",
+  "west-silver",
+] as const;
 
 export type TeamsTab = (typeof TEAMS_TABS)[number]["id"];
 export type PanelTab = (typeof PANEL_TABS)[number]["id"];
@@ -55,7 +68,9 @@ export function parseTeamsParams(raw: RawSearchParams, basePath: string, sport: 
     basePath,
     tab: pick(first(raw.tab), TEAMS_TABS.map((t) => t.id)) ?? "clubs",
     division: pick(first(raw.division), DIVISIONS) ?? "all",
-    view: pick(first(raw.view), ["compact", "detailed"] as const) ?? "compact",
+    view:
+      pick(first(raw.view), ["compact", "detailed"] as const) ??
+      (pick(first(raw.tab), TEAMS_TABS.map((tab) => tab.id)) === "nations" ? "detailed" : "compact"),
     q: (first(raw.q) ?? "").trim(),
     team: first(raw.team) || undefined,
     panel: pick(first(raw.panel), PANEL_TABS.map((t) => t.id)) ?? "info",
@@ -64,7 +79,14 @@ export function parseTeamsParams(raw: RawSearchParams, basePath: string, sport: 
 
 /** Current URL state + changes. A key set to `undefined` is removed (defaults are never written). */
 export function buildTeamsHref(params: TeamsParams, patch: Patch = {}): string {
-  const next = { ...params, ...patch };
+  const next = {
+    ...params,
+    ...patch,
+    view:
+      patch.tab === "nations" && patch.view === undefined
+        ? (params.tab === "nations" ? params.view : "detailed")
+        : (patch.view ?? params.view),
+  };
   const query = new URLSearchParams();
   if (next.tab !== "clubs") query.set("tab", next.tab);
   if (next.division !== "all") query.set("division", next.division);
