@@ -52,6 +52,7 @@ export const riderSchema = z.object({
   club: z.string(),
   /** Id or short code of a club in clubs.json. */
   clubId: z.string(),
+  nation: z.string().optional(),
 });
 
 export type RiderRaw = z.infer<typeof riderSchema>;

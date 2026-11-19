@@ -42,8 +42,8 @@ const TAB_CONTENT: Record<LeagueTab, (params: LeagueParams) => ReactNode> = {
       <StatsTab params={params} />
     ),
   history: () => <ComingSoon label="History" />,
-  groups: () => <NationGamesView activeTab="groups" />,
-  final: () => <NationGamesView activeTab="final" />,
+  groups: (params) => <NationGamesView activeTab="groups" params={params} />,
+  final: (params) => <NationGamesView activeTab="final" params={params} />,
 };
 
 /** Master part of the league page: tabs, shared filters, and the active tab's content. */
@@ -67,7 +67,7 @@ export function LeagueView({ params }: { params: LeagueParams }) {
       <ScrollArea key={params.tab}>
         <LeagueFilters params={params} />
         {isGames ? (
-          <NationGamesView activeTab={params.tab} />
+          <NationGamesView activeTab={params.tab} params={params} />
         ) : (
           TAB_CONTENT[params.tab](params)
         )}

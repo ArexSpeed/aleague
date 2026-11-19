@@ -1,6 +1,11 @@
 import { z } from "zod";
 
-import { NATION_GAMES_FIXTURES, NATIONS, SEASON_FIXTURES } from "@/sports/speedway/data/season";
+import {
+  NATION_GAMES_FIXTURES,
+  NATIONS,
+  RIDERS,
+  SEASON_FIXTURES,
+} from "@/sports/speedway/data/season";
 
 import { emptyTeamStats } from "@/sports/speedway/sim/stats";
 import { leagueTeamSchema, type LeagueTeam } from "@/sports/speedway/types/league";
@@ -134,4 +139,65 @@ export async function getNationGames(): Promise<NationGamesView> {
         NATION_GAMES_FIXTURES.find((item) => item.id === fixture.id)?.stage !== "regular",
     ),
   };
+}
+
+export async function getNationTeam(
+  teamId: string,
+  competition: "league" | "junior" | "games" = "league",
+): Promise<LeagueTeam | null> {
+  const teams =
+    competition === "junior" ? await getNationJuniorTeams() : await getNationLeagueTeams();
+  return teams.find((team) => team.id === teamId) ?? null;
+}
+
+export async function getNationTeamFixtures(
+  teamId: string,
+  competition: "league" | "junior" | "games",
+): Promise<FixtureWithTeams[]> {
+  if (competition === "games") {
+    const games = await getNationGames();
+    return [...games.groups.A, ...games.groups.B, ...games.final].filter(
+      (fixture) => fixture.homeId === teamId || fixture.awayId === teamId,
+    );
+  }
+  const fixtures = await (competition === "junior"
+    ? getNationJuniorFixtures()
+    : getNationLeagueFixtures());
+  return fixtures.filter((fixture) => fixture.homeId === teamId || fixture.awayId === teamId);
+}
+
+export type NationRider = {
+  id: string;
+  name: string;
+  age: number;
+  role: string;
+  strength: number;
+  technique: number;
+  fighting: number;
+  reflex: number;
+  condition: number;
+  form: number;
+  club: string;
+};
+
+export async function getNationRiders(
+  teamId: string,
+  competition: "league" | "junior" | "games",
+): Promise<NationRider[]> {
+  return RIDERS.filter((rider) => rider.nation === teamId)
+    .filter((rider) => competition !== "junior" || rider.age <= NATION_JUNIOR_MAX_AGE)
+    .sort((a, b) => b.strength - a.strength)
+    .map((rider) => ({
+      id: rider.id,
+      name: `${rider.firstName} ${rider.lastName}`,
+      age: rider.age,
+      role: rider.age <= 19 ? "Junior U19" : rider.age <= 21 ? "Junior U21" : "Senior",
+      strength: rider.strength,
+      technique: rider.technique,
+      fighting: rider.fighting,
+      reflex: rider.reflex,
+      condition: rider.condition,
+      form: rider.form,
+      club: rider.club,
+    }));
 }
