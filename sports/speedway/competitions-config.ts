@@ -81,11 +81,16 @@ export const COMPETITION_KINDS = [
   {
     id: "cup",
     label: "Cup",
-    lines: [{
-      parameter: "competition",
-      label: "Cup",
-      options: [{ id: "cup", label: "Cup" }, { id: "supercup", label: "SuperCup" }],
-    }],
+    lines: [
+      {
+        parameter: "competition",
+        label: "Cup",
+        options: [
+          { id: "cup", label: "Cup" },
+          { id: "supercup", label: "SuperCup" },
+        ],
+      },
+    ],
     tabs: COMMON_TABS,
     defaultParams: { kind: "cup", competition: "cup", tab: "table" },
     leagueKind: false,
@@ -97,7 +102,11 @@ export const COMPETITION_KINDS = [
       {
         parameter: "competition",
         label: "Competition",
-        options: [{ id: "country", label: "Country" }, { id: "helmet", label: "Helmet" }, { id: "gp", label: "GP" }],
+        options: [
+          { id: "country", label: "Country" },
+          { id: "helmet", label: "Helmet" },
+          { id: "gp", label: "GP" },
+        ],
       },
       {
         parameter: "country",
@@ -110,14 +119,21 @@ export const COMPETITION_KINDS = [
         parameter: "category",
         label: "Helmet",
         dependsOn: "competition",
-        options: [{ id: "brown", label: "Brown" }, { id: "silver", label: "Silver" }, { id: "gold", label: "Gold" }],
+        options: [
+          { id: "brown", label: "Brown" },
+          { id: "silver", label: "Silver" },
+          { id: "gold", label: "Gold" },
+        ],
         onlyWhen: "helmet",
       },
       {
         parameter: "division",
         label: "Division",
         dependsOn: "competition",
-        options: [{ id: "junior", label: "Junior" }, { id: "senior", label: "Senior" }],
+        options: [
+          { id: "junior", label: "Junior" },
+          { id: "senior", label: "Senior" },
+        ],
         onlyWhen: "helmet",
       },
     ],
@@ -128,11 +144,16 @@ export const COMPETITION_KINDS = [
   {
     id: "tournaments",
     label: "Tournaments",
-    lines: [{
-      parameter: "competition",
-      label: "Tournament",
-      options: [{ id: "pairs", label: "Pairs" }, { id: "fours", label: "Fours" }],
-    }],
+    lines: [
+      {
+        parameter: "competition",
+        label: "Tournament",
+        options: [
+          { id: "pairs", label: "Pairs" },
+          { id: "fours", label: "Fours" },
+        ],
+      },
+    ],
     tabs: COMMON_TABS,
     defaultParams: { kind: "tournaments", competition: "pairs", tab: "table" },
     leagueKind: false,
@@ -145,5 +166,10 @@ export function getCompetitionKind(kind: string | undefined): CompetitionKindCon
 }
 
 export function isCompetitionKey(value: string | undefined): value is CompetitionKey {
-  return Boolean(value && (["league", "cup", "supercup", "pairs", "fours", "junior", "helmet", "gp"] as string[]).includes(value));
+  return Boolean(
+    value &&
+    (
+      ["league", "cup", "supercup", "pairs", "fours", "junior", "helmet", "gp"] as string[]
+    ).includes(value),
+  );
 }

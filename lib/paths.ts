@@ -34,7 +34,16 @@ export function competitionsHref(params: CompetitionsHrefParams): string {
   if (params.country) qs.set("country", params.country);
   if (params.category) qs.set("category", params.category);
   if (params.division) qs.set("division", params.division);
-  for (const key of ["tab", "team", "match", "panel", "view", "venue", "schedule", "metrics"] as const) {
+  for (const key of [
+    "tab",
+    "team",
+    "match",
+    "panel",
+    "view",
+    "venue",
+    "schedule",
+    "metrics",
+  ] as const) {
     const value = params[key];
     if (value) qs.set(key, String(value));
   }

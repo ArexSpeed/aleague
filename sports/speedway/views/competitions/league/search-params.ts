@@ -82,7 +82,11 @@ export type LeagueParams = FilterState & {
 
 export function parseLeagueParams(raw: RawSearchParams, base: string, sport: string): LeagueParams {
   const filters = parseFilters(FILTERS, raw);
-  const kind = pickOne(COMPETITION_KINDS, firstParam(raw.kind)?.toLowerCase() as CompetitionKind | undefined, "league");
+  const kind = pickOne(
+    COMPETITION_KINDS,
+    firstParam(raw.kind)?.toLowerCase() as CompetitionKind | undefined,
+    "league",
+  );
   const rawGroup = firstParam(raw.group);
   const groupExists = SUB_FILTERS[kind].some((filter) => filter.id === rawGroup);
   const rawMatchday = firstParam(raw.matchday);
