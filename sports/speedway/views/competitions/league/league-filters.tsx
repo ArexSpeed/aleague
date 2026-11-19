@@ -29,12 +29,14 @@ export function LeagueFilters({ params }: { params: LeagueParams }) {
 
       <div className="min-w-0 py-0.5">
         <SegmentedControl
-          label="Group"
+          label={params.kind === "nation" ? "Competition" : "Group"}
           variant="brand"
           options={SUB_FILTERS[params.kind].map((filter) => ({
             key: filter.id,
-            active: params.group === filter.id,
-            href: buildLeagueHref(params, { group: filter.id }),
+            active: params.kind === "nation" ? params.competition === filter.id : params.group === filter.id,
+            href: params.kind === "nation"
+              ? buildLeagueHref(params, { competition: filter.id as LeagueParams["competition"] })
+              : buildLeagueHref(params, { group: filter.id }),
             label: (
               <>
                 {filter.dot ? (

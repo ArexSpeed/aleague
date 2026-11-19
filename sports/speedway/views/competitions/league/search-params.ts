@@ -13,13 +13,15 @@ import {
  * division / region is stored as `group`. Refresh and browser back remain URL-safe.
  */
 
-export const LEAGUE_TAB_IDS = ["table", "fixtures", "stats", "history"] as const;
+export const LEAGUE_TAB_IDS = ["table", "fixtures", "stats", "history", "groups", "final"] as const;
 
 export const LEAGUE_TABS: readonly { id: (typeof LEAGUE_TAB_IDS)[number]; label: string }[] = [
   { id: "table", label: "Table" },
   { id: "fixtures", label: "Fixtures" },
   { id: "stats", label: "Stats" },
   { id: "history", label: "History" },
+  { id: "groups", label: "Groups" },
+  { id: "final", label: "Final" },
 ];
 
 export const COMPETITION_KINDS = ["league", "nation"] as const;
@@ -70,6 +72,7 @@ export function defaultGroup(kind: CompetitionKind): string {
 
 export type LeagueParams = FilterState & {
   kind: CompetitionKind;
+  competition?: "league" | "junior" | "games" | "4teams" | "pairs";
   tab: LeagueTab;
   group: string;
   team?: string;
@@ -91,11 +94,22 @@ export function parseLeagueParams(raw: RawSearchParams, base: string, sport: str
   const groupExists = SUB_FILTERS[kind].some((filter) => filter.id === rawGroup);
   const rawMatchday = firstParam(raw.matchday);
   const matchday = rawMatchday ? Number.parseInt(rawMatchday, 10) : undefined;
+  const competition =
+    kind === "nation"
+      ? pickOne(
+          ["league", "junior", "games", "4teams", "pairs"] as const,
+          firstParam(raw.competition),
+          "league",
+        )
+      : undefined;
+
+  const defaultTab = kind === "nation" && competition === "games" ? "groups" : "table";
 
   return {
     ...filters,
     kind,
-    tab: pickOne(LEAGUE_TAB_IDS, firstParam(raw.tab), "table"),
+    competition,
+    tab: pickOne(LEAGUE_TAB_IDS, firstParam(raw.tab), defaultTab),
     panel: pickOne(PANEL_TABS, firstParam(raw.panel), "stats"),
     group: groupExists && rawGroup ? rawGroup : defaultGroup(kind),
     team: firstParam(raw.team),
@@ -115,9 +129,10 @@ export function buildLeagueHref(params: LeagueParams, patch: LeaguePatch = {}): 
   }
   const qs = new URLSearchParams();
   qs.set("kind", next.kind);
+  if (next.kind === "nation" && next.competition) qs.set("competition", next.competition);
   if (next.tab !== "table") qs.set("tab", next.tab);
   for (const [key, value] of filterEntries(FILTERS, next, next.tab)) qs.set(key, value);
-  if (next.group !== defaultGroup(next.kind)) qs.set("group", next.group);
+  if (next.kind !== "nation" && next.group !== defaultGroup(next.kind)) qs.set("group", next.group);
   if (next.panel !== "stats") qs.set("panel", next.panel);
   if (next.team) qs.set("team", next.team);
   if (next.match) qs.set("match", next.match);

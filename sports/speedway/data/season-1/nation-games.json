@@ -1,0 +1,162 @@
+[
+  {
+    "id": "nation-games-group-01-1",
+    "competitionId": "nation-games",
+    "stage": "regular",
+    "group": "A",
+    "matchday": 1,
+    "week": 1,
+    "homeId": "ARK",
+    "awayId": "COS"
+  },
+  {
+    "id": "nation-games-group-01-2",
+    "competitionId": "nation-games",
+    "stage": "regular",
+    "group": "A",
+    "matchday": 1,
+    "week": 1,
+    "homeId": "GOT",
+    "awayId": "ROT"
+  },
+  {
+    "id": "nation-games-group-01-3",
+    "competitionId": "nation-games",
+    "stage": "regular",
+    "group": "B",
+    "matchday": 1,
+    "week": 1,
+    "homeId": "ARV",
+    "awayId": "MON"
+  },
+  {
+    "id": "nation-games-group-01-4",
+    "competitionId": "nation-games",
+    "stage": "regular",
+    "group": "B",
+    "matchday": 1,
+    "week": 1,
+    "homeId": "CEL",
+    "awayId": "RIV"
+  },
+  {
+    "id": "nation-games-group-02-1",
+    "competitionId": "nation-games",
+    "stage": "regular",
+    "group": "A",
+    "matchday": 2,
+    "week": 2,
+    "homeId": "COS",
+    "awayId": "GOT"
+  },
+  {
+    "id": "nation-games-group-02-2",
+    "competitionId": "nation-games",
+    "stage": "regular",
+    "group": "A",
+    "matchday": 2,
+    "week": 2,
+    "homeId": "ROT",
+    "awayId": "ARK"
+  },
+  {
+    "id": "nation-games-group-02-3",
+    "competitionId": "nation-games",
+    "stage": "regular",
+    "group": "B",
+    "matchday": 2,
+    "week": 2,
+    "homeId": "MON",
+    "awayId": "CEL"
+  },
+  {
+    "id": "nation-games-group-02-4",
+    "competitionId": "nation-games",
+    "stage": "regular",
+    "group": "B",
+    "matchday": 2,
+    "week": 2,
+    "homeId": "RIV",
+    "awayId": "ARV"
+  },
+  {
+    "id": "nation-games-group-03-1",
+    "competitionId": "nation-games",
+    "stage": "regular",
+    "group": "A",
+    "matchday": 3,
+    "week": 3,
+    "homeId": "ARK",
+    "awayId": "GOT"
+  },
+  {
+    "id": "nation-games-group-03-2",
+    "competitionId": "nation-games",
+    "stage": "regular",
+    "group": "A",
+    "matchday": 3,
+    "week": 3,
+    "homeId": "COS",
+    "awayId": "ROT"
+  },
+  {
+    "id": "nation-games-group-03-3",
+    "competitionId": "nation-games",
+    "stage": "regular",
+    "group": "B",
+    "matchday": 3,
+    "week": 3,
+    "homeId": "ARV",
+    "awayId": "CEL"
+  },
+  {
+    "id": "nation-games-group-03-4",
+    "competitionId": "nation-games",
+    "stage": "regular",
+    "group": "B",
+    "matchday": 3,
+    "week": 3,
+    "homeId": "MON",
+    "awayId": "RIV"
+  },
+  {
+    "id": "nation-games-semi-1",
+    "competitionId": "nation-games",
+    "stage": "semi",
+    "group": "A-v-B",
+    "matchday": 4,
+    "week": 4,
+    "homeId": "ARK",
+    "awayId": "RIV"
+  },
+  {
+    "id": "nation-games-semi-2",
+    "competitionId": "nation-games",
+    "stage": "semi",
+    "group": "B-v-A",
+    "matchday": 4,
+    "week": 4,
+    "homeId": "ARV",
+    "awayId": "COS"
+  },
+  {
+    "id": "nation-games-third",
+    "competitionId": "nation-games",
+    "stage": "third",
+    "group": "third-place",
+    "matchday": 5,
+    "week": 5,
+    "homeId": "COS",
+    "awayId": "RIV"
+  },
+  {
+    "id": "nation-games-final",
+    "competitionId": "nation-games",
+    "stage": "final",
+    "group": "final",
+    "matchday": 5,
+    "week": 5,
+    "homeId": "ARK",
+    "awayId": "ARV"
+  }
+]

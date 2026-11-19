@@ -13,6 +13,10 @@ export type LeagueAside = {
 };
 
 export async function getLeagueAside(params: LeagueParams): Promise<LeagueAside> {
+  if (params.kind === "nation") {
+    return { detail: null, open: false, closeHref: buildLeagueHref(params, { team: undefined }) };
+  }
+
   const selected = params.team ? await getLeagueTeam(params.team) : null;
   const team = selected ?? (await getLeagueTeams()).sort((a, b) => a.pos - b.pos)[0] ?? null;
 

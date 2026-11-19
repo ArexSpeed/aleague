@@ -118,7 +118,18 @@ export const fixtureSchema = z.object({
   awayId: z.string(),
 });
 
+export const nationSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  code: z.string().length(3),
+  color: z.string(),
+  stadiumName: z.string().nullable().optional(),
+  trackLength: z.number().nullable().optional(),
+  surface: z.string().nullable().optional(),
+});
+
 export type Region = z.infer<typeof regionSchema>;
 export type Club = z.infer<typeof clubSchema>;
 export type Rider = z.infer<typeof riderSchema>;
 export type Fixture = z.infer<typeof fixtureSchema>;
+export type Nation = z.infer<typeof nationSchema>;
