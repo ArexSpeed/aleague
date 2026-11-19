@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
-import { sportPath } from "@/lib/paths";
+import { competitionsHref } from "@/lib/paths";
 import type { SportId } from "@/sports/types";
 
 /**
@@ -11,7 +11,7 @@ import type { SportId } from "@/sports/types";
 export function BackLink({ sport, matchday }: { sport: SportId; matchday: number }) {
   return (
     <Link
-      href={`${sportPath(sport, "competitions/league")}?tab=fixtures&matchday=${matchday}`}
+      href={competitionsHref({ sport, kind: "league", tab: "fixtures", matchday })}
       className="flex shrink-0 items-center gap-1.5 rounded-xl border border-line bg-surface px-3 py-1.5 text-sm font-bold text-fg shadow-xs transition-colors hover:bg-surface-hover"
     >
       <ArrowLeft className="size-4" aria-hidden />

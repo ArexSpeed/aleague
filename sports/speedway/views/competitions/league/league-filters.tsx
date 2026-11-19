@@ -2,24 +2,27 @@ import { cn } from "@/lib/utils";
 import { SegmentedControl } from "@/components/toggle/segmented-control";
 import {
   buildLeagueHref,
-  ROUND_TYPES,
   SUB_FILTERS,
   type LeagueParams,
 } from "@/sports/speedway/views/competitions/league/search-params";
+import { competitionsHref } from "@/lib/paths";
+import { COMPETITION_KINDS as COMPETITION_KIND_CONFIG } from "@/sports/speedway/competitions-config";
 
-/** Shared by every tab: Round (League / Regio / Nation) and its sub-filter pills. */
+/** Shared by every league/regio/nation tab: kind and kind-dependent group. */
 export function LeagueFilters({ params }: { params: LeagueParams }) {
   return (
     <div className="mt-1 mb-0.5 flex shrink-0 flex-col gap-1">
       <div className="py-0.5">
         <SegmentedControl
-          label="Type of competition"
+          label="Competition kind"
           variant="brand"
-          options={ROUND_TYPES.map((round) => ({
-            key: round,
-            label: round,
-            active: params.round === round,
-            href: buildLeagueHref(params, { round, group: "all" }),
+          options={COMPETITION_KIND_CONFIG.map((kind) => ({
+            key: kind.id,
+            label: kind.label,
+            active: params.kind === kind.id,
+            href: kind.leagueKind
+              ? buildLeagueHref(params, { kind: kind.id, group: "all" })
+              : competitionsHref({ sport: params.sport, kind: kind.id }),
           }))}
         />
       </div>
@@ -28,7 +31,7 @@ export function LeagueFilters({ params }: { params: LeagueParams }) {
         <SegmentedControl
           label="Group"
           variant="brand"
-          options={SUB_FILTERS[params.round].map((filter) => ({
+          options={SUB_FILTERS[params.kind].map((filter) => ({
             key: filter.id,
             active: params.group === filter.id,
             href: buildLeagueHref(params, { group: filter.id }),

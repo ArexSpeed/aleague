@@ -1,29 +1,18 @@
-import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
-import { PagePlaceholder } from "@/components/layout/page-placeholder";
 import { sportPath } from "@/lib/paths";
-import { requireSport, SPORT_IDS } from "@/sports/registry";
+import { requireSport } from "@/sports/registry";
+import { getCompetitionKind, type CompetitionKind } from "@/sports/speedway/competitions-config";
+import { CompetitionSkeleton } from "@/sports/speedway/views/competitions/competition-skeleton";
+import { LeaguePage } from "@/sports/speedway/views/competitions/league/league-page";
 import type { RawSearchParams } from "@/sports/types";
 
-type CompetitionPageProps = {
-  params: Promise<{ sport: string; type: string }>;
+type Props = {
+  params: Promise<{ sport: string }>;
   searchParams: Promise<RawSearchParams>;
 };
 
-/** Every sport x competition type is known at build time. */
-export function generateStaticParams() {
-  return SPORT_IDS.flatMap((sport) =>
-    requireSport(sport).config.competitions.map((c) => ({ sport, type: c.type })),
-  );
-}
-
-/**
- * One route for every sport and competition type:
- *   /speedway/competitions/league, /skijump/competitions/individual, ...
- * params are runtime data, so they are read inside Suspense (the static shell renders the fallback).
- */
-export default function CompetitionPage(props: CompetitionPageProps) {
+export default function CompetitionPage(props: Props) {
   return (
     <Suspense fallback={<div className="p-4 text-sm font-semibold opacity-60">Ładowanie…</div>}>
       <CompetitionContent {...props} />
@@ -31,23 +20,17 @@ export default function CompetitionPage(props: CompetitionPageProps) {
   );
 }
 
-async function CompetitionContent({ params, searchParams }: CompetitionPageProps) {
-  const { sport, type } = await params;
-  const { config, competitionViews } = requireSport(sport);
+async function CompetitionContent({ params, searchParams }: Props) {
+  const { sport } = await params;
+  const { config } = requireSport(sport);
+  const raw = await searchParams;
+  const kindValue = typeof raw.kind === "string" ? raw.kind : undefined;
+  const kind = getCompetitionKind(kindValue).id as CompetitionKind;
+  const basePath = sportPath(config.id, "competitions");
 
-  const competition = config.competitions.find((c) => c.type === type);
-  if (!competition) notFound();
-
-  const View = competitionViews[competition.type];
-  if (!View) {
-    return <PagePlaceholder title={competition.label} hint="Ten widok jest jeszcze w przygotowaniu" />;
+  if (kind === "league" || kind === "nation") {
+    return <LeaguePage sport={config.id} basePath={basePath} searchParams={Promise.resolve(raw)} />;
   }
 
-  return (
-    <View
-      sport={config.id}
-      basePath={sportPath(config.id, `competitions/${competition.type}`)}
-      searchParams={searchParams}
-    />
-  );
+  return <CompetitionSkeleton sport={config.id} kind={kind} searchParams={Promise.resolve(raw)} />;
 }
