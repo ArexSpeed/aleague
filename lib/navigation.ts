@@ -23,7 +23,7 @@ export const NAV_ITEMS: NavItem[] = [
     id: "competitions",
     label: "Competitions",
     icon: Trophy,
-    path: "competitions/league",
+    path: "competitions",
     section: "competitions",
   },
   { id: "teams", label: "Teams", icon: Shield, path: "teams" },

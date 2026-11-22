@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { useEffect, useRef } from "react";
 import type { ReactNode } from "react";
 
 import { cn } from "@/lib/utils";
@@ -38,8 +41,16 @@ const styles = {
 /** A row of <Link>s styled as a segmented control. State is the URL, so no client JS. */
 export function SegmentedControl({ options, variant, label }: SegmentedControlProps) {
   const s = styles[variant];
+  const rootRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const active = rootRef.current?.querySelector<HTMLElement>("[aria-current='true']");
+    active?.scrollIntoView({ inline: "nearest", block: "nearest" });
+  }, [options]);
+
   return (
     <div
+      ref={rootRef}
       role="group"
       aria-label={label}
       className={cn(

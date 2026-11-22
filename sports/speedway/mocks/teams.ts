@@ -32,7 +32,13 @@ export const TEAM_ENTRIES: TeamEntry[] = [
     description: "A technical, patient side that wins on tactics and heat management at home.",
     winRate: 70,
     stats: { heatWins33: 64.5, avgMatch: 48.2, cleanHeats: 18, falls: 7 },
-    trophies: { league: m(3, 1, 2), cup: m(1, 2, 0), supercup: m(2, 0, 1), pairs: m(0, 1, 1), fours: m(1, 0, 0) },
+    trophies: {
+      league: m(3, 1, 2),
+      cup: m(1, 2, 0),
+      supercup: m(2, 0, 1),
+      pairs: m(0, 1, 1),
+      fours: m(1, 0, 0),
+    },
     history: [
       { year: 2025, title: "Super League", result: "Runner-up" },
       { year: 2024, title: "Super League", result: "Champion" },
@@ -65,7 +71,13 @@ export const TEAM_ENTRIES: TeamEntry[] = [
       "The dominant side of the league: fast starts and iron consistency. Led by a 4-time world champion.",
     winRate: 75,
     stats: { heatWins33: 71.2, avgMatch: 52.4, cleanHeats: 26, falls: 4 },
-    trophies: { league: m(6, 2, 1), cup: m(3, 1, 1), supercup: m(4, 1, 0), pairs: m(2, 2, 1), fours: m(1, 1, 2) },
+    trophies: {
+      league: m(6, 2, 1),
+      cup: m(3, 1, 1),
+      supercup: m(4, 1, 0),
+      pairs: m(2, 2, 1),
+      fours: m(1, 1, 2),
+    },
     history: [
       { year: 2025, title: "Super League", result: "Champion" },
       { year: 2024, title: "Super League", result: "Champion" },
@@ -98,7 +110,13 @@ export const TEAM_ENTRIES: TeamEntry[] = [
     description: "Attacking racing and a strong junior academy; always dangerous in the playoffs.",
     winRate: 88,
     stats: { heatWins33: 76.8, avgMatch: 55.1, cleanHeats: 31, falls: 5 },
-    trophies: { league: m(4, 3, 0), cup: m(2, 0, 2), supercup: m(1, 1, 1), pairs: m(1, 0, 2), fours: m(0, 2, 1) },
+    trophies: {
+      league: m(4, 3, 0),
+      cup: m(2, 0, 2),
+      supercup: m(1, 1, 1),
+      pairs: m(1, 0, 2),
+      fours: m(0, 2, 1),
+    },
     history: [
       { year: 2025, title: "Super League", result: "Third" },
       { year: 2024, title: "Super League", result: "Runner-up" },
@@ -109,7 +127,7 @@ export const TEAM_ENTRIES: TeamEntry[] = [
     id: "arkadia",
     kind: "nation",
     name: "ARKADIA",
-    subName: "NATIONAL TEAM",
+    subName: "",
     short: "ARK",
     fullName: "Arkadia",
     color: "#2563eb",
@@ -129,7 +147,13 @@ export const TEAM_ENTRIES: TeamEntry[] = [
     description: "The most successful national side, strong in every discipline.",
     winRate: 81,
     stats: { heatWins33: 69.4, avgMatch: 50.8, cleanHeats: 22, falls: 3 },
-    trophies: { league: m(0, 0, 0), cup: m(5, 2, 1), supercup: m(0, 0, 0), pairs: m(4, 1, 2), fours: m(3, 2, 0) },
+    trophies: {
+      league: m(0, 0, 0),
+      cup: m(5, 2, 1),
+      supercup: m(0, 0, 0),
+      pairs: m(4, 1, 2),
+      fours: m(3, 2, 0),
+    },
     history: [{ year: 2025, title: "Nations Cup", result: "Winner" }],
   },
   {
@@ -156,7 +180,13 @@ export const TEAM_ENTRIES: TeamEntry[] = [
     description: "A rising team built around a young generation.",
     winRate: 58,
     stats: { heatWins33: 55.0, avgMatch: 44.0, cleanHeats: 9, falls: 8 },
-    trophies: { league: m(0, 0, 0), cup: m(0, 1, 2), supercup: m(0, 0, 0), pairs: m(1, 0, 0), fours: m(0, 1, 1) },
+    trophies: {
+      league: m(0, 0, 0),
+      cup: m(0, 1, 2),
+      supercup: m(0, 0, 0),
+      pairs: m(1, 0, 0),
+      fours: m(0, 1, 1),
+    },
     history: [{ year: 2024, title: "Nations Cup", result: "Third" }],
   },
 ];

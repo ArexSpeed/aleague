@@ -11,6 +11,7 @@ import {
 import { FixturesTab } from "./tabs/fixtures/fixtures-tab";
 import { StandingsTab } from "./tabs/table/standings-tab";
 import { StatsTab } from "./tabs/stats/stats-tab";
+import { NationGamesView } from "../nations/nation-games-view";
 
 function ComingSoon({ label }: { label: string }) {
   return (
@@ -22,27 +23,54 @@ function ComingSoon({ label }: { label: string }) {
 
 /** What each master tab renders. A new tab = one entry here + one id in LEAGUE_TABS. */
 const TAB_CONTENT: Record<LeagueTab, (params: LeagueParams) => ReactNode> = {
-  table: (params) => <StandingsTab params={params} />,
-  fixtures: (params) => <FixturesTab params={params} />,
-  stats: (params) => <StatsTab params={params} />,
+  table: (params) =>
+    params.kind === "nation" && !["league", "junior"].includes(params.competition ?? "") ? (
+      <ComingSoon label="Table" />
+    ) : (
+      <StandingsTab params={params} />
+    ),
+  fixtures: (params) =>
+    params.kind === "nation" && !["league", "junior"].includes(params.competition ?? "") ? (
+      <ComingSoon label="Fixtures" />
+    ) : (
+      <FixturesTab params={params} />
+    ),
+  stats: (params) =>
+    params.kind === "nation" && !["league", "junior"].includes(params.competition ?? "") ? (
+      <ComingSoon label="Stats" />
+    ) : (
+      <StatsTab params={params} />
+    ),
   history: () => <ComingSoon label="History" />,
+  groups: (params) => <NationGamesView activeTab="groups" params={params} />,
+  final: (params) => <NationGamesView activeTab="final" params={params} />,
 };
 
 /** Master part of the league page: tabs, shared filters, and the active tab's content. */
 export function LeagueView({ params }: { params: LeagueParams }) {
+  const isGames = params.kind === "nation" && params.competition === "games";
+  const tabs = isGames
+    ? [
+        { id: "groups", label: "Groups", href: buildLeagueHref(params, { tab: "groups", team: undefined }) },
+        { id: "final", label: "Final", href: buildLeagueHref(params, { tab: "final", team: undefined }) },
+      ]
+    : LEAGUE_TABS
+        .filter((tab) => !["groups", "final"].includes(tab.id))
+        .map((tab) => ({
+          ...tab,
+          href: buildLeagueHref(params, { tab: tab.id, team: undefined }),
+        }));
+
   return (
     <>
-      <TabNav
-        label="League sections"
-        active={params.tab}
-        tabs={LEAGUE_TABS.map((tab) => ({
-        ...tab,
-        href: buildLeagueHref(params, { tab: tab.id, team: undefined }),
-        }))}
-      />
+      <TabNav label="Competition sections" active={params.tab} tabs={tabs} />
       <ScrollArea key={params.tab}>
         <LeagueFilters params={params} />
-        {TAB_CONTENT[params.tab](params)}
+        {isGames ? (
+          <NationGamesView activeTab={params.tab} params={params} />
+        ) : (
+          TAB_CONTENT[params.tab](params)
+        )}
       </ScrollArea>
     </>
   );

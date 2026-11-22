@@ -1,7 +1,5 @@
 import { z } from "zod";
 
-import type { LeagueTeam } from "./league";
-
 export const fixtureSchema = z.object({
   id: z.string(),
   /** east-gold, west-silver, ... */
@@ -21,5 +19,19 @@ export const fixtureSchema = z.object({
 
 export type Fixture = z.infer<typeof fixtureSchema>;
 
-export type TeamRef = Pick<LeagueTeam, "id" | "name" | "subName" | "short" | "color" | "badgeIcon">;
-export type FixtureWithTeams = Fixture & { home: TeamRef; away: TeamRef };
+export const teamRefSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  subName: z.string().optional(),
+  short: z.string(),
+  color: z.string(),
+  badgeIcon: z.string().optional(),
+});
+
+export const fixtureWithTeamsSchema = fixtureSchema.extend({
+  home: teamRefSchema,
+  away: teamRefSchema,
+});
+
+export type TeamRef = z.infer<typeof teamRefSchema>;
+export type FixtureWithTeams = z.infer<typeof fixtureWithTeamsSchema>;

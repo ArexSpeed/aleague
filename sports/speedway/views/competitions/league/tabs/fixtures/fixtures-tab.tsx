@@ -2,6 +2,7 @@ import { connection } from "next/server";
 import { FixtureList } from "@/components/fixtures/fixture-list";
 import { todayIso } from "@/lib/format";
 import { getFixtures } from "@/sports/speedway/api/fixtures";
+import { getNationJuniorFixtures, getNationLeagueFixtures } from "@/sports/speedway/api/nations";
 import type { FixtureWithTeams } from "@/sports/speedway/types/fixtures";
 import { isPlayed, toGroups } from "../../fixture-cards";
 import type { LeagueParams } from "../../search-params";
@@ -19,7 +20,13 @@ function applyFilter(fixtures: FixtureWithTeams[], filter: FixtureFilter): Fixtu
 
 /** Fixtures tab: toolbar, then rounds with match cards. `filter` comes from your All / Upcoming / Recent toggle. */
 export async function FixturesTab({ params }: { params: LeagueParams }) {
-  const fixtures = await getFixtures(params.group);
+  const isNationCompetition = params.kind === "nation" && ["league", "junior"].includes(params.competition ?? "");
+  const fixtures =
+    params.kind === "nation" && params.competition === "league"
+      ? await getNationLeagueFixtures()
+      : params.kind === "nation" && params.competition === "junior"
+        ? await getNationJuniorFixtures()
+        : await getFixtures(params.group);
   await connection();
   const today = todayIso();
   const groups = toGroups(applyFilter(fixtures, params.schedule), params, today);
@@ -32,7 +39,7 @@ export async function FixturesTab({ params }: { params: LeagueParams }) {
     <div className="mt-1 min-w-0">
       {/* Here stays your toolbar with the All / Upcoming / Recent toggle. */}
       <FixturesToolbar params={params} />
-      <RoundSimBar group={params.group} matchday={nextRound} />
+      {!isNationCompetition ? <RoundSimBar group={params.group} matchday={nextRound} /> : null}
       <FixtureList groups={groups} empty="Brak meczów" />
     </div>
   );
