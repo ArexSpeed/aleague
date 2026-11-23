@@ -5,7 +5,9 @@ import fixturesJson from "./season-1/fixtures.json";
 import nationsJson from "./season-1/nations.json";
 import ridersJson from "./season-1/riders.json";
 import nationGamesJson from "./season-1/nation-games.json";
+import tournamentsJson from "./season-1/tournaments.json";
 import { clubSchema, fixtureSchema, nationSchema, riderSchema, type Club } from "./schema";
+import { tournamentDefSchema, type TournamentDef } from "../types/tournaments";
 
 /**
  * Season 1 data, read and validated once. The only place that knows the data comes from
@@ -16,6 +18,11 @@ export const NATIONS = z.array(nationSchema).parse(nationsJson);
 export const RIDERS = z.array(riderSchema).parse(ridersJson);
 export const SEASON_FIXTURES = z.array(fixtureSchema).parse(fixturesJson);
 export const NATION_GAMES_FIXTURES = z.array(fixtureSchema).parse(nationGamesJson);
+export const TOURNAMENTS = z.array(tournamentDefSchema).parse(tournamentsJson);
+
+export const TOURNAMENT_BY_ID = new Map<string, TournamentDef>(
+  TOURNAMENTS.map((t) => [t.id, t]),
+);
 
 /** Club by id or by 3-letter short code (riders.json references clubs by short code). */
 export const CLUB_BY_REF = new Map<string, Club>(

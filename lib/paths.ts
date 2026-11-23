@@ -16,6 +16,7 @@ export type CompetitionsHrefParams = {
   category?: string;
   division?: string;
   tab?: string;
+  round?: string;
   team?: string;
   match?: string;
   matchday?: number;
@@ -24,6 +25,7 @@ export type CompetitionsHrefParams = {
   venue?: string;
   schedule?: string;
   metrics?: string;
+  preview?: string;
 };
 
 export function competitionsHref(params: CompetitionsHrefParams): string {
@@ -36,6 +38,7 @@ export function competitionsHref(params: CompetitionsHrefParams): string {
   if (params.division) qs.set("division", params.division);
   for (const key of [
     "tab",
+    "round",
     "team",
     "match",
     "panel",
@@ -43,6 +46,7 @@ export function competitionsHref(params: CompetitionsHrefParams): string {
     "venue",
     "schedule",
     "metrics",
+    "preview",
   ] as const) {
     const value = params[key];
     if (value) qs.set(key, String(value));

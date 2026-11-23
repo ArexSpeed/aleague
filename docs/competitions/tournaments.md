@@ -82,8 +82,8 @@ Opis zasad rozgrywek i status implementacji. Konwencje wspólne (identyfikatory,
 | Rozgrywki | Terminarz i widoki | Tabela biegowa | Symulacja |
 | --------- | ------------------ | -------------- | --------- |
 | Regio     | do zrobienia       | osobne zadanie | nie       |
-| Pairs     | nieopisane         | nieopisane     | nie       |
-| Fours     | nieopisane         | nieopisane     | nie       |
+| Pairs     | zrobione (Rounds)  | osobne zadanie | nie       |
+| Fours     | zrobione (Rounds)  | osobne zadanie | nie       |
 
 ## Szablon opisu rozgrywek (do kolejnych)
 
