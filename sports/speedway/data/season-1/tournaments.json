@@ -1,0 +1,99 @@
+[
+  {
+    "id": "tournaments-fours",
+    "competition": "tournaments-fours",
+    "name": "Fours",
+    "formatType": "multi-team-group-rounds",
+    "groupingMethod": "seeded-pots",
+    "rankingSource": "league-rank",
+    "matchOrderCriterion": "points",
+    "lineup": null,
+    "seeds": {
+      "r1": "fours-2026-r1",
+      "r2": "fours-2026-r2",
+      "sf": "fours-2026-sf",
+      "final": "fours-2026-final"
+    },
+    "rounds": [
+      {
+        "id": "r1",
+        "label": "Round 1",
+        "groupCount": 12,
+        "groupSize": 4,
+        "advancePerGroup": 2,
+        "wildcard": {
+          "groupRank": 3,
+          "count": 8,
+          "criterion": "points"
+        }
+      },
+      {
+        "id": "r2",
+        "label": "Round 2",
+        "groupCount": 8,
+        "groupSize": 4,
+        "advancePerGroup": 2
+      },
+      {
+        "id": "sf",
+        "label": "Semifinals",
+        "groupCount": 4,
+        "groupSize": 4,
+        "advancePerGroup": 1
+      },
+      {
+        "id": "final",
+        "label": "Final",
+        "groupCount": 1,
+        "groupSize": 4,
+        "advancePerGroup": 0
+      }
+    ]
+  },
+  {
+    "id": "tournaments-pairs",
+    "competition": "tournaments-pairs",
+    "name": "Pairs",
+    "formatType": "multi-team-group-rounds",
+    "groupingMethod": "seeded-pots",
+    "rankingSource": "league-rank",
+    "matchOrderCriterion": "points",
+    "lineup": null,
+    "seeds": {
+      "r1": "pairs-2026-r1",
+      "r2": "pairs-2026-r2",
+      "sf": "pairs-2026-sf",
+      "final": "pairs-2026-final"
+    },
+    "rounds": [
+      {
+        "id": "r1",
+        "label": "Round 1",
+        "groupCount": 8,
+        "groupSize": 6,
+        "advancePerGroup": 3
+      },
+      {
+        "id": "r2",
+        "label": "Round 2",
+        "groupCount": 4,
+        "groupSize": 6,
+        "advancePerGroup": 3
+      },
+      {
+        "id": "sf",
+        "label": "Semifinals",
+        "groupCount": 2,
+        "groupSize": 6,
+        "advancePerGroup": 3
+      },
+      {
+        "id": "final",
+        "label": "Final",
+        "groupCount": 1,
+        "groupSize": 6,
+        "advancePerGroup": 0
+      }
+    ]
+  }
+]

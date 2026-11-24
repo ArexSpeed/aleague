@@ -151,11 +151,12 @@ export const COMPETITION_KINDS = [
         options: [
           { id: "pairs", label: "Pairs" },
           { id: "fours", label: "Fours" },
+          { id: "regio", label: "Regio" },
         ],
       },
     ],
-    tabs: COMMON_TABS,
-    defaultParams: { kind: "tournaments", competition: "pairs", tab: "table" },
+    tabs: [{ id: "rounds", label: "Rounds" }],
+    defaultParams: { kind: "tournaments", competition: "pairs", tab: "rounds" },
     leagueKind: false,
   },
 ] as const satisfies readonly CompetitionKindConfig[];
@@ -169,7 +170,7 @@ export function isCompetitionKey(value: string | undefined): value is Competitio
   return Boolean(
     value &&
     (
-      ["league", "cup", "supercup", "pairs", "fours", "junior", "helmet", "gp"] as string[]
+      ["league", "cup", "supercup", "pairs", "fours", "regio", "junior", "helmet", "gp"] as string[]
     ).includes(value),
   );
 }

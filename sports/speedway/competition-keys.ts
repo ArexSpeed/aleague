@@ -4,6 +4,7 @@ export const COMPETITION_KEYS = [
   "supercup",
   "pairs",
   "fours",
+  "regio",
   "junior",
   "helmet",
   "gp",

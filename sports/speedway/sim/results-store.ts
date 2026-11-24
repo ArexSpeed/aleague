@@ -135,19 +135,29 @@ export async function clearMatches() {
 export async function readMatches(): Promise<Record<string, StoredMatch>> {
   await connection();
   const matches: Record<string, StoredMatch> = {};
-  const db = supabase();
-  if (!db) return matches;
+  try {
+    const url = process.env.SUPABASE_URL;
+    const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+    if (!url || !key) return matches;
 
-  for (let from = 0; ; from += PAGE) {
-    const { data, error } = await db
-      .from(TABLE)
-      .select("fixture_id, data")
-      .not("data", "is", null)
-      .order("fixture_id")
-      .range(from, from + PAGE - 1);
-    if (error) fail(error);
-    for (const row of data ?? []) matches[row.fixture_id as string] = row.data as StoredMatch;
-    if ((data?.length ?? 0) < PAGE) break;
+    const db = supabase();
+    if (!db) return matches;
+
+    for (let from = 0; ; from += PAGE) {
+      const { data, error } = await db
+        .from(TABLE)
+        .select("fixture_id, data")
+        .not("data", "is", null)
+        .order("fixture_id")
+        .range(from, from + PAGE - 1);
+      if (error) {
+        return matches;
+      }
+      for (const row of data ?? []) matches[row.fixture_id as string] = row.data as StoredMatch;
+      if ((data?.length ?? 0) < PAGE) break;
+    }
+  } catch {
+    return matches;
   }
   return matches;
 }
