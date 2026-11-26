@@ -81,7 +81,7 @@ export async function getLeagueTeam(id: string): Promise<LeagueTeam | null> {
   return teams.find((team) => team.id === club.id) ?? null;
 }
 
-function mapRawRiderToLeagueRider(raw: RawRider, stats?: RiderStats): LeagueRider {
+export function mapRawRiderToLeagueRider(raw: RawRider, stats?: RiderStats): LeagueRider {
   // season.ts guarantees the club exists.
   const club = CLUB_BY_REF.get(raw.clubId)!;
   const total = stats ?? { ...emptyTelemetry(), home: emptyTelemetry(), away: emptyTelemetry() };
@@ -102,7 +102,7 @@ function mapRawRiderToLeagueRider(raw: RawRider, stats?: RiderStats): LeagueRide
   };
 }
 
-function skillsOf(raw: RawRider): RiderSkills {
+export function skillsOf(raw: RawRider): RiderSkills {
   return {
     strength: raw.strength,
     technique: raw.technique,

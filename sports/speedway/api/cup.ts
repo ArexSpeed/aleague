@@ -1,5 +1,8 @@
+import { z } from "zod";
+
 import { sportPath } from "@/lib/paths";
-import { CLUB_BY_REF, CLUBS, CUP_DEFINITION, CUP_PLAN } from "@/sports/speedway/data/season";
+import { mapRawRiderToLeagueRider, skillsOf } from "@/sports/speedway/api/league";
+import { CLUB_BY_REF, CLUBS, CUP_DEFINITION, CUP_PLAN, RIDERS } from "@/sports/speedway/data/season";
 import { matchScore } from "@/sports/speedway/engine/v1";
 import { cupFixtureId, parseCupFixtureId } from "@/sports/speedway/sim/cup/fixtures";
 import type { CupGroupPlan } from "@/sports/speedway/sim/cup/plan";
@@ -7,9 +10,10 @@ import type { CupPair } from "@/sports/speedway/sim/cup/resolve";
 import { getCupRuntime } from "@/sports/speedway/sim/cup/resolve-fixture";
 import { clubRanges } from "@/sports/speedway/sim/cup/table-state";
 import { rankCupTable, type CupTableRow } from "@/sports/speedway/sim/cup/table";
-import { computeTeamStats, emptyTeamStats, isFinished } from "@/sports/speedway/sim/stats";
+import { computeRiderStats, computeTeamStats, emptyTeamStats, isFinished } from "@/sports/speedway/sim/stats";
 import type { CupPairState } from "@/sports/speedway/types/cup";
 import type { FixtureWithTeams } from "@/sports/speedway/types/fixtures";
+import { leagueRiderSchema, type LeagueRiderWithSkills } from "@/sports/speedway/types/league";
 
 export type CupTeamView = {
   clubId: string;
@@ -177,6 +181,21 @@ export async function getCupTableView(): Promise<CupTableView> {
     blocked: seeded.status === "pending" ? `Seeding after ${seeded.missing.join(" and ")}` : null,
     rows,
   };
+}
+
+/**
+ * Riders of all cup clubs in the shape the league Stats tab uses. Numbers come from the cup matches
+ * only (the runtime also holds league matches, the filter leaves them out). No cup match yet = zeros.
+ */
+export async function getCupStatsView(): Promise<LeagueRiderWithSkills[]> {
+  const { matches } = await getCupRuntime();
+  const stats = computeRiderStats(matches, (fixture) => fixture.competitionId === CUP_DEFINITION.id);
+
+  const raws = RIDERS.filter((rider) => CUP_DEFINITION.leagues.includes(CLUB_BY_REF.get(rider.clubId)!.leagueId));
+  const riders = z
+    .array(leagueRiderSchema)
+    .parse(raws.map((raw) => mapRawRiderToLeagueRider(raw, stats.get(raw.id))));
+  return riders.map((rider, index) => ({ ...rider, skills: skillsOf(raws[index]!) }));
 }
 
 const teamRef = (clubId: string) => {

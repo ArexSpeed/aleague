@@ -12,7 +12,9 @@ import type { RawSearchParams } from "@/sports/types";
 /** Same description style as the league: values, default and the tabs a filter belongs to. */
 export const CUP_FILTERS = defineFilters({
   schedule: { values: ["all", "upcoming", "recent"], default: "all", tabs: ["fixtures"] },
-  view: { values: ["detailed", "compact"], default: "detailed", tabs: ["table", "fixtures"] },
+  view: { values: ["detailed", "compact"], default: "detailed", tabs: ["table", "fixtures", "stats"] },
+  venue: { values: ["all", "home", "away"], default: "all", tabs: ["stats"] },
+  metrics: { values: ["stats", "skills"], default: "stats", tabs: ["stats"] },
 });
 
 export type CupParams = FilterValues<typeof CUP_FILTERS> & {
@@ -37,7 +39,7 @@ export function parseCupParams(raw: RawSearchParams): CupParams {
 export function buildCupHref(params: CupParams, patch: Partial<CupParams> = {}): string {
   const next = { ...params, ...patch };
   const filters = new Map(filterEntries(CUP_FILTERS, next, next.tab));
-  return competitionsHref({
+    return competitionsHref({
     sport: "speedway",
     kind: "cup",
     competition: next.competition,
@@ -45,5 +47,7 @@ export function buildCupHref(params: CupParams, patch: Partial<CupParams> = {}):
     team: next.team,
     view: filters.get("view"),
     schedule: filters.get("schedule"),
+    venue: filters.get("venue"),
+    metrics: filters.get("metrics"),
   });
 }

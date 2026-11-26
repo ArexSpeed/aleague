@@ -11,6 +11,7 @@ import { CupSimBar } from "./cup-sim-bar";
 import { CupTableView } from "./cup-table-view";
 import { CupToolbar } from "./cup-toolbar";
 import { parseCupParams } from "./search-params";
+import { CupStatsView } from "./cup-stats-view";
 
 export function CupPage(props: CompetitionViewProps) {
   return (
@@ -24,7 +25,9 @@ async function CupContent({ searchParams, sport }: CompetitionViewProps) {
   const raw = await searchParams;
   const params = parseCupParams(raw);
 
-  const hasAside = params.competition === "cup" && (params.tab === "table" || params.tab === "fixtures");
+const hasAside =
+    params.competition === "cup" &&
+    (params.tab === "table" || params.tab === "fixtures" || params.tab === "stats");
   const aside = hasAside ? await getCupAside(params) : undefined;
 
   const page = (content?: ReactNode) => (
@@ -63,6 +66,10 @@ async function CupContent({ searchParams, sport }: CompetitionViewProps) {
     );
   }
 
-  // Stats and History: the skeleton's "No data yet" until the cup tag is wired into statistics.
+if (params.tab === "stats") {
+    return page(<CupStatsView params={params} />);
+  }
+
+  // History: the skeleton's "No data yet".
   return page();
 }
