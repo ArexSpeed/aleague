@@ -11,15 +11,22 @@ import { computeTeamStats, emptyTeamStats, isFinished } from "@/sports/speedway/
 import type { CupPairState } from "@/sports/speedway/types/cup";
 import type { FixtureWithTeams } from "@/sports/speedway/types/fixtures";
 
-const DRAW_PENDING = "Draw pending";
+export type CupTeamView = {
+  clubId: string;
+  name: string;
+  subName?: string;
+  color: string;
+  icon: string;
+};
 
 export type CupLegView = {
   id: string;
   leg: number;
-  home: string;
-  away: string;
-  /** "55:35" once the match is finished. */
-  score: string | null;
+  /** Null until the pair is drawn. */
+  home: CupTeamView | null;
+  away: CupTeamView | null;
+  /** Null until the match is finished. */
+  score: { home: number; away: number } | null;
   /** Null until the pair is drawn. */
   href: string | null;
 };
@@ -31,17 +38,26 @@ export type CupPairView = {
   legs: CupLegView[];
 };
 export type CupGroupView = { id: string; title: string; subtitle: string; pairs: CupPairView[] };
-export type CupRoundView = {
-  rounds: { id: string; label: string }[];
-  round: { id: string; label: string };
+export type CupRoundBlock = {
+  id: string;
+  label: string;
   /** Why part of the round has no draw yet; null when everything is drawn. */
   blocked: string | null;
   groups: CupGroupView[];
 };
+export type CupFixturesView = {
+  rounds: CupRoundBlock[];
+  /** First round with a drawn, unplayed match (target of the test tool). */
+  nextRound: { id: string; label: string } | null;
+};
 
-const clubName = (id: string) => CLUB_BY_REF.get(id)!.name;
-const clubShort = (id: string) => CLUB_BY_REF.get(id)!.short;
 const matchHref = (id: string) => sportPath("speedway", `matches/${id}`);
+const clubShort = (id: string) => CLUB_BY_REF.get(id)!.short;
+
+function teamView(clubId: string): CupTeamView {
+  const club = CLUB_BY_REF.get(clubId)!;
+  return { clubId: club.id, name: club.name, subName: club.subName, color: club.color, icon: club.icon };
+}
 
 function subtitleOf(group: CupGroupPlan): string {
   if (!group.source) {
@@ -53,66 +69,83 @@ function subtitleOf(group: CupGroupPlan): string {
   return group.source.groupId === "qual" ? "Seeded clubs and winners of Round 1" : `Winners of ${from}`;
 }
 
-export async function getCupRoundView(roundId: string | undefined): Promise<CupRoundView> {
-  const index = Math.max(0, CUP_PLAN.findIndex((r) => r.round.id === roundId));
-  const plan = CUP_PLAN[index]!;
+/** Every round of the cup with its place groups, pairs and legs (real data, drawn or not). */
+export async function getCupFixturesView(): Promise<CupFixturesView> {
   const { state, matches } = await getCupRuntime();
-  const roundState = state.rounds[index]!;
 
   const scoreOf = (id: string) => {
     const match = matches[id];
     if (!match || !isFinished(match)) return null;
     const score = matchScore(match.heats);
-    return `${score.home}:${score.away}`;
+    return { home: score.home, away: score.away };
   };
 
-  const pairView = (pair: CupPair): CupPairView => ({
-    number: pair.number,
-    state: pair.result.state,
-    aggregate:
-      pair.result.state === "pending"
-        ? null
-        : `${clubShort(pair.first)} ${pair.result.totals.first} : ${pair.result.totals.second} ${clubShort(pair.second)}`,
-    legs: pair.fixtureIds.map((id, i) => {
-      const [home, away] = i % 2 === 0 ? [pair.first, pair.second] : [pair.second, pair.first];
-      return { id, leg: i + 1, home: clubName(home), away: clubName(away), score: scoreOf(id), href: matchHref(id) };
-    }),
+  const rounds = CUP_PLAN.map((plan, index): CupRoundBlock => {
+    const roundState = state.rounds[index]!;
+
+    const pairView = (pair: CupPair): CupPairView => ({
+      number: pair.number,
+      state: pair.result.state,
+      aggregate:
+        pair.result.state === "pending"
+          ? null
+          : `${clubShort(pair.first)} ${pair.result.totals.first} : ${pair.result.totals.second} ${clubShort(pair.second)}`,
+      legs: pair.fixtureIds.map((id, i) => {
+        const [home, away] = i % 2 === 0 ? [pair.first, pair.second] : [pair.second, pair.first];
+        return {
+          id,
+          leg: i + 1,
+          home: teamView(home),
+          away: teamView(away),
+          score: scoreOf(id),
+          href: matchHref(id),
+        };
+      }),
+    });
+
+    const placeholderPair = (groupId: string, number: number): CupPairView => ({
+      number,
+      state: "pending",
+      aggregate: null,
+      legs: Array.from({ length: CUP_DEFINITION.legs }, (_, i) => ({
+        id: cupFixtureId(plan.round.id, groupId, number, i + 1),
+        leg: i + 1,
+        home: null,
+        away: null,
+        score: null,
+        href: null,
+      })),
+    });
+
+    const groups = roundState.groups.map((group): CupGroupView => ({
+      id: group.plan.id,
+      title: group.plan.range ? `Places ${group.plan.id}` : "Qualifying",
+      subtitle: subtitleOf(group.plan),
+      pairs:
+        group.status === "ready"
+          ? group.pairs.map(pairView)
+          : Array.from({ length: group.plan.pairs }, (_, i) => placeholderPair(group.plan.id, i + 1)),
+    }));
+
+    const waiting = roundState.groups.find((group) => group.status === "pending");
+    return {
+      id: plan.round.id,
+      label: plan.round.label,
+      blocked: waiting && waiting.status === "pending" ? waiting.missing : null,
+      groups,
+    };
   });
 
-  const placeholderPair = (groupId: string, number: number): CupPairView => ({
-    number,
-    state: "pending",
-    aggregate: null,
-    legs: Array.from({ length: CUP_DEFINITION.legs }, (_, i) => ({
-      id: cupFixtureId(plan.round.id, groupId, number, i + 1),
-      leg: i + 1,
-      home: DRAW_PENDING,
-      away: DRAW_PENDING,
-      score: null,
-      href: null,
-    })),
-  });
+  const next = rounds.find((round) =>
+    round.groups.some((group) =>
+      group.pairs.some((pair) => pair.legs.some((leg) => leg.href !== null && leg.score === null)),
+    ),
+  );
 
-  const groups = roundState.groups.map((group): CupGroupView => ({
-    id: group.plan.id,
-    title: group.plan.range ? `Places ${group.plan.id}` : "Qualifying",
-    subtitle: subtitleOf(group.plan),
-    pairs:
-      group.status === "ready"
-        ? group.pairs.map(pairView)
-        : Array.from({ length: group.plan.pairs }, (_, i) => placeholderPair(group.plan.id, i + 1)),
-  }));
-
-  const waiting = roundState.groups.find((group) => group.status === "pending");
-  return {
-    rounds: CUP_DEFINITION.rounds.map((r) => ({ id: r.id, label: r.label })),
-    round: { id: plan.round.id, label: plan.round.label },
-    blocked: waiting && waiting.status === "pending" ? waiting.missing : null,
-    groups,
-  };
+  return { rounds, nextRound: next ? { id: next.id, label: next.label } : null };
 }
 
-export type CupTableViewRow = CupTableRow & { name: string; icon: string; color: string };
+export type CupTableViewRow = CupTableRow & { name: string; subName?: string; icon: string; color: string };
 export type CupTableView = { blocked: string | null; rows: CupTableViewRow[] };
 
 /** All cup clubs: places from the draws and pair results, small points from the cup matches only. */
@@ -138,7 +171,7 @@ export async function getCupTableView(): Promise<CupTableView> {
 
   const rows = rankCupTable(inputs).map((row) => {
     const club = CLUB_BY_REF.get(row.clubId)!;
-    return { ...row, name: club.name, icon: club.icon, color: club.color };
+    return { ...row, name: club.name, subName: club.subName, icon: club.icon, color: club.color };
   });
   return {
     blocked: seeded.status === "pending" ? `Seeding after ${seeded.missing.join(" and ")}` : null,
@@ -175,5 +208,70 @@ export async function getCupFixture(id: string): Promise<FixtureWithTeams | null
     awayScore: score?.away ?? null,
     home: teamRef(clubs.homeId),
     away: teamRef(clubs.awayId),
+  };
+}
+
+export type CupTeamGame = {
+  id: string;
+  round: string;
+  leg: number;
+  opponent: CupTeamView;
+  home: boolean;
+  /** From this club's point of view; null until the match is finished. */
+  score: { for: number; against: number } | null;
+  href: string;
+};
+export type CupTeamDetail = {
+  team: CupTeamView & { short: string };
+  row: CupTableViewRow;
+  games: CupTeamGame[];
+};
+
+/**
+ * Data for the club panel. `selected` is false when `clubId` is missing or not in the cup:
+ * the panel then shows the top club of the table (like the league), without opening the mobile drawer.
+ */
+export async function getCupTeamDetail(
+  clubId: string | undefined,
+): Promise<{ detail: CupTeamDetail; selected: boolean } | null> {
+  const table = await getCupTableView();
+  const picked = table.rows.find((row) => row.clubId === clubId);
+  const row = picked ?? table.rows[0];
+  if (!row) return null;
+
+  const { rounds } = await getCupFixturesView();
+  const games: CupTeamGame[] = [];
+  for (const round of rounds) {
+    for (const group of round.groups) {
+      for (const pair of group.pairs) {
+        for (const leg of pair.legs) {
+          if (!leg.home || !leg.away || !leg.href) continue;
+          const isHome = leg.home.clubId === row.clubId;
+          if (!isHome && leg.away.clubId !== row.clubId) continue;
+          games.push({
+            id: leg.id,
+            round: round.label,
+            leg: leg.leg,
+            opponent: isHome ? leg.away : leg.home,
+            home: isHome,
+            score: leg.score
+              ? isHome
+                ? { for: leg.score.home, against: leg.score.away }
+                : { for: leg.score.away, against: leg.score.home }
+              : null,
+            href: leg.href,
+          });
+        }
+      }
+    }
+  }
+
+  return {
+    selected: picked !== undefined,
+    detail: {
+      team: { ...teamView(row.clubId), short: clubShort(row.clubId) },
+      row,
+      games,
+    },
   };
 }

@@ -1,8 +1,15 @@
-import Link from "next/link";
-
-import { SegmentedControl } from "@/components/toggle/segmented-control";
-import type { CupLegView, CupRoundView } from "@/sports/speedway/api/cup";
+import { FixtureCard, type FixtureCardData, type FixtureCardTeam } from "@/components/fixtures/fixture-card";
+import { FixtureList, type FixtureGroupData } from "@/components/fixtures/fixture-list";
+import { getFixtureStatus } from "@/components/fixtures/fixture-status";
+import type {
+  CupFixturesView as CupFixturesData,
+  CupLegView,
+  CupPairView,
+  CupRoundBlock,
+  CupTeamView,
+} from "@/sports/speedway/api/cup";
 import type { CupPairState } from "@/sports/speedway/types/cup";
+import { buildCupHref, type CupParams } from "./search-params";
 
 const STATE_LABEL: Record<CupPairState, string> = {
   pending: "Pending",
@@ -11,79 +18,110 @@ const STATE_LABEL: Record<CupPairState, string> = {
   "needs-runoff": "Run-off needed",
 };
 
-function Leg({ leg }: { leg: CupLegView }) {
-  const content = (
-    <>
-      <span className="shrink-0 text-fg-faint">Leg {leg.leg}</span>
-      <span className="min-w-0 truncate">
-        {leg.home} <span className="text-fg-faint">vs</span> {leg.away}
-      </span>
-      <span className="shrink-0 font-black">{leg.score ?? "– : –"}</span>
-    </>
-  );
-  const row = "flex items-center justify-between gap-2";
-  return leg.href ? (
-    <Link href={leg.href} className={`${row} transition-colors hover:text-brand`}>
-      {content}
-    </Link>
-  ) : (
-    <div className={row}>{content}</div>
+const PENDING_TEAM: FixtureCardTeam = { name: "Draw pending", color: "#334155", icon: "?", href: null };
+
+function toTeam(team: CupTeamView | null, params: CupParams): FixtureCardTeam {
+  if (!team) return PENDING_TEAM;
+  return {
+    name: team.name,
+    subName: team.subName,
+    color: team.color,
+    icon: team.icon,
+    href: buildCupHref(params, { team: team.clubId }),
+  };
+}
+
+function toCard(leg: CupLegView, params: CupParams, today: string): FixtureCardData {
+  const played = leg.score !== null;
+  const draw = leg.score !== null && leg.score.home === leg.score.away;
+  return {
+    id: leg.id,
+    home: toTeam(leg.home, params),
+    away: toTeam(leg.away, params),
+    score: leg.score,
+    status: getFixtureStatus({ date: null, time: null, played, draw }, today),
+    matchHref: leg.href,
+    label: `Leg ${leg.leg}`,
+  };
+}
+
+function keepPair(pair: CupPairView, schedule: CupParams["schedule"]): boolean {
+  if (schedule === "upcoming") return pair.legs.some((leg) => leg.score === null);
+  if (schedule === "recent") return pair.legs.some((leg) => leg.score !== null);
+  return true;
+}
+
+function Pair({ pair, params, today }: { pair: CupPairView; params: CupParams; today: string }) {
+  return (
+    <li className="space-y-1.5 rounded-2xl border border-line bg-fg/5 p-1.5">
+      <ul className="space-y-1.5">
+        {pair.legs.map((leg) => (
+          <FixtureCard key={leg.id} fixture={toCard(leg, params, today)} />
+        ))}
+      </ul>
+      <div className="flex items-center justify-between gap-2 px-2 pb-0.5 text-[11px] font-black tracking-wider text-fg-faint uppercase">
+        <span>
+          Pair {pair.number} • {STATE_LABEL[pair.state]}
+        </span>
+        <span className="tabular-nums">{pair.aggregate ?? "– : –"}</span>
+      </div>
+    </li>
   );
 }
 
-export function CupFixturesView({
-  view,
-  hrefFor,
-}: {
-  view: CupRoundView;
-  hrefFor: (roundId: string) => string;
-}) {
+function RoundContent({ round, params, today }: { round: CupRoundBlock; params: CupParams; today: string }) {
+  const compact = params.view === "compact";
   return (
-    <div className="flex flex-col gap-3 pb-4">
-      <SegmentedControl
-        label="Round"
-        variant="brand"
-        options={view.rounds.map((round) => ({
-          key: round.id,
-          label: round.label,
-          active: round.id === view.round.id,
-          href: hrefFor(round.id),
-        }))}
-      />
-
-      {view.blocked ? (
-        <p className="rounded-lg border border-current/10 bg-current/5 px-3 py-2 text-sm font-semibold text-fg-faint">
-          {view.blocked}
+    <div className="space-y-4">
+      {round.blocked ? (
+        <p className="rounded-xl border border-line bg-control px-3 py-2 text-xs font-semibold text-fg-muted">
+          {round.blocked}
         </p>
       ) : null}
-
-      {view.groups.map((group) => (
-        <section key={group.id} className="flex flex-col gap-2">
-          <header>
-            <h3 className="text-sm font-bold">{group.title}</h3>
-            <p className="text-xs font-semibold text-fg-faint">{group.subtitle}</p>
+      {round.groups.map((group) => (
+        <section key={group.id} className="space-y-2">
+          <header className="px-1">
+            <h3 className="text-xs font-black text-fg-muted uppercase">{group.title}</h3>
+            {compact ? null : <p className="text-[11px] font-semibold text-fg-faint">{group.subtitle}</p>}
           </header>
-          <ul className="grid gap-2 sm:grid-cols-2 xl:grid-cols-3">
+          <ul className="space-y-2">
             {group.pairs.map((pair) => (
-              <li key={pair.number} className="rounded-lg border border-current/10 bg-current/5 p-3">
-                <div className="mb-2 flex items-center justify-between text-xs font-semibold text-fg-faint">
-                  <span>Pair {pair.number}</span>
-                  <span>{STATE_LABEL[pair.state]}</span>
-                </div>
-                <div className="flex flex-col gap-1 text-sm font-semibold">
-                  {pair.legs.map((leg) => (
-                    <Leg key={leg.id} leg={leg} />
-                  ))}
-                </div>
-                <div className="mt-2 flex justify-between border-t border-current/10 pt-2 text-xs font-semibold text-fg-faint">
-                  <span>Aggregate</span>
-                  <span>{pair.aggregate ?? "– : –"}</span>
-                </div>
-              </li>
+              <Pair key={pair.number} pair={pair} params={params} today={today} />
             ))}
           </ul>
         </section>
       ))}
     </div>
   );
+}
+
+/** Cup fixtures: rounds as FixtureList groups, place groups and pairs inside. */
+export function CupFixturesView({
+  view,
+  params,
+  today,
+}: {
+  view: CupFixturesData;
+  params: CupParams;
+  today: string;
+}) {
+  const filtered = view.rounds
+    .map((round): CupRoundBlock => ({
+      ...round,
+      groups: round.groups
+        .map((group) => ({ ...group, pairs: group.pairs.filter((pair) => keepPair(pair, params.schedule)) }))
+        .filter((group) => group.pairs.length > 0),
+    }))
+    .filter((round) => round.groups.length > 0);
+
+  // Newest round first for "Recent", like the league does with dates.
+  const ordered = params.schedule === "recent" ? [...filtered].reverse() : filtered;
+
+  const groups: FixtureGroupData[] = ordered.map((round) => ({
+    id: round.id,
+    title: round.label,
+    content: <RoundContent round={round} params={params} today={today} />,
+  }));
+
+  return <FixtureList groups={groups} empty="No matches" />;
 }

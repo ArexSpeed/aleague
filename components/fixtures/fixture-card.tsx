@@ -9,8 +9,8 @@ export type FixtureCardTeam = {
   subName?: string;
   color: string;
   icon?: string;
-  /** Where a click on the team goes (e.g. opens the team in the aside). */
-  href: string;
+  /** Where a click on the team goes (e.g. opens the team in the aside). Null = not a link. */
+  href: string | null;
 };
 
 export type FixtureCardData = {
@@ -20,8 +20,10 @@ export type FixtureCardData = {
   /** null = not played yet. */
   score: { home: number; away: number } | null;
   status: FixtureStatus;
-  /** Where a click on the score goes (match page). */
-  matchHref: string;
+  /** Where a click on the score goes (match page). Null = no match page yet. */
+  matchHref: string | null;
+  /** Small caption under the score, e.g. "Leg 1". */
+  label?: string;
 };
 
 const SCORE_TONE = {
@@ -66,50 +68,64 @@ function TeamSide({ team, align }: { team: FixtureCardTeam; align: "left" | "rig
     </span>
   );
 
+  const content =
+    align === "left" ? (
+      <>
+        {logo}
+        {name}
+      </>
+    ) : (
+      <>
+        {name}
+        {logo}
+      </>
+    );
+  const layout = cn("flex min-w-0 items-center gap-2 sm:gap-3", align === "right" && "justify-end");
+
+  if (!team.href) return <div className={layout}>{content}</div>;
   return (
-    <Link
-      href={team.href}
-      scroll={false}
-      className={cn("group flex min-w-0 items-center gap-2 sm:gap-3", align === "right" && "justify-end")}
-    >
-      {align === "left" ? (
-        <>
-          {logo}
-          {name}
-        </>
-      ) : (
-        <>
-          {name}
-          {logo}
-        </>
-      )}
+    <Link href={team.href} scroll={false} className={cn("group", layout)}>
+      {content}
     </Link>
   );
 }
 
 /**
  * One match: logo - name | score + status | name - logo.
- * Click a team -> team link, click the score -> match link.
+ * Click a team -> team link, click the score -> match link (both optional).
  */
 export function FixtureCard({ fixture }: { fixture: FixtureCardData }) {
-  const { home, away, score, status, matchHref } = fixture;
+  const { home, away, score, matchHref, label } = fixture;
   const [homeTone, awayTone] = scoreTones(score);
+
+  const scoreBlock = (
+    <>
+      <span className="flex items-center gap-1">
+        <ScoreBox value={score?.home ?? 0} tone={homeTone} />
+        <span className="font-black text-fg-faint">:</span>
+        <ScoreBox value={score?.away ?? 0} tone={awayTone} />
+      </span>
+      {label ? (
+        <span className="text-[10px] font-black tracking-wider text-fg-faint uppercase">{label}</span>
+      ) : null}
+    </>
+  );
 
   return (
     <li className="grid grid-cols-[1fr_auto_1fr] items-center gap-1 rounded-xl border border-line bg-surface px-3 py-3 shadow-xs sm:gap-4 sm:px-5 sm:py-4">
       <TeamSide team={home} align="left" />
 
-      <Link
-        href={matchHref}
-        aria-label={`Game report: ${home.name} ${home.subName ?? ""} - ${away.name} ${away.subName ?? ""}`}
-        className="group flex flex-col items-center gap-1.5 transition-transform hover:scale-[1.03]"
-      >
-        <span className="flex items-center gap-1">
-          <ScoreBox value={score?.home ?? 0} tone={homeTone} />
-          <span className="font-black text-fg-faint">:</span>
-          <ScoreBox value={score?.away ?? 0} tone={awayTone} />
-        </span>
-      </Link>
+      {matchHref ? (
+        <Link
+          href={matchHref}
+          aria-label={`Game report: ${home.name} ${home.subName ?? ""} - ${away.name} ${away.subName ?? ""}`}
+          className="group flex flex-col items-center gap-1.5 transition-transform hover:scale-[1.03]"
+        >
+          {scoreBlock}
+        </Link>
+      ) : (
+        <div className="flex flex-col items-center gap-1.5">{scoreBlock}</div>
+      )}
 
       <TeamSide team={away} align="right" />
     </li>

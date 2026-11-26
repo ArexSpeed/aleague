@@ -13,11 +13,14 @@ export async function CompetitionSkeleton({
   kind,
   searchParams,
   children,
+  aside,
 }: {
   sport: "speedway";
   kind: CompetitionKind;
   searchParams: Promise<RawSearchParams>;
-  children?: ReactNode
+  children?: ReactNode;
+  /** Optional detail pane (e.g. the cup's club panel). Without it the detail stays empty. */
+  aside?: { detail: ReactNode; open: boolean; closeHref: string };
 }) {
   const raw = await searchParams;
   const config = getCompetitionKind(kind);
@@ -116,10 +119,10 @@ export async function CompetitionSkeleton({
   return (
     <MasterDetail
       scrollMaster={false}
-      detailOpen={false}
-      closeHref={base}
+      detailOpen={aside?.open ?? false}
+      closeHref={aside?.closeHref ?? base}
       master={master}
-      detail={null}
+      detail={aside?.detail ?? null}
     />
   );
 }

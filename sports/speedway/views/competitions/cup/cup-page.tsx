@@ -1,12 +1,16 @@
+import { connection } from "next/server";
 import { Suspense, type ReactNode } from "react";
 
-import { getCupRoundView, getCupTableView } from "@/sports/speedway/api/cup";
+import { todayIso } from "@/lib/format";
+import { getCupFixturesView, getCupTableView } from "@/sports/speedway/api/cup";
 import type { CompetitionViewProps } from "@/sports/types";
 import { CompetitionSkeleton } from "../competition-skeleton";
+import { getCupAside } from "./cup-aside";
 import { CupFixturesView } from "./cup-fixtures-view";
-import { CupTableView } from "./cup-table-view";
-import { parseCupParams } from "./search-params";
 import { CupSimBar } from "./cup-sim-bar";
+import { CupTableView } from "./cup-table-view";
+import { CupToolbar } from "./cup-toolbar";
+import { parseCupParams } from "./search-params";
 
 export function CupPage(props: CompetitionViewProps) {
   return (
@@ -16,12 +20,15 @@ export function CupPage(props: CompetitionViewProps) {
   );
 }
 
-async function CupContent({ basePath, searchParams, sport }: CompetitionViewProps) {
+async function CupContent({ searchParams, sport }: CompetitionViewProps) {
   const raw = await searchParams;
   const params = parseCupParams(raw);
 
+  const hasAside = params.competition === "cup" && (params.tab === "table" || params.tab === "fixtures");
+  const aside = hasAside ? await getCupAside(params) : undefined;
+
   const page = (content?: ReactNode) => (
-    <CompetitionSkeleton sport={sport} kind="cup" searchParams={Promise.resolve(raw)}>
+    <CompetitionSkeleton sport={sport} kind="cup" searchParams={Promise.resolve(raw)} aside={aside}>
       {content}
     </CompetitionSkeleton>
   );
@@ -34,17 +41,25 @@ async function CupContent({ basePath, searchParams, sport }: CompetitionViewProp
     );
   }
 
-  if (params.tab === "table") return page(<CupTableView view={await getCupTableView()} />);
+  if (params.tab === "table") {
+    return page(
+      <div className="mt-1 min-w-0">
+        <CupToolbar params={params} withSchedule={false} />
+        <CupTableView view={await getCupTableView()} params={params} />
+      </div>,
+    );
+  }
 
   if (params.tab === "fixtures") {
-    const view = await getCupRoundView(params.round);
-    const hrefFor = (round: string) =>
-      `${basePath}?${new URLSearchParams({ kind: "cup", competition: "cup", tab: "fixtures", round })}`;
+    await connection();
+    const today = todayIso();
+    const view = await getCupFixturesView();
     return page(
-      <>
-        <CupSimBar roundId={view.round.id} label={view.round.label} />
-        <CupFixturesView view={view} hrefFor={hrefFor} />
-      </>,
+      <div className="mt-1 min-w-0">
+        <CupToolbar params={params} withSchedule />
+        {view.nextRound ? <CupSimBar roundId={view.nextRound.id} label={view.nextRound.label} /> : null}
+        <CupFixturesView view={view} params={params} today={today} />
+      </div>,
     );
   }
 

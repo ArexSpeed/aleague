@@ -1,58 +1,82 @@
-import type { CupTableView as CupTableData } from "@/sports/speedway/api/cup";
+import { POINTS_COLUMN_WIDTH, type Column } from "@/components/table/columns";
+import { ColorDot, PositionBadge, podiumBadgeClass, RowName } from "@/components/table/row-lead";
+import { TableHeader } from "@/components/table/table-header";
+import { TableRow } from "@/components/table/table-row";
+import type { CupTableView as CupTableData, CupTableViewRow } from "@/sports/speedway/api/cup";
+import { formatBilans } from "@/sports/speedway/views/competitions/league/standings";
+import { buildCupHref, type CupParams } from "./search-params";
 
-const HEAD = "px-2 py-1.5 text-right text-xs font-semibold text-fg-faint";
-const CELL = "px-2 py-2 text-right tabular-nums";
+/** Three-digit point sums fit here; the league's default width is for two digits. */
+const POINTS_WIDTH = "w-7 text-center sm:w-9";
 
-export function CupTableView({ view }: { view: CupTableData }) {
+const COLUMNS: Column<CupTableViewRow>[] = [
+  { id: "games", header: "M", title: "Matches", cell: (r) => r.games },
+  { id: "won", header: "W", title: "Wins", cell: (r) => r.won, className: "font-bold text-win" },
+  { id: "draw", header: "D", title: "Draws", cell: (r) => r.draw },
+  { id: "lost", header: "L", title: "Losses", cell: (r) => r.lost, className: "font-bold text-loss" },
+  { id: "plus", header: "Pts+", title: "Points scored", cell: (r) => r.pointsPlus, width: POINTS_WIDTH },
+  { id: "minus", header: "Pts-", title: "Points conceded", cell: (r) => r.pointsMinus, width: POINTS_WIDTH },
+  {
+    id: "bilans",
+    header: "+/-",
+    title: "Small points balance",
+    cell: (r) => formatBilans(r.bilans),
+    width: POINTS_COLUMN_WIDTH,
+    emphasis: true,
+  },
+];
+
+/** Settled places look like the league's badges; provisional ones are dimmed. */
+function placeBadgeClass(row: CupTableViewRow): string {
+  if (row.decided && row.place !== null) return podiumBadgeClass(row.place);
+  return "bg-chip text-chip-foreground font-semibold opacity-50";
+}
+
+export function CupTableView({ view, params }: { view: CupTableData; params: CupParams }) {
   return (
-    <div className="overflow-x-auto pb-4">
+    <div>
       {view.blocked ? (
-        <p className="mb-2 rounded-lg border border-current/10 bg-current/5 px-3 py-2 text-sm font-semibold text-fg-faint">
+        <p className="mb-1 rounded-xl border border-line bg-control px-3 py-2 text-xs font-semibold text-fg-muted">
           {view.blocked}
         </p>
       ) : null}
-      <table className="w-full text-sm">
-        <thead>
-          <tr>
-            <th className={`${HEAD} text-center`}>#</th>
-            <th className={`${HEAD} text-left`}>Team</th>
-            <th className={HEAD}>M</th>
-            <th className={HEAD}>W</th>
-            <th className={HEAD}>D</th>
-            <th className={HEAD}>L</th>
-            <th className={HEAD}>Pts+</th>
-            <th className={HEAD}>Pts-</th>
-            <th className={HEAD}>+/-</th>
-          </tr>
-        </thead>
-        <tbody>
-          {view.rows.map((row) => (
-            <tr key={row.clubId} className="border-t border-current/10">
-              <td className={`px-2 py-2 text-center font-bold ${row.decided ? "" : "text-fg-faint"}`}>
-                {row.place ?? "–"}
-              </td>
-              <td className="px-2 py-2 text-left font-semibold">
-                <span className="mr-2">{row.icon}</span>
-                {row.name}
+
+      <div className="sticky top-0 z-10 bg-main">
+        <TableHeader
+          columns={COLUMNS}
+          lead={
+            <>
+              <span className="w-6 text-center font-bold sm:w-7">#</span>
+              <span>Team</span>
+            </>
+          }
+        />
+      </div>
+
+      <ol className="px-1 pb-1">
+        {view.rows.map((row) => (
+          <TableRow
+            key={row.clubId}
+            item={row}
+            columns={COLUMNS}
+            href={buildCupHref(params, { team: row.clubId })}
+            selected={params.team === row.clubId}
+            density={params.view}
+            lead={
+              <>
+                <PositionBadge value={row.place ?? "–"} className={placeBadgeClass(row)} />
+                <ColorDot color={row.color} />
+                <RowName primary={row.name.split(" ")[0] ?? row.name} secondary={row.subName} />
                 {row.rangeLabel ? (
-                  <span className="ml-2 rounded bg-current/10 px-1.5 py-0.5 text-xs text-fg-faint">
+                  <span className="shrink-0 rounded-md bg-fg/5 px-1.5 py-0.5 text-[10px] font-bold text-fg-faint">
                     {row.rangeLabel}
                   </span>
                 ) : null}
-              </td>
-              <td className={CELL}>{row.games}</td>
-              <td className={CELL}>{row.won}</td>
-              <td className={CELL}>{row.draw}</td>
-              <td className={CELL}>{row.lost}</td>
-              <td className={CELL}>{row.pointsPlus}</td>
-              <td className={CELL}>{row.pointsMinus}</td>
-              <td className={`${CELL} font-bold`}>
-                {row.bilans > 0 ? `+${row.bilans}` : row.bilans}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+              </>
+            }
+          />
+        ))}
+      </ol>
     </div>
   );
 }
