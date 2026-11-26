@@ -1,4 +1,4 @@
-import { CLUB_BY_REF, RIDERS, SEASON_FIXTURES } from "@/sports/speedway/data/season";
+import { CLUB_BY_REF, MATCH_FIXTURES, RIDERS } from "@/sports/speedway/data/season";
 import {
   createRng,
   ENGINE_VERSION,
@@ -14,7 +14,7 @@ import type { StoredMatch } from "./results-store";
 export type SeasonRider = (typeof RIDERS)[number];
 
 export const RIDER_BY_ID = new Map(RIDERS.map((r) => [r.id, r]));
-export const FIXTURE_BY_ID = new Map(SEASON_FIXTURES.map((f) => [f.id, f]));
+export const FIXTURE_BY_ID = new Map(MATCH_FIXTURES.map((f) => [f.id, f]));
 
 export const toEngineRider = (r: SeasonRider): EngineRider => ({
   id: r.id,
@@ -33,10 +33,26 @@ export const clubRiders = (clubId: string) =>
 export const defaultSquadIds = (clubId: string) =>
   pickSquad(clubRiders(clubId).map((r) => ({ ...toEngineRider(r), age: r.age }))).map((r) => r.id);
 
+export type MatchClubs = { homeId: string; awayId: string };
+
+/** The clubs of a stored match: the ones fixed at its start (cup), otherwise the fixture's own. */
+export function clubsOfMatch(stored: Pick<StoredMatch, "fixtureId" | "homeId" | "awayId">): MatchClubs {
+  if (stored.homeId && stored.awayId) return { homeId: stored.homeId, awayId: stored.awayId };
+  const fixture = FIXTURE_BY_ID.get(stored.fixtureId);
+  if (!fixture) throw new Error(`Unknown fixture ${stored.fixtureId}`);
+  return { homeId: fixture.homeId, awayId: fixture.awayId };
+}
+
 /** A match that has not been started: seed, weather and squads are fixed here. Not saved. */
-export function newStoredMatch(fixtureId: string, attempt: number): StoredMatch {
+/** A match that has not been started: seed, weather and squads are fixed here. Not saved. */
+export function newStoredMatch(fixtureId: string, attempt: number, drawn?: MatchClubs): StoredMatch {
   const fixture = FIXTURE_BY_ID.get(fixtureId);
   if (!fixture) throw new Error(`Unknown fixture ${fixtureId}`);
+
+  // Cup fixtures have no clubs of their own: the draw gives them, and the match keeps them.
+  const fromDraw = !fixture.homeId || !fixture.awayId;
+  const { homeId, awayId } = drawn ?? { homeId: fixture.homeId, awayId: fixture.awayId };
+  if (!homeId || !awayId) throw new Error(`Fixture ${fixtureId} has no participants yet (waiting for the draw)`);
 
   const seed = attempt === 0 ? fixtureId : `${fixtureId}:${attempt}`;
   return {
@@ -45,15 +61,15 @@ export function newStoredMatch(fixtureId: string, attempt: number): StoredMatch 
     seed,
     luck: simLuck(),
     weather: rollWeather(createRng(`${seed}:weather`)),
-    squads: { home: defaultSquadIds(fixture.homeId), away: defaultSquadIds(fixture.awayId) },
+    ...(fromDraw ? { homeId, awayId } : {}),
+    squads: { home: defaultSquadIds(homeId), away: defaultSquadIds(awayId) },
     heats: [],
   };
 }
 
 /** Engine input for a stored match: riders by id, stadium conditions of the home club. */
 export function setupOf(stored: StoredMatch): MatchSetup {
-  const fixture = FIXTURE_BY_ID.get(stored.fixtureId)!;
-  const stadium = CLUB_BY_REF.get(fixture.homeId)!.stadium;
+  const stadium = CLUB_BY_REF.get(clubsOfMatch(stored).homeId)!.stadium;
   const riders = (ids: string[]) => ids.map((id) => toEngineRider(RIDER_BY_ID.get(id)!));
 
   return {

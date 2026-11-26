@@ -69,8 +69,8 @@ export const matchSchema = z.object({
   id: z.string(),
   matchday: z.number(),
   /** YYYY-MM-DD */
-  date: z.string(),
-  time: z.string(),
+  date: z.string().nullable(),
+  time: z.string().nullable(),
   /** live = some heats are run, the match is not over. */
   status: z.enum(["scheduled", "live", "finished"]),
   stadium: z.object({

@@ -16,6 +16,10 @@ export type StoredMatch = {
   seed: string;
   luck: number;
   weather: Weather;
+  /** Clubs of a match whose participants come from a draw (cup). Fixed when the match is created,
+   *  so a later change of the draw cannot swap the clubs under a started match. */
+  homeId?: string;
+  awayId?: string;
   /** Rider ids by slot 1-8. */
   squads: { home: string[]; away: string[] };
   /** Heats played so far, in order. 15 = the match is finished. */
@@ -158,6 +162,32 @@ export async function readMatches(): Promise<Record<string, StoredMatch>> {
     }
   } catch {
     return matches;
+  }
+  return matches;
+}
+
+/**
+ * Matches whose fixture id starts with one of the prefixes ("cup-", "east-gold-", ...).
+ * Unlike readMatches it throws on errors: a draw made from partial results would be wrong.
+ */
+export async function readMatchesByPrefix(prefixes: string[]): Promise<Record<string, StoredMatch>> {
+  await connection();
+  const matches: Record<string, StoredMatch> = {};
+  const db = supabase();
+
+  for (const prefix of prefixes) {
+    for (let from = 0; ; from += PAGE) {
+      const { data, error } = await db
+        .from(TABLE)
+        .select("fixture_id, data")
+        .like("fixture_id", `${prefix}%`)
+        .not("data", "is", null)
+        .order("fixture_id")
+        .range(from, from + PAGE - 1);
+      if (error) fail(error);
+      for (const row of data ?? []) matches[row.fixture_id as string] = row.data as StoredMatch;
+      if ((data?.length ?? 0) < PAGE) break;
+    }
   }
   return matches;
 }

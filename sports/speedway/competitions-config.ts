@@ -78,7 +78,7 @@ export const COMPETITION_KINDS = [
     defaultParams: { kind: "nation", group: "league", tab: "table" },
     leagueKind: true,
   },
-  {
+    {
     id: "cup",
     label: "Cup",
     lines: [

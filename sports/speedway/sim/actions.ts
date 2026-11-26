@@ -2,12 +2,13 @@
 
 import { revalidatePath } from "next/cache";
 
-import { SEASON_FIXTURES } from "@/sports/speedway/data/season";
+import { SEASON_FIXTURES, CUP_FIXTURES } from "@/sports/speedway/data/season";
 import { finishMatch, MATCH_HEATS, playNextHeat, setNextHeat } from "@/sports/speedway/engine/v1";
 import { resolveLeagueIds } from "@/sports/speedway/api/league";
 import type { Side } from "@/sports/speedway/types/match";
 import type { LineupDraft } from "./lineup-draft";
-import { clubRiders, FIXTURE_BY_ID, newStoredMatch, setupOf } from "./match-setup";
+import { clubRiders, clubsOfMatch, newStoredMatch, setupOf } from "./match-setup";
+import { canRewind, resolveFixture, getCupRuntime } from "./cup/resolve-fixture";
 import { validateSquad } from "./lineup-draft";
 import {
   clearMatches,
@@ -29,16 +30,23 @@ function guard() {
 
 const refresh = () => revalidatePath("/", "layout");
 
-/** The stored match, or a fresh one that has not been started (and not saved) yet. */
-async function matchOf(fixtureId: string): Promise<StoredMatch> {
+type ActionResult = { ok: true } | { ok: false; error: string };
+
+/** The stored match, or a fresh one that has not been started (and not saved) yet. A cup match takes its clubs from the draw. */
+async function openMatch(
+  fixtureId: string,
+): Promise<{ ok: true; match: StoredMatch } | { ok: false; error: string }> {
   const row = await getRow(fixtureId);
-  return row.data ?? newStoredMatch(fixtureId, row.attempt);
+  if (row.data) return { ok: true, match: row.data };
+  const clubs = await resolveFixture(fixtureId);
+  if (!clubs.ok) return clubs;
+  return { ok: true, match: newStoredMatch(fixtureId, row.attempt, clubs) };
 }
 
 /** Saves the lineup changes made in the UI into the match, so the engine rides who the player picked. */
 function applyLineup(match: StoredMatch, squads: Record<Side, string[]>) {
-  const fixture = FIXTURE_BY_ID.get(match.fixtureId)!;
-  const clubId = { home: fixture.homeId, away: fixture.awayId };
+  const clubs = clubsOfMatch(match);
+  const clubId = { home: clubs.homeId, away: clubs.awayId };
 
   for (const side of ["home", "away"] as const) {
     const ids = [...squads[side]];
@@ -60,12 +68,12 @@ function applyLineup(match: StoredMatch, squads: Record<Side, string[]>) {
 
 function applyDraft(match: StoredMatch, draft?: LineupDraft) {
   if (!draft) return;
-
+const clubs = clubsOfMatch(match);
   for (const side of ["home", "away"] as const) {
     const sideDraft = draft.squads?.[side];
+
     if (!sideDraft) continue;
-    const fixture = FIXTURE_BY_ID.get(match.fixtureId)!;
-    const club = clubRiders(side === "home" ? fixture.homeId : fixture.awayId);
+    const club = clubRiders(side === "home" ? clubs.homeId : clubs.awayId);
     const riders = new Map(club.map((r) => [r.id, { age: r.age }]));
     const ids = [...match.squads[side]];
     for (const [slot, riderId] of Object.entries(sideDraft)) {
@@ -103,9 +111,11 @@ function applyDraft(match: StoredMatch, draft?: LineupDraft) {
 export async function saveLineupAction(
   fixtureId: string,
   squads: Record<Side, string[]>,
-): Promise<{ ok: true } | { ok: false; error: string }> {
+): Promise<ActionResult> {
   try {
-    const match = await matchOf(fixtureId);
+    const opened = await openMatch(fixtureId);
+    if (!opened.ok) return opened;
+    const match = opened.match;
     if (match.heats.length > 0) {
       return { ok: false, error: "The squad can only change before the first heat" };
     }
@@ -122,53 +132,72 @@ export async function saveLineupAction(
 }
 
 /** Start: run the next heat of the match. */
-export async function startHeatAction(fixtureId: string, lineup?: LineupDraft) {
+export async function startHeatAction(fixtureId: string, lineup?: LineupDraft): Promise<ActionResult> {
   guard();
-  const match = await matchOf(fixtureId);
-  if (isFinished(match)) return;
+  const opened = await openMatch(fixtureId);
+  if (!opened.ok) return opened;
+  const { match } = opened;
+  if (isFinished(match)) return { ok: true };
   applyDraft(match, lineup);
   match.heats.push(playNextHeat(setupOf(match), match.heats));
   await saveMatch(match);
   refresh();
+  return { ok: true };
 }
 
 /** Set: the next heat with a result chosen by hand. `positions[gate - 1]` = finishing position 1-4. */
-export async function setHeatAction(fixtureId: string, positions: number[], lineup?: LineupDraft) {
+export async function setHeatAction(
+  fixtureId: string,
+  positions: number[],
+  lineup?: LineupDraft,
+): Promise<ActionResult> {
   guard();
-  const match = await matchOf(fixtureId);
-  if (isFinished(match)) return;
+  const opened = await openMatch(fixtureId);
+  if (!opened.ok) return opened;
+  const { match } = opened;
+  if (isFinished(match)) return { ok: true };
   applyDraft(match, lineup);
   match.heats.push(setNextHeat(setupOf(match), match.heats, positions));
   await saveMatch(match);
   refresh();
+  return { ok: true };
 }
 
 /** Takes back the last heat (test tool). */
-export async function undoHeatAction(fixtureId: string) {
+export async function undoHeatAction(fixtureId: string): Promise<ActionResult> {
   guard();
+  const rewind = await canRewind(fixtureId);
+  if (!rewind.ok) return rewind;
   const { data: match } = await getRow(fixtureId);
-  if (!match) return;
+  if (!match) return { ok: true };
   match.heats.pop();
   if (match.heats.length === 0) await removeMatch(fixtureId, false);
   else await saveMatch(match);
   refresh();
+  return { ok: true };
 }
 
 /** Simulate match: run every heat that is left. */
-export async function simulateMatchAction(fixtureId: string, lineup?: LineupDraft) {
+export async function simulateMatchAction(fixtureId: string, lineup?: LineupDraft): Promise<ActionResult> {
   guard();
-  const match = await matchOf(fixtureId);
+  const opened = await openMatch(fixtureId);
+  if (!opened.ok) return opened;
+  const { match } = opened;
   applyDraft(match, lineup);
   match.heats = finishMatch(setupOf(match), match.heats);
   await saveMatch(match);
   refresh();
+  return { ok: true };
 }
 
 /** Throws the match away; the next run of it is a different match. */
-export async function resetMatchAction(fixtureId: string) {
+export async function resetMatchAction(fixtureId: string): Promise<ActionResult> {
   guard();
+  const rewind = await canRewind(fixtureId);
+  if (!rewind.ok) return rewind;
   await removeMatch(fixtureId, true);
   refresh();
+  return { ok: true };
 }
 
 /** Simulate round: every unfinished match of this matchday in the leagues of the group ("" = all). */
@@ -198,4 +227,25 @@ export async function resetSeasonAction() {
   guard();
   await clearMatches();
   refresh();
+}
+
+/** Simulate cup round: every match of the round whose pair is already drawn (both legs). */
+export async function simulateCupRoundAction(roundId: string): Promise<ActionResult> {
+  guard();
+  const { participants } = await getCupRuntime();
+  const fixtures = CUP_FIXTURES.filter((f) => f.stage === roundId && participants.has(f.id));
+  if (fixtures.length === 0) return { ok: false, error: "Nothing to simulate: the draw is pending" };
+
+  const rows = await getRows(fixtures.map((f) => f.id));
+  const changed: StoredMatch[] = [];
+  for (const fixture of fixtures) {
+    const row = rows.get(fixture.id);
+    const match = row?.data ?? newStoredMatch(fixture.id, row?.attempt ?? 0, participants.get(fixture.id)!);
+    if (match.heats.length >= MATCH_HEATS) continue;
+    match.heats = finishMatch(setupOf(match), match.heats);
+    changed.push(match);
+  }
+  await saveMatches(changed);
+  refresh();
+  return { ok: true };
 }

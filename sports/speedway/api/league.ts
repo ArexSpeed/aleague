@@ -19,6 +19,7 @@ import {
   type LeagueTeam,
   type RiderSkills,
 } from "@/sports/speedway/types/league";
+import { compareTable } from "@/sports/speedway/sim/standings";
 
 type RawRider = (typeof RIDERS)[number];
 
@@ -67,12 +68,7 @@ export async function getLeagueTeams(group?: string): Promise<LeagueTeam[]> {
 
   const teams = CLUBS.filter((club) => leagueIds.includes(club.leagueId))
     .map((club) => ({ club, stats: stats.get(club.id) ?? emptyTeamStats() }))
-    .sort(
-      (a, b) =>
-        b.stats.points - a.stats.points ||
-        b.stats.bilans - a.stats.bilans ||
-        b.stats.pointsPlus - a.stats.pointsPlus,
-    );
+    .sort((a, b) => compareTable(a.stats, b.stats));
 
   return z.array(leagueTeamSchema).parse(teams.map((t, index) => mapClubToLeagueTeam(t.club, index + 1, t.stats)));
 }

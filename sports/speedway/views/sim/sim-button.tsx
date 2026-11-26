@@ -17,7 +17,7 @@ export function SimButton({
   disabled = false,
   title,
 }: {
-  action: () => Promise<void>;
+  action: () => Promise<unknown>;
   children: ReactNode;
   tone?: keyof typeof TONES;
   className?: string;
@@ -25,7 +25,7 @@ export function SimButton({
   title?: string;
 }) {
   return (
-    <form action={action}>
+      <form action={action as unknown as (formData: FormData) => void | Promise<void>}>
       <button
         type="submit"
         disabled={disabled}

@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { ScrollArea } from "@/components/layout/scroll-area";
 import { MasterDetail } from "@/components/layout/master-detail";
 import { SegmentedControl } from "@/components/toggle/segmented-control";
@@ -11,10 +12,12 @@ export async function CompetitionSkeleton({
   sport,
   kind,
   searchParams,
+  children,
 }: {
   sport: "speedway";
   kind: CompetitionKind;
   searchParams: Promise<RawSearchParams>;
+  children?: ReactNode
 }) {
   const raw = await searchParams;
   const config = getCompetitionKind(kind);
@@ -101,9 +104,11 @@ export async function CompetitionSkeleton({
             )
           ))}
         </div>
-        <div className="flex flex-1 items-center justify-center text-sm font-semibold text-fg-faint">
-          No data yet
-        </div>
+        {children ?? (
+          <div className="flex flex-1 items-center justify-center text-sm font-semibold text-fg-faint">
+            No data yet
+          </div>
+        )}
       </ScrollArea>
     </>
   );

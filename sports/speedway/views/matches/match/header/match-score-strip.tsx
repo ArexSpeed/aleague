@@ -7,6 +7,7 @@ import type { SportId } from "@/sports/types";
 import { formatDayMonth } from "../format";
 import { isFinished, scoreOf } from "../match-stats";
 import { scoreTone } from "./match-hero";
+import { kickoffLabel } from "../kickoff";
 
 function Team({ team, sport, align }: { team: MatchTeam; sport: SportId; align: "left" | "right" }) {
   const logo = <TeamLogo color={team.color} icon={team.icon} className="size-10 text-lg sm:size-12 sm:text-2xl" />;
@@ -51,7 +52,7 @@ export function MatchScoreStrip({ match, sport }: { match: Match; sport: SportId
           <span className="font-mono text-xl font-black text-fg-faint sm:text-3xl">VS</span>
         )}
         <span className="text-[10px] font-semibold text-fg-faint">
-          {finished ? "Finished" : `${formatDayMonth(match.date)} · ${match.time}`}
+          {finished ? "Finished" : kickoffLabel(match)}
         </span>
       </div>
       <Team team={match.away} sport={sport} align="right" />
