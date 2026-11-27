@@ -21,7 +21,7 @@ export async function CupStatsView({ params }: { params: CupParams }) {
         venue={params.venue}
         view={params.view}
         // The cup aside shows the club panel, so a click opens the rider's club.
-        hrefFor={(rider) => buildCupHref(params, { team: rider.teamId })}
+        hrefFor={(rider) => buildCupHref(params, { team: rider.teamId, panel: "riders" })}
       />
     </div>
   );

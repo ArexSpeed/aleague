@@ -3,7 +3,7 @@ import { ColorDot, PositionBadge, podiumBadgeClass, RowName } from "@/components
 import { TableHeader } from "@/components/table/table-header";
 import { TableRow } from "@/components/table/table-row";
 import type { CupTableView as CupTableData, CupTableViewRow } from "@/sports/speedway/api/cup";
-import { formatBilans } from "@/sports/speedway/views/competitions/league/standings";
+import { formatBilans } from "@/sports/speedway/views/competitions/shared/stats/format";
 import { buildCupHref, type CupParams } from "./search-params";
 
 /** Three-digit point sums fit here; the league's default width is for two digits. */

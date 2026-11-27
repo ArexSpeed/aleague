@@ -10,7 +10,7 @@ import type { CupPair } from "@/sports/speedway/sim/cup/resolve";
 import { getCupRuntime } from "@/sports/speedway/sim/cup/resolve-fixture";
 import { clubRanges } from "@/sports/speedway/sim/cup/table-state";
 import { rankCupTable, type CupTableRow } from "@/sports/speedway/sim/cup/table";
-import { computeRiderStats, computeTeamStats, emptyTeamStats, isFinished } from "@/sports/speedway/sim/stats";
+import { computeRiderStats, computeTeamStats, emptyTeamStats, isFinished, type TeamStats } from "@/sports/speedway/sim/stats";
 import type { CupPairState } from "@/sports/speedway/types/cup";
 import type { FixtureWithTeams } from "@/sports/speedway/types/fixtures";
 import { leagueRiderSchema, type LeagueRiderWithSkills } from "@/sports/speedway/types/league";
@@ -198,6 +198,13 @@ export async function getCupStatsView(): Promise<LeagueRiderWithSkills[]> {
   return riders.map((rider, index) => ({ ...rider, skills: skillsOf(raws[index]!) }));
 }
 
+/** Season numbers of one club from the cup matches only (zeros before the first one). */
+export async function getCupTeamStats(clubId: string): Promise<TeamStats> {
+  const { matches } = await getCupRuntime();
+  const stats = computeTeamStats(matches, (fixture) => fixture.competitionId === CUP_DEFINITION.id);
+  return stats.get(clubId) ?? emptyTeamStats();
+}
+
 const teamRef = (clubId: string) => {
   const club = CLUB_BY_REF.get(clubId)!;
   return { id: club.id, name: club.name, subName: club.subName, short: club.short, color: club.color };
@@ -233,6 +240,8 @@ export async function getCupFixture(id: string): Promise<FixtureWithTeams | null
 export type CupTeamGame = {
   id: string;
   round: string;
+  /** 1-based number of the round, also the matchday of its fixtures. */
+  roundNumber: number;
   leg: number;
   opponent: CupTeamView;
   home: boolean;
@@ -270,6 +279,7 @@ export async function getCupTeamDetail(
           games.push({
             id: leg.id,
             round: round.label,
+            roundNumber: parseCupFixtureId(leg.id)!.roundNumber,
             leg: leg.leg,
             opponent: isHome ? leg.away : leg.home,
             home: isHome,

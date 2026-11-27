@@ -174,3 +174,15 @@ export function isCompetitionKey(value: string | undefined): value is Competitio
     ).includes(value),
   );
 }
+/**
+ * What the club aside counts: the competition whose matches feed its Stats, Games and Riders tabs.
+ * More competitions (Fours, Pairs, ...) join this list when their matches have results.
+ */
+export const CLUB_STATS_SOURCES = ["league", "cup"] as const;
+export type ClubStatsSource = (typeof CLUB_STATS_SOURCES)[number];
+
+/** Labels of the aside selector. */
+export const CLUB_STATS_SOURCE_LABELS: Record<ClubStatsSource, string> = {
+  league: "League",
+  cup: "Cup",
+};

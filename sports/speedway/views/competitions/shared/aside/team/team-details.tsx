@@ -1,5 +1,5 @@
 import { InfoCard, InfoRow } from "@/components/data/info-card";
-import type { LeagueTeam } from "@/sports/speedway/types/league";
+import type { ClubPanelData } from "@/sports/speedway/api/club-panel";
 
 /**
  * Panel tab "Details". Stadium values are hardcoded placeholders copied from the
@@ -11,7 +11,7 @@ const STADIUM_PLACEHOLDER = {
   trackRecord: "59.42 s (B. Zmarzlik)",
 };
 
-export function TeamDetails({ team }: { team: LeagueTeam }) {
+export function TeamDetails({ team, place }: { team: ClubPanelData["team"]; place: string }) {
   return (
     <InfoCard title="Informacje o klubie">
       <InfoRow label="Pełna nazwa">
@@ -23,7 +23,7 @@ export function TeamDetails({ team }: { team: LeagueTeam }) {
         <span className="font-mono font-bold text-positive">{team.short}</span>
       </InfoRow>
       <InfoRow label="Aktualne miejsce">
-        <span className="font-black text-brand">#{team.pos}</span>
+        <span className="font-black text-brand">{place === "–" ? place : `#${place}`}</span>
       </InfoRow>
       <InfoRow label="Stadion domowy">{STADIUM_PLACEHOLDER.name}</InfoRow>
       <InfoRow label="Długość toru">

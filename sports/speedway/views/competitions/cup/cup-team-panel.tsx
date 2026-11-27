@@ -1,6 +1,5 @@
 import Link from "next/link";
-
-import { formatBilans } from "@/sports/speedway/views/competitions/league/standings";
+import { formatBilans } from "@/sports/speedway/views/competitions/shared/stats/format";
 import type { CupTeamDetail, CupTeamGame } from "@/sports/speedway/api/cup";
 
 function Stat({ label, value }: { label: string; value: string | number }) {

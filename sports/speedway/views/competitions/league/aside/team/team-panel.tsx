@@ -1,17 +1,13 @@
 import { TabNav } from "@/components/tabs/tab-nav";
+import { getClubPanelData } from "@/sports/speedway/api/club-panel";
 import { speedwayConfig } from "@/sports/speedway/config";
-import { getTeamRiders } from "@/sports/speedway/api/league";
 import type { LeagueTeam } from "@/sports/speedway/types/league";
-import {
-  buildLeagueHref,
-  PANEL_TABS,
-  type LeagueParams,
-  type PanelTab,
-} from "../../search-params";
-import { TeamDetails } from "./team-details";
-import { TeamGames } from "./team-games";
-import { TeamRiders } from "./team-riders";
-import { TeamStats } from "./team-stats";
+import { PANEL_TABS, type PanelTab } from "@/sports/speedway/views/competitions/shared/aside/panel-tabs";
+import { TeamDetails } from "@/sports/speedway/views/competitions/shared/aside/team/team-details";
+import { TeamGames } from "@/sports/speedway/views/competitions/shared/aside/team/team-games";
+import { TeamRiders } from "@/sports/speedway/views/competitions/shared/aside/team/team-riders";
+import { TeamStats } from "@/sports/speedway/views/competitions/shared/aside/team/team-stats";
+import { buildLeagueHref, type LeagueParams } from "../../search-params";
 
 /** Tab labels. "Riders" comes from the sport vocabulary, the rest is the same for every sport. */
 const PANEL_LABELS: Record<PanelTab, string> = {
@@ -26,7 +22,12 @@ const PANEL_LABELS: Record<PanelTab, string> = {
  * MasterDetail, so the header leaves room for it on the right.
  */
 export async function TeamPanel({ team, params }: { team: LeagueTeam; params: LeagueParams }) {
-  const riders = params.panel === "riders" ? await getTeamRiders(team.id) : [];
+  const data = await getClubPanelData(
+    team.id,
+    "league",
+    params.panel === "riders" || params.panel === "games" ? [params.panel] : [],
+  );
+  if (!data) return null;
 
   return (
     <div className="flex flex-col select-none">
@@ -58,12 +59,18 @@ export async function TeamPanel({ team, params }: { team: LeagueTeam; params: Le
         }))}
       />
 
-      {params.panel === "stats" ? <TeamStats team={team} /> : null}
-      {params.panel === "games" ? <TeamGames team={team} params={params} /> : null}
-      {params.panel === "riders" ? (
-        <TeamRiders team={team} riders={riders} venue={params.venue} />
+      {params.panel === "stats" ? (
+        <TeamStats place={data.place} stats={data.stats} showLeaguePoints />
       ) : null}
-      {params.panel === "details" ? <TeamDetails team={team} /> : null}
+      {params.panel === "games" ? (
+        <TeamGames
+          title={`Games: ${data.team.name}`}
+          countLabel={`${data.games.length} rounds`}
+          games={data.games}
+        />
+      ) : null}
+      {params.panel === "riders" ? <TeamRiders riders={data.riders} venue={params.venue} /> : null}
+      {params.panel === "details" ? <TeamDetails team={data.team} place={data.place} /> : null}
     </div>
   );
 }
