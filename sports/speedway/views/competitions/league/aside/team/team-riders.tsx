@@ -1,8 +1,8 @@
+import type { Venue } from "@/components/toggle/venue-toggle";
 import { cn } from "@/lib/utils";
 import { speedwayConfig } from "@/sports/speedway/config";
 import type { LeagueRider, LeagueTeam } from "@/sports/speedway/types/league";
-import type { Venue } from "@/sports/speedway/views/competitions/league/search-params";
-import { getRiderStats } from "@/sports/speedway/views/competitions/league/standings";
+import { getRiderStats } from "@/sports/speedway/views/competitions/shared/stats/rider-stats";
 
 function rankClass(index: number): string {
   if (index === 0) return "bg-rank-gold text-rank-on-light";

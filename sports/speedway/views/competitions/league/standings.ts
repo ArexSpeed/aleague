@@ -1,4 +1,4 @@
-import type { LeagueRider, LeagueTeam, RiderTelemetry } from "@/sports/speedway/types/league";
+import type { LeagueTeam } from "@/sports/speedway/types/league";
 import type { Venue } from "@/sports/speedway/views/competitions/league/search-params";
 
 /** Numbers shown in one table row for the selected venue filter (All / Home / Away). */
@@ -14,10 +14,6 @@ export function getRowStats(team: LeagueTeam, venue: Venue) {
     matches: games,
     points: v ? v.pts : team.points,
   };
-}
-
-export function getRiderStats(rider: LeagueRider, venue: Venue): RiderTelemetry {
-  return venue === "home" ? rider.home : venue === "away" ? rider.away : rider;
 }
 
 /** Position badge: gold, silver, bronze, relegation (last), neutral otherwise. */

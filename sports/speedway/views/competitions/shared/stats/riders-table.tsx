@@ -11,8 +11,8 @@ import type { Venue } from "@/components/toggle/venue-toggle";
 import type { ViewMode } from "@/components/toggle/view-mode-toggle";
 import { speedwayConfig } from "@/sports/speedway/config";
 import type { LeagueRiderWithSkills } from "@/sports/speedway/types/league";
-import { getRiderStats } from "../../standings";
 import { RiderDetail } from "./rider-detail";
+import { getRiderStats } from "./rider-stats";
 import {
   getRiderDetailedColumns,
   getRiderSkillsColumns,

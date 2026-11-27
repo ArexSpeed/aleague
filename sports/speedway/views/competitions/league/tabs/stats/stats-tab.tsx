@@ -1,7 +1,7 @@
 import { getLeagueRiders } from "@/sports/speedway/api/league";
+import { RidersTable } from "@/sports/speedway/views/competitions/shared/stats/riders-table";
+import { StatsToolbar } from "@/sports/speedway/views/competitions/shared/stats/stats-toolbar";
 import { buildLeagueHref, type LeagueParams } from "../../search-params";
-import { RidersTable } from "./riders-table";
-import { StatsToolbar } from "./stats-toolbar";
 
 /** Stats tab: toolbar, then the riders table (Stats or Skills columns) of the selected leagues. */
 export async function StatsTab({ params }: { params: LeagueParams }) {

@@ -1,7 +1,7 @@
 import { StatTile } from "@/components/data/stat-tile";
+import type { Venue } from "@/components/toggle/venue-toggle";
 import type { LeagueRiderWithSkills } from "@/sports/speedway/types/league";
-import type { Venue } from "../../search-params";
-import { getRiderStats } from "../../standings";
+import { getRiderStats } from "./rider-stats";
 
 /** Lines 2 and 3 of a detailed rider row (line 1 is the row itself with the AH badge). */
 export function RiderDetail({ rider, venue }: { rider: LeagueRiderWithSkills; venue: Venue }) {

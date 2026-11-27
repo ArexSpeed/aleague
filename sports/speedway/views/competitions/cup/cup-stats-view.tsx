@@ -1,6 +1,6 @@
 import { getCupStatsView } from "@/sports/speedway/api/cup";
-import { RidersTable } from "../league/tabs/stats/riders-table";
-import { StatsToolbar } from "../league/tabs/stats/stats-toolbar";
+import { RidersTable } from "../shared/stats/riders-table";
+import { StatsToolbar } from "../shared/stats/stats-toolbar";
 import { buildCupHref, type CupParams } from "./search-params";
 
 /** Cup Stats: the league's toolbar and riders table, fed with riders of the cup clubs (cup matches only). */
