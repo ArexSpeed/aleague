@@ -3,6 +3,7 @@ import { speedwayConfig } from "./config";
 import { LeaguePage } from "./views/competitions/league/league-page";
 import { CupPage } from "./views/competitions/cup/cup-page";
 import { TournamentsPage } from "./views/competitions/tournaments/tournaments-page";
+import { IndividualPage } from "./views/competitions/individual/individual-page";
 import { HomeView } from "./views/home/home-view";
 import { TeamsView } from "./views/teams/teams-view";
 import { MatchPage } from "./views/matches/match/match-page";
@@ -17,5 +18,6 @@ export const speedway: SportModule = {
     league: LeaguePage,
     tournaments: TournamentsPage,
     cup: CupPage,
+    individual: IndividualPage,
   },
 };

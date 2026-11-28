@@ -30,22 +30,31 @@ export async function CompetitionSkeleton({
   const competition = competitionLine?.options.some((item) => item.id === competitionRaw)
     ? competitionRaw
     : config.defaultParams.competition;
+ /** A dependent line (country, category, division) counts only for its own competition. */
+  const lineFor = (parameter: string) =>
+    config.lines.find(
+      (line) =>
+        line.parameter === parameter && (!line.onlyWhen || line.onlyWhen === competition),
+    );
   const divisionRaw = typeof raw.division === "string" ? raw.division : undefined;
-  const divisionLine = config.lines.find((line) => line.parameter === "division");
+  const divisionLine = lineFor("division");
   const division = divisionLine?.options.some((item) => item.id === divisionRaw)
     ? divisionRaw
-    : divisionLine?.options[0]?.id;
+    : (divisionLine?.options.find((item) => item.id === config.defaultParams.division) ??
+        divisionLine?.options[0])?.id;
   const tab = config.tabs.some((item) => item.id === raw.tab)
     ? String(raw.tab)
     : config.defaultParams.tab;
 
   const countryRaw = typeof raw.country === "string" ? raw.country : undefined;
-  const countryLine = config.lines.find((line) => line.parameter === "country");
+  const countryLine = lineFor("country");
   const country = countryLine?.options.some((item) => item.id === countryRaw)
     ? countryRaw
-    : config.defaultParams.country;
+    : countryLine
+      ? config.defaultParams.country
+      : undefined;
   const categoryRaw = typeof raw.category === "string" ? raw.category : undefined;
-  const categoryLine = config.lines.find((line) => line.parameter === "category");
+  const categoryLine = lineFor("category");
   const category = categoryLine?.options.some((item) => item.id === categoryRaw)
     ? categoryRaw
     : categoryLine?.options[0]?.id;
@@ -64,7 +73,7 @@ export async function CompetitionSkeleton({
           tabs={config.tabs.map((item) => ({
             id: item.id,
             label: item.label,
-            href: competitionsHref({ sport, kind, competition, tab: item.id }),
+            href: competitionsHref({ sport, kind, competition, country, category, division, tab: item.id }),
           }))}
         />
       ) : null}
@@ -92,7 +101,7 @@ export async function CompetitionSkeleton({
                       line.parameter === "country" ? country === item.id :
                       line.parameter === "category" ? category === item.id :
                       division === item.id,
-                    href: competitionsHref({
+                   href: competitionsHref({
                       sport,
                       kind,
                       competition: line.parameter === "competition" ? item.id : competition,

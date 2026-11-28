@@ -6,6 +6,8 @@ export const COMPETITION_KEYS = [
   "fours",
   "regio",
   "junior",
+  "country",
+  "helmet",
   "helmet",
   "gp",
 ] as const;

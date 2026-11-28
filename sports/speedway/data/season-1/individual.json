@@ -1,0 +1,25 @@
+{
+  "id": "individual-country",
+  "format": "individual-16",
+  "tournaments": 3,
+  "ridersPerTournament": 16,
+  "divisions": ["junior", "open"],
+  "selection": {
+    "metric": "season-avg-heat",
+    "lock": "first-tournament-start",
+    "minHeats": 20,
+    "fallback": "skills-mean"
+  },
+  "stages": { "direct": 2, "semifinal": 4, "semifinalAdvance": 2 },
+  "override": {},
+  "seed": "individual-s1",
+  "scoring": {
+    "heatPoints": [3, 2, 1, 0],
+    "counts": { "regular": true, "semifinal": false, "final": true }
+  },
+  "notes": [
+    "TODO: confirm minHeats (20 heats = about 4-5 league matches)",
+    "TODO: confirm when the 16 are picked (now: when the first tournament starts)",
+    "TODO: tie-break in the cycle table"
+  ]
+}

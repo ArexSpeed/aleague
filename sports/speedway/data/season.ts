@@ -7,9 +7,20 @@ import ridersJson from "./season-1/riders.json";
 import nationGamesJson from "./season-1/nation-games.json";
 import tournamentsJson from "./season-1/tournaments.json";
 import cupJson from "./season-1/cup.json";
+import individualJson from "./season-1/individual.json";
 import { cupDefinitionSchema } from "../types/cup";
+import { individualDefinitionSchema } from "../types/individual";
 import { assertCupDefinition } from "../sim/cup/definition";
-import { clubSchema, fixtureSchema, nationSchema, riderSchema, type Club, type Fixture } from "./schema";
+import { assertIndividualDefinition } from "../sim/individual/definition";
+import { generateIndividualFixtures } from "../sim/individual/fixtures";
+import {
+  clubSchema,
+  fixtureSchema,
+  nationSchema,
+  riderSchema,
+  type Club,
+  type Fixture,
+} from "./schema";
 import { tournamentDefSchema, type TournamentDef } from "../types/tournaments";
 import { generateCupFixtures } from "../sim/cup/fixtures";
 import { buildCupPlan } from "../sim/cup/plan";
@@ -25,16 +36,28 @@ export const SEASON_FIXTURES = z.array(fixtureSchema).parse(fixturesJson);
 export const NATION_GAMES_FIXTURES = z.array(fixtureSchema).parse(nationGamesJson);
 export const TOURNAMENTS = z.array(tournamentDefSchema).parse(tournamentsJson);
 
-export const TOURNAMENT_BY_ID = new Map<string, TournamentDef>(
-  TOURNAMENTS.map((t) => [t.id, t]),
-);
+export const TOURNAMENT_BY_ID = new Map<string, TournamentDef>(TOURNAMENTS.map((t) => [t.id, t]));
 
 export const CUP_DEFINITION = cupDefinitionSchema.parse(cupJson);
 assertCupDefinition(CUP_DEFINITION, CLUBS);
 
-const CUP_CLUB_COUNT = CLUBS.filter((club) => CUP_DEFINITION.leagues.includes(club.leagueId)).length;
+const CUP_CLUB_COUNT = CLUBS.filter((club) =>
+  CUP_DEFINITION.leagues.includes(club.leagueId),
+).length;
 export const CUP_PLAN = buildCupPlan(CUP_DEFINITION, CUP_CLUB_COUNT);
 export const CUP_FIXTURES = generateCupFixtures(CUP_DEFINITION, CUP_PLAN);
+
+export const INDIVIDUAL_DEFINITION = individualDefinitionSchema.parse(individualJson);
+assertIndividualDefinition(
+  INDIVIDUAL_DEFINITION,
+  RIDERS,
+  NATIONS.map((nation) => nation.code),
+);
+
+export const INDIVIDUAL_FIXTURES = generateIndividualFixtures(
+  INDIVIDUAL_DEFINITION,
+  NATIONS.map((nation) => nation.code),
+);
 
 /** Every fixture a match can be opened from: league and cup. */
 export const MATCH_FIXTURES: Fixture[] = [...SEASON_FIXTURES, ...CUP_FIXTURES];

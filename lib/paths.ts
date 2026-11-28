@@ -18,6 +18,7 @@ export type CompetitionsHrefParams = {
   tab?: string;
   round?: string;
   team?: string;
+  rider?: string;
   match?: string;
   matchday?: number;
   panel?: string;
@@ -41,6 +42,7 @@ export function competitionsHref(params: CompetitionsHrefParams): string {
     "tab",
     "round",
     "team",
+    "rider",
     "match",
     "panel",
     "view",

@@ -7,6 +7,7 @@ import { CompetitionSkeleton } from "@/sports/speedway/views/competitions/compet
 import { LeaguePage } from "@/sports/speedway/views/competitions/league/league-page";
 import { CupPage } from "@/sports/speedway/views/competitions/cup/cup-page";
 import { TournamentsPage } from "@/sports/speedway/views/competitions/tournaments/tournaments-page";
+import { IndividualPage } from "@/sports/speedway/views/competitions/individual/individual-page";
 import type { RawSearchParams } from "@/sports/types";
 
 type Props = {
@@ -40,6 +41,10 @@ async function CompetitionContent({ params, searchParams }: Props) {
 
   if (kind === "tournaments") {
     return <TournamentsPage sport={config.id} basePath={basePath} searchParams={Promise.resolve(raw)} />;
+  }
+
+  if (kind === "individual") {
+    return <IndividualPage sport={config.id} basePath={basePath} searchParams={Promise.resolve(raw)} />;
   }
 
   return <CompetitionSkeleton sport={config.id} kind={kind} searchParams={Promise.resolve(raw)} />;

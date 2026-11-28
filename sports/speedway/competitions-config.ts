@@ -1,4 +1,4 @@
-import type { CompetitionKey } from "./competition-keys";
+import { COMPETITION_KEYS, type CompetitionKey } from "./competition-keys";
 
 export type CompetitionKind = "league" | "nation" | "cup" | "individual" | "tournaments";
 
@@ -78,7 +78,7 @@ export const COMPETITION_KINDS = [
     defaultParams: { kind: "nation", group: "league", tab: "table" },
     leagueKind: true,
   },
-    {
+  {
     id: "cup",
     label: "Cup",
     lines: [
@@ -100,13 +100,14 @@ export const COMPETITION_KINDS = [
     label: "Individual",
     lines: [
       {
-        parameter: "competition",
-        label: "Competition",
+        parameter: "division",
+        label: "Division",
+        dependsOn: "competition",
         options: [
-          { id: "country", label: "Country" },
-          { id: "helmet", label: "Helmet" },
-          { id: "gp", label: "GP" },
+          { id: "junior", label: "Junior" },
+          { id: "open", label: "Open" },
         ],
+        onlyWhen: "country",
       },
       {
         parameter: "country",
@@ -138,7 +139,13 @@ export const COMPETITION_KINDS = [
       },
     ],
     tabs: COMMON_TABS,
-    defaultParams: { kind: "individual", competition: "country", country: "ark", tab: "table" },
+    defaultParams: {
+      kind: "individual",
+      competition: "country",
+      country: "ark",
+      division: "open",
+      tab: "table",
+    },
     leagueKind: false,
   },
   {
@@ -167,12 +174,7 @@ export function getCompetitionKind(kind: string | undefined): CompetitionKindCon
 }
 
 export function isCompetitionKey(value: string | undefined): value is CompetitionKey {
-  return Boolean(
-    value &&
-    (
-      ["league", "cup", "supercup", "pairs", "fours", "regio", "junior", "helmet", "gp"] as string[]
-    ).includes(value),
-  );
+  return COMPETITION_KEYS.some((key) => key === value);
 }
 /**
  * What the club aside counts: the competition whose matches feed its Stats, Games and Riders tabs.
