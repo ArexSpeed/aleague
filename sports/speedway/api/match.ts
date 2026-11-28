@@ -142,7 +142,8 @@ export async function getMatch(id: string): Promise<Match | null> {
 
   const matches = await readMatches();
   const row = await getRow(id);
-  const stored = matches[id] ?? newStoredMatch(id, row.attempt);
+  const stored =
+    matches[id] ?? newStoredMatch(id, row.attempt, { homeId: fixture.homeId, awayId: fixture.awayId });
   const stats = computeRiderStats(matches);
 
   const homeClub = CLUB_BY_REF.get(fixture.homeId)!;
@@ -165,8 +166,8 @@ export async function getMatch(id: string): Promise<Match | null> {
   return matchSchema.parse({
     id: fixture.id,
     matchday: fixture.matchday,
-    date: fixture.date,
-    time: fixture.time,
+    date: fixture.date || null,
+    time: fixture.time || null,
     status: isFinished(stored) ? "finished" : stored.heats.length > 0 ? "live" : "scheduled",
     stadium: {
       name: homeClub.stadium.name,

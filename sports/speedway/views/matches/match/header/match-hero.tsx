@@ -9,6 +9,7 @@ import type { SportId } from "@/sports/types";
 import { formatDayMonth } from "../format";
 import { isFinished, scoreOf, winnerSide } from "../match-stats";
 import { MatchSimBar } from "../sim/match-sim-bar";
+import { kickoffLabel } from "../kickoff";
 
 export function scoreTone(match: Match, side: Side) {
   const winner = winnerSide(match);
@@ -88,12 +89,14 @@ export function MatchHero({ match, sport }: { match: Match; sport: SportId }) {
           ) : (
             <span className="font-mono text-3xl font-black text-fg-faint sm:text-5xl">VS</span>
           )}
-          <span className="text-[11px] font-semibold text-fg-muted">
+            <span className="text-[11px] font-semibold text-fg-muted">
             {match.status === "finished"
-              ? `Finished · ${formatDayMonth(match.date)}`
+              ? match.date
+                ? `Finished · ${formatDayMonth(match.date)}`
+                : "Finished"
               : finished
                 ? `After heat ${match.heats.filter((h) => h.homePoints !== null).length}`
-                : `${formatDayMonth(match.date)} · ${match.time}`}
+                : kickoffLabel(match)}
           </span>
         </div>
 

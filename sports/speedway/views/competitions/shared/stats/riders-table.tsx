@@ -6,11 +6,13 @@ import {
   RowName,
   podiumBadgeClass,
 } from "@/components/table/row-lead";
+import type { Metrics } from "@/components/toggle/metrics-toggle";
+import type { Venue } from "@/components/toggle/venue-toggle";
+import type { ViewMode } from "@/components/toggle/view-mode-toggle";
 import { speedwayConfig } from "@/sports/speedway/config";
 import type { LeagueRiderWithSkills } from "@/sports/speedway/types/league";
-import { buildLeagueHref, type LeagueParams } from "../../search-params";
-import { getRiderStats } from "../../standings";
 import { RiderDetail } from "./rider-detail";
+import { getRiderStats } from "./rider-stats";
 import {
   getRiderDetailedColumns,
   getRiderSkillsColumns,
@@ -18,26 +20,35 @@ import {
   getSkillAverage,
 } from "./riders-columns";
 
+type RidersTableProps = {
+  riders: LeagueRiderWithSkills[];
+  metrics: Metrics;
+  venue: Venue;
+  view: ViewMode;
+  /** Where a click on a row goes (league: the rider's team in the aside). */
+  hrefFor: (rider: LeagueRiderWithSkills) => string;
+};
+
 /**
  * Riders ranked by points (Stats) or by average skill (Skills).
  * Compact = one line with columns. Detailed (Stats only for now) = AH on the first line,
  * tiles below. Skills has no detailed view yet and stays compact.
  */
-export function RidersTable({ riders, params }: { riders: LeagueRiderWithSkills[]; params: LeagueParams }) {
-  const skills = params.metrics === "skills";
-  const detailed = !skills && params.view === "detailed";
+export function RidersTable({ riders, metrics, venue, view, hrefFor }: RidersTableProps) {
+  const skills = metrics === "skills";
+  const detailed = !skills && view === "detailed";
 
   const sorted = [...riders].sort((a, b) =>
     skills
       ? getSkillAverage(b.skills) - getSkillAverage(a.skills)
-      : getRiderStats(b, params.venue).points - getRiderStats(a, params.venue).points,
+      : getRiderStats(b, venue).points - getRiderStats(a, venue).points,
   );
 
   const columns = skills
     ? getRiderSkillsColumns()
     : detailed
-      ? getRiderDetailedColumns(params.venue)
-      : getRiderStatsColumns(params.venue);
+      ? getRiderDetailedColumns(venue)
+      : getRiderStatsColumns(venue);
 
   return (
     <DataTable
@@ -46,8 +57,7 @@ export function RidersTable({ riders, params }: { riders: LeagueRiderWithSkills[
       getKey={(rider) => rider.id}
       density={detailed ? "detailed" : "compact"}
       showHeader={!detailed}
-      // A click opens the rider's team in the aside, straight on the Riders tab.
-      getHref={(rider) => buildLeagueHref(params, { team: rider.teamId, panel: "riders" })}
+      getHref={hrefFor}
       headerLead={
         <>
           <span className="w-6 text-center font-bold sm:w-7">#</span>
@@ -72,7 +82,7 @@ export function RidersTable({ riders, params }: { riders: LeagueRiderWithSkills[
           )}
         </>
       )}
-      renderDetail={detailed ? (rider) => <RiderDetail rider={rider} venue={params.venue} /> : undefined}
+      renderDetail={detailed ? (rider) => <RiderDetail rider={rider} venue={venue} /> : undefined}
     />
   );
 }

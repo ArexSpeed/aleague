@@ -1,8 +1,8 @@
 import { SkillBadge } from "@/components/data/skill-badge";
 import type { Column } from "@/components/table/columns";
+import type { Venue } from "@/components/toggle/venue-toggle";
 import type { LeagueRiderWithSkills, RiderSkills } from "@/sports/speedway/types/league";
-import type { Venue } from "../../search-params";
-import { getRiderStats } from "../../standings";
+import { getRiderStats } from "./rider-stats";
 
 /** Skill value from which a rating is highlighted. */
 const HIGH_SKILL = 92;

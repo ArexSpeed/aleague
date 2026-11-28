@@ -9,12 +9,8 @@ import {
   getNationTeamFixtures,
   type NationRider,
 } from "@/sports/speedway/api/nations";
-import {
-  buildLeagueHref,
-  PANEL_TABS,
-  type LeagueParams,
-  type PanelTab,
-} from "@/sports/speedway/views/competitions/league/search-params";
+import { buildLeagueHref, type LeagueParams } from "@/sports/speedway/views/competitions/league/search-params";
+import { PANEL_TABS, type PanelTab } from "@/sports/speedway/views/competitions/shared/aside/panel-tabs";
 
 const PANEL_LABELS: Record<PanelTab, string> = {
   stats: "Stats",

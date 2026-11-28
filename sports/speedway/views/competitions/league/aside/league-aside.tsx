@@ -2,9 +2,9 @@ import type { ReactNode } from "react";
 
 import { getLeagueTeam, getLeagueTeams } from "@/sports/speedway/api/league";
 import { getNationTeam } from "@/sports/speedway/api/nations";
-import { buildLeagueHref, type LeagueParams } from "../search-params";
-import { TeamPanel } from "./team/team-panel";
 import { NationTeamPanel } from "@/sports/speedway/views/competitions/nations/nation-team-panel";
+import { TeamPanel } from "@/sports/speedway/views/competitions/shared/aside/team-panel";
+import { buildLeagueHref, type LeagueParams } from "../search-params";
 
 export type LeagueAside = {
   /** Always rendered on lg+ (fallback when nothing is selected). */
@@ -37,7 +37,15 @@ export async function getLeagueAside(params: LeagueParams): Promise<LeagueAside>
   const team = selected ?? (await getLeagueTeams()).sort((a, b) => a.pos - b.pos)[0] ?? null;
 
   return {
-    detail: team ? <TeamPanel team={team} params={params} /> : null,
+    detail: team ? (
+      <TeamPanel
+        clubId={team.id}
+        source={params.source}
+        panel={params.panel}
+        venue={params.venue}
+        hrefFor={(patch) => buildLeagueHref(params, patch)}
+      />
+    ) : null,
     open: selected !== null,
     closeHref: buildLeagueHref(params, { team: undefined, panel: "stats" }),
   };

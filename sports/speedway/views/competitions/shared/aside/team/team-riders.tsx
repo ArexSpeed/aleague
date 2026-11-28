@@ -1,8 +1,8 @@
+import type { Venue } from "@/components/toggle/venue-toggle";
 import { cn } from "@/lib/utils";
 import { speedwayConfig } from "@/sports/speedway/config";
-import type { LeagueRider, LeagueTeam } from "@/sports/speedway/types/league";
-import type { Venue } from "@/sports/speedway/views/competitions/league/search-params";
-import { getRiderStats } from "@/sports/speedway/views/competitions/league/standings";
+import type { LeagueRider } from "@/sports/speedway/types/league";
+import { getRiderStats } from "@/sports/speedway/views/competitions/shared/stats/rider-stats";
 
 function rankClass(index: number): string {
   if (index === 0) return "bg-rank-gold text-rank-on-light";
@@ -12,15 +12,7 @@ function rankClass(index: number): string {
 }
 
 /** Panel tab "Riders": the team's squad, sorted by heat average for the chosen venue. */
-export function TeamRiders({
-  team,
-  riders,
-  venue,
-}: {
-  team: LeagueTeam;
-  riders: LeagueRider[];
-  venue: Venue;
-}) {
+export function TeamRiders({ riders, venue }: { riders: LeagueRider[]; venue: Venue }) {
   const sorted = [...riders].sort(
     (a, b) => getRiderStats(b, venue).avgHeat - getRiderStats(a, venue).avgHeat,
   );

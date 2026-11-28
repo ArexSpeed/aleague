@@ -25,6 +25,7 @@ export type CompetitionsHrefParams = {
   venue?: string;
   schedule?: string;
   metrics?: string;
+  source?: string;
   preview?: string;
 };
 
@@ -46,6 +47,7 @@ export function competitionsHref(params: CompetitionsHrefParams): string {
     "venue",
     "schedule",
     "metrics",
+    "source",
     "preview",
   ] as const) {
     const value = params[key];

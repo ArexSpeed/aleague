@@ -5,6 +5,7 @@ import { requireSport } from "@/sports/registry";
 import { getCompetitionKind, type CompetitionKind } from "@/sports/speedway/competitions-config";
 import { CompetitionSkeleton } from "@/sports/speedway/views/competitions/competition-skeleton";
 import { LeaguePage } from "@/sports/speedway/views/competitions/league/league-page";
+import { CupPage } from "@/sports/speedway/views/competitions/cup/cup-page";
 import { TournamentsPage } from "@/sports/speedway/views/competitions/tournaments/tournaments-page";
 import type { RawSearchParams } from "@/sports/types";
 
@@ -31,6 +32,10 @@ async function CompetitionContent({ params, searchParams }: Props) {
 
   if (kind === "league" || kind === "nation") {
     return <LeaguePage sport={config.id} basePath={basePath} searchParams={Promise.resolve(raw)} />;
+  }
+
+  if (kind === "cup") {
+    return <CupPage sport={config.id} basePath={basePath} searchParams={Promise.resolve(raw)} />;
   }
 
   if (kind === "tournaments") {

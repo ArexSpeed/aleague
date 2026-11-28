@@ -1,3 +1,5 @@
+import type { ReactNode } from "react";
+
 import { FixtureCard, type FixtureCardData } from "./fixture-card";
 
 export type FixtureGroupData = {
@@ -5,7 +7,10 @@ export type FixtureGroupData = {
   title: string;
   /** Small pill on the right of the header, e.g. a date. */
   meta?: string;
-  fixtures: FixtureCardData[];
+  /** Flat list of match cards (league). */
+  fixtures?: FixtureCardData[];
+  /** Custom body instead of the flat list (e.g. cup place groups and pairs). */
+  content?: ReactNode;
 };
 
 /** Rounds / matchdays with their fixtures. Scrolls on its own, the toolbar above stays put. */
@@ -32,11 +37,13 @@ export function FixtureList({ groups, empty }: { groups: FixtureGroupData[]; emp
               </span>
             ) : null}
           </header>
-          <ul className="space-y-2">
-            {group.fixtures.map((fixture) => (
-              <FixtureCard key={fixture.id} fixture={fixture} />
-            ))}
-          </ul>
+          {group.content ?? (
+            <ul className="space-y-2">
+              {(group.fixtures ?? []).map((fixture) => (
+                <FixtureCard key={fixture.id} fixture={fixture} />
+              ))}
+            </ul>
+          )}
         </section>
       ))}
     </div>

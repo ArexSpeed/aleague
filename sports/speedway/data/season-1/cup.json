@@ -1,0 +1,35 @@
+{
+  "id": "cup-cup",
+  "format": "classification-knockout",
+  "legs": 2,
+  "leagues": ["east-gold", "west-gold", "east-silver", "west-silver"],
+  "rounds": [
+    { "id": "r1", "label": "Round 1" },
+    { "id": "r2", "label": "Round 2" },
+    { "id": "r3", "label": "Round 3" },
+    { "id": "r4", "label": "Round 4" },
+    { "id": "r5", "label": "Round 5" },
+    { "id": "r6", "label": "Round 6" }
+  ],
+  "seeding": {
+    "snapshot": { "stage": "regular", "share": 0.5 },
+    "seeded": [
+      { "leagueId": "east-gold", "count": 8 },
+      { "leagueId": "west-gold", "count": 8 }
+    ]
+  },
+  "qualDraw": {
+    "baskets": [
+      { "id": "gold", "leagues": ["east-gold", "west-gold"] },
+      { "id": "silver", "leagues": ["east-silver", "west-silver"] }
+    ]
+  },
+  "seed": "cup-s1",
+  "pairResult": { "rule": "sum-of-heat-points" },
+  "tie": { "resolution": "runoff", "fallback": "seed-rank" },
+  "notes": [
+    "TODO: confirm seeded split East Gold / West Gold (8 + 8 for now)",
+    "TODO: confirm pair result = sum of heat points, and Round 1 draw interpretation",
+    "TODO: run-off heat is a separate task; until then the higher seed rank advances"
+  ]
+}

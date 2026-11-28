@@ -6,6 +6,7 @@ import { readMatches, type StoredMatch } from "@/sports/speedway/sim/results-sto
 import { isFinished } from "@/sports/speedway/sim/stats";
 import { fixtureSchema, type Fixture, type FixtureWithTeams, type TeamRef } from "@/sports/speedway/types/fixtures";
 import { resolveLeagueIds } from "./league";
+import { getCupFixture } from "./cup";
 
 const KICKOFF_TIMES = ["16:30", "17:00", "18:00", "19:30"];
 const DAY_MS = 24 * 60 * 60 * 1000;
@@ -84,6 +85,7 @@ export async function getFixtures(group?: string): Promise<FixtureWithTeams[]> {
 }
 
 export async function getFixture(id: string): Promise<FixtureWithTeams | null> {
+  if (id.startsWith("cup-")) return getCupFixture(id);
   const [fixture] = hydrate(FIXTURES.filter((f) => f.id === id), await readMatches());
   return fixture ?? null;
 }

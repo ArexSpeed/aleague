@@ -2,7 +2,7 @@ import { ChevronRight, type LucideIcon } from "lucide-react";
 import type { ReactNode } from "react";
 
 import type { VenueStats } from "@/sports/speedway/types/league";
-import { formatBilans, winRate } from "@/sports/speedway/views/competitions/league/standings";
+import { formatBilans, winRate } from "@/sports/speedway/views/competitions/shared/stats/format";
 
 type VenueAccordionProps = {
   title: string;

@@ -1,6 +1,7 @@
 import type { SportModule } from "../types";
 import { speedwayConfig } from "./config";
 import { LeaguePage } from "./views/competitions/league/league-page";
+import { CupPage } from "./views/competitions/cup/cup-page";
 import { TournamentsPage } from "./views/competitions/tournaments/tournaments-page";
 import { HomeView } from "./views/home/home-view";
 import { TeamsView } from "./views/teams/teams-view";
@@ -15,5 +16,6 @@ export const speedway: SportModule = {
   competitionViews: {
     league: LeaguePage,
     tournaments: TournamentsPage,
+    cup: CupPage,
   },
 };

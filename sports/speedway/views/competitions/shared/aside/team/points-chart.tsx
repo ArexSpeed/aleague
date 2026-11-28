@@ -27,12 +27,12 @@ export function PointsChart({ matches }: { matches: TeamMatch[] }) {
         </div>
 
         <ul className="no-scrollbar max-h-52 space-y-1 overflow-y-auto pr-1">
-          {matches.map((match) => {
+          {matches.map((match, index) => {
             const win = match.res === "W";
             const width = Math.min(100, Math.round((match.pts / MAX_POINTS) * 100));
             return (
               <li
-                key={match.round}
+                key={`${match.round}-${index}`}
                 className="group flex items-center gap-2 rounded-lg px-1.5 py-1 transition-colors hover:bg-surface"
               >
                 <span className="w-7 shrink-0 text-[11px] font-extrabold text-fg-faint group-hover:text-fg">

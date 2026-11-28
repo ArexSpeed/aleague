@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { ScrollArea } from "@/components/layout/scroll-area";
 import { MasterDetail } from "@/components/layout/master-detail";
 import { SegmentedControl } from "@/components/toggle/segmented-control";
@@ -11,10 +12,15 @@ export async function CompetitionSkeleton({
   sport,
   kind,
   searchParams,
+  children,
+  aside,
 }: {
   sport: "speedway";
   kind: CompetitionKind;
   searchParams: Promise<RawSearchParams>;
+  children?: ReactNode;
+  /** Optional detail pane (e.g. the cup's club panel). Without it the detail stays empty. */
+  aside?: { detail: ReactNode; open: boolean; closeHref: string };
 }) {
   const raw = await searchParams;
   const config = getCompetitionKind(kind);
@@ -101,9 +107,11 @@ export async function CompetitionSkeleton({
             )
           ))}
         </div>
-        <div className="flex flex-1 items-center justify-center text-sm font-semibold text-fg-faint">
-          No data yet
-        </div>
+        {children ?? (
+          <div className="flex flex-1 items-center justify-center text-sm font-semibold text-fg-faint">
+            No data yet
+          </div>
+        )}
       </ScrollArea>
     </>
   );
@@ -111,10 +119,10 @@ export async function CompetitionSkeleton({
   return (
     <MasterDetail
       scrollMaster={false}
-      detailOpen={false}
-      closeHref={base}
+      detailOpen={aside?.open ?? false}
+      closeHref={aside?.closeHref ?? base}
       master={master}
-      detail={null}
+      detail={aside?.detail ?? null}
     />
   );
 }

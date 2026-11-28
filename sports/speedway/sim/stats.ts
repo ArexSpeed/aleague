@@ -1,12 +1,19 @@
-import { CLUB_BY_REF } from "@/sports/speedway/data/season";
+import { CLUB_BY_REF, CLUBS } from "@/sports/speedway/data/season";
+import type { Fixture } from "@/sports/speedway/data/schema";
 import { MATCH_HEATS, matchScore } from "@/sports/speedway/engine/v1";
 import type { LeagueTeam, RiderTelemetry, TeamMatch, VenueStats } from "@/sports/speedway/types/league";
-import { FIXTURE_BY_ID } from "./match-setup";
+import { clubsOfMatch, FIXTURE_BY_ID } from "./match-setup";
 import type { StoredMatch } from "./results-store";
 
 /** League table and rider statistics, calculated from the stored matches. Pure: no I/O. */
 
 export const isFinished = (match: StoredMatch) => match.heats.length >= MATCH_HEATS;
+
+/** Which fixtures a calculation counts. Default: club leagues only (east-gold, west-gold, ...). */
+export type FixtureFilter = (fixture: Fixture) => boolean;
+
+const LEAGUE_IDS = new Set(CLUBS.map((club) => club.leagueId));
+export const isLeagueFixture: FixtureFilter = (fixture) => LEAGUE_IDS.has(fixture.competitionId);
 
 const WIN_POINTS = 2;
 const DRAW_POINTS = 1;
@@ -35,7 +42,10 @@ export const emptyTeamStats = (): TeamStats => ({
   matches: [],
 });
 
-export function computeTeamStats(matches: Matches): Map<string, TeamStats> {
+export function computeTeamStats(
+  matches: Matches,
+  include: FixtureFilter = isLeagueFixture,
+): Map<string, TeamStats> {
   const stats = new Map<string, TeamStats>();
   const of = (id: string) => {
     if (!stats.has(id)) stats.set(id, emptyTeamStats());
@@ -47,7 +57,9 @@ export function computeTeamStats(matches: Matches): Map<string, TeamStats> {
 
   for (const match of Object.values(matches)) {
     if (!isFinished(match)) continue;
-    const fixture = FIXTURE_BY_ID.get(match.fixtureId)!;
+    const fixture = FIXTURE_BY_ID.get(match.fixtureId);
+    if (!fixture || !include(fixture)) continue;
+    const { homeId, awayId } = clubsOfMatch(match);
     const score = matchScore(match.heats);
 
     const apply = (clubId: string, venue: "home" | "away", own: number, opp: number, oppId: string) => {
@@ -72,15 +84,15 @@ export function computeTeamStats(matches: Matches): Map<string, TeamStats> {
       team.matches.push({ round: `R${fixture.matchday}`, opp: opponent.short, oppName: opponent.name, res, pts: own, oppPts: opp });
     };
 
-    apply(fixture.homeId, "home", score.home, score.away, fixture.awayId);
-    apply(fixture.awayId, "away", score.away, score.home, fixture.homeId);
+    apply(homeId, "home", score.home, score.away, awayId);
+    apply(awayId, "away", score.away, score.home, homeId);
 
-    const key = [fixture.competitionId, fixture.stage, ...[fixture.homeId, fixture.awayId].sort()].join("|");
+    const key = [fixture.competitionId, fixture.stage, ...[homeId, awayId].sort()].join("|");
     legs.set(key, [
       ...(legs.get(key) ?? []),
       [
-        { clubId: fixture.homeId, scored: score.home },
-        { clubId: fixture.awayId, scored: score.away },
+        { clubId: homeId, scored: score.home },
+        { clubId: awayId, scored: score.away },
       ],
     ]);
   }
@@ -135,10 +147,15 @@ export const emptyTelemetry = (): RiderTelemetry => telemetry(newAcc());
 export type RiderStats = RiderTelemetry & { home: RiderTelemetry; away: RiderTelemetry };
 
 /** Season statistics per rider from every heat played so far (also in matches not yet finished). */
-export function computeRiderStats(matches: Matches): Map<string, RiderStats> {
+export function computeRiderStats(
+  matches: Matches,
+  include: FixtureFilter = isLeagueFixture,
+): Map<string, RiderStats> {
   const acc = new Map<string, { total: Acc; home: Acc; away: Acc }>();
 
   for (const match of Object.values(matches)) {
+    const fixture = FIXTURE_BY_ID.get(match.fixtureId);
+    if (!fixture || !include(fixture)) continue;
     for (const heat of match.heats) {
       for (const r of heat.riders) {
         if (!acc.has(r.riderId)) acc.set(r.riderId, { total: newAcc(), home: newAcc(), away: newAcc() });

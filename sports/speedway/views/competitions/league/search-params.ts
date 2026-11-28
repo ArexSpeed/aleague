@@ -7,6 +7,8 @@ import {
   type FilterValues,
   type RawSearchParams,
 } from "@/lib/url-state";
+import { PANEL_TABS, type PanelTab } from "@/sports/speedway/views/competitions/shared/aside/panel-tabs";
+import { CLUB_STATS_SOURCES, type ClubStatsSource } from "@/sports/speedway/competitions-config";
 
 /**
  * League page URL state. Competition kind is stored as `kind`; the league
@@ -25,7 +27,6 @@ export const LEAGUE_TABS: readonly { id: (typeof LEAGUE_TAB_IDS)[number]; label:
 ];
 
 export const COMPETITION_KINDS = ["league", "nation"] as const;
-export const PANEL_TABS = ["stats", "games", "riders", "details"] as const;
 
 export const FILTERS = defineFilters({
   view: { values: ["detailed", "compact"], default: "detailed" },
@@ -42,7 +43,6 @@ export type Venue = FilterState["venue"];
 export type Schedule = FilterState["schedule"];
 export type Metrics = FilterState["metrics"];
 export type LeagueTab = (typeof LEAGUE_TAB_IDS)[number];
-export type PanelTab = (typeof PANEL_TABS)[number];
 
 export const VENUES = FILTERS.venue.values;
 export const SCHEDULE_MODES = FILTERS.schedule.values;
@@ -79,6 +79,7 @@ export type LeagueParams = FilterState & {
   match?: string;
   matchday?: number;
   panel: PanelTab;
+  source: ClubStatsSource;
   base: string;
   sport: string;
 };
@@ -111,6 +112,7 @@ export function parseLeagueParams(raw: RawSearchParams, base: string, sport: str
     competition,
     tab: pickOne(LEAGUE_TAB_IDS, firstParam(raw.tab), defaultTab),
     panel: pickOne(PANEL_TABS, firstParam(raw.panel), "stats"),
+    source: pickOne(CLUB_STATS_SOURCES, firstParam(raw.source), "league"),
     group: groupExists && rawGroup ? rawGroup : defaultGroup(kind),
     team: firstParam(raw.team),
     match: firstParam(raw.match),
@@ -134,6 +136,7 @@ export function buildLeagueHref(params: LeagueParams, patch: LeaguePatch = {}): 
   for (const [key, value] of filterEntries(FILTERS, next, next.tab)) qs.set(key, value);
   if (next.kind !== "nation" && next.group !== defaultGroup(next.kind)) qs.set("group", next.group);
   if (next.panel !== "stats") qs.set("panel", next.panel);
+  if (next.source !== "league") qs.set("source", next.source);
   if (next.team) qs.set("team", next.team);
   if (next.match) qs.set("match", next.match);
   if (next.matchday !== undefined && next.matchday > 0) qs.set("matchday", String(next.matchday));
