@@ -31,6 +31,7 @@ export type StoredMatch = {
 export type MatchRow = { attempt: number; data: StoredMatch | null };
 
 const TABLE = "speedway_sim_matches";
+const INDIVIDUAL_PREFIX = "individual-";
 /** Supabase returns at most 1000 rows per request. */
 const PAGE = 1000;
 
@@ -152,6 +153,7 @@ export async function readMatches(): Promise<Record<string, StoredMatch>> {
         .from(TABLE)
         .select("fixture_id, data")
         .not("data", "is", null)
+        .not("fixture_id", "like", `${INDIVIDUAL_PREFIX}%`)
         .order("fixture_id")
         .range(from, from + PAGE - 1);
       if (error) {
@@ -170,7 +172,9 @@ export async function readMatches(): Promise<Record<string, StoredMatch>> {
  * Matches whose fixture id starts with one of the prefixes ("cup-", "east-gold-", ...).
  * Unlike readMatches it throws on errors: a draw made from partial results would be wrong.
  */
-export async function readMatchesByPrefix(prefixes: string[]): Promise<Record<string, StoredMatch>> {
+export async function readMatchesByPrefix(
+  prefixes: string[],
+): Promise<Record<string, StoredMatch>> {
   await connection();
   const matches: Record<string, StoredMatch> = {};
   const db = supabase();
@@ -190,4 +194,32 @@ export async function readMatchesByPrefix(prefixes: string[]): Promise<Record<st
     }
   }
   return matches;
+}
+
+/** Saves one record that is not a match (individual cycle / tournament). `data` is validated by the caller. */
+export async function saveRecord(id: string, data: unknown) {
+  const { error } = await supabase()
+    .from(TABLE)
+    .upsert({ fixture_id: id, data }, { onConflict: "fixture_id" });
+  if (error) fail(error);
+}
+
+/** Raw records whose id starts with the prefix. Throws on errors; the caller parses `data`. */
+export async function readRecordsByPrefix(prefix: string): Promise<Map<string, unknown>> {
+  await connection();
+  const records = new Map<string, unknown>();
+  const db = supabase();
+  for (let from = 0; ; from += PAGE) {
+    const { data, error } = await db
+      .from(TABLE)
+      .select("fixture_id, data")
+      .like("fixture_id", `${prefix}%`)
+      .not("data", "is", null)
+      .order("fixture_id")
+      .range(from, from + PAGE - 1);
+    if (error) fail(error);
+    for (const row of data ?? []) records.set(row.fixture_id as string, row.data);
+    if ((data?.length ?? 0) < PAGE) break;
+  }
+  return records;
 }

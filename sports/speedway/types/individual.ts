@@ -118,3 +118,19 @@ export type IndividualFixture = {
   /** No calendar yet (separate task), 0 = not scheduled. */
   week: number;
 };
+
+/** Stored once per cycle (nation x division): the frozen riders. Editable until the first heat. */
+export const cycleRecordSchema = z.object({
+  riderIds: z.array(z.string().min(1)).min(1),
+  /** ISO time of the selection. */
+  selectedAt: z.string(),
+  /** true = picked by hand, false = by the season average. */
+  manual: z.boolean(),
+});
+export type CycleRecord = z.infer<typeof cycleRecordSchema>;
+
+/** Stored per tournament: the heats played so far (22 = finished). */
+export const tournamentRecordSchema = z.object({
+  heats: z.array(individualHeatResultSchema),
+});
+export type TournamentRecord = z.infer<typeof tournamentRecordSchema>;

@@ -22,6 +22,9 @@ export const INDIVIDUAL_FILTERS = defineFilters({
   metrics: { values: ["stats", "skills"], default: "stats", tabs: ["stats"] },
 });
 
+export const RIDER_PANEL_TABS = ["stats", "tournaments", "details"] as const;
+export type RiderPanelTab = (typeof RIDER_PANEL_TABS)[number];
+
 const COMPETITIONS = ["country", "helmet", "gp"] as const;
 const COUNTRIES = COUNTRY_OPTIONS.map((option) => option.id);
 
@@ -32,6 +35,7 @@ export type IndividualParams = FilterValues<typeof INDIVIDUAL_FILTERS> & {
   division: IndividualDivision;
   /** Rider shown in the aside. */
   rider?: string | undefined;
+  panel: RiderPanelTab;
 };
 
 export function parseIndividualParams(raw: RawSearchParams): IndividualParams {
@@ -45,6 +49,7 @@ export function parseIndividualParams(raw: RawSearchParams): IndividualParams {
     country: pickOne(COUNTRIES, firstParam(raw.country), "ark"),
     division: pickOne(INDIVIDUAL_DIVISIONS, firstParam(raw.division), "open"),
     rider: firstParam(raw.rider),
+    panel: pickOne(RIDER_PANEL_TABS, firstParam(raw.panel), "stats"),
   };
 }
 
@@ -63,6 +68,7 @@ export function buildIndividualHref(
     division: next.division,
     tab: next.tab,
     rider: next.rider,
+    panel: next.panel !== "stats" ? next.panel : undefined,
     view: filters.get("view"),
     schedule: filters.get("schedule"),
     metrics: filters.get("metrics"),

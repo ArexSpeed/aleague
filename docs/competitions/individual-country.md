@@ -60,7 +60,8 @@ W Competitions dla `kind=individual`, `competition=country` działa cykl rozgryw
 15. **Punkty turnieju.** Funkcja czysta: Regular plus Final, bez Semi-final, zgodnie z `countInTournament` z definicji.
 16. **Tabela cyklu.** Suma punktów z trzech turniejów, miejsce, remis: liczba wygranych turniejów, potem wyższe miejsca (`TODO: confirm`). Zwraca miejsca tymczasowe, dopóki nie rozegrano T3.
 17. **Testy.** Skrypt `scripts/check-individual-country.ts` (jak `scripts/check-cup-*.ts`), uruchamiany przez `pnpm dlx tsx`, bez nowych zależności. Sprawdza liczby z kryteriów poniżej i powtarzalność losowań. Do czasu dostarczenia tabeli biegowej używa wyników testowych.
-18. Zaktualizuj tabelę statusu w `docs/competitions/individual.md`.
+18. **Zapis szesnastki i edycja przed startem.** Rekord cyklu `individual-country-<naród>-<dywizja>-cycle` (id zawodników, data, `manual`) w tabeli wyników, ten sam co wyniki. Edycja w UI (`Edit riders`) i powrót do wyboru automatycznego (`Auto pick`) do pierwszego biegu cyklu, potem skład jest zablokowany. `ensureCycle` zamraża skład przy starcie T1 (wywoła go symulacja).
+19. Zaktualizuj tabelę statusu w `docs/competitions/individual.md`.
 
 ### Kryteria akceptacji
 
